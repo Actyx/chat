@@ -5,7 +5,7 @@ import { v4 as uuid } from 'uuid';
 import { UsersCatalogFish } from './users-catalog-fish';
 import { Pond } from '@actyx/pond';
 
-export const checkUserEmailRegisteredAndSignup = (
+export const checkUserEmailAndSignup = (
   pond: Pond,
   displayName: string,
   email: Email,

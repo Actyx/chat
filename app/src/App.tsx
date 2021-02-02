@@ -4,7 +4,7 @@ import { UsersCatalogFish } from './business-logic/users-catalog-fish/users-cata
 import { UsersCatalogFishState } from './business-logic/users-catalog-fish/types';
 import {
   isUserEmailRegistered,
-  checkUserEmailRegisteredAndSignup,
+  checkUserEmailAndSignup,
 } from './business-logic/users-catalog-fish/logic';
 
 export let pondSingletone: Pond | undefined;
@@ -24,7 +24,7 @@ export const App = () => {
       ) {
         window.alert('sorry eamil for this user has been already registered');
       } else {
-        checkUserEmailRegisteredAndSignup(
+        checkUserEmailAndSignup(
           pondSingletone,
           'simone',
           'simone@actyx.io',
