@@ -2,9 +2,14 @@ import React from 'react';
 import { Pond } from '@actyx/pond';
 import { UsersCatalogFish } from './business-logic/users-catalog-fish/users-catalog-fish';
 import { UsersCatalogFishState } from './business-logic/users-catalog-fish/types';
-import { signUpUserWithEmail } from './business-logic/users-catalog-fish/logic/signup';
+import {
+  isUserEmailRegistered,
+  checkUserEmailRegisteredAndSignup,
+} from './business-logic/users-catalog-fish/logic';
 
 export let pondSingletone: Pond | undefined;
+
+const TEST_EMAIL = 'simone@actyx.io';
 
 export const App = () => {
   const [
@@ -13,11 +18,20 @@ export const App = () => {
   ] = React.useState<UsersCatalogFishState>();
 
   const handleAddUser = () => {
-    signUpUserWithEmail(
-      'simone',
-      'simone@actyx.io',
-      stateUsersCatalogFish?.usersEmails
-    );
+    if (pondSingletone && stateUsersCatalogFish) {
+      if (
+        isUserEmailRegistered(TEST_EMAIL, stateUsersCatalogFish.usersEmails)
+      ) {
+        window.alert('sorry eamil for this user has been already registered');
+      } else {
+        checkUserEmailRegisteredAndSignup(
+          pondSingletone,
+          'simone',
+          'simone@actyx.io',
+          stateUsersCatalogFish.usersEmails
+        );
+      }
+    }
   };
 
   React.useEffect(() => {

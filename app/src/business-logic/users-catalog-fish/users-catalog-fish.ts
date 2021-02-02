@@ -1,11 +1,6 @@
-import {
-  UserAddedEvent,
-  UserCatalogFishEvent,
-  UsersCatalogFishEventType,
-  UsersCatalogFishState,
-} from './types';
-import { Fish, FishId, Reduce, unreachableOrElse, Tag } from '@actyx/pond';
-import { reducerLogicUserAddedEvent } from './logic/reducer-logic';
+import { UserCatalogFishEvent, UsersCatalogFishState } from './types';
+import { Fish, FishId, Tag } from '@actyx/pond';
+import { reducer } from './reducer';
 
 const tags = {
   usersCatalog: Tag<UserCatalogFishEvent>('users-catalog'),
@@ -15,24 +10,6 @@ const tags = {
 const initialState: UsersCatalogFishState = {
   users: {},
   usersEmails: {},
-};
-
-const reducer: Reduce<UsersCatalogFishState, UserCatalogFishEvent> = (
-  state,
-  event,
-  meta
-) => {
-  const { type } = event;
-  switch (type) {
-    case UsersCatalogFishEventType.UserAdded: {
-      return reducerLogicUserAddedEvent(state, event as UserAddedEvent, meta);
-    }
-    case UsersCatalogFishEventType.UserProfileEdited: {
-      return state;
-    }
-    default:
-      return unreachableOrElse(type, state);
-  }
 };
 
 const fish: Fish<UsersCatalogFishState, UserCatalogFishEvent> = {
