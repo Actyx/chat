@@ -23,7 +23,7 @@ export enum UsersCatalogFishEventType {
 }
 
 export type UserAddedEvent = {
-  eventType: UsersCatalogFishEventType.UserAdded;
+  type: UsersCatalogFishEventType.UserAdded;
   payload: {
     userUniqueIdentifier: UserUniqueIdentifier;
     displayName: string;
@@ -32,7 +32,7 @@ export type UserAddedEvent = {
 };
 
 export type UserProfileEditedEvent = {
-  eventType: UsersCatalogFishEventType.UserProfileEdited;
+  type: UsersCatalogFishEventType.UserProfileEdited;
   payload: {
     displayName: string;
   };

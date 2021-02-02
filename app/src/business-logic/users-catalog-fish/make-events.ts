@@ -6,7 +6,7 @@ export const mkUserAddedEvent = (
   displayName: string,
   email: string
 ): UserAddedEvent => ({
-  eventType: UsersCatalogFishEventType.UserAdded,
+  type: UsersCatalogFishEventType.UserAdded,
   payload: {
     userUniqueIdentifier,
     displayName,

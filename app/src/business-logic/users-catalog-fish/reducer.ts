@@ -5,23 +5,20 @@ import {
   UsersCatalogFishState,
 } from './types';
 import { Metadata } from '@actyx/pond';
-import { Reduce, unreachableOrElse } from '@actyx/pond';
+import { Reduce } from '@actyx/pond';
 
 export const reducer: Reduce<UsersCatalogFishState, UserCatalogFishEvent> = (
   state,
   event,
   meta
-) => {
-  const { eventType } = event;
-  switch (eventType) {
+): UsersCatalogFishState => {
+  switch (event.type) {
     case UsersCatalogFishEventType.UserAdded: {
-      return userAdded(state, event as UserAddedEvent, meta);
+      return userAdded(state, event, meta);
     }
     case UsersCatalogFishEventType.UserProfileEdited: {
       return state;
     }
-    default:
-      return unreachableOrElse(eventType, state);
   }
 };
 
