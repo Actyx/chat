@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# Actyx interla chat
+
+A simplified version of Slack for internal usage (POC) based on our technology.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
