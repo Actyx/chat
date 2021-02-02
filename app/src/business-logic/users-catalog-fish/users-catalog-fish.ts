@@ -32,12 +32,14 @@ const usersCatalogOnEvent: Reduce<
   }
 };
 
-export const UsersCatalogFish: Fish<
-  UsersCatalogFishState,
-  UserCatalogFishEvent
-> = {
+const fish: Fish<UsersCatalogFishState, UserCatalogFishEvent> = {
   fishId: FishId.of('com.chat.usersCatalog', 'usersCatalog', 0),
   initialState,
   onEvent: usersCatalogOnEvent,
   where: tags.usersCatalog,
+};
+
+export const UsersCatalogFish = {
+  fish,
+  tags,
 };
