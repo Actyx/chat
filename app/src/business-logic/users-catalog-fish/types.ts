@@ -17,7 +17,7 @@ export type UserProfile = Readonly<{
 
 //#region Events
 
-export const enum UsersCatalogFishEventType {
+export enum UsersCatalogFishEventType {
   UserAdded = 'userAdded',
   UserProfileEdited = 'userProfileEdited',
 }
@@ -44,9 +44,11 @@ export type UserCatalogFishEvent = UserAddedEvent | UserProfileEditedEvent;
 
 //#region State
 
+export type UsersEmails = Record<Email, null>;
+
 export type UsersCatalogFishState = Readonly<{
   users: Record<UserUniqueIdentifier, UserProfile>;
-  usersEmails: Record<Email, ''>;
+  usersEmails: UsersEmails;
 }>;
 
 //#endregion

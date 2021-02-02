@@ -1,9 +1,11 @@
 import {
+  UserAddedEvent,
   UserCatalogFishEvent,
   UsersCatalogFishEventType,
   UsersCatalogFishState,
 } from './types';
 import { Fish, FishId, Reduce, unreachableOrElse, Tag } from '@actyx/pond';
+import { reducerLogicUserAddedEvent } from './logic/reducer-logic';
 
 const tags = {
   usersCatalog: Tag<UserCatalogFishEvent>('users-catalog'),
@@ -15,14 +17,15 @@ const initialState: UsersCatalogFishState = {
   usersEmails: {},
 };
 
-const usersCatalogOnEvent: Reduce<
-  UsersCatalogFishState,
-  UserCatalogFishEvent
-> = (state, event, meta) => {
+const reducer: Reduce<UsersCatalogFishState, UserCatalogFishEvent> = (
+  state,
+  event,
+  meta
+) => {
   const { type } = event;
   switch (type) {
     case UsersCatalogFishEventType.UserAdded: {
-      return state;
+      return reducerLogicUserAddedEvent(state, event as UserAddedEvent, meta);
     }
     case UsersCatalogFishEventType.UserProfileEdited: {
       return state;
@@ -35,7 +38,7 @@ const usersCatalogOnEvent: Reduce<
 const fish: Fish<UsersCatalogFishState, UserCatalogFishEvent> = {
   fishId: FishId.of('com.chat.usersCatalog', 'usersCatalog', 0),
   initialState,
-  onEvent: usersCatalogOnEvent,
+  onEvent: reducer,
   where: tags.usersCatalog,
 };
 
