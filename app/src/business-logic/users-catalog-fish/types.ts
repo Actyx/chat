@@ -35,6 +35,7 @@ export type UserAddedEvent = {
 export type UserProfileEditedEvent = {
   type: UsersCatalogFishEventType.UserProfileEdited;
   payload: {
+    userUniqueIdentifier: UserUniqueIdentifier;
     displayName: string;
   };
 };
