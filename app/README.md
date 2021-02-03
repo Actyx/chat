@@ -71,4 +71,6 @@ Design conventions
 
 ### src/ui
 
-Contains all UI React components, each subfolder represents a main screen in the app
+Contains all UI React components, reusable components, and related utilities function.
+
+- src/ui/ExampleScreen: Each subfolder represents a main screen in the application
