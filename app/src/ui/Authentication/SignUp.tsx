@@ -41,7 +41,7 @@ export const SignUp: FC<Props> = ({
           onChange={handleChangeEmail}
         />
         <br />
-        <input type="submit" value="Submit" />
+        <input type="submit" value="Sign-up" />
         <br />
         {isSignUpSuccess === undefined
           ? ''

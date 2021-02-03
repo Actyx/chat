@@ -25,7 +25,7 @@ export const SignIn: FC<Props> = ({ isSignInSuccess, signIn }) => {
     <div>
       <h2>Sign-in</h2>
       <form onSubmit={handleSubmit}>
-        <label>Your credential:</label>
+        <label>Credential:</label>
         <input
           type="text"
           required
@@ -33,13 +33,13 @@ export const SignIn: FC<Props> = ({ isSignInSuccess, signIn }) => {
           onChange={handleChangeUserUniqueIdentifier}
         />
         <br />
-        <input type="submit" value="Submit" />
+        <input type="submit" value="Sign-in" />
         <br />
         {isSignInSuccess === undefined
           ? ''
           : isSignInSuccess === true
           ? 'Sign-in success'
-          : 'Sign-in error: could not sign-in'}
+          : 'Sign-in error: could not sign-in, credential not valid'}
       </form>
     </div>
   );
