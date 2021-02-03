@@ -46,3 +46,41 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+## Design
+
+Design conventions
+
+- Containers are only responsible for wiring UI with business logic, they accept the fish state and a pond instance when necessary, they are the only components that will receive a pond instance
+- A Pond instance is passed only to a Container, so passing pond down in the components tree and emitting events from there is not allowed
+- Only the business logic written in `logic.ts` can emit events to the pond
+
+## Folder structure
+
+### src/business-logic
+
+Contains all fishes and related business logic.
+
+### logic.ts
+
+Contains business logic, can emit events to the pond.
+
+### make-events.ts
+
+Utility functions to create events, they do not contain any business logic.
+
+### reducer.ts
+
+The fish reducer user in the `onEvent` function, the logic for each `eventType` is written in separate functions.
+
+### types.ts
+
+All types related to a Fish, focusing on events, state, and tags.
+
+### your-name-fish.ts
+
+The actual fish
+
+### src/ui
+
+Contains all UI React components, each subfolder represents a main screen in the app
