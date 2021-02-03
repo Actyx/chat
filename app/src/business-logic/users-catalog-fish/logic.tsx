@@ -7,7 +7,7 @@ import { Pond } from '@actyx/pond';
 
 //#region Sign-up
 
-export const checkUserEmailAndSignup = (
+export const signUp = (
   pond: Pond,
   displayName: string,
   email: Email,
@@ -53,9 +53,11 @@ const mkUserUniqueIdentifier = (): UserUniqueIdentifier => uuid();
 
 //#region Sign-in
 
-export const isUserUniqueIdentifierRegistered = (
+export const signIn = (
   userUniqueIdentifier: UserUniqueIdentifier,
   users: Users
-) => userUniqueIdentifier in users;
+) => ({
+  success: userUniqueIdentifier in users,
+});
 
 //#endregion

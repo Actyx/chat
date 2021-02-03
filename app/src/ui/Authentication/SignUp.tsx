@@ -47,7 +47,7 @@ export const SignUp: FC<Props> = ({
           ? ''
           : isSignUpSuccess === true
           ? `Sign-up success: your password is: ${userUniqueIdentifier}`
-          : 'Sign-up: error: email is already registered'}
+          : 'Sign-up error: email is already registered'}
       </form>
     </div>
   );
