@@ -14,7 +14,7 @@ export const signUp = (
   usersEmails: UsersEmails
 ): Readonly<{
   success: boolean;
-  userUniqueIdentifier: UserUniqueIdentifier | undefined;
+  userUniqueIdentifier?: UserUniqueIdentifier;
 }> => {
   const canSignUp = isUserEmailRegistered(email, usersEmails) === false;
   let userUniqueIdentifier = mkUserUniqueIdentifier();
@@ -39,7 +39,7 @@ const sendUserAddedEventToPond = (
   userUniqueIdentifier: UserUniqueIdentifier,
   displayName: string,
   email: string
-) => {
+): void => {
   const tags = UsersCatalogFish.tags.user.and(
     UsersCatalogFish.tags.usersCatalog
   );
@@ -56,7 +56,7 @@ const mkUserUniqueIdentifier = (): UserUniqueIdentifier => uuid();
 export const signIn = (
   userUniqueIdentifier: UserUniqueIdentifier,
   users: Users
-) => ({
+): Readonly<{ success: boolean }> => ({
   success: userUniqueIdentifier in users,
 });
 

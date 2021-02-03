@@ -28,7 +28,7 @@ export const App: FC = () => {
           fishState={stateUsersCatalogFish}
         />
       ) : (
-        'loading'
+        'loading...'
       )}
       <hr />
       UsersCatalog fish state

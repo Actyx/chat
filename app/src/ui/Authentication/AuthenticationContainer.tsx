@@ -12,25 +12,22 @@ type Props = Readonly<{
 }>;
 
 export const AuthenticationContainer: FC<Props> = ({ pond, fishState }) => {
-  const [isSignUpSuccess, setIsSignupSuccess] = React.useState<
-    boolean | undefined
-  >(undefined);
+  const [isSignUpSuccess, setIsSignUpSuccess] = React.useState<boolean>();
 
-  const [isSignInSuccess, setIsSignInSuccess] = React.useState<
-    boolean | undefined
-  >(undefined);
+  const [isSignInSuccess, setIsSignInSuccess] = React.useState<boolean>();
 
-  const [userUniqueIdentifier, setUserUniqueIdentifier] = React.useState<
-    UserUniqueIdentifier | undefined
-  >('');
+  const [
+    userUniqueIdentifier,
+    setUserUniqueIdentifier,
+  ] = React.useState<UserUniqueIdentifier>();
 
   const handleSignUp = (displayName: string, email: string) => {
     const resultLogic = signUp(pond, displayName, email, fishState.usersEmails);
     if (resultLogic.success) {
-      setIsSignupSuccess(true);
+      setIsSignUpSuccess(true);
       setUserUniqueIdentifier(resultLogic.userUniqueIdentifier);
     } else {
-      setIsSignupSuccess(false);
+      setIsSignUpSuccess(false);
       setUserUniqueIdentifier(undefined);
     }
   };
