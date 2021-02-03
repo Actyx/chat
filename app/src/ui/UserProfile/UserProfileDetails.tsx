@@ -47,6 +47,7 @@ export const UserProfileDetails: FC<Props> = ({
         <label>displayName:</label>
         <input
           type="text"
+          required
           value={displayName}
           onChange={handleChangeDisplayName}
         />
