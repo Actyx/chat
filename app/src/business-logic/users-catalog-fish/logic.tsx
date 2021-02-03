@@ -18,7 +18,7 @@ export const signUp = (
   const canSignUp = isUserEmailRegistered(email, usersEmails) === false;
   let userUniqueIdentifier = mkUserUniqueIdentifier();
   if (canSignUp) {
-    emitUserAddedEventToPond(pond, userUniqueIdentifier, displayName, email);
+    sendUserAddedEventToPond(pond, userUniqueIdentifier, displayName, email);
   }
   return {
     success: canSignUp,
@@ -31,7 +31,7 @@ const isUserEmailRegistered = (
   usersEmails: UsersEmails
 ): boolean => email in usersEmails;
 
-const emitUserAddedEventToPond = (
+const sendUserAddedEventToPond = (
   pond: Pond,
   userUniqueIdentifier: UserUniqueIdentifier,
   displayName: string,
