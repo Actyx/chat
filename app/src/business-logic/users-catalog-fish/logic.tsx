@@ -102,7 +102,7 @@ export const editUserProfile = (
   const isNotEmpty = isDisplayNameEmpty(sanitized) === false;
   const canEditUserProfile = isUserRegistered && isNotEmpty;
   if (canEditUserProfile) {
-    sendUserProfileEditedEventToPond(pond, userUniqueIdentifier, displayName);
+    sendUserProfileEditedEventToPond(pond, userUniqueIdentifier, sanitized);
   }
   return {
     success: canEditUserProfile,
