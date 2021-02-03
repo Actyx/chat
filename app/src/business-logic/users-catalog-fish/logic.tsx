@@ -40,9 +40,9 @@ const sendUserAddedEventToPond = (
   displayName: string,
   email: string
 ): void => {
-  const tags = UsersCatalogFish.tags.user.and(
-    UsersCatalogFish.tags.usersCatalog
-  );
+  const tags = UsersCatalogFish.tags.user
+    .and(UsersCatalogFish.tags.usersCatalog)
+    .and(UsersCatalogFish.tags.user.withId(userUniqueIdentifier));
   const event = mkUserAddedEvent(userUniqueIdentifier, displayName, email);
   pond.emit(tags, event);
 };

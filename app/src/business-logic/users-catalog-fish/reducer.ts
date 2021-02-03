@@ -30,6 +30,7 @@ export const userAdded = (
   const {
     payload: { userUniqueIdentifier, displayName, email },
   } = event;
+  console.debug(meta);
   const users = {
     ...state.users,
     [userUniqueIdentifier]: {
