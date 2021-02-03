@@ -12,11 +12,22 @@ export const checkUserEmailAndSignup = (
   displayName: string,
   email: Email,
   usersEmails: UsersEmails
-) =>
-  isUserEmailRegistered(email, usersEmails) === false &&
-  sendUserAddedEventToPond(pond, mkUserUniqueIdentifier(), displayName, email);
+): Readonly<{
+  success: boolean;
+  userUniqueIdentifier: UserUniqueIdentifier | undefined;
+}> => {
+  const canSignUp = isUserEmailRegistered(email, usersEmails) === false;
+  let userUniqueIdentifier = mkUserUniqueIdentifier();
+  if (canSignUp) {
+    sendUserAddedEventToPond(pond, userUniqueIdentifier, displayName, email);
+  }
+  return {
+    success: canSignUp,
+    userUniqueIdentifier: canSignUp ? userUniqueIdentifier : undefined,
+  };
+};
 
-export const isUserEmailRegistered = (
+const isUserEmailRegistered = (
   email: Email,
   usersEmails: UsersEmails
 ): boolean => {
