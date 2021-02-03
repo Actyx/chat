@@ -1,6 +1,7 @@
 import {
   UserAddedEvent,
   UserCatalogFishEvent,
+  UserProfileEditedEvent,
   UsersCatalogFishEventType,
   UsersCatalogFishState,
 } from './types';
@@ -17,13 +18,12 @@ export const reducer: Reduce<UsersCatalogFishState, UserCatalogFishEvent> = (
       return userAdded(state, event, meta);
     }
     case UsersCatalogFishEventType.UserProfileEdited: {
-      // TODO
-      return state;
+      return userProfileEdited(state, event, meta);
     }
   }
 };
 
-export const userAdded = (
+const userAdded = (
   state: UsersCatalogFishState,
   event: UserAddedEvent,
   meta: Metadata
@@ -49,5 +49,27 @@ export const userAdded = (
   return {
     users,
     usersEmails,
+  };
+};
+
+const userProfileEdited = (
+  state: UsersCatalogFishState,
+  event: UserProfileEditedEvent,
+  meta: Metadata
+): UsersCatalogFishState => {
+  const {
+    payload: { userUniqueIdentifier, displayName },
+  } = event;
+  const users = {
+    ...state.users,
+    [userUniqueIdentifier]: {
+      ...state.users[userUniqueIdentifier],
+      displayName,
+      editedOn: meta.timestampMicros,
+    },
+  };
+  return {
+    ...state,
+    users,
   };
 };

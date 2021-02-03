@@ -1,4 +1,4 @@
-import { mkUserAddedEvent } from './make-events';
+import { mkUserAddedEvent, mkUserProfileEditedEvent } from './make-events';
 import { Email, Users, UsersEmails, UserUniqueIdentifier } from './types';
 import { v4 as uuid } from 'uuid';
 import { UsersCatalogFish } from './users-catalog-fish';
@@ -65,6 +65,48 @@ export const signIn = (
   );
   return {
     success: canSignIn,
+  };
+};
+
+//#endregion
+
+//#region User profile
+
+const sanitizeDisplayName = (displayName: string) => displayName.trim();
+
+const isDisplayNameEmpty = (displayName: string) => displayName.length === 0;
+
+const sendUserProfileEditedEventToPond = (
+  pond: Pond,
+  userUniqueIdentifier: UserUniqueIdentifier,
+  displayName: string
+): void => {
+  const tags = UsersCatalogFish.tags.user
+    .and(UsersCatalogFish.tags.usersCatalog)
+    .and(UsersCatalogFish.tags.user.withId(userUniqueIdentifier));
+  const event = mkUserProfileEditedEvent(userUniqueIdentifier, displayName);
+  pond.emit(tags, event);
+};
+
+export const editUserProfile = (
+  pond: Pond,
+  users: Users,
+  userUniqueIdentifier: UserUniqueIdentifier,
+  displayName: string
+): Readonly<{ success: boolean; sanitizedDisplayName?: string }> => {
+  const isUserRegistered = isUserUniqueIdentifierRegistered(
+    userUniqueIdentifier,
+    users
+  );
+  const sanitized = sanitizeDisplayName(displayName);
+  const isNotEmpty = isDisplayNameEmpty(sanitized) === false;
+  const canEditUserProfile = isUserRegistered && isNotEmpty;
+  if (canEditUserProfile) {
+    sendUserProfileEditedEventToPond(pond, userUniqueIdentifier, displayName);
+  }
+  return {
+    success: canEditUserProfile,
+    sanitizedDisplayName: canEditUserProfile ? sanitized : undefined,
   };
 };
 

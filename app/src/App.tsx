@@ -3,6 +3,7 @@ import { Pond } from '@actyx/pond';
 import { AuthenticationContainer } from './ui/Authentication/AuthenticationContainer';
 import { UsersCatalogFishState } from './business-logic/users-catalog-fish/types';
 import { UsersCatalogFish } from './business-logic/users-catalog-fish/users-catalog-fish';
+import { UserProfileContainer } from './ui/UserProfile/UserProfileContainer';
 
 let pond: Pond | undefined;
 
@@ -23,10 +24,13 @@ export const App: FC = () => {
   return (
     <div>
       {pond && stateUsersCatalogFish ? (
-        <AuthenticationContainer
-          pond={pond}
-          fishState={stateUsersCatalogFish}
-        />
+        <>
+          <AuthenticationContainer
+            pond={pond}
+            fishState={stateUsersCatalogFish}
+          />
+          <UserProfileContainer pond={pond} fishState={stateUsersCatalogFish} />
+        </>
       ) : (
         'loading...'
       )}
