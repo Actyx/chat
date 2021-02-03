@@ -71,7 +71,7 @@ Utility functions to create events, they do not contain any business logic.
 
 ### reducer.ts
 
-The fish reducer user in the `onEvent` function, the logic for each `eventType` is written in separate functions.
+The fish reducer user in the `onEvent` function, the logic for each event type is written in separate functions.
 
 ### types.ts
 

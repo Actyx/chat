@@ -38,6 +38,7 @@ export const AuthenticationContainer: FC<Props> = ({ pond, fishState }) => {
     const resultLogic = signIn(userUniqueIdentifier, fishState.users);
     setIsSignInSuccess(resultLogic.success);
   };
+
   return (
     <div>
       <SignUp
