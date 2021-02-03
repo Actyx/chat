@@ -30,9 +30,7 @@ export const signUp = (
 const isUserEmailRegistered = (
   email: Email,
   usersEmails: UsersEmails
-): boolean => {
-  return email in usersEmails;
-};
+): boolean => email in usersEmails;
 
 const sendUserAddedEventToPond = (
   pond: Pond,
