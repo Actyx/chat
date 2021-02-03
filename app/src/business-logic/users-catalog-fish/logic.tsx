@@ -50,11 +50,22 @@ const mkUserUniqueIdentifier = (): UserUniqueIdentifier => uuid();
 
 //#region Sign-in
 
+const isUserUniqueIdentifierRegistered = (
+  userUniqueIdentifier: UserUniqueIdentifier,
+  users: Users
+): boolean => userUniqueIdentifier in users;
+
 export const signIn = (
   userUniqueIdentifier: UserUniqueIdentifier,
   users: Users
-): Readonly<{ success: boolean }> => ({
-  success: userUniqueIdentifier in users,
-});
+): Readonly<{ success: boolean }> => {
+  const canSignIn = isUserUniqueIdentifierRegistered(
+    userUniqueIdentifier,
+    users
+  );
+  return {
+    success: canSignIn,
+  };
+};
 
 //#endregion
