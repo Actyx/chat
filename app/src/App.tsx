@@ -22,7 +22,6 @@ export const App: FC = () => {
 
   return (
     <div>
-      Chat app
       {pondSingletone && stateUsersCatalogFish ? (
         <AuthenticationContainer
           pond={pondSingletone}
@@ -31,6 +30,9 @@ export const App: FC = () => {
       ) : (
         'loading'
       )}
+      <hr />
+      UsersCatalog fish state
+      <pre>{JSON.stringify(stateUsersCatalogFish, undefined, 4)}</pre>
     </div>
   );
 };

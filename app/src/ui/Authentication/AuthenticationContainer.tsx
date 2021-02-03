@@ -47,10 +47,6 @@ export const AuthenticationContainer: FC<Props> = ({ pond, fishState }) => {
         userUniqueIdentifier={userUniqueIdentifier}
       />
       <SignIn isSignInSuccess={isSignInSuccess} signIn={handleSignIn} />
-      <br />
-      <h1>UsersCatalog fish</h1>
-      <h2>State</h2>
-      <pre>{JSON.stringify(fishState, undefined, 4)}</pre>
     </div>
   );
 };
