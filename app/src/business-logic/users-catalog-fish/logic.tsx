@@ -70,7 +70,7 @@ export const signIn = (
 
 //#endregion
 
-//#region User profile
+//#region User profile edit
 
 const sanitizeDisplayName = (displayName: string) => displayName.trim();
 

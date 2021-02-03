@@ -13,6 +13,7 @@ export const SignUp: FC<Props> = ({
   signUp,
 }) => {
   const [name, setName] = React.useState('');
+
   const [email, setEmail] = React.useState('');
 
   const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) =>
