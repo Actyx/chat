@@ -17,6 +17,7 @@ export const reducer: Reduce<UsersCatalogFishState, UserCatalogFishEvent> = (
       return userAdded(state, event, meta);
     }
     case UsersCatalogFishEventType.UserProfileEdited: {
+      // TODO
       return state;
     }
   }
