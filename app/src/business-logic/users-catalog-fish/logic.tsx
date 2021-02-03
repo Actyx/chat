@@ -1,9 +1,11 @@
 import { UserUniqueIdentifier } from '../common-types';
 import { mkUserAddedEvent } from './make-events';
-import { Email, UsersEmails } from './types';
+import { Email, Users, UsersEmails } from './types';
 import { v4 as uuid } from 'uuid';
 import { UsersCatalogFish } from './users-catalog-fish';
 import { Pond } from '@actyx/pond';
+
+//#region Sign-up
 
 export const checkUserEmailAndSignup = (
   pond: Pond,
@@ -35,3 +37,14 @@ const sendUserAddedEventToPond = (
 };
 
 const mkUserUniqueIdentifier = (): UserUniqueIdentifier => uuid();
+
+//#endregion
+
+//#region Sign-in
+
+export const isUserUniqueIdentifierRegistered = (
+  userUniqueIdentifier: UserUniqueIdentifier,
+  users: Users
+) => userUniqueIdentifier in users;
+
+//#endregion

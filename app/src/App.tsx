@@ -5,6 +5,7 @@ import { UsersCatalogFishState } from './business-logic/users-catalog-fish/types
 import {
   isUserEmailRegistered,
   checkUserEmailAndSignup,
+  isUserUniqueIdentifierRegistered,
 } from './business-logic/users-catalog-fish/logic';
 
 export let pondSingletone: Pond | undefined;
@@ -17,7 +18,7 @@ export const App = () => {
     setStateUsersCatalogFish,
   ] = React.useState<UsersCatalogFishState>();
 
-  const handleAddUser = () => {
+  const handleSignUp = () => {
     if (pondSingletone && stateUsersCatalogFish) {
       if (
         isUserEmailRegistered(TEST_EMAIL, stateUsersCatalogFish.usersEmails)
@@ -30,6 +31,20 @@ export const App = () => {
           'simone@actyx.io',
           stateUsersCatalogFish.usersEmails
         );
+      }
+    }
+  };
+
+  const handleSignIn = () => {
+    if (stateUsersCatalogFish) {
+      const canSignIn = isUserUniqueIdentifierRegistered(
+        '67debbb6-6e68-4829-ada2-18e234aeba6c',
+        stateUsersCatalogFish?.users
+      );
+      if (canSignIn) {
+        window.alert('user is signed in');
+      } else {
+        window.alert('sorry cannot sign in');
       }
     }
   };
@@ -47,8 +62,11 @@ export const App = () => {
       <h1>UsersCatalog fish</h1>
       <h2>State</h2>
       <pre>{JSON.stringify(stateUsersCatalogFish, undefined, 4)}</pre>
-      <button onClick={handleAddUser} type="button">
-        Add a user
+      <button onClick={handleSignUp} type="button">
+        Sing-up user simone@actyx.io
+      </button>
+      <button onClick={handleSignIn} type="button">
+        Sign-in user Simone with user unique identifier
       </button>
     </div>
   );

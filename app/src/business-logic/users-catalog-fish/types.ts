@@ -45,9 +45,10 @@ export type UserCatalogFishEvent = UserAddedEvent | UserProfileEditedEvent;
 //#region State
 
 export type UsersEmails = Record<Email, null>;
+export type Users = Record<UserUniqueIdentifier, UserProfile>;
 
 export type UsersCatalogFishState = Readonly<{
-  users: Record<UserUniqueIdentifier, UserProfile>;
+  users: Users;
   usersEmails: UsersEmails;
 }>;
 
