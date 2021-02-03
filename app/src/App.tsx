@@ -4,7 +4,7 @@ import { AuthenticationContainer } from './ui/Authentication/AuthenticationConta
 import { UsersCatalogFishState } from './business-logic/users-catalog-fish/types';
 import { UsersCatalogFish } from './business-logic/users-catalog-fish/users-catalog-fish';
 
-export let pondSingletone: Pond | undefined;
+let pond: Pond | undefined;
 
 export const App: FC = () => {
   const [
@@ -14,17 +14,17 @@ export const App: FC = () => {
 
   React.useEffect(() => {
     const main = async () => {
-      pondSingletone = await Pond.default();
-      pondSingletone.observe(UsersCatalogFish.fish, setStateUsersCatalogFish);
+      pond = await Pond.default();
+      pond.observe(UsersCatalogFish.fish, setStateUsersCatalogFish);
     };
     main();
   }, []);
 
   return (
     <div>
-      {pondSingletone && stateUsersCatalogFish ? (
+      {pond && stateUsersCatalogFish ? (
         <AuthenticationContainer
-          pond={pondSingletone}
+          pond={pond}
           fishState={stateUsersCatalogFish}
         />
       ) : (
