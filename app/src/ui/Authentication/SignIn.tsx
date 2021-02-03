@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { UserUniqueIdentifier } from '../../business-logic/common-types';
+import { UserUniqueIdentifier } from '../../business-logic/users-catalog-fish/types';
 
 type Props = Readonly<{
   isSignInSuccess?: boolean;

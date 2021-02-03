@@ -1,9 +1,11 @@
 import React, { FC } from 'react';
 import { Pond } from '@actyx/pond';
-import { UsersCatalogFishState } from '../../business-logic/users-catalog-fish/types';
+import {
+  UsersCatalogFishState,
+  UserUniqueIdentifier,
+} from '../../business-logic/users-catalog-fish/types';
 import { signUp, signIn } from '../../business-logic/users-catalog-fish/logic';
 import { SignUp } from './SignUp';
-import { UserUniqueIdentifier } from '../../business-logic/common-types';
 import { SignIn } from './SignIn';
 
 type Props = Readonly<{

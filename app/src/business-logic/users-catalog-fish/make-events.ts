@@ -1,5 +1,8 @@
-import { UserUniqueIdentifier } from '../common-types';
-import { UserAddedEvent, UsersCatalogFishEventType } from './types';
+import {
+  UserAddedEvent,
+  UsersCatalogFishEventType,
+  UserUniqueIdentifier,
+} from './types';
 
 export const mkUserAddedEvent = (
   userUniqueIdentifier: UserUniqueIdentifier,

@@ -1,6 +1,5 @@
-import { UserUniqueIdentifier } from '../common-types';
 import { mkUserAddedEvent } from './make-events';
-import { Email, Users, UsersEmails } from './types';
+import { Email, Users, UsersEmails, UserUniqueIdentifier } from './types';
 import { v4 as uuid } from 'uuid';
 import { UsersCatalogFish } from './users-catalog-fish';
 import { Pond } from '@actyx/pond';
@@ -19,7 +18,7 @@ export const signUp = (
   const canSignUp = isUserEmailRegistered(email, usersEmails) === false;
   let userUniqueIdentifier = mkUserUniqueIdentifier();
   if (canSignUp) {
-    sendUserAddedEventToPond(pond, userUniqueIdentifier, displayName, email);
+    emitUserAddedEventToPond(pond, userUniqueIdentifier, displayName, email);
   }
   return {
     success: canSignUp,
@@ -32,7 +31,7 @@ const isUserEmailRegistered = (
   usersEmails: UsersEmails
 ): boolean => email in usersEmails;
 
-const sendUserAddedEventToPond = (
+const emitUserAddedEventToPond = (
   pond: Pond,
   userUniqueIdentifier: UserUniqueIdentifier,
   displayName: string,

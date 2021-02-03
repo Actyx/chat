@@ -1,7 +1,8 @@
 import { Timestamp } from '@actyx/pond';
-import { UserUniqueIdentifier } from '../common-types';
 
 //#region General
+
+export type UserUniqueIdentifier = string;
 
 export type Email = string;
 
