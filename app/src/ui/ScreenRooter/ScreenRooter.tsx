@@ -1,10 +1,11 @@
 import { Pond } from '@actyx/pond';
 import React, { FC, useContext } from 'react';
 import { UsersCatalogFishState } from '../../business-logic/users-catalog-fish/types';
-import { AuthenticationContainer } from '../Authentication/AuthenticationContainer';
+import { AuthenticationContainer } from '../AuthenticationScreen/AuthenticationContainer';
 import { StateContextUI } from '../ui-state-manager/UIStateManager';
 import { Screens } from '../ui-state-manager/types';
 import { Debug } from '../Debug/Debug';
+import { ChatContainer } from '../ChatScreen/ChatContainer';
 
 type Props = Readonly<{
   pond: Pond;
@@ -19,10 +20,13 @@ export const ScreenRooter: FC<Props> = ({
 
   return stateUI.screen === Screens.Authentication ? (
     <>
-      <AuthenticationContainer pond={pond} fishState={stateUsersCatalog} />
+      <AuthenticationContainer
+        pond={pond}
+        stateUsersCatalogFish={stateUsersCatalog}
+      />
       <Debug stateUI={stateUI} stateUsersCatalogFish={stateUsersCatalog} />
     </>
   ) : (
-    <div>chat screen here</div>
+    <ChatContainer pond={pond} stateUsersCatalogFish={stateUsersCatalog} />
   );
 };

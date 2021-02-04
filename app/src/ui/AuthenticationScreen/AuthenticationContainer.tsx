@@ -12,10 +12,10 @@ import { DispatchContextUI } from '../ui-state-manager/UIStateManager';
 
 type Props = Readonly<{
   pond: Pond;
-  fishState: UsersCatalogFishState;
+  stateUsersCatalogFish: UsersCatalogFishState;
 }>;
 
-export const AuthenticationContainer: FC<Props> = ({ pond, fishState }) => {
+export const AuthenticationContainer: FC<Props> = ({ pond, stateUsersCatalogFish: fishState }) => {
   const dispatch = useContext(DispatchContextUI);
 
   const [isSignUpSuccess, setIsSignUpSuccess] = React.useState<boolean>();
