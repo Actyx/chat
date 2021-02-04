@@ -49,11 +49,14 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 ## Design
 
-Design conventions
+Design conventions:
 
-- Containers are only responsible for wiring UI with business logic, they accept the Fish state and a Pond instance when necessary, they are the only components that will receive a Pond instance
-- A Pond instance is passed only to a Container, so passing Pond down in the components tree and emitting events from there is not allowed
-- Only the business logic written in `logic.ts` can emit events to the Pond
+### Containers
+
+Containers are React components responsible for wiring UI with business logic, they accept the Fish state and a Pond instance when necessary. A Pond instance is passed to Containers only, so passing Pond down in the components tree and emitting events from there is not allowed.
+Only a Container can have access to the business logic and can emit events to the Pond.
+
+There is a separation between state for UI and state for Fishes, components down in the tree can change the UI state using a convenient custom hook `useReducerUI`, so changes to a Fish state is done only via callback to the Container by emitting events to Pond.
 
 ## Folder structure
 

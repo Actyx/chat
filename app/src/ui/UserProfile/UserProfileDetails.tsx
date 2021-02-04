@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import { UserUniqueIdentifier } from '../../business-logic/users-catalog-fish/types';
-import { UIDisplatchContext } from '../context/ui-context';
 
 type Props = Readonly<{
   isEditProfileSuccess?: boolean;
@@ -34,37 +33,33 @@ export const UserProfileDetails: FC<Props> = ({
   };
 
   return (
-    <UIDisplatchContext.Consumer>
-      {() => (
-        <div>
-          <h2>Edit user profile </h2>
-          <form onSubmit={handleSubmit}>
-            <label>userUniqueIdentifier:</label>
-            <input
-              type="text"
-              required
-              value={userUniqueIdentifier}
-              onChange={handleChangeUserUniqueIdentifier}
-            />
-            <br />
-            <label>displayName:</label>
-            <input
-              type="text"
-              required
-              value={displayName}
-              onChange={handleChangeDisplayName}
-            />
-            <br />
-            <input type="submit" value="Edit display name" />
-            <br />
-            {isEditProfileSuccess === undefined
-              ? ''
-              : isEditProfileSuccess === true
-              ? 'success: user profile edited'
-              : 'error: cannot edit user profile'}
-          </form>
-        </div>
-      )}
-    </UIDisplatchContext.Consumer>
+    <div>
+      <h2>Edit user profile </h2>
+      <form onSubmit={handleSubmit}>
+        <label>userUniqueIdentifier:</label>
+        <input
+          type="text"
+          required
+          value={userUniqueIdentifier}
+          onChange={handleChangeUserUniqueIdentifier}
+        />
+        <br />
+        <label>displayName:</label>
+        <input
+          type="text"
+          required
+          value={displayName}
+          onChange={handleChangeDisplayName}
+        />
+        <br />
+        <input type="submit" value="Edit display name" />
+        <br />
+        {isEditProfileSuccess === undefined
+          ? ''
+          : isEditProfileSuccess === true
+          ? 'success: user profile edited'
+          : 'error: cannot edit user profile'}
+      </form>
+    </div>
   );
 };
