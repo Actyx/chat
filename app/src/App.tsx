@@ -32,7 +32,7 @@ export const App: FC = () => {
           <UserProfileContainer pond={pond} fishState={stateUsersCatalogFish} />
         </>
       ) : (
-        'loading...'
+        'Pond is not loaded. Make sure you have an node running ActyxOS'
       )}
       <hr />
       UsersCatalog fish state

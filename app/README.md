@@ -61,7 +61,7 @@ Design conventions
 
 - src/business-logic/example-fish/logic.ts: Contains business logic for a specific Fish, can emit events to the Pond
 
-- src/business-logic/example-fish/make-events.ts: Utility functions to create events, they do not contain any business logic
+- src/business-logic/example-fish/events.ts: Utility functions to create events and to send them to Pond, they do not contain any business logic
 
 - src/business-logic/example-fish/reducer.ts: The Fish reducer user in the `onEvent` function, the logic for each event type is written in separate functions
 

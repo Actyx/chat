@@ -1,7 +1,9 @@
-import { mkUserAddedEvent, mkUserProfileEditedEvent } from './make-events';
+import {
+  sendUserAddedEventToPond,
+  sendUserProfileEditedEventToPond,
+} from './events';
 import { Email, Users, UsersEmails, UserUniqueIdentifier } from './types';
 import { v4 as uuid } from 'uuid';
-import { UsersCatalogFish } from './users-catalog-fish';
 import { Pond } from '@actyx/pond';
 
 //#region Sign-up
@@ -30,19 +32,6 @@ const isUserEmailRegistered = (
   email: Email,
   usersEmails: UsersEmails
 ): boolean => email in usersEmails;
-
-const sendUserAddedEventToPond = (
-  pond: Pond,
-  userUniqueIdentifier: UserUniqueIdentifier,
-  displayName: string,
-  email: string
-): void => {
-  const tags = UsersCatalogFish.tags.user
-    .and(UsersCatalogFish.tags.usersCatalog)
-    .and(UsersCatalogFish.tags.user.withId(userUniqueIdentifier));
-  const event = mkUserAddedEvent(userUniqueIdentifier, displayName, email);
-  pond.emit(tags, event);
-};
 
 const mkUserUniqueIdentifier = (): UserUniqueIdentifier => uuid();
 
@@ -75,18 +64,6 @@ export const signIn = (
 const sanitizeDisplayName = (displayName: string) => displayName.trim();
 
 const isDisplayNameEmpty = (displayName: string) => displayName.length === 0;
-
-const sendUserProfileEditedEventToPond = (
-  pond: Pond,
-  userUniqueIdentifier: UserUniqueIdentifier,
-  displayName: string
-): void => {
-  const tags = UsersCatalogFish.tags.user
-    .and(UsersCatalogFish.tags.usersCatalog)
-    .and(UsersCatalogFish.tags.user.withId(userUniqueIdentifier));
-  const event = mkUserProfileEditedEvent(userUniqueIdentifier, displayName);
-  pond.emit(tags, event);
-};
 
 export const editUserProfile = (
   pond: Pond,
