@@ -10,7 +10,7 @@ import { useReducerUI } from './ui/hooks/reducer-ui-hook';
 let pond: Pond | undefined;
 
 export const App: FC = () => {
-  const [stateUI, dispatch] = useReducerUI();
+  const { stateUI, dispatch } = useReducerUI();
 
   const [
     stateUsersCatalogFish,
@@ -29,6 +29,8 @@ export const App: FC = () => {
     <div>
       {pond && stateUsersCatalogFish ? (
         <>
+          UI STATE
+          <pre>{JSON.stringify(stateUI, undefined, 4)}</pre>
           <AuthenticationContainer
             pond={pond}
             fishState={stateUsersCatalogFish}
@@ -41,8 +43,6 @@ export const App: FC = () => {
       <hr />
       UsersCatalog fish state
       <pre>{JSON.stringify(stateUsersCatalogFish, undefined, 4)}</pre>
-      UI STATE
-      <pre>{JSON.stringify(stateUI, undefined, 4)}</pre>
       <input
         type="submit"
         onClick={() =>
@@ -65,7 +65,7 @@ export const App: FC = () => {
             },
           })
         }
-        value="Go screen chat"
+        value="Go screen authentication"
       />
     </div>
   );

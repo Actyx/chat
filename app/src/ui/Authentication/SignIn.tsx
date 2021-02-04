@@ -4,9 +4,14 @@ import { UserUniqueIdentifier } from '../../business-logic/users-catalog-fish/ty
 type Props = Readonly<{
   isSignInSuccess?: boolean;
   signIn: (userUniqueIdentifier: UserUniqueIdentifier) => void;
+  goToChangeScreen: () => void;
 }>;
 
-export const SignIn: FC<Props> = ({ isSignInSuccess, signIn }) => {
+export const SignIn: FC<Props> = ({
+  isSignInSuccess,
+  signIn,
+  goToChangeScreen,
+}) => {
   const [
     userUniqueIdentifier,
     setUserUniqueIdentifier,
@@ -20,6 +25,8 @@ export const SignIn: FC<Props> = ({ isSignInSuccess, signIn }) => {
     signIn(userUniqueIdentifier);
     e.preventDefault();
   };
+
+  const handleGoToChangeScreen = () => goToChangeScreen();
 
   return (
     <div>
@@ -40,6 +47,9 @@ export const SignIn: FC<Props> = ({ isSignInSuccess, signIn }) => {
           : isSignInSuccess === true
           ? 'Sign-in success'
           : 'Sign-in error: could not sign-in, credential not valid'}
+        {isSignInSuccess && (
+          <button onClick={handleGoToChangeScreen}>Go to chat</button>
+        )}
       </form>
     </div>
   );

@@ -7,6 +7,8 @@ import {
 import { signUp, signIn } from '../../business-logic/users-catalog-fish/logic';
 import { SignUp } from './SignUp';
 import { SignIn } from './SignIn';
+import { useReducerUI } from '../hooks/reducer-ui-hook';
+import { goToScreenChat } from '../hooks/actions';
 
 type Props = Readonly<{
   pond: Pond;
@@ -14,6 +16,8 @@ type Props = Readonly<{
 }>;
 
 export const AuthenticationContainer: FC<Props> = ({ pond, fishState }) => {
+  const { dispatch } = useReducerUI();
+
   const [isSignUpSuccess, setIsSignUpSuccess] = React.useState<boolean>();
 
   const [isSignInSuccess, setIsSignInSuccess] = React.useState<boolean>();
@@ -39,6 +43,8 @@ export const AuthenticationContainer: FC<Props> = ({ pond, fishState }) => {
     setIsSignInSuccess(resultLogic.success);
   };
 
+  const handleGoToChatScreen = () => dispatch(goToScreenChat());
+
   return (
     <div>
       <SignUp
@@ -46,7 +52,11 @@ export const AuthenticationContainer: FC<Props> = ({ pond, fishState }) => {
         isSignUpSuccess={isSignUpSuccess}
         userUniqueIdentifier={userUniqueIdentifier}
       />
-      <SignIn isSignInSuccess={isSignInSuccess} signIn={handleSignIn} />
+      <SignIn
+        isSignInSuccess={isSignInSuccess}
+        signIn={handleSignIn}
+        goToChangeScreen={handleGoToChatScreen}
+      />
     </div>
   );
 };
