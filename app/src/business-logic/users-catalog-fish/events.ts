@@ -7,6 +7,8 @@ import {
 } from './types';
 import { UsersCatalogFish } from './users-catalog-fish';
 
+//#region Make events
+
 export const mkUserAddedEvent = (
   userUniqueIdentifier: UserUniqueIdentifier,
   displayName: string,
@@ -30,6 +32,10 @@ export const mkUserProfileEditedEvent = (
     displayName,
   },
 });
+
+//#endregion
+
+//#region Send events to Pond
 
 export const sendUserAddedEventToPond = (
   pond: Pond,
@@ -55,3 +61,5 @@ export const sendUserProfileEditedEventToPond = (
   const event = mkUserProfileEditedEvent(userUniqueIdentifier, displayName);
   pond.emit(tags, event);
 };
+
+//#endregion
