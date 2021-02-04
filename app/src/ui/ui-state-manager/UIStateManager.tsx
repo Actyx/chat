@@ -3,6 +3,7 @@ import { Action, ActionType, Dispatcher, Screens, StateUI } from './types';
 
 export const inititialState: StateUI = {
   screen: Screens.Authentication,
+  signedInUser: '',
 };
 
 export const reducer = (state: StateUI, action: Action): StateUI => {

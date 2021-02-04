@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 
 type Props = Readonly<{
-  user: string;
+  userDisplayName: string;
 }>;
 
-export const TopBar: FC<Props> = ({ user }) => {
-  return <div>{user}</div>;
+export const TopBar: FC<Props> = ({ userDisplayName }) => {
+  return <div>{userDisplayName}</div>;
 };

@@ -10,7 +10,7 @@ export enum Screens {
 
 export type StateUI = Readonly<{
   screen: Screens;
-  signedInUser?: UserUniqueIdentifier;
+  signedInUser: UserUniqueIdentifier;
 }>;
 
 //#endregion

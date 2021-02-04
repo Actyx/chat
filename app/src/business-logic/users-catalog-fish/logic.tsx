@@ -59,7 +59,12 @@ export const signIn = (
 
 //#endregion
 
-//#region User profile edit
+//#region User profile
+
+export const getDisplayForFromUserUniqueIdentifier = (
+  userUniqueIdentifier: UserUniqueIdentifier,
+  users: Users
+): string => users[userUniqueIdentifier].displayName;
 
 const sanitizeDisplayName = (displayName: string) => displayName.trim();
 
