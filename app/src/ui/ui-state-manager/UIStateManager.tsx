@@ -12,6 +12,13 @@ export const reducer = (state: StateUI, action: Action): StateUI => {
         ...state,
         screen: action.payload.screen,
       };
+    case ActionType.AddSignedInUser:
+      return {
+        ...state,
+        signedInUser: action.payload.signedInUser,
+      };
+    default:
+      return state;
   }
 };
 
