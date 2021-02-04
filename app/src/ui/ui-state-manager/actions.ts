@@ -1,8 +1,8 @@
-import { ActionType, EditScreenAction } from './types';
+import { ActionType, EditScreenAction, Screens } from './types';
 
 export const goToScreenChat = (): EditScreenAction => ({
   type: ActionType.EditScreen,
   payload: {
-    screen: 'chat',
+    screen: Screens.Chat,
   },
 });

@@ -7,8 +7,8 @@ import {
 import { signUp, signIn } from '../../business-logic/users-catalog-fish/logic';
 import { SignUp } from './SignUp';
 import { SignIn } from './SignIn';
-import { goToScreenChat } from '../reducer/actions';
-import { DispatchContextUI } from '../reducer/context-ui';
+import { goToScreenChat } from '../ui-state-manager/actions';
+import { DispatchContextUI } from '../ui-state-manager/UIStateManager';
 
 type Props = Readonly<{
   pond: Pond;

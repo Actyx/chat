@@ -2,7 +2,10 @@ import { Dispatch } from 'react';
 
 //#region UI State
 
-export type Screens = 'authentication' | 'chat';
+export enum Screens {
+  Authentication = 'Authentication',
+  Chat = 'Chat',
+}
 
 export type StateUI = Readonly<{
   screen: Screens;
