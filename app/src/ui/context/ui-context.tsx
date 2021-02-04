@@ -1,20 +1,18 @@
 import React, { Dispatch } from 'react';
-import { Action, ActionType, Screens, StateUI } from './types';
+import { Action, ActionType, StateUI } from './types';
 
-export const inititialStateUI: StateUI = {
+export const inititialState: StateUI = {
   screen: 'authentication',
 };
 
-export const ContextStateUI = React.createContext(inititialStateUI);
+export const UIStateContext = React.createContext(inititialState);
 
-type XXX = Dispatch<
-  Readonly<{ type: ActionType; payload: { screen: Screens } }>
->;
-export const ContextDispatchUI = React.createContext<XXX | undefined>(
+type Dispatcher = Dispatch<Action>;
+export const UIDisplatchContext = React.createContext<Dispatcher | undefined>(
   undefined
 );
 
-export const reducerUI = (state: StateUI, action: Action): StateUI => {
+export const reducer = (state: StateUI, action: Action): StateUI => {
   switch (action.type) {
     case ActionType.EditScreen:
       return {

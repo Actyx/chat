@@ -5,17 +5,17 @@ import { UsersCatalogFishState } from './business-logic/users-catalog-fish/types
 import { UsersCatalogFish } from './business-logic/users-catalog-fish/users-catalog-fish';
 import { UserProfileContainer } from './ui/UserProfile/UserProfileContainer';
 import {
-  ContextDispatchUI,
-  ContextStateUI,
-  inititialStateUI,
-  reducerUI,
+  UIDisplatchContext,
+  UIStateContext,
+  inititialState,
+  reducer,
 } from './ui/context/ui-context';
 import { ActionType } from './ui/context/types';
 
 let pond: Pond | undefined;
 
 export const App: FC = () => {
-  const [stateUI, dispatch] = React.useReducer(reducerUI, inititialStateUI);
+  const [stateUI, dispatch] = React.useReducer(reducer, inititialState);
 
   const [
     stateUsersCatalogFish,
@@ -31,8 +31,8 @@ export const App: FC = () => {
   }, []);
 
   return (
-    <ContextStateUI.Provider value={stateUI}>
-      <ContextDispatchUI.Provider value={dispatch}>
+    <UIStateContext.Provider value={stateUI}>
+      <UIDisplatchContext.Provider value={dispatch}>
         <div>
           {pond && stateUsersCatalogFish ? (
             <>
@@ -67,7 +67,7 @@ export const App: FC = () => {
             value="Dispatch something"
           />
         </div>
-      </ContextDispatchUI.Provider>
-    </ContextStateUI.Provider>
+      </UIDisplatchContext.Provider>
+    </UIStateContext.Provider>
   );
 };

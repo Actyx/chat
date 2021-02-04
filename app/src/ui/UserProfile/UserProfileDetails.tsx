@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { UserUniqueIdentifier } from '../../business-logic/users-catalog-fish/types';
-import { ContextDispatchUI } from '../context/ui-context';
+import { UIDisplatchContext } from '../context/ui-context';
 
 type Props = Readonly<{
   isEditProfileSuccess?: boolean;
@@ -34,7 +34,7 @@ export const UserProfileDetails: FC<Props> = ({
   };
 
   return (
-    <ContextDispatchUI.Consumer>
+    <UIDisplatchContext.Consumer>
       {() => (
         <div>
           <h2>Edit user profile </h2>
@@ -65,6 +65,6 @@ export const UserProfileDetails: FC<Props> = ({
           </form>
         </div>
       )}
-    </ContextDispatchUI.Consumer>
+    </UIDisplatchContext.Consumer>
   );
 };
