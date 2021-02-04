@@ -4,13 +4,17 @@ import { AuthenticationContainer } from './ui/Authentication/AuthenticationConta
 import { UsersCatalogFishState } from './business-logic/users-catalog-fish/types';
 import { UsersCatalogFish } from './business-logic/users-catalog-fish/users-catalog-fish';
 import { UserProfileContainer } from './ui/UserProfile/UserProfileContainer';
-import { ActionType } from './ui/hooks/types';
-import { useReducerUI } from './ui/hooks/reducer-ui-hook';
+import {
+  reducer,
+  inititialState,
+  DispatchContextUI,
+  StateContextUI,
+} from './ui/reducer/context-ui';
 
 let pond: Pond | undefined;
 
 export const App: FC = () => {
-  const { stateUI, dispatch } = useReducerUI();
+  const [stateUI, dispatch] = React.useReducer(reducer, inititialState);
 
   const [
     stateUsersCatalogFish,
@@ -26,47 +30,31 @@ export const App: FC = () => {
   }, []);
 
   return (
-    <div>
-      {pond && stateUsersCatalogFish ? (
-        <>
+    <DispatchContextUI.Provider value={dispatch}>
+      <StateContextUI.Provider value={stateUI}>
+        <div>
+          {pond && stateUsersCatalogFish ? (
+            <>
+              <AuthenticationContainer
+                pond={pond}
+                fishState={stateUsersCatalogFish}
+              />
+              <UserProfileContainer
+                pond={pond}
+                fishState={stateUsersCatalogFish}
+              />
+            </>
+          ) : (
+            'Pond is not loaded. Make sure you have an node running ActyxOS'
+          )}
+          <hr />
           UI STATE
           <pre>{JSON.stringify(stateUI, undefined, 4)}</pre>
-          <AuthenticationContainer
-            pond={pond}
-            fishState={stateUsersCatalogFish}
-          />
-          <UserProfileContainer pond={pond} fishState={stateUsersCatalogFish} />
-        </>
-      ) : (
-        'Pond is not loaded. Make sure you have an node running ActyxOS'
-      )}
-      <hr />
-      UsersCatalog fish state
-      <pre>{JSON.stringify(stateUsersCatalogFish, undefined, 4)}</pre>
-      <input
-        type="submit"
-        onClick={() =>
-          dispatch({
-            type: ActionType.EditScreen,
-            payload: {
-              screen: 'chat',
-            },
-          })
-        }
-        value="Go screen chat"
-      />
-      <input
-        type="submit"
-        onClick={() =>
-          dispatch({
-            type: ActionType.EditScreen,
-            payload: {
-              screen: 'authentication',
-            },
-          })
-        }
-        value="Go screen authentication"
-      />
-    </div>
+          <hr />
+          UsersCatalog fish state
+          <pre>{JSON.stringify(stateUsersCatalogFish, undefined, 4)}</pre>
+        </div>
+      </StateContextUI.Provider>
+    </DispatchContextUI.Provider>
   );
 };

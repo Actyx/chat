@@ -6,7 +6,6 @@ export const inititialState: StateUI = {
 };
 
 export const reducer = (state: StateUI, action: Action): StateUI => {
-  debugger;
   switch (action.type) {
     case ActionType.EditScreen:
       return {
@@ -16,14 +15,6 @@ export const reducer = (state: StateUI, action: Action): StateUI => {
   }
 };
 
-export const useReducerUI = (): {
-  stateUI: StateUI;
-  dispatch: Dispatcher;
-} => {
-  const [stateUI, dispatch] = React.useReducer(reducer, inititialState);
+export const StateContextUI = React.createContext(inititialState);
 
-  return {
-    stateUI,
-    dispatch,
-  };
-};
+export const DispatchContextUI = React.createContext<Dispatcher>(undefined!);

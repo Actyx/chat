@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { Pond } from '@actyx/pond';
 import {
   UsersCatalogFishState,
@@ -7,8 +7,8 @@ import {
 import { signUp, signIn } from '../../business-logic/users-catalog-fish/logic';
 import { SignUp } from './SignUp';
 import { SignIn } from './SignIn';
-import { useReducerUI } from '../hooks/reducer-ui-hook';
-import { goToScreenChat } from '../hooks/actions';
+import { goToScreenChat } from '../reducer/actions';
+import { DispatchContextUI } from '../reducer/context-ui';
 
 type Props = Readonly<{
   pond: Pond;
@@ -16,7 +16,7 @@ type Props = Readonly<{
 }>;
 
 export const AuthenticationContainer: FC<Props> = ({ pond, fishState }) => {
-  const { dispatch } = useReducerUI();
+  const dispatch = useContext(DispatchContextUI);
 
   const [isSignUpSuccess, setIsSignUpSuccess] = React.useState<boolean>();
 
