@@ -1,10 +1,12 @@
 import {
-  sendUserAddedEventToPond,
+  mkUserAddedEvent,
+  mkUserAddedEventTags,
   sendUserProfileEditedEventToPond,
 } from './events';
 import { Email, Users, UsersEmails, UserUUID } from './types';
 import { v4 as uuid } from 'uuid';
 import { Pond } from '@actyx/pond';
+import { UsersCatalogFish } from './users-catalog-fish';
 
 //#region Sign-up
 
@@ -18,8 +20,12 @@ export const signUp = (
     const canSignUp = isUserEmailRegistered(email, usersEmails) === false;
     if (canSignUp) {
       let userUUID = mkUserUUID();
-      sendUserAddedEventToPond(pond, userUUID, displayName, email);
-      res(userUUID);
+      pond.run(UsersCatalogFish.fish, (_, enqueue) => {
+        const event = mkUserAddedEvent(userUUID, displayName, email);
+        const tags = mkUserAddedEventTags(userUUID);
+        enqueue(tags, event);
+        res(userUUID);
+      });
     } else {
       res(undefined);
     }

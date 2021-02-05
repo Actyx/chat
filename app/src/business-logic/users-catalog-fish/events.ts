@@ -22,6 +22,13 @@ export const mkUserAddedEvent = (
   },
 });
 
+export const mkUserAddedEventTags = (userUUID: UserUUID) => {
+  const tags = UsersCatalogFish.tags.user
+    .and(UsersCatalogFish.tags.usersCatalog)
+    .and(UsersCatalogFish.tags.user.withId(userUUID));
+  return tags;
+};
+
 export const mkUserProfileEditedEvent = (
   userUUID: UserUUID,
   displayName: string
@@ -36,19 +43,6 @@ export const mkUserProfileEditedEvent = (
 //#endregion
 
 //#region Send events to Pond
-
-export const sendUserAddedEventToPond = (
-  pond: Pond,
-  userUUID: UserUUID,
-  displayName: string,
-  email: string
-): void => {
-  const tags = UsersCatalogFish.tags.user
-    .and(UsersCatalogFish.tags.usersCatalog)
-    .and(UsersCatalogFish.tags.user.withId(userUUID));
-  const event = mkUserAddedEvent(userUUID, displayName, email);
-  pond.emit(tags, event);
-};
 
 export const sendUserProfileEditedEventToPond = (
   pond: Pond,
