@@ -8,7 +8,7 @@ import { signUp, signIn } from '../../business-logic/users-catalog-fish/logic';
 import { SignUp } from './SignUp';
 import { SignIn } from './SignIn';
 import { DispatchContextUI } from '../ui-state-manager/UIStateManager';
-import { addSignedInUser, goToScreenChat } from '../ui-state-manager/actions';
+import { addSignedInUser, goToChatScreen } from '../ui-state-manager/actions';
 
 type Props = Readonly<{
   pond: Pond;
@@ -46,7 +46,7 @@ export const AuthenticationContainer: FC<Props> = ({
     }
   };
 
-  const handleGoToChatScreen = () => dispatch(goToScreenChat());
+  const handleGoToChatScreen = () => dispatch(goToChatScreen());
 
   return (
     <div>

@@ -8,7 +8,7 @@ import {
   SectionRight,
 } from './types';
 
-export const goToScreenChat = (): EditScreenAction => ({
+export const goToChatScreen = (): EditScreenAction => ({
   type: ActionType.EditScreen,
   payload: {
     screen: Screens.Chat,
