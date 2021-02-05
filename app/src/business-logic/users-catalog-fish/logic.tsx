@@ -75,10 +75,9 @@ export const editUserProfile = (
 ): Promise<boolean> => {
   return new Promise((res) => {
     const isUserRegistered = isUserUUIDRegistered(userUUID, users);
-    const sanitized = sanitizeDisplayName(displayName);
-    const isNotEmpty = isDisplayNameEmpty(sanitized) === false;
-    const canEditUserProfile = isUserRegistered && isNotEmpty;
-
+    const sanitizedName = sanitizeDisplayName(displayName);
+    const isNameNotEmpty = isDisplayNameEmpty(sanitizedName) === false;
+    const canEditUserProfile = isUserRegistered && isNameNotEmpty;
     if (canEditUserProfile) {
       pond.run(UsersCatalogFish.fish, (_, enqueue) => {
         const tags = mkUserProfileEditedEventTags(userUUID);
