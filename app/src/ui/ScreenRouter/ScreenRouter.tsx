@@ -21,12 +21,10 @@ export const ScreenRooter: FC<Props> = ({
   return (
     <div>
       {stateUI.screen === Screens.Authentication ? (
-        <>
-          <AuthenticationContainer
-            pond={pond}
-            stateUsersCatalogFish={stateUsersCatalog}
-          />
-        </>
+        <AuthenticationContainer
+          pond={pond}
+          stateUsersCatalogFish={stateUsersCatalog}
+        />
       ) : (
         <ChatContainer pond={pond} stateUsersCatalogFish={stateUsersCatalog} />
       )}
