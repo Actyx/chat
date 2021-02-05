@@ -43,7 +43,7 @@ export const ChatContainer: FC<Props> = ({ pond, stateUsersCatalogFish }) => {
 
   return (
     <div>
-      <TopBar userDisplayName={userDisplayName} />
+      <TopBar userDisplayName={userDisplayName ?? ''} />
       <div>left - main side bar here</div>
       <div>center - channel messages here</div>
       <div>

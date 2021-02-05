@@ -3,7 +3,7 @@ import { openSectionRightUserEditProfile } from '../ui-state-manager/actions';
 import { DispatchContextUI } from '../ui-state-manager/UIStateManager';
 
 type Props = Readonly<{
-  userDisplayName?: string;
+  userDisplayName: string;
 }>;
 
 export const TopBar: FC<Props> = ({ userDisplayName }) => {
