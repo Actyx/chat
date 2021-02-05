@@ -9,10 +9,13 @@ import { UserProfileDetails } from './UserProfileDetails';
 
 type Props = Readonly<{
   pond: Pond;
-  fishState: UsersCatalogFishState;
+  stateUsersCatalogFish: UsersCatalogFishState;
 }>;
 
-export const UserProfileContainer: FC<Props> = ({ pond, fishState }) => {
+export const UserProfileContainer: FC<Props> = ({
+  pond,
+  stateUsersCatalogFish,
+}) => {
   const [
     isEditProfileSuccess,
     setIsEditProfileSuccess,
@@ -21,7 +24,7 @@ export const UserProfileContainer: FC<Props> = ({ pond, fishState }) => {
   const handleSubmit = async (userUUID: UserUUID, displayName: string) => {
     const resultEditUser = await editUserProfile(
       pond,
-      fishState.users,
+      stateUsersCatalogFish.users,
       userUUID,
       displayName
     );

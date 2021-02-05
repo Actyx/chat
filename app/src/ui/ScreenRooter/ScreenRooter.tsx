@@ -18,15 +18,19 @@ export const ScreenRooter: FC<Props> = ({
 }) => {
   const stateUI = useContext(StateContextUI);
 
-  return stateUI.screen === Screens.Authentication ? (
-    <>
-      <AuthenticationContainer
-        pond={pond}
-        stateUsersCatalogFish={stateUsersCatalog}
-      />
+  return (
+    <div>
+      {stateUI.screen === Screens.Authentication ? (
+        <>
+          <AuthenticationContainer
+            pond={pond}
+            stateUsersCatalogFish={stateUsersCatalog}
+          />
+        </>
+      ) : (
+        <ChatContainer pond={pond} stateUsersCatalogFish={stateUsersCatalog} />
+      )}
       <Debug stateUI={stateUI} stateUsersCatalogFish={stateUsersCatalog} />
-    </>
-  ) : (
-    <ChatContainer pond={pond} stateUsersCatalogFish={stateUsersCatalog} />
+    </div>
   );
 };
