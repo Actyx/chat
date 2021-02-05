@@ -6,13 +6,13 @@ export type UserUUID = string;
 
 export type Email = string;
 
-export type UserProfile = Readonly<{
+export type UserProfile = {
   userUUID: UserUUID;
   createdOn: Timestamp;
   editedOn?: Timestamp;
   displayName: string;
   email: Email;
-}>;
+};
 
 //#endregion
 
@@ -49,9 +49,9 @@ export type UserCatalogFishEvent = UserAddedEvent | UserProfileEditedEvent;
 export type UsersEmails = Record<Email, null>;
 export type Users = Record<UserUUID, UserProfile>;
 
-export type UsersCatalogFishState = Readonly<{
+export type UsersCatalogFishState = {
   users: Users;
   emails: UsersEmails;
-}>;
+};
 
 //#endregion

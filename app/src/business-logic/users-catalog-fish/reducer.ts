@@ -5,8 +5,9 @@ import {
   UsersCatalogFishEventType,
   UsersCatalogFishState,
 } from './types';
-import { Metadata } from '@actyx/pond';
+import { Timestamp } from '@actyx/pond';
 import { Reduce } from '@actyx/pond';
+import { isUserUUIDRegistered } from './logic';
 
 export const reducer: Reduce<UsersCatalogFishState, UserCatalogFishEvent> = (
   state,
@@ -15,10 +16,10 @@ export const reducer: Reduce<UsersCatalogFishState, UserCatalogFishEvent> = (
 ): UsersCatalogFishState => {
   switch (event.type) {
     case UsersCatalogFishEventType.UserAdded: {
-      return userAdded(state, event, meta);
+      return userAdded(state, event, meta.timestampMicros);
     }
     case UsersCatalogFishEventType.UserProfileEdited: {
-      return userProfileEdited(state, event, meta);
+      return userProfileEdited(state, event, meta.timestampMicros);
     }
   }
 };
@@ -26,50 +27,36 @@ export const reducer: Reduce<UsersCatalogFishState, UserCatalogFishEvent> = (
 const userAdded = (
   state: UsersCatalogFishState,
   event: UserAddedEvent,
-  meta: Metadata
+  timestampMicros: Timestamp
 ): UsersCatalogFishState => {
   const {
     payload: { userUUID, displayName, email },
   } = event;
-  console.debug(meta);
-  const users = {
-    ...state.users,
-    [userUUID]: {
+  const isRegistered = isUserUUIDRegistered(userUUID, state.users);
+  if (isRegistered === false) {
+    state.users[userUUID] = {
       userUUID,
-      createdOn: meta.timestampMicros,
+      createdOn: timestampMicros,
       displayName,
       email,
-    },
-  };
-  const emails = {
-    ...state.emails,
-    [email]: null,
-  };
-
-  return {
-    users,
-    emails,
-  };
+    };
+    state.emails[email] = null;
+  }
+  return state;
 };
 
 const userProfileEdited = (
   state: UsersCatalogFishState,
   event: UserProfileEditedEvent,
-  meta: Metadata
+  timestampMicros: Timestamp
 ): UsersCatalogFishState => {
   const {
     payload: { userUUID, displayName },
   } = event;
-  const users = {
-    ...state.users,
-    [userUUID]: {
-      ...state.users[userUUID],
-      displayName,
-      editedOn: meta.timestampMicros,
-    },
-  };
-  return {
-    ...state,
-    users,
-  };
+  const isRegistered = isUserUUIDRegistered(userUUID, state.users);
+  if (isRegistered === true) {
+    state.users[userUUID].displayName = displayName;
+    state.users[userUUID].editedOn = timestampMicros;
+  }
+  return state;
 };

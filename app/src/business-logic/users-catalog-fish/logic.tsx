@@ -39,8 +39,10 @@ const mkUserUUID = (): UserUUID => uuid();
 
 //#region Sign-in
 
-const isUserUUIDRegistered = (userUUID: UserUUID, users: Users): boolean =>
-  userUUID in users;
+export const isUserUUIDRegistered = (
+  userUUID: UserUUID,
+  users: Users
+): boolean => userUUID in users;
 
 export const signIn = (userUUID: UserUUID, users: Users): boolean => {
   const canSignIn = isUserUUIDRegistered(userUUID, users);
