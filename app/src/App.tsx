@@ -3,7 +3,7 @@ import { Pond } from '@actyx/pond';
 import { UsersCatalogFishState } from './business-logic/users-catalog-fish/types';
 import { UsersCatalogFish } from './business-logic/users-catalog-fish/users-catalog-fish';
 import { UIStateManager } from './ui/ui-state-manager/UIStateManager';
-import { ScreenRooter } from './ui/ScreenRooter/ScreenRooter';
+import { ScreenRooter as ScreenRouter } from './ui/ScreenRouter/ScreenRouter';
 import { PondError } from './ui/PondError/PondError';
 
 let pond: Pond | undefined;
@@ -26,7 +26,7 @@ export const App: FC = () => {
     <UIStateManager>
       <div>
         {pond && stateUsersCatalogFish ? (
-          <ScreenRooter
+          <ScreenRouter
             pond={pond}
             stateUsersCatalogFish={stateUsersCatalogFish}
           />

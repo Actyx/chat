@@ -4,13 +4,13 @@ import { UserUUID } from '../../business-logic/users-catalog-fish/types';
 type Props = Readonly<{
   isSignInSuccess?: boolean;
   signIn: (userUUID: UserUUID) => void;
-  goToChangeScreen: () => void;
+  goToChatScreen: () => void;
 }>;
 
 export const SignIn: FC<Props> = ({
   isSignInSuccess,
   signIn,
-  goToChangeScreen,
+  goToChatScreen,
 }) => {
   const [userUUID, setUserUUID] = React.useState<UserUUID>('');
 
@@ -22,7 +22,7 @@ export const SignIn: FC<Props> = ({
     e.preventDefault();
   };
 
-  const handleGoToChangeScreen = () => goToChangeScreen();
+  const handleGoToChangeScreen = () => goToChatScreen();
 
   return (
     <div>

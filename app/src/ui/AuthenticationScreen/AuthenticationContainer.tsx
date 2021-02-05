@@ -39,9 +39,9 @@ export const AuthenticationContainer: FC<Props> = ({
   };
 
   const handleSignIn = (userUUID: UserUUID) => {
-    const resultLogic = signIn(userUUID, stateUsersCatalogFish.users);
-    setIsSignInSuccess(resultLogic);
-    if (resultLogic) {
+    const isUserSignedIn = signIn(userUUID, stateUsersCatalogFish.users);
+    setIsSignInSuccess(isUserSignedIn);
+    if (isUserSignedIn) {
       dispatch(addSignedInUser(userUUID));
     }
   };
@@ -58,7 +58,7 @@ export const AuthenticationContainer: FC<Props> = ({
       <SignIn
         isSignInSuccess={isSignInSuccess}
         signIn={handleSignIn}
-        goToChangeScreen={handleGoToChatScreen}
+        goToChatScreen={handleGoToChatScreen}
       />
     </div>
   );
