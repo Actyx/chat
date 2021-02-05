@@ -9,14 +9,14 @@ const tags = {
 
 const initialState: UsersCatalogFishState = {
   users: {},
-  usersEmails: {},
+  emails: {},
 };
 
 const fish: Fish<UsersCatalogFishState, UserCatalogFishEvent> = {
   fishId: FishId.of('com.chat.usersCatalog', 'usersCatalog', 0),
   initialState,
   onEvent: reducer,
-  where: tags.usersCatalog,
+  where: tags.usersCatalog.or(tags.user),
 };
 
 export const UsersCatalogFish = {

@@ -55,9 +55,7 @@ export const sendUserProfileEditedEventToPond = (
   userUniqueIdentifier: UserUniqueIdentifier,
   displayName: string
 ): void => {
-  const tags = UsersCatalogFish.tags.user
-    .and(UsersCatalogFish.tags.usersCatalog)
-    .and(UsersCatalogFish.tags.user.withId(userUniqueIdentifier));
+  const tags = UsersCatalogFish.tags.user.withId(userUniqueIdentifier);
   const event = mkUserProfileEditedEvent(userUniqueIdentifier, displayName);
   pond.emit(tags, event);
 };

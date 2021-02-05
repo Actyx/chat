@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 
 type Props = Readonly<{
-  userDisplayName: string;
+  userDisplayName?: string;
 }>;
 
 export const TopBar: FC<Props> = ({ userDisplayName }) => {
-  return <div>{userDisplayName}</div>;
+  return <div>{userDisplayName ?? ''}</div>;
 };

@@ -47,24 +47,22 @@ const isUserUniqueIdentifierRegistered = (
 export const signIn = (
   userUniqueIdentifier: UserUniqueIdentifier,
   users: Users
-): Readonly<{ success: boolean }> => {
+): boolean => {
   const canSignIn = isUserUniqueIdentifierRegistered(
     userUniqueIdentifier,
     users
   );
-  return {
-    success: canSignIn,
-  };
+  return canSignIn;
 };
 
 //#endregion
 
-//#region User profile
+//#region User profile edit
 
 export const getDisplayForFromUserUniqueIdentifier = (
   userUniqueIdentifier: UserUniqueIdentifier,
   users: Users
-): string => users[userUniqueIdentifier].displayName;
+): string | undefined => users[userUniqueIdentifier].displayName;
 
 const sanitizeDisplayName = (displayName: string) => displayName.trim();
 
@@ -75,7 +73,7 @@ export const editUserProfile = (
   users: Users,
   userUniqueIdentifier: UserUniqueIdentifier,
   displayName: string
-): Readonly<{ success: boolean; sanitizedDisplayName?: string }> => {
+): boolean => {
   const isUserRegistered = isUserUniqueIdentifierRegistered(
     userUniqueIdentifier,
     users
@@ -86,10 +84,7 @@ export const editUserProfile = (
   if (canEditUserProfile) {
     sendUserProfileEditedEventToPond(pond, userUniqueIdentifier, sanitized);
   }
-  return {
-    success: canEditUserProfile,
-    sanitizedDisplayName: canEditUserProfile ? sanitized : undefined,
-  };
+  return canEditUserProfile;
 };
 
 //#endregion

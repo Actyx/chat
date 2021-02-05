@@ -7,8 +7,8 @@ import {
 import { signUp, signIn } from '../../business-logic/users-catalog-fish/logic';
 import { SignUp } from './SignUp';
 import { SignIn } from './SignIn';
-import { addSignedInUser, goToScreenChat } from '../ui-state-manager/actions';
 import { DispatchContextUI } from '../ui-state-manager/UIStateManager';
+import { addSignedInUser, goToScreenChat } from '../ui-state-manager/actions';
 
 type Props = Readonly<{
   pond: Pond;
@@ -17,7 +17,7 @@ type Props = Readonly<{
 
 export const AuthenticationContainer: FC<Props> = ({
   pond,
-  stateUsersCatalogFish: fishState,
+  stateUsersCatalogFish,
 }) => {
   const dispatch = useContext(DispatchContextUI);
 
@@ -31,7 +31,12 @@ export const AuthenticationContainer: FC<Props> = ({
   ] = React.useState<UserUniqueIdentifier>();
 
   const handleSignUp = (displayName: string, email: string) => {
-    const resultLogic = signUp(pond, displayName, email, fishState.usersEmails);
+    const resultLogic = signUp(
+      pond,
+      displayName,
+      email,
+      stateUsersCatalogFish.emails
+    );
     if (resultLogic.success) {
       setIsSignUpSuccess(true);
       setUserUniqueIdentifier(resultLogic.userUniqueIdentifier);
@@ -42,9 +47,12 @@ export const AuthenticationContainer: FC<Props> = ({
   };
 
   const handleSignIn = (userUniqueIdentifier: UserUniqueIdentifier) => {
-    const resultLogic = signIn(userUniqueIdentifier, fishState.users);
-    setIsSignInSuccess(resultLogic.success);
-    if (resultLogic.success) {
+    const resultLogic = signIn(
+      userUniqueIdentifier,
+      stateUsersCatalogFish.users
+    );
+    setIsSignInSuccess(resultLogic);
+    if (resultLogic) {
       dispatch(addSignedInUser(userUniqueIdentifier));
     }
   };
