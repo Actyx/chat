@@ -22,9 +22,16 @@ export const addSignedInUser = (signedInUser: UserUUID): AddSignedInUser => ({
   },
 });
 
-export const openSectionUserProfile = (): EditSectionRight => ({
+export const openSectionRightUserEditProfile = (): EditSectionRight => ({
   type: ActionType.EditSectionRight,
   payload: {
     section: SectionRight.UserProfileEdit,
+  },
+});
+
+export const closeSectionRight = (): EditSectionRight => ({
+  type: ActionType.EditSectionRight,
+  payload: {
+    section: SectionRight.Closed,
   },
 });

@@ -46,7 +46,7 @@ export type AddSignedInUser = Readonly<{
 export type EditSectionRight = Readonly<{
   type: ActionType.EditSectionRight;
   payload: {
-    section: SectionRight.UserProfileEdit;
+    section: SectionRight;
   };
 }>;
 

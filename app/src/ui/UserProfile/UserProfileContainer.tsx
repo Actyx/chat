@@ -1,10 +1,12 @@
 import { Pond } from '@actyx/pond';
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { editUserProfile } from '../../business-logic/users-catalog-fish/logic';
+import { UsersCatalogFishState } from '../../business-logic/users-catalog-fish/types';
+import { closeSectionRight } from '../ui-state-manager/actions';
 import {
-  UsersCatalogFishState,
-  UserUUID,
-} from '../../business-logic/users-catalog-fish/types';
+  DispatchContextUI,
+  StateContextUI,
+} from '../ui-state-manager/UIStateManager';
 import { UserProfileDetails } from './UserProfileDetails';
 
 type Props = Readonly<{
@@ -16,27 +18,25 @@ export const UserProfileContainer: FC<Props> = ({
   pond,
   stateUsersCatalogFish,
 }) => {
-  const [
-    isEditProfileSuccess,
-    setIsEditProfileSuccess,
-  ] = React.useState<boolean>();
+  const dispatch = useContext(DispatchContextUI);
 
-  const handleSubmit = async (userUUID: UserUUID, displayName: string) => {
+  const stateUI = useContext(StateContextUI);
+
+  const handleEditUserProfile = async (displayName: string) => {
     const resultEditUser = await editUserProfile(
       pond,
       stateUsersCatalogFish.users,
-      userUUID,
+      stateUI.signedInUser,
       displayName
     );
-    setIsEditProfileSuccess(resultEditUser);
+    if (resultEditUser === true) {
+      dispatch(closeSectionRight());
+    }
   };
 
   return (
     <div>
-      <UserProfileDetails
-        isEditProfileSuccess={isEditProfileSuccess}
-        editUserProfile={handleSubmit}
-      />
+      <UserProfileDetails editUserProfile={handleEditUserProfile} />
     </div>
   );
 };
