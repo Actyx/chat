@@ -13,19 +13,13 @@ export const signUp = (
   displayName: string,
   email: Email,
   usersEmails: UsersEmails
-): Readonly<{
-  success: boolean;
-  userUUID?: UserUUID;
-}> => {
+): UserUUID | undefined => {
   const canSignUp = isUserEmailRegistered(email, usersEmails) === false;
   let userUUID = mkUserUUID();
   if (canSignUp) {
     sendUserAddedEventToPond(pond, userUUID, displayName, email);
   }
-  return {
-    success: canSignUp,
-    userUUID: canSignUp ? userUUID : undefined,
-  };
+  return canSignUp ? userUUID : undefined;
 };
 
 const isUserEmailRegistered = (

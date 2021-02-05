@@ -28,19 +28,14 @@ export const AuthenticationContainer: FC<Props> = ({
   const [userUUID, setUserUUID] = React.useState<UserUUID>();
 
   const handleSignUp = (displayName: string, email: string) => {
-    const resultLogic = signUp(
+    const newUserUUID = signUp(
       pond,
       displayName,
       email,
       stateUsersCatalogFish.emails
     );
-    if (resultLogic.success) {
-      setIsSignUpSuccess(true);
-      setUserUUID(resultLogic.userUUID);
-    } else {
-      setIsSignUpSuccess(false);
-      setUserUUID(undefined);
-    }
+    setIsSignUpSuccess(newUserUUID ? true : false);
+    setUserUUID(newUserUUID);
   };
 
   const handleSignIn = (userUUID: UserUUID) => {
