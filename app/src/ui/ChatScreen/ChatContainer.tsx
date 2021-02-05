@@ -1,10 +1,17 @@
 import { Pond } from '@actyx/pond';
 import React, { FC, useContext } from 'react';
-import { getDisplayForFromUserUUID } from '../../business-logic/users-catalog-fish/logic';
+import {
+  editUserProfile,
+  getDisplayForFromUserUUID,
+} from '../../business-logic/users-catalog-fish/logic';
 import { UsersCatalogFishState } from '../../business-logic/users-catalog-fish/types';
+import { closeSectionRight } from '../ui-state-manager/actions';
 import { SectionRight } from '../ui-state-manager/types';
-import { StateContextUI } from '../ui-state-manager/UIStateManager';
-import { UserProfileContainer } from '../UserProfile/UserProfileContainer';
+import {
+  DispatchContextUI,
+  StateContextUI,
+} from '../ui-state-manager/UIStateManager';
+import { UserProfileDetails } from '../UserProfileDetails/UserProfileDetails';
 import { TopBar } from './TopBar';
 
 type Props = Readonly<{
@@ -13,12 +20,26 @@ type Props = Readonly<{
 }>;
 
 export const ChatContainer: FC<Props> = ({ pond, stateUsersCatalogFish }) => {
+  const dispatch = useContext(DispatchContextUI);
+
   const stateUI = useContext(StateContextUI);
 
   const userDisplayName = getDisplayForFromUserUUID(
     stateUI.signedInUser,
     stateUsersCatalogFish.users
   );
+
+  const handleEditUserProfile = async (displayName: string) => {
+    const resultEditUser = await editUserProfile(
+      pond,
+      stateUsersCatalogFish.users,
+      stateUI.signedInUser,
+      displayName
+    );
+    if (resultEditUser === true) {
+      dispatch(closeSectionRight());
+    }
+  };
 
   return (
     <div>
@@ -27,10 +48,7 @@ export const ChatContainer: FC<Props> = ({ pond, stateUsersCatalogFish }) => {
       <div>center - channel messages here</div>
       <div>
         {stateUI.sectionRight === SectionRight.UserProfileEdit && (
-          <UserProfileContainer
-            pond={pond}
-            stateUsersCatalogFish={stateUsersCatalogFish}
-          />
+          <UserProfileDetails editUserProfile={handleEditUserProfile} />
         )}
       </div>
     </div>
