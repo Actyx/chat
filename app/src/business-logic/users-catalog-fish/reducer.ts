@@ -41,14 +41,14 @@ const userAdded = (
       email,
     },
   };
-  const usersEmails = {
-    ...state.usersEmails,
+  const emails = {
+    ...state.emails,
     [email]: null,
   };
 
   return {
     users,
-    usersEmails,
+    emails,
   };
 };
 

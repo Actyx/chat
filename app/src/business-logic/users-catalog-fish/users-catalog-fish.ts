@@ -9,7 +9,7 @@ const tags = {
 
 const initialState: UsersCatalogFishState = {
   users: {},
-  usersEmails: {},
+  emails: {},
 };
 
 const fish: Fish<UsersCatalogFishState, UserCatalogFishEvent> = {

@@ -24,7 +24,7 @@ export const AuthenticationContainer: FC<Props> = ({ pond, fishState }) => {
   ] = React.useState<UserUniqueIdentifier>();
 
   const handleSignUp = (displayName: string, email: string) => {
-    const resultLogic = signUp(pond, displayName, email, fishState.usersEmails);
+    const resultLogic = signUp(pond, displayName, email, fishState.emails);
     if (resultLogic.success) {
       setIsSignUpSuccess(true);
       setUserUniqueIdentifier(resultLogic.userUniqueIdentifier);

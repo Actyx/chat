@@ -51,7 +51,7 @@ export type Users = Record<UserUniqueIdentifier, UserProfile>;
 
 export type UsersCatalogFishState = Readonly<{
   users: Users;
-  usersEmails: UsersEmails;
+  emails: UsersEmails;
 }>;
 
 //#endregion
