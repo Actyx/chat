@@ -1,9 +1,17 @@
 import React, { FC } from 'react';
-import { Action, ActionType, Dispatcher, Screens, StateUI } from './types';
+import {
+  Action,
+  ActionType,
+  Dispatcher,
+  Screens,
+  SectionRight,
+  StateUI,
+} from './types';
 
 export const inititialState: StateUI = {
   screen: Screens.Authentication,
   signedInUser: '',
+  sectionRight: SectionRight.Closed,
 };
 
 export const reducer = (state: StateUI, action: Action): StateUI => {
@@ -17,6 +25,11 @@ export const reducer = (state: StateUI, action: Action): StateUI => {
       return {
         ...state,
         signedInUser: action.payload.signedInUser,
+      };
+    case ActionType.EditSectionRight:
+      return {
+        ...state,
+        sectionRight: action.payload.section,
       };
     default:
       return state;

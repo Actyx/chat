@@ -8,9 +8,15 @@ export enum Screens {
   Chat = 'Chat',
 }
 
+export enum SectionRight {
+  Closed = 'Closed',
+  UserProfileEdit = ' UserProfileEdit',
+}
+
 export type StateUI = Readonly<{
   screen: Screens;
   signedInUser: UserUUID;
+  sectionRight: SectionRight;
 }>;
 
 //#endregion
@@ -20,6 +26,7 @@ export type StateUI = Readonly<{
 export enum ActionType {
   EditScreen = 'EditScreen',
   AddSignedInUser = 'AddSignedInUser',
+  EditSectionRight = 'EditSectionRight',
 }
 
 export type EditScreenAction = Readonly<{
@@ -36,7 +43,14 @@ export type AddSignedInUser = Readonly<{
   };
 }>;
 
-export type Action = EditScreenAction | AddSignedInUser;
+export type EditSectionRight = Readonly<{
+  type: ActionType.EditSectionRight;
+  payload: {
+    section: SectionRight.UserProfileEdit;
+  };
+}>;
+
+export type Action = EditScreenAction | AddSignedInUser | EditSectionRight;
 
 export type Dispatcher = Dispatch<Action>;
 

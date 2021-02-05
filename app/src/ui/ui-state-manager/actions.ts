@@ -3,7 +3,9 @@ import {
   ActionType,
   AddSignedInUser,
   EditScreenAction,
+  EditSectionRight,
   Screens,
+  SectionRight,
 } from './types';
 
 export const goToScreenChat = (): EditScreenAction => ({
@@ -13,11 +15,16 @@ export const goToScreenChat = (): EditScreenAction => ({
   },
 });
 
-export const addSignedInUser = (
-  signedInUser: UserUUID
-): AddSignedInUser => ({
+export const addSignedInUser = (signedInUser: UserUUID): AddSignedInUser => ({
   type: ActionType.AddSignedInUser,
   payload: {
     signedInUser,
+  },
+});
+
+export const openSectionUserProfile = (): EditSectionRight => ({
+  type: ActionType.EditSectionRight,
+  payload: {
+    section: SectionRight.UserProfileEdit,
   },
 });
