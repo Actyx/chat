@@ -30,13 +30,13 @@ export const ChatContainer: FC<Props> = ({ pond, stateUsersCatalogFish }) => {
   );
 
   const handleEditUserProfile = async (displayName: string) => {
-    const resultEditUser = await editUserProfile(
+    const isUserProfileEdited = await editUserProfile(
       pond,
       stateUsersCatalogFish.users,
       stateUI.signedInUser,
       displayName
     );
-    if (resultEditUser === true) {
+    if (isUserProfileEdited === true) {
       dispatch(closeSectionRight());
     }
   };
