@@ -16,8 +16,8 @@ export const signUp = (
 ): Promise<UserUUID | undefined> => {
   return new Promise((res) => {
     const canSignUp = isUserEmailRegistered(email, usersEmails) === false;
-    let userUUID = mkUserUUID();
     if (canSignUp) {
+      let userUUID = mkUserUUID();
       sendUserAddedEventToPond(pond, userUUID, displayName, email);
       res(userUUID);
     } else {
