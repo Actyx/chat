@@ -2,7 +2,7 @@ import { Pond } from '@actyx/pond';
 import React, { FC, useContext } from 'react';
 import {
   editUserProfile,
-  getDisplayForFromUserUUID,
+  getDisplayNameByUserUUID,
 } from '../../business-logic/users-catalog-fish/logic';
 import { UsersCatalogFishState } from '../../business-logic/users-catalog-fish/types';
 import { closeSectionRight } from '../ui-state-manager/actions';
@@ -24,7 +24,7 @@ export const ChatContainer: FC<Props> = ({ pond, stateUsersCatalogFish }) => {
 
   const stateUI = useContext(StateContextUI);
 
-  const userDisplayName = getDisplayForFromUserUUID(
+  const userDisplayName = getDisplayNameByUserUUID(
     stateUI.signedInUser,
     stateUsersCatalogFish.users
   );

@@ -58,7 +58,7 @@ export const signIn = (userUUID: UserUUID, users: Users): boolean => {
 
 //#region User profile edit
 
-export const getDisplayForFromUserUUID = (
+export const getDisplayNameByUserUUID = (
   userUUID: UserUUID,
   users: Users
 ): string | undefined => users[userUUID].displayName;
