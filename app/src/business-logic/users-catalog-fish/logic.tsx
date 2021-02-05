@@ -13,13 +13,17 @@ export const signUp = (
   displayName: string,
   email: Email,
   usersEmails: UsersEmails
-): UserUUID | undefined => {
-  const canSignUp = isUserEmailRegistered(email, usersEmails) === false;
-  let userUUID = mkUserUUID();
-  if (canSignUp) {
-    sendUserAddedEventToPond(pond, userUUID, displayName, email);
-  }
-  return canSignUp ? userUUID : undefined;
+): Promise<UserUUID | undefined> => {
+  return new Promise((res) => {
+    const canSignUp = isUserEmailRegistered(email, usersEmails) === false;
+    let userUUID = mkUserUUID();
+    if (canSignUp) {
+      sendUserAddedEventToPond(pond, userUUID, displayName, email);
+      res(userUUID);
+    } else {
+      res(undefined);
+    }
+  });
 };
 
 const isUserEmailRegistered = (

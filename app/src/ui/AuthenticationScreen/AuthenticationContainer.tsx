@@ -27,8 +27,8 @@ export const AuthenticationContainer: FC<Props> = ({
 
   const [userUUID, setUserUUID] = React.useState<UserUUID>();
 
-  const handleSignUp = (displayName: string, email: string) => {
-    const newUserUUID = signUp(
+  const handleSignUp = async (displayName: string, email: string) => {
+    const newUserUUID = await signUp(
       pond,
       displayName,
       email,
