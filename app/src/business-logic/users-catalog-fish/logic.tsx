@@ -47,14 +47,12 @@ const isUserUniqueIdentifierRegistered = (
 export const signIn = (
   userUniqueIdentifier: UserUniqueIdentifier,
   users: Users
-): Readonly<{ success: boolean }> => {
+): boolean => {
   const canSignIn = isUserUniqueIdentifierRegistered(
     userUniqueIdentifier,
     users
   );
-  return {
-    success: canSignIn,
-  };
+  return canSignIn;
 };
 
 //#endregion
