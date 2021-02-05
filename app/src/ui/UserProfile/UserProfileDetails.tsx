@@ -1,34 +1,27 @@
 import React, { FC } from 'react';
-import { UserUniqueIdentifier } from '../../business-logic/users-catalog-fish/types';
+import { UserUUID } from '../../business-logic/users-catalog-fish/types';
 
 type Props = Readonly<{
   isEditProfileSuccess?: boolean;
-  editUserProfile: (
-    userUniqueIdentifier: UserUniqueIdentifier,
-    displayName: string
-  ) => void;
+  editUserProfile: (userUUID: UserUUID, displayName: string) => void;
 }>;
 
 export const UserProfileDetails: FC<Props> = ({
   isEditProfileSuccess,
   editUserProfile,
 }) => {
-  const [
-    userUniqueIdentifier,
-    setUserUniqueIdentifier,
-  ] = React.useState<UserUniqueIdentifier>('');
+  const [userUUID, setUserUUID] = React.useState<UserUUID>('');
 
   const [displayName, setDisplayName] = React.useState<string>('');
 
-  const handleChangeUserUniqueIdentifier = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => setUserUniqueIdentifier(e.target.value);
+  const handleChangeUserUUID = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setUserUUID(e.target.value);
 
   const handleChangeDisplayName = (e: React.ChangeEvent<HTMLInputElement>) =>
     setDisplayName(e.target.value);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    editUserProfile(userUniqueIdentifier, displayName);
+    editUserProfile(userUUID, displayName);
     e.preventDefault();
   };
 
@@ -36,12 +29,12 @@ export const UserProfileDetails: FC<Props> = ({
     <div>
       <h2>Edit user profile </h2>
       <form onSubmit={handleSubmit}>
-        <label>userUniqueIdentifier:</label>
+        <label>userUUID:</label>
         <input
           type="text"
           required
-          value={userUniqueIdentifier}
-          onChange={handleChangeUserUniqueIdentifier}
+          value={userUUID}
+          onChange={handleChangeUserUUID}
         />
         <br />
         <label>displayName:</label>

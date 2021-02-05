@@ -1,6 +1,6 @@
 import { Pond } from '@actyx/pond';
 import React, { FC, useContext } from 'react';
-import { getDisplayForFromUserUniqueIdentifier } from '../../business-logic/users-catalog-fish/logic';
+import { getDisplayForFromUserUUID } from '../../business-logic/users-catalog-fish/logic';
 import { UsersCatalogFishState } from '../../business-logic/users-catalog-fish/types';
 import { StateContextUI } from '../ui-state-manager/UIStateManager';
 import { TopBar } from './TopBar';
@@ -12,7 +12,7 @@ type Props = Readonly<{
 
 export const ChatContainer: FC<Props> = ({ pond, stateUsersCatalogFish }) => {
   const stateUI = useContext(StateContextUI);
-  const userDisplayName = getDisplayForFromUserUniqueIdentifier(
+  const userDisplayName = getDisplayForFromUserUUID(
     stateUI.signedInUser,
     stateUsersCatalogFish.users
   );

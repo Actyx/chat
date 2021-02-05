@@ -2,7 +2,7 @@ import React, { FC, useContext } from 'react';
 import { Pond } from '@actyx/pond';
 import {
   UsersCatalogFishState,
-  UserUniqueIdentifier,
+  UserUUID,
 } from '../../business-logic/users-catalog-fish/types';
 import { signUp, signIn } from '../../business-logic/users-catalog-fish/logic';
 import { SignUp } from './SignUp';
@@ -25,10 +25,7 @@ export const AuthenticationContainer: FC<Props> = ({
 
   const [isSignInSuccess, setIsSignInSuccess] = React.useState<boolean>();
 
-  const [
-    userUniqueIdentifier,
-    setUserUniqueIdentifier,
-  ] = React.useState<UserUniqueIdentifier>();
+  const [userUUID, setUserUUID] = React.useState<UserUUID>();
 
   const handleSignUp = (displayName: string, email: string) => {
     const resultLogic = signUp(
@@ -39,21 +36,18 @@ export const AuthenticationContainer: FC<Props> = ({
     );
     if (resultLogic.success) {
       setIsSignUpSuccess(true);
-      setUserUniqueIdentifier(resultLogic.userUniqueIdentifier);
+      setUserUUID(resultLogic.userUUID);
     } else {
       setIsSignUpSuccess(false);
-      setUserUniqueIdentifier(undefined);
+      setUserUUID(undefined);
     }
   };
 
-  const handleSignIn = (userUniqueIdentifier: UserUniqueIdentifier) => {
-    const resultLogic = signIn(
-      userUniqueIdentifier,
-      stateUsersCatalogFish.users
-    );
+  const handleSignIn = (userUUID: UserUUID) => {
+    const resultLogic = signIn(userUUID, stateUsersCatalogFish.users);
     setIsSignInSuccess(resultLogic);
     if (resultLogic) {
-      dispatch(addSignedInUser(userUniqueIdentifier));
+      dispatch(addSignedInUser(userUUID));
     }
   };
 
@@ -64,7 +58,7 @@ export const AuthenticationContainer: FC<Props> = ({
       <SignUp
         signUp={handleSignUp}
         isSignUpSuccess={isSignUpSuccess}
-        userUniqueIdentifier={userUniqueIdentifier}
+        userUUID={userUUID}
       />
       <SignIn
         isSignInSuccess={isSignInSuccess}

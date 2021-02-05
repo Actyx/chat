@@ -2,7 +2,7 @@ import {
   sendUserAddedEventToPond,
   sendUserProfileEditedEventToPond,
 } from './events';
-import { Email, Users, UsersEmails, UserUniqueIdentifier } from './types';
+import { Email, Users, UsersEmails, UserUUID } from './types';
 import { v4 as uuid } from 'uuid';
 import { Pond } from '@actyx/pond';
 
@@ -15,16 +15,16 @@ export const signUp = (
   usersEmails: UsersEmails
 ): Readonly<{
   success: boolean;
-  userUniqueIdentifier?: UserUniqueIdentifier;
+  userUUID?: UserUUID;
 }> => {
   const canSignUp = isUserEmailRegistered(email, usersEmails) === false;
-  let userUniqueIdentifier = mkUserUniqueIdentifier();
+  let userUUID = mkUserUUID();
   if (canSignUp) {
-    sendUserAddedEventToPond(pond, userUniqueIdentifier, displayName, email);
+    sendUserAddedEventToPond(pond, userUUID, displayName, email);
   }
   return {
     success: canSignUp,
-    userUniqueIdentifier: canSignUp ? userUniqueIdentifier : undefined,
+    userUUID: canSignUp ? userUUID : undefined,
   };
 };
 
@@ -33,25 +33,17 @@ const isUserEmailRegistered = (
   usersEmails: UsersEmails
 ): boolean => email in usersEmails;
 
-const mkUserUniqueIdentifier = (): UserUniqueIdentifier => uuid();
+const mkUserUUID = (): UserUUID => uuid();
 
 //#endregion
 
 //#region Sign-in
 
-const isUserUniqueIdentifierRegistered = (
-  userUniqueIdentifier: UserUniqueIdentifier,
-  users: Users
-): boolean => userUniqueIdentifier in users;
+const isUserUUIDRegistered = (userUUID: UserUUID, users: Users): boolean =>
+  userUUID in users;
 
-export const signIn = (
-  userUniqueIdentifier: UserUniqueIdentifier,
-  users: Users
-): boolean => {
-  const canSignIn = isUserUniqueIdentifierRegistered(
-    userUniqueIdentifier,
-    users
-  );
+export const signIn = (userUUID: UserUUID, users: Users): boolean => {
+  const canSignIn = isUserUUIDRegistered(userUUID, users);
   return canSignIn;
 };
 
@@ -59,10 +51,10 @@ export const signIn = (
 
 //#region User profile edit
 
-export const getDisplayForFromUserUniqueIdentifier = (
-  userUniqueIdentifier: UserUniqueIdentifier,
+export const getDisplayForFromUserUUID = (
+  userUUID: UserUUID,
   users: Users
-): string | undefined => users[userUniqueIdentifier].displayName;
+): string | undefined => users[userUUID].displayName;
 
 const sanitizeDisplayName = (displayName: string) => displayName.trim();
 
@@ -71,18 +63,15 @@ const isDisplayNameEmpty = (displayName: string) => displayName.length === 0;
 export const editUserProfile = (
   pond: Pond,
   users: Users,
-  userUniqueIdentifier: UserUniqueIdentifier,
+  userUUID: UserUUID,
   displayName: string
 ): boolean => {
-  const isUserRegistered = isUserUniqueIdentifierRegistered(
-    userUniqueIdentifier,
-    users
-  );
+  const isUserRegistered = isUserUUIDRegistered(userUUID, users);
   const sanitized = sanitizeDisplayName(displayName);
   const isNotEmpty = isDisplayNameEmpty(sanitized) === false;
   const canEditUserProfile = isUserRegistered && isNotEmpty;
   if (canEditUserProfile) {
-    sendUserProfileEditedEventToPond(pond, userUniqueIdentifier, sanitized);
+    sendUserProfileEditedEventToPond(pond, userUUID, sanitized);
   }
   return canEditUserProfile;
 };

@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
-import { UserUniqueIdentifier } from '../../business-logic/users-catalog-fish/types';
+import { UserUUID } from '../../business-logic/users-catalog-fish/types';
 
 type Props = Readonly<{
   isSignInSuccess?: boolean;
-  signIn: (userUniqueIdentifier: UserUniqueIdentifier) => void;
+  signIn: (userUUID: UserUUID) => void;
   goToChangeScreen: () => void;
 }>;
 
@@ -12,17 +12,13 @@ export const SignIn: FC<Props> = ({
   signIn,
   goToChangeScreen,
 }) => {
-  const [
-    userUniqueIdentifier,
-    setUserUniqueIdentifier,
-  ] = React.useState<UserUniqueIdentifier>('');
+  const [userUUID, setUserUUID] = React.useState<UserUUID>('');
 
-  const handleChangeUserUniqueIdentifier = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => setUserUniqueIdentifier(e.target.value);
+  const handleChangeUserUUID = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setUserUUID(e.target.value);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    signIn(userUniqueIdentifier);
+    signIn(userUUID);
     e.preventDefault();
   };
 
@@ -36,8 +32,8 @@ export const SignIn: FC<Props> = ({
         <input
           type="text"
           required
-          value={userUniqueIdentifier}
-          onChange={handleChangeUserUniqueIdentifier}
+          value={userUUID}
+          onChange={handleChangeUserUUID}
         />
         <br />
         <input type="submit" value="Sign-in" />

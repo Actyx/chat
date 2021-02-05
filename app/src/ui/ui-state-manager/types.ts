@@ -1,5 +1,5 @@
 import { Dispatch } from 'react';
-import { UserUniqueIdentifier } from '../../business-logic/users-catalog-fish/types';
+import { UserUUID } from '../../business-logic/users-catalog-fish/types';
 
 //#region UI State
 
@@ -10,7 +10,7 @@ export enum Screens {
 
 export type StateUI = Readonly<{
   screen: Screens;
-  signedInUser: UserUniqueIdentifier;
+  signedInUser: UserUUID;
 }>;
 
 //#endregion
@@ -32,7 +32,7 @@ export type EditScreenAction = Readonly<{
 export type AddSignedInUser = Readonly<{
   type: ActionType.AddSignedInUser;
   payload: {
-    signedInUser: UserUniqueIdentifier;
+    signedInUser: UserUUID;
   };
 }>;
 

@@ -3,32 +3,32 @@ import {
   UserAddedEvent,
   UserProfileEditedEvent,
   UsersCatalogFishEventType,
-  UserUniqueIdentifier,
+  UserUUID,
 } from './types';
 import { UsersCatalogFish } from './users-catalog-fish';
 
 //#region Make events
 
 export const mkUserAddedEvent = (
-  userUniqueIdentifier: UserUniqueIdentifier,
+  userUUID: UserUUID,
   displayName: string,
   email: string
 ): UserAddedEvent => ({
   type: UsersCatalogFishEventType.UserAdded,
   payload: {
-    userUniqueIdentifier,
+    userUUID,
     displayName,
     email,
   },
 });
 
 export const mkUserProfileEditedEvent = (
-  userUniqueIdentifier: UserUniqueIdentifier,
+  userUUID: UserUUID,
   displayName: string
 ): UserProfileEditedEvent => ({
   type: UsersCatalogFishEventType.UserProfileEdited,
   payload: {
-    userUniqueIdentifier,
+    userUUID,
     displayName,
   },
 });
@@ -39,24 +39,24 @@ export const mkUserProfileEditedEvent = (
 
 export const sendUserAddedEventToPond = (
   pond: Pond,
-  userUniqueIdentifier: UserUniqueIdentifier,
+  userUUID: UserUUID,
   displayName: string,
   email: string
 ): void => {
   const tags = UsersCatalogFish.tags.user
     .and(UsersCatalogFish.tags.usersCatalog)
-    .and(UsersCatalogFish.tags.user.withId(userUniqueIdentifier));
-  const event = mkUserAddedEvent(userUniqueIdentifier, displayName, email);
+    .and(UsersCatalogFish.tags.user.withId(userUUID));
+  const event = mkUserAddedEvent(userUUID, displayName, email);
   pond.emit(tags, event);
 };
 
 export const sendUserProfileEditedEventToPond = (
   pond: Pond,
-  userUniqueIdentifier: UserUniqueIdentifier,
+  userUUID: UserUUID,
   displayName: string
 ): void => {
-  const tags = UsersCatalogFish.tags.user.withId(userUniqueIdentifier);
-  const event = mkUserProfileEditedEvent(userUniqueIdentifier, displayName);
+  const tags = UsersCatalogFish.tags.user.withId(userUUID);
+  const event = mkUserProfileEditedEvent(userUUID, displayName);
   pond.emit(tags, event);
 };
 

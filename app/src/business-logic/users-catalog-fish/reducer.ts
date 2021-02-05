@@ -29,13 +29,13 @@ const userAdded = (
   meta: Metadata
 ): UsersCatalogFishState => {
   const {
-    payload: { userUniqueIdentifier, displayName, email },
+    payload: { userUUID, displayName, email },
   } = event;
   console.debug(meta);
   const users = {
     ...state.users,
-    [userUniqueIdentifier]: {
-      userUniqueIdentifier,
+    [userUUID]: {
+      userUUID,
       createdOn: meta.timestampMicros,
       displayName,
       email,
@@ -58,12 +58,12 @@ const userProfileEdited = (
   meta: Metadata
 ): UsersCatalogFishState => {
   const {
-    payload: { userUniqueIdentifier, displayName },
+    payload: { userUUID, displayName },
   } = event;
   const users = {
     ...state.users,
-    [userUniqueIdentifier]: {
-      ...state.users[userUniqueIdentifier],
+    [userUUID]: {
+      ...state.users[userUUID],
       displayName,
       editedOn: meta.timestampMicros,
     },

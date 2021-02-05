@@ -2,12 +2,12 @@ import { Timestamp } from '@actyx/pond';
 
 //#region General
 
-export type UserUniqueIdentifier = string;
+export type UserUUID = string;
 
 export type Email = string;
 
 export type UserProfile = Readonly<{
-  userUniqueIdentifier: UserUniqueIdentifier;
+  userUUID: UserUUID;
   createdOn: Timestamp;
   editedOn?: Timestamp;
   displayName: string;
@@ -26,7 +26,7 @@ export enum UsersCatalogFishEventType {
 export type UserAddedEvent = {
   type: UsersCatalogFishEventType.UserAdded;
   payload: {
-    userUniqueIdentifier: UserUniqueIdentifier;
+    userUUID: UserUUID;
     displayName: string;
     email: Email;
   };
@@ -35,7 +35,7 @@ export type UserAddedEvent = {
 export type UserProfileEditedEvent = {
   type: UsersCatalogFishEventType.UserProfileEdited;
   payload: {
-    userUniqueIdentifier: UserUniqueIdentifier;
+    userUUID: UserUUID;
     displayName: string;
   };
 };
@@ -47,7 +47,7 @@ export type UserCatalogFishEvent = UserAddedEvent | UserProfileEditedEvent;
 //#region State
 
 export type UsersEmails = Record<Email, null>;
-export type Users = Record<UserUniqueIdentifier, UserProfile>;
+export type Users = Record<UserUUID, UserProfile>;
 
 export type UsersCatalogFishState = Readonly<{
   users: Users;

@@ -1,17 +1,13 @@
 import React, { FC } from 'react';
-import { UserUniqueIdentifier } from '../../business-logic/users-catalog-fish/types';
+import { UserUUID } from '../../business-logic/users-catalog-fish/types';
 
 type Props = Readonly<{
   isSignUpSuccess?: boolean;
-  userUniqueIdentifier?: UserUniqueIdentifier;
+  userUUID?: UserUUID;
   signUp: (displayName: string, email: string) => void;
 }>;
 
-export const SignUp: FC<Props> = ({
-  isSignUpSuccess,
-  userUniqueIdentifier,
-  signUp,
-}) => {
+export const SignUp: FC<Props> = ({ isSignUpSuccess, userUUID, signUp }) => {
   const [name, setName] = React.useState('');
 
   const [email, setEmail] = React.useState('');
@@ -47,7 +43,7 @@ export const SignUp: FC<Props> = ({
         {isSignUpSuccess === undefined
           ? ''
           : isSignUpSuccess === true
-          ? `Sign-up success: your password is: ${userUniqueIdentifier}`
+          ? `Sign-up success: your password is: ${userUUID}`
           : 'Sign-up error: email is already registered'}
       </form>
     </div>

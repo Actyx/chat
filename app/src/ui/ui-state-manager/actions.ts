@@ -1,4 +1,4 @@
-import { UserUniqueIdentifier } from '../../business-logic/users-catalog-fish/types';
+import { UserUUID } from '../../business-logic/users-catalog-fish/types';
 import {
   ActionType,
   AddSignedInUser,
@@ -14,7 +14,7 @@ export const goToScreenChat = (): EditScreenAction => ({
 });
 
 export const addSignedInUser = (
-  signedInUser: UserUniqueIdentifier
+  signedInUser: UserUUID
 ): AddSignedInUser => ({
   type: ActionType.AddSignedInUser,
   payload: {

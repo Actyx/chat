@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import { editUserProfile } from '../../business-logic/users-catalog-fish/logic';
 import {
   UsersCatalogFishState,
-  UserUniqueIdentifier,
+  UserUUID,
 } from '../../business-logic/users-catalog-fish/types';
 import { UserProfileDetails } from './UserProfileDetails';
 
@@ -18,14 +18,11 @@ export const UserProfileContainer: FC<Props> = ({ pond, fishState }) => {
     setIsEditProfileSuccess,
   ] = React.useState<boolean>();
 
-  const handleSubmit = (
-    userUniqueIdentifier: UserUniqueIdentifier,
-    displayName: string
-  ) => {
+  const handleSubmit = (userUUID: UserUUID, displayName: string) => {
     const resultEditUser = editUserProfile(
       pond,
       fishState.users,
-      userUniqueIdentifier,
+      userUUID,
       displayName
     );
     setIsEditProfileSuccess(resultEditUser);
