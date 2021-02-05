@@ -1,7 +1,8 @@
 import {
   mkUserAddedEvent,
   mkUserAddedEventTags,
-  sendUserProfileEditedEventToPond,
+  mkUserProfileEditedEvent,
+  mkUserProfileEditedEventTags,
 } from './events';
 import { Email, Users, UsersEmails, UserUUID } from './types';
 import { v4 as uuid } from 'uuid';
@@ -71,15 +72,24 @@ export const editUserProfile = (
   users: Users,
   userUUID: UserUUID,
   displayName: string
-): boolean => {
-  const isUserRegistered = isUserUUIDRegistered(userUUID, users);
-  const sanitized = sanitizeDisplayName(displayName);
-  const isNotEmpty = isDisplayNameEmpty(sanitized) === false;
-  const canEditUserProfile = isUserRegistered && isNotEmpty;
-  if (canEditUserProfile) {
-    sendUserProfileEditedEventToPond(pond, userUUID, sanitized);
-  }
-  return canEditUserProfile;
+): Promise<boolean> => {
+  return new Promise((res) => {
+    const isUserRegistered = isUserUUIDRegistered(userUUID, users);
+    const sanitized = sanitizeDisplayName(displayName);
+    const isNotEmpty = isDisplayNameEmpty(sanitized) === false;
+    const canEditUserProfile = isUserRegistered && isNotEmpty;
+
+    if (canEditUserProfile) {
+      pond.run(UsersCatalogFish.fish, (_, enqueue) => {
+        const tags = mkUserProfileEditedEventTags(userUUID);
+        const event = mkUserProfileEditedEvent(userUUID, displayName);
+        enqueue(tags, event);
+        res(true);
+      });
+    } else {
+      res(false);
+    }
+  });
 };
 
 //#endregion

@@ -1,4 +1,3 @@
-import { Pond } from '@actyx/pond';
 import {
   UserAddedEvent,
   UserProfileEditedEvent,
@@ -44,14 +43,7 @@ export const mkUserProfileEditedEvent = (
 
 //#region Send events to Pond
 
-export const sendUserProfileEditedEventToPond = (
-  pond: Pond,
-  userUUID: UserUUID,
-  displayName: string
-): void => {
-  const tags = UsersCatalogFish.tags.user.withId(userUUID);
-  const event = mkUserProfileEditedEvent(userUUID, displayName);
-  pond.emit(tags, event);
-};
+export const mkUserProfileEditedEventTags = (userUUID: UserUUID) =>
+  UsersCatalogFish.tags.user.withId(userUUID);
 
 //#endregion

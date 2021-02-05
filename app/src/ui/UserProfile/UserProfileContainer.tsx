@@ -18,8 +18,8 @@ export const UserProfileContainer: FC<Props> = ({ pond, fishState }) => {
     setIsEditProfileSuccess,
   ] = React.useState<boolean>();
 
-  const handleSubmit = (userUUID: UserUUID, displayName: string) => {
-    const resultEditUser = editUserProfile(
+  const handleSubmit = async (userUUID: UserUUID, displayName: string) => {
+    const resultEditUser = await editUserProfile(
       pond,
       fishState.users,
       userUUID,
