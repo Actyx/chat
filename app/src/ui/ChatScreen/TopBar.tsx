@@ -16,7 +16,7 @@ export const TopBar: FC<Props> = ({ userDisplayName }) => {
     <div>
       <div>
         <strong>{userDisplayName ?? ''}</strong>{' '}
-        <span onClick={handleEditUserProfile}>(EDIT)</span>
+        <span onClick={handleEditUserProfile}>(click to EDIT)</span>
       </div>
     </div>
   );
