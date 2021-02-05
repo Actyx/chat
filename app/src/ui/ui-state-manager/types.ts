@@ -9,7 +9,7 @@ export enum Screens {
 }
 
 export enum SectionRight {
-  Closed = 'Closed',
+  None = 'None',
   UserProfileEdit = ' UserProfileEdit',
 }
 

@@ -32,6 +32,6 @@ export const openSectionRightUserEditProfile = (): EditSectionRight => ({
 export const closeSectionRight = (): EditSectionRight => ({
   type: ActionType.EditSectionRight,
   payload: {
-    section: SectionRight.Closed,
+    section: SectionRight.None,
   },
 });

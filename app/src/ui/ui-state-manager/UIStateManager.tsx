@@ -11,7 +11,7 @@ import {
 export const inititialState: StateUI = {
   screen: Screens.Authentication,
   signedInUser: '',
-  sectionRight: SectionRight.Closed,
+  sectionRight: SectionRight.None,
 };
 
 export const reducer = (state: StateUI, action: Action): StateUI => {
