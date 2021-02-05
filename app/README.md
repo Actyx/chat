@@ -1,4 +1,4 @@
-# Actyx interla chat
+# Actyx internal chat
 
 A simplified version of Slack for internal usage (POC) based on our technology.
 
@@ -46,3 +46,31 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+## Design
+
+Design conventions
+
+- Containers are only responsible for wiring UI with business logic, they accept the Fish state and a Pond instance when necessary, they are the only components that will receive a Pond instance
+- A Pond instance is passed only to a Container, so passing Pond down in the components tree and emitting events from there is not allowed
+- Only the business logic written in `logic.ts` can emit events to the Pond
+
+## Folder structure
+
+- src/business-logic: Contains all Fishes and related business logic
+
+- src/business-logic/example-fish/logic.ts: Contains business logic for a specific Fish, can emit events to the Pond
+
+- src/business-logic/example-fish/events.ts: Utility functions to create events and to send them to Pond, they do not contain any business logic
+
+- src/business-logic/example-fish/reducer.ts: The Fish reducer user in the `onEvent` function, the logic for each event type is written in separate functions
+
+- src/business-logic/example-fish/types.ts: All types related to a Fish, focusing on events, state, and tags
+
+- src/business-logic/example-fish/example-fish.ts: The actual Fish
+
+### src/ui
+
+Contains all UI React components, reusable components, and related utilities function.
+
+- src/ui/ExampleScreen: Each subfolder represents a main screen in the application
