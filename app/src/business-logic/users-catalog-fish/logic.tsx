@@ -68,7 +68,7 @@ export const editUserProfile = (
   users: Users,
   userUniqueIdentifier: UserUniqueIdentifier,
   displayName: string
-): Readonly<{ success: boolean; sanitizedDisplayName?: string }> => {
+): boolean => {
   const isUserRegistered = isUserUniqueIdentifierRegistered(
     userUniqueIdentifier,
     users
@@ -79,10 +79,7 @@ export const editUserProfile = (
   if (canEditUserProfile) {
     sendUserProfileEditedEventToPond(pond, userUniqueIdentifier, sanitized);
   }
-  return {
-    success: canEditUserProfile,
-    sanitizedDisplayName: canEditUserProfile ? sanitized : undefined,
-  };
+  return canEditUserProfile;
 };
 
 //#endregion

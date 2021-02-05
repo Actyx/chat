@@ -22,17 +22,13 @@ export const UserProfileContainer: FC<Props> = ({ pond, fishState }) => {
     userUniqueIdentifier: UserUniqueIdentifier,
     displayName: string
   ) => {
-    const resultEditUserProfile = editUserProfile(
+    const resultEditUser = editUserProfile(
       pond,
       fishState.users,
       userUniqueIdentifier,
       displayName
     );
-    if (resultEditUserProfile.success) {
-      setIsEditProfileSuccess(true);
-    } else {
-      setIsEditProfileSuccess(false);
-    }
+    setIsEditProfileSuccess(resultEditUser);
   };
 
   return (
