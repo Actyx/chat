@@ -1,5 +1,8 @@
 import { Timestamp } from '@actyx/pond';
-import { ReadOnlyArrayOneOrMore } from '../common/type';
+import {
+  ReadonlyArrayOfOne,
+  ReadonlyArrayOfOneOrMore,
+} from '../common/utility-types';
 
 type MessageId = string;
 
@@ -8,19 +11,27 @@ type ChannelId = string;
 type SenderId = string;
 
 type RecipientId = string;
-type RecipientsIds = ReadOnlyArrayOneOrMore<RecipientId>;
 
 type MediumId = string;
-type MediasIds = ReadOnlyArrayOneOrMore<MediumId>;
+type MediasIds = ReadonlyArrayOfOneOrMore<MediumId>;
 
-export type Message = Readonly<{
+export type BaseMessage = Readonly<{
   messageId: MessageId;
   createdOn: Timestamp;
   editedOn?: Timestamp;
   isHidden: boolean;
-  channel?: ChannelId;
   senderId: SenderId;
-  recipientsIds?: RecipientsIds;
   content: string;
   mediasIds?: MediasIds;
 }>;
+
+export type PrivateMessage = BaseMessage &
+  Readonly<{
+    recipientsIds: ReadonlyArrayOfOne<RecipientId>;
+  }>;
+
+export type PublicMessage = BaseMessage &
+  Readonly<{
+    channel: ChannelId;
+    recipientsIds?: ReadonlyArrayOfOneOrMore<RecipientId>;
+  }>;
