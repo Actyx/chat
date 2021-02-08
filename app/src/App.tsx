@@ -6,7 +6,7 @@ import { UIStateManager } from './ui/ui-state-manager/UIStateManager';
 import { ScreenRooter as ScreenRouter } from './ui/ScreenRouter/ScreenRouter';
 import { PondError } from './ui/PondError/PondError';
 import { ChannelFishState } from './business-logic/channel-fish/types';
-import { ChannelFish } from './business-logic/channel-fish/channel-catalog-fish';
+import { ChannelFish } from './business-logic/channel-fish/channel-fish';
 
 let pond: Pond | undefined;
 
@@ -26,8 +26,7 @@ export const App: FC = () => {
       pond = await Pond.default();
       pond.observe(UsersCatalogFish.fish, setStateUsersCatalogFish);
 
-      const channelMainFish = ChannelFish.factory('main');
-      pond.observe(channelMainFish, setStateChannelMainFish);
+      pond.observe(ChannelFish.mainFish, setStateChannelMainFish);
     };
     main();
   }, []);

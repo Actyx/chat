@@ -23,6 +23,6 @@ export const factory = (channelName: string) => {
 };
 
 export const ChannelFish = {
-  factory,
+  mainFish: factory('main'),
   tags,
 };
