@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
-import { ChannelFish } from '../../business-logic/channel-fish/channel-catalog-fish';
-import { Milliseconds } from '../../common/utility-types';
+import { Milliseconds } from '../../../common/utility-types';
 
 type MessageUI = Readonly<{
   messageId: string;

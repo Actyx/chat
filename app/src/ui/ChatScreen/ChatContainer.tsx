@@ -16,7 +16,8 @@ import {
   StateContextUI,
 } from '../ui-state-manager/UIStateManager';
 import { UserProfileDetails } from '../UserProfileDetails/UserProfileDetails';
-import { Channel, MessagesUI } from './Channel';
+import { Channel, MessagesUI } from './Channel/Channel';
+import { MessageInput } from './Channel/MessageInput';
 import { TopBar } from './TopBar';
 
 type Props = Readonly<{
@@ -60,6 +61,10 @@ export const ChatContainer: FC<Props> = ({
     }
   };
 
+  const handleSendMessage = (content: string) => {
+    window.alert(content);
+  };
+
   const messages = mapPublicMessagesToUI(stateChannelMainFish.messages);
 
   return (
@@ -68,6 +73,7 @@ export const ChatContainer: FC<Props> = ({
       <div>left - main side bar here</div>
       <div>
         <Channel messages={messages} />
+        <MessageInput sendMessage={handleSendMessage} />
       </div>
       <div>
         {stateUI.sectionRight === SectionRight.UserProfileEdit && (
