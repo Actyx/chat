@@ -1,5 +1,6 @@
 import { Pond } from '@actyx/pond';
 import React, { FC, useContext } from 'react';
+import { ChannelFishState } from '../../business-logic/channel-fish/types';
 import {
   editUserProfile,
   getDisplayNameByUserUUID,
@@ -17,9 +18,14 @@ import { TopBar } from './TopBar';
 type Props = Readonly<{
   pond: Pond;
   stateUsersCatalogFish: UsersCatalogFishState;
+  stateChannelMainFish: ChannelFishState;
 }>;
 
-export const ChatContainer: FC<Props> = ({ pond, stateUsersCatalogFish }) => {
+export const ChatContainer: FC<Props> = ({
+  pond,
+  stateUsersCatalogFish,
+  stateChannelMainFish,
+}) => {
   const dispatch = useContext(DispatchContextUI);
 
   const stateUI = useContext(StateContextUI);
@@ -45,7 +51,7 @@ export const ChatContainer: FC<Props> = ({ pond, stateUsersCatalogFish }) => {
     <div>
       <TopBar userDisplayName={userDisplayName ?? ''} />
       <div>left - main side bar here</div>
-      <div>center - channel messages here</div>
+      <div>{JSON.stringify(stateChannelMainFish)}</div>
       <div>
         {stateUI.sectionRight === SectionRight.UserProfileEdit && (
           <UserProfileDetails editUserProfile={handleEditUserProfile} />
