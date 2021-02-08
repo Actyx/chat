@@ -1,6 +1,9 @@
 import { Pond } from '@actyx/pond';
 import React, { FC, useContext } from 'react';
-import { ChannelFishState } from '../../business-logic/channel-fish/types';
+import {
+  ChannelFishState,
+  Messages,
+} from '../../business-logic/channel-fish/types';
 import {
   editUserProfile,
   getDisplayNameByUserUUID,
@@ -13,6 +16,7 @@ import {
   StateContextUI,
 } from '../ui-state-manager/UIStateManager';
 import { UserProfileDetails } from '../UserProfileDetails/UserProfileDetails';
+import { Channel, MessagesUI } from './Channel';
 import { TopBar } from './TopBar';
 
 type Props = Readonly<{
@@ -20,6 +24,15 @@ type Props = Readonly<{
   stateUsersCatalogFish: UsersCatalogFishState;
   stateChannelMainFish: ChannelFishState;
 }>;
+
+const mapPublicMessagesToUI = (messages: Messages): MessagesUI =>
+  messages.map((m) => ({
+    messageId: m.messageId,
+    timestamp: m.editedOn ? m.editedOn / 1_000_0000 : m.createdOn / 1_000_000,
+    senderDisplayName: 'test',
+    isHidden: m.isHidden,
+    content: m.content,
+  }));
 
 export const ChatContainer: FC<Props> = ({
   pond,
@@ -47,11 +60,15 @@ export const ChatContainer: FC<Props> = ({
     }
   };
 
+  const messages = mapPublicMessagesToUI(stateChannelMainFish.messages);
+
   return (
     <div>
       <TopBar userDisplayName={userDisplayName ?? ''} />
       <div>left - main side bar here</div>
-      <div>{JSON.stringify(stateChannelMainFish)}</div>
+      <div>
+        <Channel messages={messages} />
+      </div>
       <div>
         {stateUI.sectionRight === SectionRight.UserProfileEdit && (
           <UserProfileDetails editUserProfile={handleEditUserProfile} />

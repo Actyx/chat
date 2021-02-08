@@ -3,3 +3,5 @@ export type ReadonlyArrayOfOneOrMore<T> = {
 } & ReadonlyArray<T>;
 
 export type ReadonlyArrayOfOne<T> = readonly [T];
+
+export type Milliseconds = number;

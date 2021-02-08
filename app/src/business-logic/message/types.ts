@@ -2,7 +2,7 @@ import { Timestamp } from '@actyx/pond';
 import {
   ReadonlyArrayOfOne,
   ReadonlyArrayOfOneOrMore,
-} from '../common/utility-types';
+} from '../../common/utility-types';
 
 //#region Types
 
