@@ -41,10 +41,9 @@ export type PublicMessage = BaseMessage &
   }>;
 
 //#endregion
-
 //region Message Events
 
-enum MessageEventType {
+export enum MessageEventType {
   PrivateMessageAdded = 'PrivateMessageAdded',
   PublicMessageAdded = 'PublicMessageAdded',
   MessageHidden = 'MessageHidden',
@@ -55,12 +54,12 @@ enum MessageEventType {
 
 export type PrivateMessageAddedEvent = {
   type: MessageEventType.PrivateMessageAdded;
-  payload: Omit<PrivateMessage, 'editedOn' | 'isHidden'>;
+  payload: Omit<PrivateMessage, 'editedOn'>;
 };
 
 export type PublicMessageAddedEvent = {
   type: MessageEventType.PublicMessageAdded;
-  payload: Omit<PublicMessage, 'editedOn' | 'isHidden'>;
+  payload: Omit<PublicMessage, 'editedOn'>;
 };
 
 export type MessageHiddenEvent = {
