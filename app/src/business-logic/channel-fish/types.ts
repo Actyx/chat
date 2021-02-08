@@ -1,4 +1,4 @@
-import { PublicMessage } from './message-types';
+import { PublicMessage } from '../message/types';
 
 //#region State
 export type Messages = PublicMessage[];

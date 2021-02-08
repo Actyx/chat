@@ -1,6 +1,6 @@
 import { Fish, FishId, Tag } from '@actyx/pond';
 import { ChannelFishState } from './types';
-import { PublicMessageEvent } from './message-types';
+import { PublicMessageEvent } from '../message/types';
 import { reducer } from './reducer';
 
 const tags = {
