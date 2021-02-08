@@ -12,14 +12,17 @@ const initialState: ChannelFishState = {
   messages: [],
 };
 
-const fish: Fish<ChannelFishState, PublicMessageEvent> = {
-  fishId: FishId.of('com.chat.channel', 'channel', 0),
-  initialState,
-  onEvent: reducer,
-  where: tags.channel.withId('main'),
+export const factory = (channelName: string) => {
+  const fish: Fish<ChannelFishState, PublicMessageEvent> = {
+    fishId: FishId.of('com.chat.channel', 'channel', 0),
+    initialState,
+    onEvent: reducer,
+    where: tags.channel.withId(channelName),
+  };
+  return fish;
 };
 
 export const ChannelFish = {
-  fish,
+  factory,
   tags,
 };
