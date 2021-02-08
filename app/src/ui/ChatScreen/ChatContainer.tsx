@@ -20,6 +20,11 @@ type Props = Readonly<{
 }>;
 
 export const ChatContainer: FC<Props> = ({ pond, stateUsersCatalogFish }) => {
+  const [
+    erroPondUserEditProfile,
+    setErrorPondUserEditProfile,
+  ] = React.useState<string>();
+
   const dispatch = useContext(DispatchContextUI);
 
   const stateUI = useContext(StateContextUI);
@@ -30,19 +35,25 @@ export const ChatContainer: FC<Props> = ({ pond, stateUsersCatalogFish }) => {
   );
 
   const handleEditUserProfile = async (displayName: string) => {
-    const isUserProfileEdited = await editUserProfile(
-      pond,
-      stateUsersCatalogFish.users,
-      stateUI.signedInUser,
-      displayName
-    );
-    if (isUserProfileEdited === true) {
-      dispatch(closeSectionRight());
+    try {
+      const isUserProfileEdited = await editUserProfile(
+        pond,
+        stateUsersCatalogFish.users,
+        stateUI.signedInUser,
+        displayName
+      );
+      if (isUserProfileEdited === true) {
+        dispatch(closeSectionRight());
+        setErrorPondUserEditProfile(undefined);
+      }
+    } catch (err) {
+      setErrorPondUserEditProfile(err);
     }
   };
 
   return (
     <div>
+      {erroPondUserEditProfile}
       <TopBar userDisplayName={userDisplayName ?? ''} />
       <div>left - main side bar here</div>
       <div>center - channel messages here</div>

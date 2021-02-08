@@ -42,6 +42,7 @@ export const AuthenticationContainer: FC<Props> = ({
       );
       setIsSignUpSuccess(newUserUUID ? true : false);
       setUserUUID(newUserUUID);
+      setErrorPondSignUp(undefined);
     } catch (err) {
       setErrorPondSignUp(`Sorry an error occurred, please try later: ${err}`);
     }
