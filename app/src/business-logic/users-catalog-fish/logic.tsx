@@ -69,8 +69,7 @@ const sanitizeDisplayName = (displayName: string) => displayName.trim();
 
 const isDisplayNameEmpty = (displayName: string) => displayName.length === 0;
 
-export const editUserProfile = (
-  pond: Pond,
+export const editUserProfile = (pond: Pond) => (
   users: Users,
   userUUID: UserUUID,
   displayName: string

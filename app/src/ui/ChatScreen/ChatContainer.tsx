@@ -50,8 +50,7 @@ export const ChatContainer: FC<Props> = ({
   );
 
   const handleEditUserProfile = async (displayName: string) => {
-    const isUserProfileEdited = await editUserProfile(
-      pond,
+    const isUserProfileEdited = await editUserProfile(pond)(
       stateUsersCatalogFish.users,
       stateUI.signedInUser,
       displayName
