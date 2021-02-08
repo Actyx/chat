@@ -15,7 +15,7 @@ type RecipientId = string;
 type MediumId = string;
 type MediasIds = ReadonlyArrayOfOneOrMore<MediumId>;
 
-export type BaseMessage = Readonly<{
+type BaseMessage = Readonly<{
   messageId: MessageId;
   createdOn: Timestamp;
   editedOn?: Timestamp;
