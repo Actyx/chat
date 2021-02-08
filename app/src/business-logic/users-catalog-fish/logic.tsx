@@ -16,16 +16,19 @@ export const signUp = (pond: Pond) => (makerUUID: () => UserUUID) => (
   email: Email,
   usersEmails: UsersEmails
 ): Promise<UserUUID | undefined> => {
-  return new Promise((res) => {
+  return new Promise((res, rej) => {
     const canSignUp = isUserEmailRegistered(email, usersEmails) === false;
     if (canSignUp) {
       let userUUID = makerUUID();
-      pond.run(UsersCatalogFish.fish, (_, enqueue) => {
-        const event = mkUserAddedEvent(userUUID, displayName, email);
-        const tags = mkUserAddedEventTags(userUUID);
-        enqueue(tags, event);
-        res(userUUID);
-      });
+      pond
+        .run(UsersCatalogFish.fish, (_, enqueue) => {
+          const event = mkUserAddedEvent(userUUID, displayName, email);
+          const tags = mkUserAddedEventTags(userUUID);
+          enqueue(tags, event);
+        })
+        .toPromise()
+        .then(() => res(userUUID))
+        .catch(rej);
     } else {
       res(undefined);
     }

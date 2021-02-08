@@ -31,14 +31,20 @@ export const AuthenticationContainer: FC<Props> = ({
 
   const [userUUID, setUserUUID] = React.useState<UserUUID>();
 
+  const [pondError, setPondError] = React.useState<string>();
+
   const handleSignUp = async (displayName: string, email: string) => {
-    const newUserUUID = await signUp(pond)(mkUserUUID)(
-      displayName,
-      email,
-      stateUsersCatalogFish.emails
-    );
-    setIsSignUpSuccess(newUserUUID ? true : false);
-    setUserUUID(newUserUUID);
+    try {
+      const newUserUUID = await signUp(pond)(mkUserUUID)(
+        displayName,
+        email,
+        stateUsersCatalogFish.emails
+      );
+      setIsSignUpSuccess(newUserUUID ? true : false);
+      setUserUUID(newUserUUID);
+    } catch (err) {
+      setPondError(`Sorry an error occurred, please try later: ${err}`);
+    }
   };
 
   const handleSignIn = (userUUID: UserUUID) => {
@@ -53,6 +59,7 @@ export const AuthenticationContainer: FC<Props> = ({
 
   return (
     <div>
+      {pondError}
       <SignUp
         signUp={handleSignUp}
         isSignUpSuccess={isSignUpSuccess}
