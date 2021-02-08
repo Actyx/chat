@@ -19,7 +19,7 @@ export const signUp = (pond: Pond) => (makerUUID: () => UserUUID) => (
   return new Promise((res, rej) => {
     const canSignUp = isUserEmailRegistered(email, usersEmails) === false;
     if (canSignUp) {
-      let userUUID = makerUUID();
+      const userUUID = makerUUID();
       pond
         .run(UsersCatalogFish.fish, (_, enqueue) => {
           const event = mkUserAddedEvent(userUUID, displayName, email);
