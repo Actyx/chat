@@ -4,7 +4,11 @@ import {
   UsersCatalogFishState,
   UserUUID,
 } from '../../business-logic/users-catalog-fish/types';
-import { signUp, signIn } from '../../business-logic/users-catalog-fish/logic';
+import {
+  signUp,
+  signIn,
+  mkUserUUID,
+} from '../../business-logic/users-catalog-fish/logic';
 import { SignUp } from './SignUp';
 import { SignIn } from './SignIn';
 import { DispatchContextUI } from '../ui-state-manager/UIStateManager';
@@ -28,8 +32,7 @@ export const AuthenticationContainer: FC<Props> = ({
   const [userUUID, setUserUUID] = React.useState<UserUUID>();
 
   const handleSignUp = async (displayName: string, email: string) => {
-    const newUserUUID = await signUp(
-      pond,
+    const newUserUUID = await signUp(pond)(mkUserUUID)(
       displayName,
       email,
       stateUsersCatalogFish.emails

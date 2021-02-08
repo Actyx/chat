@@ -11,8 +11,7 @@ import { UsersCatalogFish } from './users-catalog-fish';
 
 //#region Sign-up
 
-export const signUp = (
-  pond: Pond,
+export const signUp = (pond: Pond) => (makerUUID: () => UserUUID) => (
   displayName: string,
   email: Email,
   usersEmails: UsersEmails
@@ -20,7 +19,7 @@ export const signUp = (
   return new Promise((res) => {
     const canSignUp = isUserEmailRegistered(email, usersEmails) === false;
     if (canSignUp) {
-      let userUUID = mkUserUUID();
+      let userUUID = makerUUID();
       pond.run(UsersCatalogFish.fish, (_, enqueue) => {
         const event = mkUserAddedEvent(userUUID, displayName, email);
         const tags = mkUserAddedEventTags(userUUID);
@@ -38,7 +37,7 @@ const isUserEmailRegistered = (
   usersEmails: UsersEmails
 ): boolean => email in usersEmails;
 
-const mkUserUUID = (): UserUUID => uuid();
+export const mkUserUUID = (): UserUUID => uuid();
 
 //#endregion
 
