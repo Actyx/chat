@@ -3,6 +3,7 @@ import {
   ReadonlyArrayOfOne,
   ReadonlyArrayOfOneOrMore,
 } from '../../common/utility-types';
+import { UserUUID } from '../users-catalog-fish/types';
 
 //#region Types
 
@@ -10,7 +11,7 @@ export type MessageId = string;
 
 export type ChannelId = string;
 
-export type SenderId = string;
+export type SenderId = UserUUID;
 
 type RecipientId = string;
 type PrivateRecipientsIds = ReadonlyArrayOfOne<RecipientId>;
