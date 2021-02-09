@@ -67,7 +67,7 @@ export type MessageHiddenEvent = {
   payload: {
     messageId: MessageId;
     editedOn: Timestamp;
-    isHidden: boolean;
+    isHidden: true;
   };
 };
 
