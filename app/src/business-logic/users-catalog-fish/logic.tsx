@@ -74,18 +74,21 @@ export const editUserProfile = (pond: Pond) => (
   userUUID: UserUUID,
   displayName: string
 ): Promise<boolean> => {
-  return new Promise((res) => {
+  return new Promise((res, rej) => {
     const isUserRegistered = isUserUUIDRegistered(userUUID, users);
     const sanitizedName = sanitizeDisplayName(displayName);
     const isNameNotEmpty = isDisplayNameEmpty(sanitizedName) === false;
     const canEditUserProfile = isUserRegistered && isNameNotEmpty;
     if (canEditUserProfile) {
-      pond.run(UsersCatalogFish.fish, (_, enqueue) => {
-        const tags = mkUserProfileEditedEventTags(userUUID);
-        const event = mkUserProfileEditedEvent(userUUID, displayName);
-        enqueue(tags, event);
-        res(true);
-      });
+      pond
+        .run(UsersCatalogFish.fish, (_, enqueue) => {
+          const tags = mkUserProfileEditedEventTags(userUUID);
+          const event = mkUserProfileEditedEvent(userUUID, displayName);
+          enqueue(tags, event);
+        })
+        .toPromise()
+        .then(() => res(true))
+        .catch(rej);
     } else {
       res(false);
     }
