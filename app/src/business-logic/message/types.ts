@@ -42,6 +42,7 @@ export type PublicMessage = BaseMessage &
   }>;
 
 //#endregion
+
 //region Message Events
 
 export enum MessageEventType {
@@ -53,15 +54,16 @@ export enum MessageEventType {
   MessageMediumEdited = 'MessageMediumEdited',
 }
 
+type PrivateMessageAddedEventPayload = Readonly<{
+  messageId: MessageId;
+  senderId: SenderId;
+  content: string;
+  mediasIds?: MediasIds;
+  recipientsIds: PrivateRecipientsIds;
+}>;
 export type PrivateMessageAddedEvent = {
   type: MessageEventType.PrivateMessageAdded;
-  payload: {
-    messageId: MessageId;
-    senderId: SenderId;
-    content: string;
-    mediasIds?: MediasIds;
-    recipientsIds: PrivateRecipientsIds;
-  };
+  payload: PrivateMessageAddedEventPayload;
 };
 
 export type PublicMessageAddedEventPaylod = Readonly<{
