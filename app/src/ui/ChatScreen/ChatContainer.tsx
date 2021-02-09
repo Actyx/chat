@@ -30,6 +30,9 @@ type Props = Readonly<{
   stateChannelMainFish: ChannelFishState;
 }>;
 
+const getVisiblePublicMessages = (messages: Messages) =>
+  messages.filter((x) => x.isHidden === false);
+
 const mapPublicMessagesToUI = (messages: Messages, users: Users): MessagesUI =>
   messages.map((m) => {
     const senderDisplayName =
@@ -87,8 +90,8 @@ export const ChatContainer: FC<Props> = ({
     }
   };
 
-  const messages = mapPublicMessagesToUI(
-    stateChannelMainFish.messages,
+  const messagesUI = mapPublicMessagesToUI(
+    getVisiblePublicMessages(stateChannelMainFish.messages),
     stateUsersCatalogFish.users
   );
 
@@ -98,7 +101,7 @@ export const ChatContainer: FC<Props> = ({
       <TopBar userDisplayName={userDisplayName ?? ''} />
       <div>left - main side bar here</div>
       <div>
-        <Channel messages={messages} />
+        <Channel messages={messagesUI} />
         <MessageInput sendMessage={handleSendMessage} />
       </div>
       <div>

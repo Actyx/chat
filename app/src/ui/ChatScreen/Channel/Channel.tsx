@@ -27,7 +27,7 @@ export const Channel: FC<Props> = ({ messages }) => {
           <br />
           senderDisplayName: {message.senderDisplayName}
           <br />
-          isHidden: {message.isHidden}
+          isHidden: {message.isHidden ? 'true' : 'false'}
           <br />
           content: {message.content}
           <br />
