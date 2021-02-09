@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { MAIN_CHANNEL } from '../../business-logic/channel-fish/channel-fish';
 import {
   Action,
   ActionType,
@@ -10,8 +11,9 @@ import {
 
 export const inititialState: StateUI = {
   screen: Screens.Authentication,
-  signedInUser: '',
+  signedInUserUUID: '',
   sectionRight: SectionRight.None,
+  activeChannelId: MAIN_CHANNEL,
 };
 
 export const reducer = (state: StateUI, action: Action): StateUI => {
@@ -24,7 +26,7 @@ export const reducer = (state: StateUI, action: Action): StateUI => {
     case ActionType.AddSignedInUser:
       return {
         ...state,
-        signedInUser: action.payload.signedInUser,
+        signedInUserUUID: action.payload.signedInUser,
       };
     case ActionType.EditSectionRight:
       return {

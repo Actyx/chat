@@ -1,4 +1,5 @@
 import { Dispatch } from 'react';
+import { ChannelId } from '../../business-logic/message/types';
 import { UserUUID } from '../../business-logic/users-catalog-fish/types';
 
 //#region UI State
@@ -15,8 +16,9 @@ export enum SectionRight {
 
 export type StateUI = Readonly<{
   screen: Screens;
-  signedInUser: UserUUID;
+  signedInUserUUID: UserUUID;
   sectionRight: SectionRight;
+  activeChannelId: ChannelId;
 }>;
 
 //#endregion

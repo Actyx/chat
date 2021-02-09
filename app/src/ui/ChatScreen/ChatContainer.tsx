@@ -1,6 +1,5 @@
 import { Pond } from '@actyx/pond';
 import React, { FC, useContext } from 'react';
-import { MAIN_CHANNEL } from '../../business-logic/channel-fish/channel-fish';
 import { sendMessageToChannel } from '../../business-logic/channel-fish/logic';
 import {
   ChannelFishState,
@@ -59,7 +58,7 @@ export const ChatContainer: FC<Props> = ({
   const [errorPond, setErrorPond] = React.useState<string>();
 
   const userDisplayName = getDisplayNameByUserUUID(
-    stateUI.signedInUser,
+    stateUI.signedInUserUUID,
     stateUsersCatalogFish.users
   );
 
@@ -67,7 +66,7 @@ export const ChatContainer: FC<Props> = ({
     try {
       const isUserProfileEdited = await editUserProfile(pond)(
         stateUsersCatalogFish.users,
-        stateUI.signedInUser,
+        stateUI.signedInUserUUID,
         displayName
       );
       if (isUserProfileEdited === true) {
@@ -81,7 +80,9 @@ export const ChatContainer: FC<Props> = ({
 
   const handleSendMessage = async (content: string) => {
     try {
-      await sendMessageToChannel(pond)(MAIN_CHANNEL)(stateUI.signedInUser)({
+      await sendMessageToChannel(pond)(stateUI.activeChannelId)(
+        stateUI.signedInUserUUID
+      )({
         content,
       });
       setErrorPond(undefined);
