@@ -1,5 +1,6 @@
 import { Pond } from '@actyx/pond';
 import React, { FC, useContext } from 'react';
+import { MAIN_CHANNEL } from '../../business-logic/channel-fish/channel-fish';
 import { sendMessageToChannel } from '../../business-logic/channel-fish/logic';
 import {
   ChannelFishState,
@@ -80,8 +81,7 @@ export const ChatContainer: FC<Props> = ({
 
   const handleSendMessage = async (content: string) => {
     try {
-      // TODO remove handcoded chat main
-      await sendMessageToChannel(pond)('main')(stateUI.signedInUser)({
+      await sendMessageToChannel(pond)(MAIN_CHANNEL)(stateUI.signedInUser)({
         content,
       });
       setErrorPond(undefined);

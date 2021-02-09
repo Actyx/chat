@@ -3,6 +3,8 @@ import { ChannelFishState } from './types';
 import { PublicMessageEvent } from '../message/types';
 import { reducer } from './reducer';
 
+export const MAIN_CHANNEL = 'main';
+
 const tags = {
   channel: Tag<PublicMessageEvent>('channel'),
   message: Tag<PublicMessageEvent>('message'),
@@ -24,6 +26,6 @@ export const factory = (channelName: string) => {
 };
 
 export const ChannelFish = {
-  mainFish: factory('main'),
+  mainFish: factory(MAIN_CHANNEL),
   tags,
 };
