@@ -52,29 +52,38 @@ export const ChatContainer: FC<Props> = ({
 
   const stateUI = useContext(StateContextUI);
 
+  const [errorPond, setErrorPond] = React.useState<string>();
+
   const userDisplayName = getDisplayNameByUserUUID(
     stateUI.signedInUser,
     stateUsersCatalogFish.users
   );
 
   const handleEditUserProfile = async (displayName: string) => {
-    const isUserProfileEdited = await editUserProfile(pond)(
-      stateUsersCatalogFish.users,
-      stateUI.signedInUser,
-      displayName
-    );
-    if (isUserProfileEdited === true) {
-      dispatch(closeSectionRight());
+    try {
+      const isUserProfileEdited = await editUserProfile(pond)(
+        stateUsersCatalogFish.users,
+        stateUI.signedInUser,
+        displayName
+      );
+      if (isUserProfileEdited === true) {
+        dispatch(closeSectionRight());
+      }
+      setErrorPond(undefined);
+    } catch (err) {
+      setErrorPond(err);
     }
   };
 
   const handleSendMessage = async (content: string) => {
     try {
-      const isMessagedSent = await sendMessageToChannel(pond)('main')(
-        stateUI.signedInUser
-      )({ content });
+      // TODO remove handcoded chat main
+      await sendMessageToChannel(pond)('main')(stateUI.signedInUser)({
+        content,
+      });
+      setErrorPond(undefined);
     } catch (err) {
-      console.error(err); // TODO show in UI instead
+      setErrorPond(err);
     }
   };
 
@@ -85,6 +94,7 @@ export const ChatContainer: FC<Props> = ({
 
   return (
     <div>
+      {errorPond}
       <TopBar userDisplayName={userDisplayName ?? ''} />
       <div>left - main side bar here</div>
       <div>
