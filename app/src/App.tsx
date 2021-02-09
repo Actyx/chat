@@ -24,8 +24,8 @@ export const App: FC = () => {
   React.useEffect(() => {
     const main = async () => {
       pond = await Pond.default();
-      pond.observe(UsersCatalogFish.fish, setStateUsersCatalogFish);
 
+      pond.observe(UsersCatalogFish.fish, setStateUsersCatalogFish);
       pond.observe(ChannelFish.mainFish, setStateChannelMainFish);
     };
     main();
