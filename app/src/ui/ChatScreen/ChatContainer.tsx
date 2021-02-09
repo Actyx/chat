@@ -9,7 +9,10 @@ import {
   editUserProfile,
   getDisplayNameByUserUUID,
 } from '../../business-logic/users-catalog-fish/logic';
-import { UsersCatalogFishState } from '../../business-logic/users-catalog-fish/types';
+import {
+  Users,
+  UsersCatalogFishState,
+} from '../../business-logic/users-catalog-fish/types';
 import { closeSectionRight } from '../ui-state-manager/actions';
 import { SectionRight } from '../ui-state-manager/types';
 import {
@@ -27,14 +30,18 @@ type Props = Readonly<{
   stateChannelMainFish: ChannelFishState;
 }>;
 
-const mapPublicMessagesToUI = (messages: Messages): MessagesUI =>
-  messages.map((m) => ({
-    messageId: m.messageId,
-    timestamp: m.editedOn ? m.editedOn / 1_000_0000 : m.createdOn / 1_000_000,
-    senderDisplayName: 'test',
-    isHidden: m.isHidden,
-    content: m.content,
-  }));
+const mapPublicMessagesToUI = (messages: Messages, users: Users): MessagesUI =>
+  messages.map((m) => {
+    const senderDisplayName =
+      getDisplayNameByUserUUID(m.senderId, users) ?? 'user not found';
+    return {
+      messageId: m.messageId,
+      timestamp: m.editedOn ? m.editedOn / 1_000_0000 : m.createdOn / 1_000_000,
+      senderDisplayName,
+      isHidden: m.isHidden,
+      content: m.content,
+    };
+  });
 
 export const ChatContainer: FC<Props> = ({
   pond,
@@ -71,7 +78,10 @@ export const ChatContainer: FC<Props> = ({
     }
   };
 
-  const messages = mapPublicMessagesToUI(stateChannelMainFish.messages);
+  const messages = mapPublicMessagesToUI(
+    stateChannelMainFish.messages,
+    stateUsersCatalogFish.users
+  );
 
   return (
     <div>
