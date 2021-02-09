@@ -1,6 +1,4 @@
-export type ReadonlyArrayOfOneOrMore<T> = {
-  0: T;
-} & ReadonlyArray<T>;
+export type ReadonlyArrayOfOneOrMore<T> = readonly [T, ...T[]];
 
 export type ReadonlyArrayOfOne<T> = readonly [T];
 
