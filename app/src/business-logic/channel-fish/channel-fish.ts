@@ -6,6 +6,7 @@ import { reducer } from './reducer';
 const tags = {
   channel: Tag<PublicMessageEvent>('channel'),
   message: Tag<PublicMessageEvent>('message'),
+  messageSender: Tag<PublicMessageEvent>('message-sender'),
 };
 
 const initialState: ChannelFishState = {
@@ -17,7 +18,7 @@ export const factory = (channelName: string) => {
     fishId: FishId.of('com.chat.channel', 'channel', 0),
     initialState,
     onEvent: reducer,
-    where: tags.channel.withId(channelName), // TODO add also message tag
+    where: tags.message.and(tags.channel.withId(channelName)),
   };
   return fish;
 };

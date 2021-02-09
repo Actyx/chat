@@ -3,6 +3,7 @@ import {
   MessageEventType,
   PublicMessageAddedEvent,
   PublicMessageAddedEventPaylod,
+  SenderId,
 } from '../message/types';
 import { ChannelFish } from './channel-fish';
 
@@ -13,9 +14,14 @@ export const mkPublicMessageAddedEvent = (
   payload,
 });
 
-export const mkPublicMessageAddedTags = (channelId: ChannelId) => {
+export const mkPublicMessageAddedTags = (
+  channelId: ChannelId,
+  senderId: SenderId
+) => {
   const tags = ChannelFish.tags.message.and(
-    ChannelFish.tags.channel.withId(channelId) // TODO improve tags
+    ChannelFish.tags.channel
+      .withId(channelId)
+      .and(ChannelFish.tags.messageSender.withId(senderId))
   );
   return tags;
 };

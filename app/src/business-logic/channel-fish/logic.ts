@@ -33,7 +33,7 @@ export const sendMessageToChannel = (pond: Pond) => (channelId: ChannelId) => (
           mediasIds,
           recipientsIds,
         });
-        const tags = mkPublicMessageAddedTags(channelId);
+        const tags = mkPublicMessageAddedTags(channelId, senderId);
         enqueue(tags, event);
       })
       .toPromise()

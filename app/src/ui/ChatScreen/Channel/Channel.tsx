@@ -31,6 +31,7 @@ export const Channel: FC<Props> = ({ messages }) => {
           <br />
           content: {message.content}
           <br />
+          <hr />
         </div>
       ))}
     </div>
