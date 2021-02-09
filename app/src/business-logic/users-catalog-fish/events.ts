@@ -1,34 +1,40 @@
-import { Pond } from '@actyx/pond';
 import {
   UserAddedEvent,
   UserProfileEditedEvent,
   UsersCatalogFishEventType,
-  UserUniqueIdentifier,
+  UserUUID,
 } from './types';
 import { UsersCatalogFish } from './users-catalog-fish';
 
 //#region Make events
 
 export const mkUserAddedEvent = (
-  userUniqueIdentifier: UserUniqueIdentifier,
+  userUUID: UserUUID,
   displayName: string,
   email: string
 ): UserAddedEvent => ({
   type: UsersCatalogFishEventType.UserAdded,
   payload: {
-    userUniqueIdentifier,
+    userUUID,
     displayName,
     email,
   },
 });
 
+export const mkUserAddedEventTags = (userUUID: UserUUID) => {
+  const tags = UsersCatalogFish.tags.user
+    .and(UsersCatalogFish.tags.usersCatalog)
+    .and(UsersCatalogFish.tags.user.withId(userUUID));
+  return tags;
+};
+
 export const mkUserProfileEditedEvent = (
-  userUniqueIdentifier: UserUniqueIdentifier,
+  userUUID: UserUUID,
   displayName: string
 ): UserProfileEditedEvent => ({
   type: UsersCatalogFishEventType.UserProfileEdited,
   payload: {
-    userUniqueIdentifier,
+    userUUID,
     displayName,
   },
 });
@@ -37,27 +43,7 @@ export const mkUserProfileEditedEvent = (
 
 //#region Send events to Pond
 
-export const sendUserAddedEventToPond = (
-  pond: Pond,
-  userUniqueIdentifier: UserUniqueIdentifier,
-  displayName: string,
-  email: string
-): void => {
-  const tags = UsersCatalogFish.tags.user
-    .and(UsersCatalogFish.tags.usersCatalog)
-    .and(UsersCatalogFish.tags.user.withId(userUniqueIdentifier));
-  const event = mkUserAddedEvent(userUniqueIdentifier, displayName, email);
-  pond.emit(tags, event);
-};
-
-export const sendUserProfileEditedEventToPond = (
-  pond: Pond,
-  userUniqueIdentifier: UserUniqueIdentifier,
-  displayName: string
-): void => {
-  const tags = UsersCatalogFish.tags.user.withId(userUniqueIdentifier);
-  const event = mkUserProfileEditedEvent(userUniqueIdentifier, displayName);
-  pond.emit(tags, event);
-};
+export const mkUserProfileEditedEventTags = (userUUID: UserUUID) =>
+  UsersCatalogFish.tags.user.withId(userUUID);
 
 //#endregion

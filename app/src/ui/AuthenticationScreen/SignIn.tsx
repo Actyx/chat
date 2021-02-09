@@ -1,25 +1,28 @@
 import React, { FC } from 'react';
-import { UserUniqueIdentifier } from '../../business-logic/users-catalog-fish/types';
+import { UserUUID } from '../../business-logic/users-catalog-fish/types';
 
 type Props = Readonly<{
   isSignInSuccess?: boolean;
-  signIn: (userUniqueIdentifier: UserUniqueIdentifier) => void;
+  signIn: (userUUID: UserUUID) => void;
+  goToChatScreen: () => void;
 }>;
 
-export const SignIn: FC<Props> = ({ isSignInSuccess, signIn }) => {
-  const [
-    userUniqueIdentifier,
-    setUserUniqueIdentifier,
-  ] = React.useState<UserUniqueIdentifier>('');
+export const SignIn: FC<Props> = ({
+  isSignInSuccess,
+  signIn,
+  goToChatScreen,
+}) => {
+  const [userUUID, setUserUUID] = React.useState<UserUUID>('');
 
-  const handleChangeUserUniqueIdentifier = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => setUserUniqueIdentifier(e.target.value);
+  const handleChangeUserUUID = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setUserUUID(e.target.value);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    signIn(userUniqueIdentifier);
+    signIn(userUUID);
     e.preventDefault();
   };
+
+  const handleGoToChangeScreen = () => goToChatScreen();
 
   return (
     <div>
@@ -29,8 +32,8 @@ export const SignIn: FC<Props> = ({ isSignInSuccess, signIn }) => {
         <input
           type="text"
           required
-          value={userUniqueIdentifier}
-          onChange={handleChangeUserUniqueIdentifier}
+          value={userUUID}
+          onChange={handleChangeUserUUID}
         />
         <br />
         <input type="submit" value="Sign-in" />
@@ -40,6 +43,9 @@ export const SignIn: FC<Props> = ({ isSignInSuccess, signIn }) => {
           : isSignInSuccess === true
           ? 'Sign-in success'
           : 'Sign-in error: could not sign-in, credential not valid'}
+        {isSignInSuccess && (
+          <button onClick={handleGoToChangeScreen}>Go to chat</button>
+        )}
       </form>
     </div>
   );

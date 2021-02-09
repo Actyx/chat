@@ -1,31 +1,38 @@
 import {
-  sendUserAddedEventToPond,
-  sendUserProfileEditedEventToPond,
+  mkUserAddedEvent,
+  mkUserAddedEventTags,
+  mkUserProfileEditedEvent,
+  mkUserProfileEditedEventTags,
 } from './events';
-import { Email, Users, UsersEmails, UserUniqueIdentifier } from './types';
+import { Email, Users, UsersEmails, UserUUID } from './types';
 import { v4 as uuid } from 'uuid';
 import { Pond } from '@actyx/pond';
+import { UsersCatalogFish } from './users-catalog-fish';
 
 //#region Sign-up
 
-export const signUp = (
-  pond: Pond,
+export const signUp = (pond: Pond) => (makerUUID: () => UserUUID) => (
   displayName: string,
   email: Email,
   usersEmails: UsersEmails
-): Readonly<{
-  success: boolean;
-  userUniqueIdentifier?: UserUniqueIdentifier;
-}> => {
-  const canSignUp = isUserEmailRegistered(email, usersEmails) === false;
-  let userUniqueIdentifier = mkUserUniqueIdentifier();
-  if (canSignUp) {
-    sendUserAddedEventToPond(pond, userUniqueIdentifier, displayName, email);
-  }
-  return {
-    success: canSignUp,
-    userUniqueIdentifier: canSignUp ? userUniqueIdentifier : undefined,
-  };
+): Promise<UserUUID | undefined> => {
+  return new Promise((res, rej) => {
+    const canSignUp = isUserEmailRegistered(email, usersEmails) === false;
+    if (canSignUp) {
+      const userUUID = makerUUID();
+      pond
+        .run(UsersCatalogFish.fish, (_, enqueue) => {
+          const event = mkUserAddedEvent(userUUID, displayName, email);
+          const tags = mkUserAddedEventTags(userUUID);
+          enqueue(tags, event);
+        })
+        .toPromise()
+        .then(() => res(userUUID))
+        .catch(rej);
+    } else {
+      res(undefined);
+    }
+  });
 };
 
 const isUserEmailRegistered = (
@@ -33,31 +40,30 @@ const isUserEmailRegistered = (
   usersEmails: UsersEmails
 ): boolean => email in usersEmails;
 
-const mkUserUniqueIdentifier = (): UserUniqueIdentifier => uuid();
+export const mkUserUUID = (): UserUUID => uuid();
 
 //#endregion
 
 //#region Sign-in
 
-const isUserUniqueIdentifierRegistered = (
-  userUniqueIdentifier: UserUniqueIdentifier,
+export const isUserUUIDRegistered = (
+  userUUID: UserUUID,
   users: Users
-): boolean => userUniqueIdentifier in users;
+): boolean => userUUID in users;
 
-export const signIn = (
-  userUniqueIdentifier: UserUniqueIdentifier,
-  users: Users
-): boolean => {
-  const canSignIn = isUserUniqueIdentifierRegistered(
-    userUniqueIdentifier,
-    users
-  );
+export const signIn = (userUUID: UserUUID, users: Users): boolean => {
+  const canSignIn = isUserUUIDRegistered(userUUID, users);
   return canSignIn;
 };
 
 //#endregion
 
 //#region User profile edit
+
+export const getDisplayNameByUserUUID = (
+  userUUID: UserUUID,
+  users: Users
+): string | undefined => users[userUUID].displayName;
 
 const sanitizeDisplayName = (displayName: string) => displayName.trim();
 
@@ -66,20 +72,28 @@ const isDisplayNameEmpty = (displayName: string) => displayName.length === 0;
 export const editUserProfile = (
   pond: Pond,
   users: Users,
-  userUniqueIdentifier: UserUniqueIdentifier,
+  userUUID: UserUUID,
   displayName: string
-): boolean => {
-  const isUserRegistered = isUserUniqueIdentifierRegistered(
-    userUniqueIdentifier,
-    users
-  );
-  const sanitized = sanitizeDisplayName(displayName);
-  const isNotEmpty = isDisplayNameEmpty(sanitized) === false;
-  const canEditUserProfile = isUserRegistered && isNotEmpty;
-  if (canEditUserProfile) {
-    sendUserProfileEditedEventToPond(pond, userUniqueIdentifier, sanitized);
-  }
-  return canEditUserProfile;
+): Promise<boolean> => {
+  return new Promise((res, rej) => {
+    const isUserRegistered = isUserUUIDRegistered(userUUID, users);
+    const sanitizedName = sanitizeDisplayName(displayName);
+    const isNameNotEmpty = isDisplayNameEmpty(sanitizedName) === false;
+    const canEditUserProfile = isUserRegistered && isNameNotEmpty;
+    if (canEditUserProfile) {
+      pond
+        .run(UsersCatalogFish.fish, (_, enqueue) => {
+          const tags = mkUserProfileEditedEventTags(userUUID);
+          const event = mkUserProfileEditedEvent(userUUID, displayName);
+          enqueue(tags, event);
+        })
+        .toPromise()
+        .then(() => res(true))
+        .catch(rej);
+    } else {
+      res(false);
+    }
+  });
 };
 
 //#endregion

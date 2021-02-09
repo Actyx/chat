@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
 import { Pond } from '@actyx/pond';
-import { AuthenticationContainer } from './ui/Authentication/AuthenticationContainer';
 import { UsersCatalogFishState } from './business-logic/users-catalog-fish/types';
 import { UsersCatalogFish } from './business-logic/users-catalog-fish/users-catalog-fish';
-import { UserProfileContainer } from './ui/UserProfile/UserProfileContainer';
+import { UIStateManager } from './ui/ui-state-manager/UIStateManager';
+import { ScreenRooter as ScreenRouter } from './ui/ScreenRouter/ScreenRouter';
+import { PondError } from './ui/PondError/PondError';
 
 let pond: Pond | undefined;
 
@@ -22,21 +23,17 @@ export const App: FC = () => {
   }, []);
 
   return (
-    <div>
-      {pond && stateUsersCatalogFish ? (
-        <>
-          <AuthenticationContainer
+    <UIStateManager>
+      <div>
+        {pond && stateUsersCatalogFish ? (
+          <ScreenRouter
             pond={pond}
-            fishState={stateUsersCatalogFish}
+            stateUsersCatalogFish={stateUsersCatalogFish}
           />
-          <UserProfileContainer pond={pond} fishState={stateUsersCatalogFish} />
-        </>
-      ) : (
-        'Pond is not loaded. Make sure you have an node running ActyxOS'
-      )}
-      <hr />
-      UsersCatalog fish state
-      <pre>{JSON.stringify(stateUsersCatalogFish, undefined, 4)}</pre>
-    </div>
+        ) : (
+          <PondError />
+        )}
+      </div>
+    </UIStateManager>
   );
 };
