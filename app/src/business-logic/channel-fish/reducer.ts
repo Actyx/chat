@@ -39,6 +39,7 @@ const publicMessageAdded = (
   const newMessage = {
     ...event.payload,
     createdOn: timestampMicros,
+    isHidden: false,
   };
   state.messages.push(newMessage);
   return state;

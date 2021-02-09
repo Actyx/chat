@@ -1,5 +1,6 @@
 import { Pond } from '@actyx/pond';
 import React, { FC, useContext } from 'react';
+import { sendMessageToChannel } from '../../business-logic/channel-fish/logic';
 import {
   ChannelFishState,
   Messages,
@@ -60,8 +61,14 @@ export const ChatContainer: FC<Props> = ({
     }
   };
 
-  const handleSendMessage = (content: string) => {
-    window.alert(content);
+  const handleSendMessage = async (content: string) => {
+    try {
+      const isMessagedSent = await sendMessageToChannel(pond)('main')(
+        stateUI.signedInUser
+      )({ content });
+    } catch (err) {
+      console.error(err); // TODO show in UI instead
+    }
   };
 
   const messages = mapPublicMessagesToUI(stateChannelMainFish.messages);

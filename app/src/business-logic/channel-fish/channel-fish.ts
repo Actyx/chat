@@ -17,7 +17,7 @@ export const factory = (channelName: string) => {
     fishId: FishId.of('com.chat.channel', 'channel', 0),
     initialState,
     onEvent: reducer,
-    where: tags.channel.withId(channelName),
+    where: tags.channel.withId(channelName), // TODO add also message tag
   };
   return fish;
 };

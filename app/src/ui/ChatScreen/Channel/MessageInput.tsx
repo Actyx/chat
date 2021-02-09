@@ -20,6 +20,7 @@ export const MessageInput: FC<Props> = ({ sendMessage }) => {
       <form onSubmit={handleSubmit}>
         <label>Message:</label>
         <input type="text" value={message} onChange={handleChangeMessage} />
+        <input type="submit" value="Send message" />
       </form>
     </div>
   );

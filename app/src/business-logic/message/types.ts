@@ -6,18 +6,18 @@ import {
 
 //#region Types
 
-type MessageId = string;
+export type MessageId = string;
 
-type ChannelId = string;
+export type ChannelId = string;
 
-type SenderId = string;
+export type SenderId = string;
 
 type RecipientId = string;
 type PrivateRecipientsIds = ReadonlyArrayOfOne<RecipientId>;
 export type PublicRecipientsIds = ReadonlyArrayOfOneOrMore<RecipientId>;
 
 type MediumId = string;
-type MediasIds = ReadonlyArrayOfOneOrMore<MediumId>;
+export type MediasIds = ReadonlyArrayOfOneOrMore<MediumId>;
 
 type BaseMessage = Readonly<{
   messageId: MessageId;
@@ -36,7 +36,7 @@ export type PrivateMessage = BaseMessage &
 
 export type PublicMessage = BaseMessage &
   Readonly<{
-    channel: ChannelId;
+    channelId: ChannelId;
     recipientsIds?: PublicRecipientsIds;
   }>;
 
@@ -54,12 +54,26 @@ export enum MessageEventType {
 
 export type PrivateMessageAddedEvent = {
   type: MessageEventType.PrivateMessageAdded;
-  payload: Omit<PrivateMessage, 'editedOn'>;
+  payload: {
+    messageId: MessageId;
+    senderId: SenderId;
+    content: string;
+    mediasIds?: MediasIds;
+    recipientsIds: PrivateRecipientsIds;
+  };
 };
 
+export type PublicMessageAddedEventPaylod = Readonly<{
+  messageId: MessageId;
+  senderId: SenderId;
+  channelId: ChannelId;
+  content: string;
+  mediasIds?: MediasIds;
+  recipientsIds?: PublicRecipientsIds;
+}>;
 export type PublicMessageAddedEvent = {
   type: MessageEventType.PublicMessageAdded;
-  payload: Omit<PublicMessage, 'editedOn'>;
+  payload: PublicMessageAddedEventPaylod;
 };
 
 export type MessageHiddenEvent = {
