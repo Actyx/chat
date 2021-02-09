@@ -25,7 +25,7 @@ export const Channel: FC<Props> = ({ messages }) => {
           <br />
           timestamp: {message.timestamp}
           <br />
-          senderDisplayName: {message.timestamp}
+          senderDisplayName: {message.senderDisplayName}
           <br />
           isHidden: {message.isHidden}
           <br />
