@@ -14,6 +14,8 @@ type Props = Readonly<{
   stateChannelMainFish: ChannelFishState;
 }>;
 
+const AccessNotAllowed = () => <div>Access is not allowed</div>;
+
 export const ScreenRooter: FC<Props> = ({
   pond,
   stateUsersCatalogFish,
@@ -21,24 +23,37 @@ export const ScreenRooter: FC<Props> = ({
 }) => {
   const stateUI = useContext(StateContextUI);
 
+  const { screen, signedInUserUUID, activeChannelId } = stateUI;
+
+  const renderScreen = () => {
+    switch (screen) {
+      case Screens.Authentication:
+        return (
+          <AuthenticationContainer
+            pond={pond}
+            stateUsersCatalogFish={stateUsersCatalogFish}
+          />
+        );
+      case Screens.Chat:
+        const canRouteToChatScreen = signedInUserUUID && activeChannelId;
+        return canRouteToChatScreen ? (
+          <ChatContainer
+            pond={pond}
+            stateUsersCatalogFish={stateUsersCatalogFish}
+            stateChannelMainFish={stateChannelMainFish}
+            signedInUserUUID={signedInUserUUID!}
+            activeChannelId={activeChannelId!}
+          />
+        ) : (
+          <AccessNotAllowed />
+        );
+    }
+  };
+
   return (
     <div>
-      {stateUI.screen === Screens.Authentication ? (
-        <AuthenticationContainer
-          pond={pond}
-          stateUsersCatalogFish={stateUsersCatalogFish}
-        />
-      ) : stateUI.signedInUserUUID && stateUI.activeChannelId ? (
-        <ChatContainer
-          pond={pond}
-          stateUsersCatalogFish={stateUsersCatalogFish}
-          stateChannelMainFish={stateChannelMainFish}
-          signedInUserUUID={stateUI.signedInUserUUID}
-          activeChannelId={stateUI.activeChannelId}
-        />
-      ) : (
-        'access is not allowed'
-      )}
+      {renderScreen()}
+
       <Debug
         stateUI={stateUI}
         stateUsersCatalogFish={stateUsersCatalogFish}

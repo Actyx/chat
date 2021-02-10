@@ -100,6 +100,9 @@ export const ChatContainer: FC<Props> = ({
     stateUsersCatalogFish.users
   );
 
+  const canShowUserProfileEdit =
+    stateUI.sectionRight === SectionRight.UserProfileEdit;
+
   return (
     <div>
       {errorPond}
@@ -110,7 +113,7 @@ export const ChatContainer: FC<Props> = ({
         <MessageInput sendMessage={handleSendMessage} />
       </div>
       <div>
-        {stateUI.sectionRight === SectionRight.UserProfileEdit && (
+        {canShowUserProfileEdit && (
           <UserProfileDetails editUserProfile={handleEditUserProfile} />
         )}
       </div>

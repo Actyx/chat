@@ -21,13 +21,12 @@ export const TopBar: FC<Props> = ({ userDisplayName }) => {
     <div>
       <div>
         <strong>{userDisplayName ?? ''}</strong>{' '}
-        <span onClick={handleEditUserProfile}>
+        <button onClick={handleEditUserProfile}>
           <strong>Edit</strong>
-        </span>
-        {' | '}
-        <span onClick={handleSignOut}>
+        </button>
+        <button onClick={handleSignOut}>
           <strong>Sign Out</strong>
-        </span>
+        </button>
       </div>
     </div>
   );
