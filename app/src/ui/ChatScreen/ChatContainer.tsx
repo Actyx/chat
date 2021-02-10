@@ -103,7 +103,7 @@ export const ChatContainer: FC<Props> = ({
     }
   };
 
-  const handleSendMessage = async (content: string) => {
+  const handleAddMessage = async (content: string) => {
     try {
       await addMessageToChannel(pond)(activeChannelId)(signedInUserUUID)({
         content,
@@ -161,7 +161,7 @@ export const ChatContainer: FC<Props> = ({
           editMessage={handleEditMessage}
           hideMessage={handleHideMessage}
         />
-        <MessageInput sendMessage={handleSendMessage} />
+        <MessageInput addMessage={handleAddMessage} />
       </div>
       <div>
         {canShowUserProfileEdit && (

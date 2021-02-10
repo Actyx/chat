@@ -1,17 +1,17 @@
 import React, { FC } from 'react';
 
 type Props = Readonly<{
-  sendMessage: (content: string) => void;
+  addMessage: (content: string) => void;
 }>;
 
-export const MessageInput: FC<Props> = ({ sendMessage }) => {
+export const MessageInput: FC<Props> = ({ addMessage }) => {
   const [message, setMessage] = React.useState<string>('');
 
   const handleChangeContent = (e: React.ChangeEvent<HTMLInputElement>) =>
     setMessage(e.target.value);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    sendMessage(message);
+    addMessage(message);
     e.preventDefault();
   };
 
