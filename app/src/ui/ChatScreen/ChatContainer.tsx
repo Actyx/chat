@@ -45,7 +45,7 @@ type Props = Readonly<{
 }>;
 
 const getVisiblePublicMessages = (messages: PublicMessages) =>
-  messages.filter((x) => x.isHidden === false);
+  messages.filter((m) => m.isHidden === false);
 
 const mapPublicMessagesToUI = (
   messages: PublicMessages,
