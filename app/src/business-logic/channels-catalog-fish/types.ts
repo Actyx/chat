@@ -61,6 +61,12 @@ export type ChannelUnarchiveEvent = Readonly<{
   };
 }>;
 
+export type ChannelsCatalogFishEvent =
+  | ChannelAddedEvent
+  | ChannelProfileEditedEvent
+  | ChannelArchivedEvent
+  | ChannelUnarchiveEvent;
+
 //#endregion
 
 //#region State
