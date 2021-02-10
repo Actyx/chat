@@ -5,7 +5,7 @@ import {
   doesMessageBelongToUser,
   editMessageInChannel,
   hideMessageFromChannel as hideMessageInChannel,
-  sendMessageToChannel,
+  addMessageToChannel,
 } from '../../business-logic/channel-fish/logic';
 import {
   ChannelFishState,
@@ -105,7 +105,7 @@ export const ChatContainer: FC<Props> = ({
 
   const handleSendMessage = async (content: string) => {
     try {
-      await sendMessageToChannel(pond)(activeChannelId)(signedInUserUUID)({
+      await addMessageToChannel(pond)(activeChannelId)(signedInUserUUID)({
         content,
       });
       setErrorPond(undefined);

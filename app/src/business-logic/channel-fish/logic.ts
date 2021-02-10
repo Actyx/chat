@@ -22,7 +22,7 @@ import { PublicMessages } from './types';
 
 //#region Send message
 
-export const sendMessageToChannel = (pond: Pond) => (channelId: ChannelId) => (
+export const addMessageToChannel = (pond: Pond) => (channelId: ChannelId) => (
   senderId: SenderId
 ) => ({
   content,
