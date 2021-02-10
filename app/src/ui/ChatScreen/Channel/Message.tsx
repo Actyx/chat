@@ -10,11 +10,13 @@ export type MessageUI = Readonly<{
   isHidden: boolean;
   content: string;
   canEdit: boolean;
+  canHide: boolean;
 }>;
 
 type Props = MessageUI &
   Readonly<{
     editMessage: (messageId: MessageId, content: string) => void;
+    hideMessage: (messageId: MessageId) => void;
   }>;
 
 export const Message: FC<Props> = ({
@@ -25,10 +27,14 @@ export const Message: FC<Props> = ({
   isHidden,
   content,
   canEdit,
+  canHide,
   editMessage,
+  hideMessage: hideMesage,
 }) => {
-  const handleEditContent = (content: string) =>
+  const handleEditMessage = (content: string) =>
     editMessage(messageId, content);
+
+  const handleHideMessage = () => hideMesage(messageId);
 
   return (
     <div>
@@ -47,7 +53,8 @@ export const Message: FC<Props> = ({
       <br />
       content: {content}
       <br />
-      {canEdit && <EditMessage editContent={handleEditContent} />}
+      {canEdit && <EditMessage editContent={handleEditMessage} />}
+      {canHide && <button onClick={handleHideMessage}>Hide</button>}
       <hr />
     </div>
   );

@@ -11,6 +11,7 @@ type MessageUI = Readonly<{
   isHidden: boolean;
   content: string;
   canEdit: boolean;
+  canHide: boolean;
 }>;
 
 export type MessagesUI = ReadonlyArray<MessageUI>;
@@ -18,9 +19,10 @@ export type MessagesUI = ReadonlyArray<MessageUI>;
 type Props = Readonly<{
   messages: ReadonlyArray<MessageUI>;
   editMessage: (messageId: MessageId, content: string) => void;
+  hideMessage: (messageId: MessageId) => void;
 }>;
 
-export const Channel: FC<Props> = ({ messages, editMessage }) => {
+export const Channel: FC<Props> = ({ messages, editMessage, hideMessage }) => {
   return (
     <div>
       <h2>Channel all message here:</h2>
@@ -34,7 +36,9 @@ export const Channel: FC<Props> = ({ messages, editMessage }) => {
           isHidden={m.isHidden}
           content={m.content}
           canEdit={m.canEdit}
+          canHide={m.canHide}
           editMessage={editMessage}
+          hideMessage={hideMessage}
         />
       ))}
     </div>

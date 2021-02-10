@@ -1,8 +1,10 @@
 import { Pond, Timestamp } from '@actyx/pond';
 import React, { FC, useContext } from 'react';
 import {
-  canSignInUserEditMessage,
+  canUserHideMessage,
+  doesMessageBelongToUser,
   editMessageInChannel,
+  hideMessageFromChannel as hideMessageInChannel,
   sendMessageToChannel,
 } from '../../business-logic/channel-fish/logic';
 import {
@@ -53,7 +55,8 @@ const mapPublicMessagesToUI = (
   messages.map((m: PublicMessage) => {
     const senderDisplayName =
       getDisplayNameByUserUUID(m.senderId, users) ?? 'user not found';
-    const canEdit = canSignInUserEditMessage(signedInUserUUID, m);
+    const canEdit = doesMessageBelongToUser(signedInUserUUID, m);
+    const canHide = canUserHideMessage(signedInUserUUID, m);
     return {
       messageId: m.messageId,
       createdOn: Timestamp.toMilliseconds(m.createdOn),
@@ -62,6 +65,7 @@ const mapPublicMessagesToUI = (
       isHidden: m.isHidden,
       content: m.content,
       canEdit,
+      canHide,
     };
   });
 
@@ -121,6 +125,22 @@ export const ChatContainer: FC<Props> = ({
     }
   };
 
+  const handleHideMessage = async (messageId: MessageId) => {
+    const hasUserConfirmed = window.confirm(
+      'Are you sure to hide this message?'
+    );
+    if (hasUserConfirmed) {
+      try {
+        await hideMessageInChannel(pond)(activeChannelId)(
+          stateChannelMainFish.messages
+        )(signedInUserUUID)(messageId);
+        setErrorPond(undefined);
+      } catch (err) {
+        setErrorPond(err);
+      }
+    }
+  };
+
   const messagesUI = mapPublicMessagesToUI(
     getVisiblePublicMessages(stateChannelMainFish.messages),
     stateUsersCatalogFish.users,
@@ -136,7 +156,11 @@ export const ChatContainer: FC<Props> = ({
       <TopBar userDisplayName={userDisplayName ?? ''} />
       <div>left - main side bar here</div>
       <div>
-        <Channel messages={messagesUI} editMessage={handleEditMessage} />
+        <Channel
+          messages={messagesUI}
+          editMessage={handleEditMessage}
+          hideMessage={handleHideMessage}
+        />
         <MessageInput sendMessage={handleSendMessage} />
       </div>
       <div>

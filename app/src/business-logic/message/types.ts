@@ -83,8 +83,6 @@ export type MessageHiddenEvent = {
   type: MessageEventType.MessageHidden;
   payload: {
     messageId: MessageId;
-    editedOn: Timestamp;
-    isHidden: true;
   };
 };
 

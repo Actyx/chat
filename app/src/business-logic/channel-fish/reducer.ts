@@ -2,6 +2,7 @@ import { Reduce, Timestamp } from '@actyx/pond';
 import {
   MessageContentEditedEvent,
   MessageEventType,
+  MessageHiddenEvent,
   PublicMessageAddedEvent,
   PublicMessageEvent,
 } from '../message/types';
@@ -16,8 +17,7 @@ export const reducer: Reduce<ChannelFishState, PublicMessageEvent> = (
     case MessageEventType.PublicMessageAdded:
       return publicMessageAdded(state, event, meta.timestampMicros);
     case MessageEventType.MessageHidden:
-      // TODO
-      return state;
+      return messageHidden(state, event, meta.timestampMicros);
     case MessageEventType.MessageContentEdited:
       return messageContentEdited(state, event, meta.timestampMicros);
     case MessageEventType.PublicMessageRecipientsEdited:
@@ -55,6 +55,20 @@ const messageContentEdited = (
   if (message) {
     message.content = content;
     message.editedOn = timestampMicros;
+  }
+  return state;
+};
+
+const messageHidden = (
+  state: ChannelFishState,
+  event: MessageHiddenEvent,
+  timestampMicros: Timestamp
+) => {
+  const { messageId } = event.payload;
+  const message = state.messages.find((m) => m.messageId === messageId);
+  if (message) {
+    message.editedOn = timestampMicros;
+    message.isHidden = true;
   }
   return state;
 };

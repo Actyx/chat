@@ -12,6 +12,8 @@ import { v4 as uuid } from 'uuid';
 import {
   mkMessageContentEditedEvent,
   mkMessageContentEditedEventTags,
+  mkMessageHiddenEvent,
+  mkMessageHiddenEventTags,
   mkPublicMessageAddedEvent,
   mkPublicMessageAddedTags,
 } from './events';
@@ -55,10 +57,15 @@ export const sendMessageToChannel = (pond: Pond) => (channelId: ChannelId) => (
 
 //#region Edit message
 
-export const canSignInUserEditMessage = (
-  signedInUserUUID: UserUUID,
+export const doesMessageBelongToUser = (
+  userUUID: UserUUID,
   message: PublicMessage
-): boolean => message.senderId === signedInUserUUID;
+): boolean => message.senderId === userUUID;
+
+export const canUserHideMessage = (
+  userUUID: UserUUID,
+  message: PublicMessage
+): boolean => message.senderId === userUUID && message.isHidden === false;
 
 const getMessageById = (
   messageId: MessageId,
@@ -74,12 +81,44 @@ export const editMessageInChannel = (pond: Pond) => (channelId: ChannelId) => (
   return new Promise((res, rej) => {
     const message = getMessageById(messageId, messages);
     if (message) {
-      const canEdit = canSignInUserEditMessage(signedInUserUUID, message);
+      const canEdit = doesMessageBelongToUser(signedInUserUUID, message);
       if (canEdit) {
         pond
           .run(ChannelFish.mainFish, (_, enqueue) => {
             const event = mkMessageContentEditedEvent(messageId, content);
             const tags = mkMessageContentEditedEventTags(channelId);
+            enqueue(tags, event);
+          })
+          .toPromise()
+          .then(() => res(true))
+          .catch(rej);
+      } else {
+        res(false);
+      }
+    } else {
+      res(false);
+    }
+  });
+};
+
+//#endregion
+
+//#region Hide message
+
+export const hideMessageFromChannel = (pond: Pond) => (
+  channelId: ChannelId
+) => (messages: PublicMessages) => (signedInUserUUID: UserUUID) => (
+  messageId: MessageId
+): Promise<boolean> => {
+  return new Promise((res, rej) => {
+    const message = getMessageById(messageId, messages);
+    if (message) {
+      const canHide = doesMessageBelongToUser(signedInUserUUID, message);
+      if (canHide) {
+        pond
+          .run(ChannelFish.mainFish, (_, enqueue) => {
+            const event = mkMessageHiddenEvent(messageId);
+            const tags = mkMessageHiddenEventTags(channelId);
             enqueue(tags, event);
           })
           .toPromise()
