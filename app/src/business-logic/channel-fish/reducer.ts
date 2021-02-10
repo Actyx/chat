@@ -68,8 +68,8 @@ const messageHidden = (
   const { messageId } = event.payload;
   const message = findMessageByMessageId(messageId, state.messages);
   if (message) {
-    message.editedOn = timestampMicros;
     message.isHidden = true;
+    message.editedOn = timestampMicros;
   }
   return state;
 };
