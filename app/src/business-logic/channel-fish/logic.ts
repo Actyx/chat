@@ -1,15 +1,24 @@
-//#region Messages
-
 import { Pond } from '@actyx/pond';
 import {
   ChannelId,
   MediasIds,
+  MessageId,
+  PublicMessage,
   PublicRecipientsIds,
   SenderId,
 } from '../message/types';
 import { ChannelFish } from './channel-fish';
 import { v4 as uuid } from 'uuid';
-import { mkPublicMessageAddedEvent, mkPublicMessageAddedTags } from './events';
+import {
+  mkMessageContentEditedEvent,
+  mkMessageContentEditedEventTags,
+  mkPublicMessageAddedEvent,
+  mkPublicMessageAddedTags,
+} from './events';
+import { UserUUID } from '../users-catalog-fish/types';
+import { PublicMessages } from './types';
+
+//#region Send message
 
 export const sendMessageToChannel = (pond: Pond) => (channelId: ChannelId) => (
   senderId: SenderId
@@ -39,6 +48,49 @@ export const sendMessageToChannel = (pond: Pond) => (channelId: ChannelId) => (
       .toPromise()
       .then(() => res(true))
       .catch(rej);
+  });
+};
+
+//#endregion
+
+//#region Edit message
+
+export const canSignInUserEditMessage = (
+  signedInUserUUID: UserUUID,
+  message: PublicMessage
+) => message.senderId === signedInUserUUID;
+
+const getMessageById = (
+  messageId: MessageId,
+  messages: PublicMessages
+): PublicMessage | undefined => messages.find((m) => m.messageId === messageId);
+
+export const editMessageInChannel = (pond: Pond) => (channelId: ChannelId) => (
+  messages: PublicMessages
+) => (signedInUserUUID: UserUUID) => (
+  messageId: MessageId,
+  content: string
+): Promise<boolean> => {
+  return new Promise((res, rej) => {
+    const message = getMessageById(messageId, messages);
+    if (message) {
+      const canEdit = canSignInUserEditMessage(signedInUserUUID, message);
+      if (canEdit) {
+        pond
+          .run(ChannelFish.mainFish, (_, enqueue) => {
+            const event = mkMessageContentEditedEvent(messageId, content);
+            const tags = mkMessageContentEditedEventTags(channelId);
+            enqueue(tags, event);
+          })
+          .toPromise()
+          .then(() => res(true))
+          .catch(rej);
+      } else {
+        res(false);
+      }
+    } else {
+      res(false);
+    }
   });
 };
 

@@ -1,5 +1,6 @@
 import { Reduce, Timestamp } from '@actyx/pond';
 import {
+  MessageContentEditedEvent,
   MessageEventType,
   PublicMessageAddedEvent,
   PublicMessageEvent,
@@ -18,8 +19,7 @@ export const reducer: Reduce<ChannelFishState, PublicMessageEvent> = (
       // TODO
       return state;
     case MessageEventType.MessageContentEdited:
-      // TODO
-      return state;
+      return messageContentEdited(state, event, meta.timestampMicros);
     case MessageEventType.PublicMessageRecipientsEdited:
       // TODO
       return state;
@@ -42,5 +42,19 @@ const publicMessageAdded = (
     isHidden: false,
   };
   state.messages.push(newMessage);
+  return state;
+};
+
+const messageContentEdited = (
+  state: ChannelFishState,
+  event: MessageContentEditedEvent,
+  timestampMicros: Timestamp
+) => {
+  const { content, messageId } = event.payload;
+  const message = state.messages.find((m) => m.messageId === messageId);
+  if (message !== undefined) {
+    message.content = content;
+    message.editedOn = timestampMicros;
+  }
   return state;
 };

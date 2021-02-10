@@ -1,9 +1,13 @@
 import { Pond } from '@actyx/pond';
 import React, { FC, useContext } from 'react';
-import { sendMessageToChannel } from '../../business-logic/channel-fish/logic';
+import {
+  canSignInUserEditMessage,
+  editMessageInChannel,
+  sendMessageToChannel,
+} from '../../business-logic/channel-fish/logic';
 import {
   ChannelFishState,
-  Messages,
+  PublicMessages,
 } from '../../business-logic/channel-fish/types';
 import {
   ChannelId,
@@ -38,16 +42,11 @@ type Props = Readonly<{
   stateChannelMainFish: ChannelFishState;
 }>;
 
-const getVisiblePublicMessages = (messages: Messages) =>
+const getVisiblePublicMessages = (messages: PublicMessages) =>
   messages.filter((x) => x.isHidden === false);
 
-const canSignInUserEditMessage = (
-  signedInUserUUID: UserUUID,
-  message: PublicMessage
-) => message.senderId === signedInUserUUID;
-
 const mapPublicMessagesToUI = (
-  messages: Messages,
+  messages: PublicMessages,
   users: Users,
   signedInUserUUID: UserUUID
 ): MessagesUI =>
@@ -111,8 +110,14 @@ export const ChatContainer: FC<Props> = ({
   };
 
   const handleEditMessage = async (messageId: MessageId, content: string) => {
-    // TODO call bl and send event
-    window.alert('EDIT MESSAGE');
+    try {
+      await editMessageInChannel(pond)(activeChannelId)(
+        stateChannelMainFish.messages
+      )(signedInUserUUID)(messageId, content);
+      setErrorPond(undefined);
+    } catch (err) {
+      setErrorPond(err);
+    }
   };
 
   const messagesUI = mapPublicMessagesToUI(

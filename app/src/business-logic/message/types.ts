@@ -20,7 +20,7 @@ export type PublicRecipientsIds = ReadonlyArrayOfOneOrMore<RecipientId>;
 type MediumId = string;
 export type MediasIds = ReadonlyArrayOfOneOrMore<MediumId>;
 
-type BaseMessage = Readonly<{
+type BaseMessage = {
   messageId: MessageId;
   createdOn: Timestamp;
   editedOn?: Timestamp;
@@ -28,7 +28,7 @@ type BaseMessage = Readonly<{
   isHidden: boolean;
   content: string;
   mediasIds?: MediasIds;
-}>;
+};
 
 export type PrivateMessage = BaseMessage &
   Readonly<{
@@ -92,7 +92,6 @@ export type MessageContentEditedEvent = {
   type: MessageEventType.MessageContentEdited;
   payload: {
     messageId: MessageId;
-    editedOn: Timestamp;
     content: string;
   };
 };

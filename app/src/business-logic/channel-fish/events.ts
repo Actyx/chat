@@ -1,6 +1,8 @@
 import {
   ChannelId,
+  MessageContentEditedEvent,
   MessageEventType,
+  MessageId,
   PublicMessageAddedEvent,
   PublicMessageAddedEventPaylod,
   SenderId,
@@ -22,6 +24,24 @@ export const mkPublicMessageAddedTags = (
     ChannelFish.tags.channel
       .withId(channelId)
       .and(ChannelFish.tags.messageSender.withId(senderId))
+  );
+  return tags;
+};
+
+export const mkMessageContentEditedEvent = (
+  messageId: MessageId,
+  content: string
+): MessageContentEditedEvent => ({
+  type: MessageEventType.MessageContentEdited,
+  payload: {
+    messageId,
+    content,
+  },
+});
+
+export const mkMessageContentEditedEventTags = (channelId: ChannelId) => {
+  const tags = ChannelFish.tags.message.and(
+    ChannelFish.tags.channel.withId(channelId)
   );
   return tags;
 };

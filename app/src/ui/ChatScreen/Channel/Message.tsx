@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { MessageId } from '../../../business-logic/message/types';
 import { Milliseconds } from '../../../common/utility-types';
 
@@ -25,10 +25,11 @@ export const Message: FC<Props> = ({
   canEdit,
   editMessage,
 }) => {
-  const handleEditMessage = () => editMessage(messageId, content);
+  const handleEditContent = (content: string) =>
+    editMessage(messageId, content);
 
   return (
-    <div key={messageId}>
+    <div>
       messageId: {messageId}
       <br />
       timestamp: {timestamp}
@@ -39,12 +40,37 @@ export const Message: FC<Props> = ({
       <br />
       content: {content}
       <br />
-      {canEdit && (
-        <button type="button" onClick={handleEditMessage}>
-          Edit message
-        </button>
-      )}
+      {canEdit && <EditMessage editContent={handleEditContent} />}
       <hr />
     </div>
+  );
+};
+
+const EditMessage = ({
+  editContent,
+}: Readonly<{
+  editContent: (content: string) => void;
+}>) => {
+  const [content, setContent] = useState<string>('');
+
+  const handleChangeContent = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setContent(e.target.value);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    editContent(content);
+    e.preventDefault();
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>Edit:</label>
+      <input
+        type="text"
+        required
+        value={content}
+        onChange={handleChangeContent}
+      />
+      <input type="submit" value="Edit message" />
+    </form>
   );
 };
