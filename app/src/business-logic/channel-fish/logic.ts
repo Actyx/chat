@@ -65,7 +65,8 @@ export const doesMessageBelongToUser = (
 export const canUserHideMessage = (
   userUUID: UserUUID,
   message: PublicMessage
-): boolean => message.senderId === userUUID && message.isHidden === false;
+): boolean =>
+  doesMessageBelongToUser(userUUID, message) && message.isHidden === false;
 
 const getMessageById = (
   messageId: MessageId,
