@@ -1,5 +1,7 @@
 import React, { FC } from 'react';
+import { MessageId } from '../../../business-logic/message/types';
 import { Milliseconds } from '../../../common/utility-types';
+import { Message } from './Message';
 
 type MessageUI = Readonly<{
   messageId: string;
@@ -7,32 +9,31 @@ type MessageUI = Readonly<{
   senderDisplayName: string;
   isHidden: boolean;
   content: string;
+  canEdit: boolean;
 }>;
 
 export type MessagesUI = ReadonlyArray<MessageUI>;
 
 type Props = Readonly<{
   messages: ReadonlyArray<MessageUI>;
+  editMessage: (messageId: MessageId, content: string) => void;
 }>;
 
-export const Channel: FC<Props> = ({ messages }) => {
+export const Channel: FC<Props> = ({ messages, editMessage }) => {
   return (
     <div>
       <h2>Channel all message here:</h2>
-      {messages.map((message) => (
-        <div key={message.messageId}>
-          messageId: {message.messageId}
-          <br />
-          timestamp: {message.timestamp}
-          <br />
-          senderDisplayName: {message.senderDisplayName}
-          <br />
-          isHidden: {message.isHidden ? 'true' : 'false'}
-          <br />
-          content: {message.content}
-          <br />
-          <hr />
-        </div>
+      {messages.map((m: MessageUI) => (
+        <Message
+          key={m.messageId}
+          messageId={m.messageId}
+          timestamp={m.timestamp}
+          senderDisplayName={m.senderDisplayName}
+          isHidden={m.isHidden}
+          content={m.content}
+          canEdit={m.canEdit}
+          editMessage={editMessage}
+        />
       ))}
     </div>
   );

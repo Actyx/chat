@@ -5,7 +5,11 @@ import {
   ChannelFishState,
   Messages,
 } from '../../business-logic/channel-fish/types';
-import { ChannelId } from '../../business-logic/message/types';
+import {
+  ChannelId,
+  MessageId,
+  PublicMessage,
+} from '../../business-logic/message/types';
 import {
   editUserProfile,
   getDisplayNameByUserUUID,
@@ -37,16 +41,27 @@ type Props = Readonly<{
 const getVisiblePublicMessages = (messages: Messages) =>
   messages.filter((x) => x.isHidden === false);
 
-const mapPublicMessagesToUI = (messages: Messages, users: Users): MessagesUI =>
-  messages.map((m) => {
+const canSignInUserEditMessage = (
+  signedInUserUUID: UserUUID,
+  message: PublicMessage
+) => message.senderId === signedInUserUUID;
+
+const mapPublicMessagesToUI = (
+  messages: Messages,
+  users: Users,
+  signedInUserUUID: UserUUID
+): MessagesUI =>
+  messages.map((m: PublicMessage) => {
     const senderDisplayName =
       getDisplayNameByUserUUID(m.senderId, users) ?? 'user not found';
+    const canEdit = canSignInUserEditMessage(signedInUserUUID, m);
     return {
       messageId: m.messageId,
-      timestamp: m.editedOn ? m.editedOn / 1_000_0000 : m.createdOn / 1_000_000,
+      timestamp: m.editedOn ? m.editedOn / 1_000_0000 : m.createdOn / 1_000_000, //TODO extract to utility fn
       senderDisplayName,
       isHidden: m.isHidden,
       content: m.content,
+      canEdit,
     };
   });
 
@@ -95,9 +110,15 @@ export const ChatContainer: FC<Props> = ({
     }
   };
 
+  const handleEditMessage = async (messageId: MessageId, content: string) => {
+    // TODO call bl and send event
+    window.alert('EDIT MESSAGE');
+  };
+
   const messagesUI = mapPublicMessagesToUI(
     getVisiblePublicMessages(stateChannelMainFish.messages),
-    stateUsersCatalogFish.users
+    stateUsersCatalogFish.users,
+    signedInUserUUID
   );
 
   const canShowUserProfileEdit =
@@ -109,7 +130,7 @@ export const ChatContainer: FC<Props> = ({
       <TopBar userDisplayName={userDisplayName ?? ''} />
       <div>left - main side bar here</div>
       <div>
-        <Channel messages={messagesUI} />
+        <Channel messages={messagesUI} editMessage={handleEditMessage} />
         <MessageInput sendMessage={handleSendMessage} />
       </div>
       <div>
