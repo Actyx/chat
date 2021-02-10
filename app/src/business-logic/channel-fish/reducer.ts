@@ -3,10 +3,11 @@ import {
   MessageContentEditedEvent,
   MessageEventType,
   MessageHiddenEvent,
+  MessageId,
   PublicMessageAddedEvent,
   PublicMessageEvent,
 } from '../message/types';
-import { ChannelFishState } from './types';
+import { ChannelFishState, PublicMessages } from './types';
 
 export const reducer: Reduce<ChannelFishState, PublicMessageEvent> = (
   state,
@@ -51,7 +52,7 @@ const messageContentEdited = (
   timestampMicros: Timestamp
 ) => {
   const { content, messageId } = event.payload;
-  const message = state.messages.find((m) => m.messageId === messageId);
+  const message = findMessageByMessageId(messageId, state.messages);
   if (message) {
     message.content = content;
     message.editedOn = timestampMicros;
@@ -65,10 +66,15 @@ const messageHidden = (
   timestampMicros: Timestamp
 ) => {
   const { messageId } = event.payload;
-  const message = state.messages.find((m) => m.messageId === messageId);
+  const message = findMessageByMessageId(messageId, state.messages);
   if (message) {
     message.editedOn = timestampMicros;
     message.isHidden = true;
   }
   return state;
 };
+
+const findMessageByMessageId = (
+  messageId: MessageId,
+  messages: PublicMessages
+) => messages.find((m) => m.messageId === messageId);
