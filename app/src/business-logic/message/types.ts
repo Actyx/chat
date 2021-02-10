@@ -43,7 +43,7 @@ export type PublicMessage = BaseMessage &
 
 //#endregion
 
-//region Message Events
+//region Events
 
 export enum MessageEventType {
   PrivateMessageAdded = 'PrivateMessageAdded',
