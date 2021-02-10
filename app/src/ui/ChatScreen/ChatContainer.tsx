@@ -1,4 +1,4 @@
-import { Pond } from '@actyx/pond';
+import { Pond, Timestamp } from '@actyx/pond';
 import React, { FC, useContext } from 'react';
 import {
   canSignInUserEditMessage,
@@ -56,7 +56,8 @@ const mapPublicMessagesToUI = (
     const canEdit = canSignInUserEditMessage(signedInUserUUID, m);
     return {
       messageId: m.messageId,
-      timestamp: m.editedOn ? m.editedOn / 1_000_0000 : m.createdOn / 1_000_000, //TODO extract to utility fn
+      createdOn: Timestamp.toMilliseconds(m.createdOn),
+      editedOn: m.editedOn && Timestamp.toMilliseconds(m.editedOn),
       senderDisplayName,
       isHidden: m.isHidden,
       content: m.content,

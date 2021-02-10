@@ -1,11 +1,12 @@
+import { Milliseconds } from '@actyx/pond';
 import React, { FC } from 'react';
 import { MessageId } from '../../../business-logic/message/types';
-import { Milliseconds } from '../../../common/utility-types';
 import { Message } from './Message';
 
 type MessageUI = Readonly<{
   messageId: string;
-  timestamp: Milliseconds;
+  createdOn: Milliseconds;
+  editedOn?: Milliseconds;
   senderDisplayName: string;
   isHidden: boolean;
   content: string;
@@ -27,7 +28,8 @@ export const Channel: FC<Props> = ({ messages, editMessage }) => {
         <Message
           key={m.messageId}
           messageId={m.messageId}
-          timestamp={m.timestamp}
+          createdOn={m.createdOn}
+          editedOn={m.editedOn}
           senderDisplayName={m.senderDisplayName}
           isHidden={m.isHidden}
           content={m.content}

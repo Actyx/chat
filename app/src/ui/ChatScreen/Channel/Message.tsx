@@ -1,10 +1,11 @@
+import { Milliseconds } from '@actyx/pond';
 import React, { FC, useState } from 'react';
 import { MessageId } from '../../../business-logic/message/types';
-import { Milliseconds } from '../../../common/utility-types';
 
 export type MessageUI = Readonly<{
   messageId: string;
-  timestamp: Milliseconds;
+  createdOn: Milliseconds;
+  editedOn?: Milliseconds;
   senderDisplayName: string;
   isHidden: boolean;
   content: string;
@@ -18,7 +19,8 @@ type Props = MessageUI &
 
 export const Message: FC<Props> = ({
   messageId,
-  timestamp,
+  createdOn,
+  editedOn,
   senderDisplayName,
   isHidden,
   content,
@@ -30,9 +32,15 @@ export const Message: FC<Props> = ({
 
   return (
     <div>
+      {editedOn && (
+        <div>
+          <i>EDITED</i>
+          <br />
+        </div>
+      )}
       messageId: {messageId}
       <br />
-      timestamp: {timestamp}
+      timestamp: {editedOn ?? createdOn}
       <br />
       senderDisplayName: {senderDisplayName}
       <br />
