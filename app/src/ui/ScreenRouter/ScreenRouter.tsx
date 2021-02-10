@@ -28,12 +28,16 @@ export const ScreenRooter: FC<Props> = ({
           pond={pond}
           stateUsersCatalogFish={stateUsersCatalogFish}
         />
-      ) : (
+      ) : stateUI.signedInUserUUID && stateUI.activeChannelId ? (
         <ChatContainer
           pond={pond}
           stateUsersCatalogFish={stateUsersCatalogFish}
           stateChannelMainFish={stateChannelMainFish}
+          signedInUserUUID={stateUI.signedInUserUUID}
+          activeChannelId={stateUI.activeChannelId}
         />
+      ) : (
+        'access is not allowed'
       )}
       <Debug
         stateUI={stateUI}

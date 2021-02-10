@@ -16,9 +16,9 @@ export enum SectionRight {
 
 export type StateUI = Readonly<{
   screen: Screens;
-  signedInUserUUID: UserUUID;
+  signedInUserUUID?: UserUUID;
   sectionRight: SectionRight;
-  activeChannelId: ChannelId;
+  activeChannelId?: ChannelId;
 }>;
 
 //#endregion
@@ -29,6 +29,7 @@ export enum ActionType {
   EditScreen = 'EditScreen',
   AddSignedInUser = 'AddSignedInUser',
   EditSectionRight = 'EditSectionRight',
+  SignOutActiveUser = 'SignOutActiveUser',
 }
 
 export type EditScreenAction = Readonly<{
@@ -52,7 +53,15 @@ export type EditSectionRight = Readonly<{
   };
 }>;
 
-export type Action = EditScreenAction | AddSignedInUser | EditSectionRight;
+export type SignOutActiveUser = Readonly<{
+  type: ActionType.SignOutActiveUser;
+}>;
+
+export type Action =
+  | EditScreenAction
+  | AddSignedInUser
+  | EditSectionRight
+  | SignOutActiveUser;
 
 export type Dispatcher = Dispatch<Action>;
 

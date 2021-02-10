@@ -5,6 +5,7 @@ import {
   ChannelFishState,
   Messages,
 } from '../../business-logic/channel-fish/types';
+import { ChannelId } from '../../business-logic/message/types';
 import {
   editUserProfile,
   getDisplayNameByUserUUID,
@@ -12,6 +13,7 @@ import {
 import {
   Users,
   UsersCatalogFishState,
+  UserUUID,
 } from '../../business-logic/users-catalog-fish/types';
 import { closeSectionRight } from '../ui-state-manager/actions';
 import { SectionRight } from '../ui-state-manager/types';
@@ -26,6 +28,8 @@ import { TopBar } from './TopBar';
 
 type Props = Readonly<{
   pond: Pond;
+  signedInUserUUID: UserUUID;
+  activeChannelId: ChannelId;
   stateUsersCatalogFish: UsersCatalogFishState;
   stateChannelMainFish: ChannelFishState;
 }>;
@@ -48,6 +52,8 @@ const mapPublicMessagesToUI = (messages: Messages, users: Users): MessagesUI =>
 
 export const ChatContainer: FC<Props> = ({
   pond,
+  signedInUserUUID,
+  activeChannelId,
   stateUsersCatalogFish,
   stateChannelMainFish,
 }) => {
@@ -58,7 +64,7 @@ export const ChatContainer: FC<Props> = ({
   const [errorPond, setErrorPond] = React.useState<string>();
 
   const userDisplayName = getDisplayNameByUserUUID(
-    stateUI.signedInUserUUID,
+    signedInUserUUID,
     stateUsersCatalogFish.users
   );
 
@@ -66,7 +72,7 @@ export const ChatContainer: FC<Props> = ({
     try {
       const isUserProfileEdited = await editUserProfile(pond)(
         stateUsersCatalogFish.users,
-        stateUI.signedInUserUUID,
+        signedInUserUUID,
         displayName
       );
       if (isUserProfileEdited === true) {
@@ -80,9 +86,7 @@ export const ChatContainer: FC<Props> = ({
 
   const handleSendMessage = async (content: string) => {
     try {
-      await sendMessageToChannel(pond)(stateUI.activeChannelId)(
-        stateUI.signedInUserUUID
-      )({
+      await sendMessageToChannel(pond)(activeChannelId)(signedInUserUUID)({
         content,
       });
       setErrorPond(undefined);

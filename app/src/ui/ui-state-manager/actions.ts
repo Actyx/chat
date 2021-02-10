@@ -6,6 +6,7 @@ import {
   EditSectionRight,
   Screens,
   SectionRight,
+  SignOutActiveUser,
 } from './types';
 
 export const goToChatScreen = (): EditScreenAction => ({
@@ -34,4 +35,8 @@ export const closeSectionRight = (): EditSectionRight => ({
   payload: {
     section: SectionRight.None,
   },
+});
+
+export const signOutActiveUser = (): SignOutActiveUser => ({
+  type: ActionType.SignOutActiveUser,
 });

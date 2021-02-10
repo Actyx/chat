@@ -1,5 +1,8 @@
 import React, { FC, useContext } from 'react';
-import { openSectionRightUserEditProfile } from '../ui-state-manager/actions';
+import {
+  openSectionRightUserEditProfile,
+  signOutActiveUser,
+} from '../ui-state-manager/actions';
 import { DispatchContextUI } from '../ui-state-manager/UIStateManager';
 
 type Props = Readonly<{
@@ -12,11 +15,19 @@ export const TopBar: FC<Props> = ({ userDisplayName }) => {
   const handleEditUserProfile = () =>
     dispatch(openSectionRightUserEditProfile());
 
+  const handleSignOut = () => dispatch(signOutActiveUser());
+
   return (
     <div>
       <div>
         <strong>{userDisplayName ?? ''}</strong>{' '}
-        <span onClick={handleEditUserProfile}>(click to EDIT)</span>
+        <span onClick={handleEditUserProfile}>
+          <strong>Edit</strong>
+        </span>
+        {' | '}
+        <span onClick={handleSignOut}>
+          <strong>Sign Out</strong>
+        </span>
       </div>
     </div>
   );
