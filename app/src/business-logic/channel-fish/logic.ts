@@ -58,7 +58,7 @@ export const sendMessageToChannel = (pond: Pond) => (channelId: ChannelId) => (
 export const canSignInUserEditMessage = (
   signedInUserUUID: UserUUID,
   message: PublicMessage
-) => message.senderId === signedInUserUUID;
+): boolean => message.senderId === signedInUserUUID;
 
 const getMessageById = (
   messageId: MessageId,

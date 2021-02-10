@@ -35,7 +35,6 @@ export const Message: FC<Props> = ({
       {editedOn && (
         <div>
           <i>EDITED</i>
-          <br />
         </div>
       )}
       messageId: {messageId}

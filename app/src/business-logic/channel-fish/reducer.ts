@@ -36,12 +36,12 @@ const publicMessageAdded = (
   event: PublicMessageAddedEvent,
   timestampMicros: Timestamp
 ) => {
-  const newMessage = {
+  const message = {
     ...event.payload,
     createdOn: timestampMicros,
     isHidden: false,
   };
-  state.messages.push(newMessage);
+  state.messages.push(message);
   return state;
 };
 
@@ -52,7 +52,7 @@ const messageContentEdited = (
 ) => {
   const { content, messageId } = event.payload;
   const message = state.messages.find((m) => m.messageId === messageId);
-  if (message !== undefined) {
+  if (message) {
     message.content = content;
     message.editedOn = timestampMicros;
   }
