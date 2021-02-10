@@ -7,7 +7,7 @@ type Props = Readonly<{
 export const MessageInput: FC<Props> = ({ sendMessage }) => {
   const [message, setMessage] = React.useState<string>('');
 
-  const handleChangeMessage = (e: React.ChangeEvent<HTMLInputElement>) =>
+  const handleChangeContent = (e: React.ChangeEvent<HTMLInputElement>) =>
     setMessage(e.target.value);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -19,7 +19,7 @@ export const MessageInput: FC<Props> = ({ sendMessage }) => {
     <div>
       <form onSubmit={handleSubmit}>
         <label>Message:</label>
-        <input type="text" value={message} onChange={handleChangeMessage} />
+        <input type="text" value={message} onChange={handleChangeContent} />
         <input type="submit" value="Send message" />
       </form>
     </div>
