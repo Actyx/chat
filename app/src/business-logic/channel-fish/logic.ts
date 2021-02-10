@@ -20,7 +20,7 @@ import {
 import { UserUUID } from '../users-catalog-fish/types';
 import { PublicMessages } from './types';
 
-//#region Send message
+//#region Add message
 
 export const addMessageToChannel = (pond: Pond) => (channelId: ChannelId) => (
   senderId: SenderId
