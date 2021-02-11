@@ -73,32 +73,24 @@ const getMessageById = (
 ): PublicMessage | undefined => messages.find((m) => m.messageId === messageId);
 
 export const editMessageInChannel = (pond: Pond) => (channelId: ChannelId) => (
-  messages: PublicMessages
-) => (signedInUserUUID: UserUUID) => (
-  messageId: MessageId,
-  content: string
-): Promise<boolean> => {
-  return new Promise((res, rej) => {
-    const message = getMessageById(messageId, messages);
-    if (message) {
-      const canEdit = doesMessageBelongToUser(signedInUserUUID, message);
-      if (canEdit) {
-        pond
-          .run(ChannelFish.mainFish, (_, enqueue) => {
-            const event = mkMessageContentEditedEvent(messageId, content);
-            const tags = mkMessageContentEditedEventTags(channelId);
-            enqueue(tags, event);
-          })
-          .toPromise()
-          .then(() => res(true))
-          .catch(rej);
-      } else {
-        res(false);
+  signedInUserUUID: UserUUID
+) => async (messageId: MessageId, content: string): Promise<boolean> => {
+  let isSuccess = false;
+  await pond
+    .run(ChannelFish.mainFish, (fishState, enqueue) => {
+      const message = getMessageById(messageId, fishState.messages);
+      if (message) {
+        const canEdit = doesMessageBelongToUser(signedInUserUUID, message);
+        if (canEdit) {
+          const event = mkMessageContentEditedEvent(messageId, content);
+          const tags = mkMessageContentEditedEventTags(channelId);
+          enqueue(tags, event);
+          isSuccess = true;
+        }
       }
-    } else {
-      res(false);
-    }
-  });
+    })
+    .toPromise();
+  return isSuccess;
 };
 
 //#endregion

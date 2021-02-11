@@ -116,9 +116,10 @@ export const ChatContainer: FC<Props> = ({
 
   const handleEditMessage = async (messageId: MessageId, content: string) => {
     try {
-      await editMessageInChannel(pond)(activeChannelId)(
-        stateChannelMainFish.messages
-      )(signedInUserUUID)(messageId, content);
+      await editMessageInChannel(pond)(activeChannelId)(signedInUserUUID)(
+        messageId,
+        content
+      );
       setErrorPond(undefined);
     } catch (err) {
       setErrorPond(err);
