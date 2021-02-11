@@ -36,7 +36,7 @@ export const App: FC = () => {
     <UIStateManager>
       {pond && stateUsersCatalogFish && stateChannelMainFish ? (
         <div>
-          <ScreenRouter pond={pond} messages={stateChannelMainFish.messages} />
+          <ScreenRouter pond={pond} />
           <Debug pond={pond} />
         </div>
       ) : (

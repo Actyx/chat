@@ -4,16 +4,14 @@ import { AuthenticationContainer } from '../AuthenticationScreen/AuthenticationC
 import { StateContextUI } from '../ui-state-manager/UIStateManager';
 import { Screens } from '../ui-state-manager/types';
 import { ChatContainer } from '../ChatScreen/ChatContainer';
-import { PublicMessages } from '../../business-logic/channel-fish/types';
 
 type Props = Readonly<{
   pond: Pond;
-  messages: PublicMessages;
 }>;
 
 const AccessNotAllowed = () => <div>Access is not allowed</div>;
 
-export const ScreenRooter: FC<Props> = ({ pond, messages }) => {
+export const ScreenRooter: FC<Props> = ({ pond }) => {
   const stateUI = useContext(StateContextUI);
 
   const { screen, signedInUserUUID } = stateUI;
