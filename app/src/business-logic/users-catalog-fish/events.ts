@@ -22,9 +22,9 @@ export const mkUserAddedEvent = (
 });
 
 export const mkUserAddedEventTags = (userUUID: UserUUID) => {
-  const tags = UsersCatalogFish.tags.user
-    .and(UsersCatalogFish.tags.usersCatalog)
-    .and(UsersCatalogFish.tags.user.withId(userUUID));
+  const tags = UsersCatalogFish.tags.usersCatalog.and(
+    UsersCatalogFish.tags.user.withId(userUUID)
+  );
   return tags;
 };
 
