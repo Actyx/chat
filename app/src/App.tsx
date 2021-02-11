@@ -33,17 +33,15 @@ export const App: FC = () => {
 
   return (
     <UIStateManager>
-      <div>
-        {pond && stateUsersCatalogFish && stateChannelMainFish ? (
-          <ScreenRouter
-            pond={pond}
-            stateUsersCatalogFish={stateUsersCatalogFish}
-            stateChannelMainFish={stateChannelMainFish}
-          />
-        ) : (
-          <PondError />
-        )}
-      </div>
+      {pond && stateUsersCatalogFish && stateChannelMainFish ? (
+        <ScreenRouter
+          pond={pond}
+          stateUsersCatalogFish={stateUsersCatalogFish}
+          stateChannelMainFish={stateChannelMainFish}
+        />
+      ) : (
+        <PondError />
+      )}
     </UIStateManager>
   );
 };
