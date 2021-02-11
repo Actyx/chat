@@ -12,6 +12,7 @@ export const MessageInput: FC<Props> = ({ addMessage }) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     addMessage(message);
+    setMessage('');
     e.preventDefault();
   };
 

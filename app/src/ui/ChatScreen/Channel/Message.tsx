@@ -72,6 +72,7 @@ const EditMessage = ({
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     editContent(content);
+    setContent('');
     e.preventDefault();
   };
 
