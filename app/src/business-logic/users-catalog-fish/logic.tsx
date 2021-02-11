@@ -11,7 +11,7 @@ import { UsersCatalogFish } from './users-catalog-fish';
 
 //#region Sign-up
 
-export const signUp = (pond: Pond) => (makerUUID: () => UserUUID) => async (
+export const signUp = (pond: Pond, makerUUID: () => UserUUID) => async (
   displayName: string,
   email: Email
 ): Promise<UserUUID | undefined> => {
