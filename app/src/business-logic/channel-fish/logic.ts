@@ -24,7 +24,7 @@ import { PublicMessages } from './types';
 
 export const addMessageToChannel = (pond: Pond) => (channelId: ChannelId) => (
   senderId: SenderId
-) => ({
+) => async ({
   content,
   mediasIds,
   recipientsIds,
@@ -33,24 +33,23 @@ export const addMessageToChannel = (pond: Pond) => (channelId: ChannelId) => (
   mediasIds?: MediasIds;
   recipientsIds?: PublicRecipientsIds;
 }>): Promise<boolean> => {
-  return new Promise((res, rej) => {
-    pond
-      .run(ChannelFish.mainFish, (_, enqueue) => {
-        const event = mkPublicMessageAddedEvent({
-          messageId: uuid(),
-          senderId,
-          channelId,
-          content,
-          mediasIds,
-          recipientsIds,
-        });
-        const tags = mkPublicMessageAddedTags(channelId, senderId);
-        enqueue(tags, event);
-      })
-      .toPromise()
-      .then(() => res(true))
-      .catch(rej);
-  });
+  let isSuccess = false;
+  await pond
+    .run(ChannelFish.mainFish, (_, enqueue) => {
+      const event = mkPublicMessageAddedEvent({
+        messageId: uuid(),
+        senderId,
+        channelId,
+        content,
+        mediasIds,
+        recipientsIds,
+      });
+      const tags = mkPublicMessageAddedTags(channelId, senderId);
+      enqueue(tags, event);
+      isSuccess = true;
+    })
+    .toPromise();
+  return isSuccess;
 };
 
 //#endregion
