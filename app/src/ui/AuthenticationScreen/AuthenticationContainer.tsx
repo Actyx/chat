@@ -35,11 +35,7 @@ export const AuthenticationContainer: FC<Props> = ({
 
   const handleSignUp = async (displayName: string, email: string) => {
     try {
-      const newUserUUID = await signUp(pond)(mkUserUUID)(
-        displayName,
-        email,
-        stateUsersCatalogFish.emails
-      );
+      const newUserUUID = await signUp(pond)(mkUserUUID)(displayName, email);
       setIsSignUpSuccess(newUserUUID ? true : false);
       setUserUUID(newUserUUID);
       setErrorPond(undefined);

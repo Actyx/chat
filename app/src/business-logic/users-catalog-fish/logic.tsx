@@ -13,25 +13,25 @@ import { UsersCatalogFish } from './users-catalog-fish';
 
 export const signUp = (pond: Pond) => (makerUUID: () => UserUUID) => (
   displayName: string,
-  email: Email,
-  usersEmails: UsersEmails
+  email: Email
 ): Promise<UserUUID | undefined> => {
   return new Promise((res, rej) => {
-    const canSignUp = isUserEmailRegistered(email, usersEmails) === false;
-    if (canSignUp) {
-      const userUUID = makerUUID();
-      pond
-        .run(UsersCatalogFish.fish, (_, enqueue) => {
+    const userUUID = makerUUID();
+    pond
+      .run(UsersCatalogFish.fish, (fishState, enqueue) => {
+        const canSignUp =
+          isUserEmailRegistered(email, fishState.emails) === false;
+        if (canSignUp) {
           const event = mkUserAddedEvent(userUUID, displayName, email);
           const tags = mkUserAddedEventTags(userUUID);
           enqueue(tags, event);
-        })
-        .toPromise()
-        .then(() => res(userUUID))
-        .catch(rej);
-    } else {
-      res(undefined);
-    }
+        } else {
+          res(undefined);
+        }
+      })
+      .toPromise()
+      .then(() => res(userUUID))
+      .catch(rej);
   });
 };
 
