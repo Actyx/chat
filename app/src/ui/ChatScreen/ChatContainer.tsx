@@ -7,10 +7,7 @@ import {
   hideMessageFromChannel as hideMessageInChannel,
   addMessageToChannel,
 } from '../../business-logic/channel-fish/logic';
-import {
-  ChannelFishState,
-  PublicMessages,
-} from '../../business-logic/channel-fish/types';
+import { PublicMessages } from '../../business-logic/channel-fish/types';
 import {
   ChannelId,
   MessageId,
@@ -20,11 +17,7 @@ import {
   editUserProfile,
   getDisplayNameByUserUUID,
 } from '../../business-logic/users-catalog-fish/logic';
-import {
-  Users,
-  UsersCatalogFishState,
-  UserUUID,
-} from '../../business-logic/users-catalog-fish/types';
+import { Users, UserUUID } from '../../business-logic/users-catalog-fish/types';
 import { closeSectionRight } from '../ui-state-manager/actions';
 import { SectionCenter, SectionRight } from '../ui-state-manager/types';
 import {
@@ -41,8 +34,8 @@ type Props = Readonly<{
   pond: Pond;
   signedInUserUUID: UserUUID;
   activeChannelId: ChannelId;
-  stateUsersCatalogFish: UsersCatalogFishState;
-  stateChannelMainFish: ChannelFishState;
+  users: Users;
+  messages: PublicMessages;
 }>;
 
 const getVisiblePublicMessages = (messages: PublicMessages) =>
@@ -74,8 +67,8 @@ export const ChatContainer: FC<Props> = ({
   pond,
   signedInUserUUID,
   activeChannelId,
-  stateUsersCatalogFish,
-  stateChannelMainFish,
+  users,
+  messages,
 }) => {
   const dispatch = useContext(DispatchContextUI);
 
@@ -83,10 +76,7 @@ export const ChatContainer: FC<Props> = ({
 
   const [errorPond, setErrorPond] = React.useState<string>();
 
-  const userDisplayName = getDisplayNameByUserUUID(
-    signedInUserUUID,
-    stateUsersCatalogFish.users
-  );
+  const userDisplayName = getDisplayNameByUserUUID(signedInUserUUID, users);
 
   const handleEditUserProfile = async (displayName: string) => {
     try {
@@ -143,8 +133,8 @@ export const ChatContainer: FC<Props> = ({
   };
 
   const messagesUI = mapPublicMessagesToUI(
-    getVisiblePublicMessages(stateChannelMainFish.messages),
-    stateUsersCatalogFish.users,
+    getVisiblePublicMessages(messages),
+    users,
     signedInUserUUID
   );
 

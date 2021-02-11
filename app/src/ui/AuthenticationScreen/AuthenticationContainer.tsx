@@ -1,9 +1,6 @@
 import React, { FC, useContext } from 'react';
 import { Pond } from '@actyx/pond';
-import {
-  UsersCatalogFishState,
-  UserUUID,
-} from '../../business-logic/users-catalog-fish/types';
+import { Users, UserUUID } from '../../business-logic/users-catalog-fish/types';
 import {
   signUp,
   signIn,
@@ -16,13 +13,10 @@ import { addSignedInUser, goToChatScreen } from '../ui-state-manager/actions';
 
 type Props = Readonly<{
   pond: Pond;
-  stateUsersCatalogFish: UsersCatalogFishState;
+  users: Users;
 }>;
 
-export const AuthenticationContainer: FC<Props> = ({
-  pond,
-  stateUsersCatalogFish,
-}) => {
+export const AuthenticationContainer: FC<Props> = ({ pond, users }) => {
   const dispatch = useContext(DispatchContextUI);
 
   const [isSignUpSuccess, setIsSignUpSuccess] = React.useState<boolean>();
@@ -45,7 +39,7 @@ export const AuthenticationContainer: FC<Props> = ({
   };
 
   const handleSignIn = (userUUID: UserUUID) => {
-    const isUserSignedIn = signIn(userUUID, stateUsersCatalogFish.users);
+    const isUserSignedIn = signIn(userUUID, users);
     setIsSignInSuccess(isUserSignedIn);
     if (isUserSignedIn) {
       dispatch(addSignedInUser(userUUID));

@@ -31,7 +31,7 @@ export const ScreenRooter: FC<Props> = ({
         return (
           <AuthenticationContainer
             pond={pond}
-            stateUsersCatalogFish={stateUsersCatalogFish}
+            users={stateUsersCatalogFish.users}
           />
         );
       case Screens.Chat:
@@ -39,8 +39,8 @@ export const ScreenRooter: FC<Props> = ({
         return canRouteToChatScreen ? (
           <ChatContainer
             pond={pond}
-            stateUsersCatalogFish={stateUsersCatalogFish}
-            stateChannelMainFish={stateChannelMainFish}
+            users={stateUsersCatalogFish.users}
+            messages={stateChannelMainFish.messages}
             signedInUserUUID={signedInUserUUID!}
             activeChannelId={activeChannelId!}
           />
