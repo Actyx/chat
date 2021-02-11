@@ -11,28 +11,26 @@ import { UsersCatalogFish } from './users-catalog-fish';
 
 //#region Sign-up
 
-export const signUp = (pond: Pond) => (makerUUID: () => UserUUID) => (
+export const signUp = (pond: Pond) => (makerUUID: () => UserUUID) => async (
   displayName: string,
   email: Email
 ): Promise<UserUUID | undefined> => {
-  return new Promise((res, rej) => {
-    const userUUID = makerUUID();
-    pond
-      .run(UsersCatalogFish.fish, (fishState, enqueue) => {
-        const canSignUp =
-          isUserEmailRegistered(email, fishState.emails) === false;
-        if (canSignUp) {
-          const event = mkUserAddedEvent(userUUID, displayName, email);
-          const tags = mkUserAddedEventTags(userUUID);
-          enqueue(tags, event);
-        } else {
-          res(undefined);
-        }
-      })
-      .toPromise()
-      .then(() => res(userUUID))
-      .catch(rej);
-  });
+  const userUUID = makerUUID();
+  let isSuccess: boolean = true;
+  await pond
+    .run(UsersCatalogFish.fish, (fishState, enqueue) => {
+      const canSignUp =
+        isUserEmailRegistered(email, fishState.emails) === false;
+      if (canSignUp) {
+        const event = mkUserAddedEvent(userUUID, displayName, email);
+        const tags = mkUserAddedEventTags(userUUID);
+        enqueue(tags, event);
+      } else {
+        isSuccess = false;
+      }
+    })
+    .toPromise();
+  return isSuccess ? userUUID : undefined;
 };
 
 const isUserEmailRegistered = (
