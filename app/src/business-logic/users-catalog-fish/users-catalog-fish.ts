@@ -7,10 +7,12 @@ const tags = {
   user: Tag<UserCatalogFishEvent>('user'),
 };
 
-const initialState: UsersCatalogFishState = {
+export const initialState: UsersCatalogFishState = {
   users: {},
   emails: {},
 };
+
+export const initialStateUserCatalogFish = initialState;
 
 const fish: Fish<UsersCatalogFishState, UserCatalogFishEvent> = {
   fishId: FishId.of('com.chat.usersCatalog', 'usersCatalog', 0),

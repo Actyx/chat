@@ -60,7 +60,14 @@ export const signIn = (userUUID: UserUUID, users: Users): boolean => {
 export const getDisplayNameByUserUUID = (
   userUUID: UserUUID,
   users: Users
-): string | undefined => users[userUUID].displayName;
+): string | undefined => {
+  const isRegister = isUserUUIDRegistered(userUUID, users);
+  if (isRegister) {
+    return users[userUUID].displayName;
+  } else {
+    return undefined;
+  }
+};
 
 const sanitizeDisplayName = (displayName: string) => displayName.trim();
 

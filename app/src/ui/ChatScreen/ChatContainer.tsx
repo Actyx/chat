@@ -1,5 +1,9 @@
 import { Pond, Timestamp } from '@actyx/pond';
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, useEffect } from 'react';
+import {
+  ChannelFish,
+  initialStateCannelFish,
+} from '../../business-logic/channel-fish/channel-fish';
 import {
   canUserHideMessage,
   doesMessageBelongToUser,
@@ -7,7 +11,10 @@ import {
   hideMessageFromChannel as hideMessageInChannel,
   addMessageToChannel,
 } from '../../business-logic/channel-fish/logic';
-import { PublicMessages } from '../../business-logic/channel-fish/types';
+import {
+  ChannelFishState,
+  PublicMessages,
+} from '../../business-logic/channel-fish/types';
 import {
   ChannelId,
   MessageId,
@@ -17,7 +24,15 @@ import {
   editUserProfile,
   getDisplayNameByUserUUID,
 } from '../../business-logic/users-catalog-fish/logic';
-import { Users, UserUUID } from '../../business-logic/users-catalog-fish/types';
+import {
+  Users,
+  UsersCatalogFishState,
+  UserUUID,
+} from '../../business-logic/users-catalog-fish/types';
+import {
+  initialStateUserCatalogFish,
+  UsersCatalogFish,
+} from '../../business-logic/users-catalog-fish/users-catalog-fish';
 import { closeSectionRight } from '../ui-state-manager/actions';
 import { SectionCenter, SectionRight } from '../ui-state-manager/types';
 import {
@@ -34,8 +49,6 @@ type Props = Readonly<{
   pond: Pond;
   signedInUserUUID: UserUUID;
   activeChannelId: ChannelId;
-  users: Users;
-  messages: PublicMessages;
 }>;
 
 const getVisiblePublicMessages = (messages: PublicMessages) =>
@@ -67,16 +80,44 @@ export const ChatContainer: FC<Props> = ({
   pond,
   signedInUserUUID,
   activeChannelId,
-  users,
-  messages,
 }) => {
   const dispatch = useContext(DispatchContextUI);
+
+  const [
+    stateUsersCatalogFish,
+    setStateUsersCatalogFish,
+  ] = React.useState<UsersCatalogFishState>(initialStateUserCatalogFish);
+
+  const [
+    stateChannelMainFish,
+    setStateChannelMainFish,
+  ] = React.useState<ChannelFishState>(initialStateCannelFish);
+
+  useEffect(() => {
+    const cancelSubUserCatalogFish = pond.observe(
+      UsersCatalogFish.fish,
+      setStateUsersCatalogFish
+    );
+
+    const cancelSubscChannelFish = pond.observe(
+      ChannelFish.mainFish,
+      setStateChannelMainFish
+    );
+    return () => {
+      cancelSubUserCatalogFish();
+      cancelSubscChannelFish();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const stateUI = useContext(StateContextUI);
 
   const [errorPond, setErrorPond] = React.useState<string>();
 
-  const userDisplayName = getDisplayNameByUserUUID(signedInUserUUID, users);
+  const userDisplayName = getDisplayNameByUserUUID(
+    signedInUserUUID,
+    stateUsersCatalogFish.users
+  );
 
   const handleEditUserProfile = async (displayName: string) => {
     try {
@@ -133,8 +174,8 @@ export const ChatContainer: FC<Props> = ({
   };
 
   const messagesUI = mapPublicMessagesToUI(
-    getVisiblePublicMessages(messages),
-    users,
+    getVisiblePublicMessages(stateChannelMainFish.messages),
+    stateUsersCatalogFish?.users,
     signedInUserUUID
   );
 
