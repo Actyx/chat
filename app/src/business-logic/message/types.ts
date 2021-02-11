@@ -18,7 +18,7 @@ type PrivateRecipientsIds = ReadonlyArrayOfOne<RecipientId>;
 export type PublicRecipientsIds = ReadonlyArrayOfOneOrMore<RecipientId>;
 
 type MediumId = string;
-export type MediasIds = ReadonlyArrayOfOneOrMore<MediumId>;
+export type MediaIds = ReadonlyArrayOfOneOrMore<MediumId>;
 
 type BaseMessage = {
   messageId: MessageId;
@@ -27,7 +27,7 @@ type BaseMessage = {
   senderId: SenderId;
   isHidden: boolean;
   content: string;
-  mediasIds?: MediasIds;
+  mediaIds?: MediaIds;
 };
 
 export type PrivateMessage = BaseMessage &
@@ -58,7 +58,7 @@ type PrivateMessageAddedEventPayload = Readonly<{
   messageId: MessageId;
   senderId: SenderId;
   content: string;
-  mediasIds?: MediasIds;
+  mediaIds?: MediaIds;
   recipientsIds: PrivateRecipientsIds;
 }>;
 export type PrivateMessageAddedEvent = {
@@ -71,7 +71,7 @@ export type PublicMessageAddedEventPaylod = Readonly<{
   senderId: SenderId;
   channelId: ChannelId;
   content: string;
-  mediasIds?: MediasIds;
+  mediaIds?: MediaIds;
   recipientsIds?: PublicRecipientsIds;
 }>;
 export type PublicMessageAddedEvent = {
@@ -108,7 +108,7 @@ export type MessageMediumEdited = {
   payload: {
     messageId: MessageId;
     editedOn: Timestamp;
-    mediasIds?: MediasIds;
+    mediaIds?: MediaIds;
   };
 };
 

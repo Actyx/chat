@@ -1,7 +1,7 @@
 import { Pond } from '@actyx/pond';
 import {
   ChannelId,
-  MediasIds,
+  MediaIds,
   MessageId,
   PublicMessage,
   PublicRecipientsIds,
@@ -26,11 +26,11 @@ export const addMessageToChannel = (pond: Pond) => (channelId: ChannelId) => (
   senderId: SenderId
 ) => async ({
   content,
-  mediasIds,
+  mediaIds,
   recipientsIds,
 }: Readonly<{
   content: string;
-  mediasIds?: MediasIds;
+  mediaIds?: MediaIds;
   recipientsIds?: PublicRecipientsIds;
 }>): Promise<boolean> => {
   let isSuccess = false;
@@ -41,7 +41,7 @@ export const addMessageToChannel = (pond: Pond) => (channelId: ChannelId) => (
         senderId,
         channelId,
         content,
-        mediasIds,
+        mediaIds,
         recipientsIds,
       });
       const tags = mkPublicMessageAddedTags(channelId, senderId);
