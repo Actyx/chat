@@ -91,7 +91,6 @@ export const ChatContainer: FC<Props> = ({
   const handleEditUserProfile = async (displayName: string) => {
     try {
       const isUserProfileEdited = await editUserProfile(pond)(
-        stateUsersCatalogFish.users,
         signedInUserUUID,
         displayName
       );

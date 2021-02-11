@@ -16,7 +16,7 @@ export const signUp = (pond: Pond) => (makerUUID: () => UserUUID) => async (
   email: Email
 ): Promise<UserUUID | undefined> => {
   const userUUID = makerUUID();
-  let isSuccess: boolean = true;
+  let isSuccess = false;
   await pond
     .run(UsersCatalogFish.fish, (fishState, enqueue) => {
       const canSignUp =
@@ -25,8 +25,7 @@ export const signUp = (pond: Pond) => (makerUUID: () => UserUUID) => async (
         const event = mkUserAddedEvent(userUUID, displayName, email);
         const tags = mkUserAddedEventTags(userUUID);
         enqueue(tags, event);
-      } else {
-        isSuccess = false;
+        isSuccess = true;
       }
     })
     .toPromise();
@@ -67,30 +66,26 @@ const sanitizeDisplayName = (displayName: string) => displayName.trim();
 
 const isDisplayNameEmpty = (displayName: string) => displayName.length === 0;
 
-export const editUserProfile = (pond: Pond) => (
-  users: Users,
+export const editUserProfile = (pond: Pond) => async (
   userUUID: UserUUID,
   displayName: string
 ): Promise<boolean> => {
-  return new Promise((res, rej) => {
-    const isUserRegistered = isUserUUIDRegistered(userUUID, users);
-    const sanitizedName = sanitizeDisplayName(displayName);
-    const isNameNotEmpty = isDisplayNameEmpty(sanitizedName) === false;
-    const canEditUserProfile = isUserRegistered && isNameNotEmpty;
-    if (canEditUserProfile) {
-      pond
-        .run(UsersCatalogFish.fish, (_, enqueue) => {
-          const tags = mkUserProfileEditedEventTags(userUUID);
-          const event = mkUserProfileEditedEvent(userUUID, displayName);
-          enqueue(tags, event);
-        })
-        .toPromise()
-        .then(() => res(true))
-        .catch(rej);
-    } else {
-      res(false);
-    }
-  });
+  let isSuccess = false;
+  await pond
+    .run(UsersCatalogFish.fish, (fishState, enqueue) => {
+      const isUserRegistered = isUserUUIDRegistered(userUUID, fishState.users);
+      const sanitizedName = sanitizeDisplayName(displayName);
+      const isNameNotEmpty = isDisplayNameEmpty(sanitizedName) === false;
+      const canEditUserProfile = isUserRegistered && isNameNotEmpty;
+      if (canEditUserProfile) {
+        const tags = mkUserProfileEditedEventTags(userUUID);
+        const event = mkUserProfileEditedEvent(userUUID, displayName);
+        enqueue(tags, event);
+        isSuccess = true;
+      }
+    })
+    .toPromise();
+  return isSuccess;
 };
 
 //#endregion
