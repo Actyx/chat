@@ -10,7 +10,7 @@ const tags = {
 const initialState: ChannelsCatalogFishState = {};
 
 const fish: Fish<ChannelsCatalogFishState, ChannelsCatalogFishEvent> = {
-  fishId: FishId.of('com.chat.channelsCatalog', 'channelsCatalog', 0),
+  fishId: FishId.of('channelsCatalog', 'channelsCatalog', 0),
   initialState,
   onEvent: reducer,
   where: tags.channelsCatalog.or(tags.channel),

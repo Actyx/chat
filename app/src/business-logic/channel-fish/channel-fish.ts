@@ -20,7 +20,7 @@ export const initialStateCannelFish = initialState;
 export const factory = (
   channelName: string
 ): Fish<ChannelFishState, PublicMessageEvent> => ({
-  fishId: FishId.of('com.chat.channel', 'channel', 0),
+  fishId: FishId.of('channel', channelName, 0),
   initialState,
   onEvent: reducer,
   where: tags.message.and(tags.channel.withId(channelName)),

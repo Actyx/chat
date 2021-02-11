@@ -15,7 +15,7 @@ export const initialState: UsersCatalogFishState = {
 export const initialStateUserCatalogFish = initialState;
 
 const fish: Fish<UsersCatalogFishState, UserCatalogFishEvent> = {
-  fishId: FishId.of('com.chat.usersCatalog', 'usersCatalog', 0),
+  fishId: FishId.of('usersCatalog', 'usersCatalog', 0),
   initialState,
   onEvent: reducer,
   where: tags.usersCatalog.or(tags.user),
