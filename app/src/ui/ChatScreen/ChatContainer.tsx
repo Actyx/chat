@@ -26,7 +26,7 @@ import {
   UserUUID,
 } from '../../business-logic/users-catalog-fish/types';
 import { closeSectionRight } from '../ui-state-manager/actions';
-import { SectionRight } from '../ui-state-manager/types';
+import { SectionCenter, SectionRight } from '../ui-state-manager/types';
 import {
   DispatchContextUI,
   StateContextUI,
@@ -34,6 +34,7 @@ import {
 import { UserProfileDetails } from '../UserProfileDetails/UserProfileDetails';
 import { Channel, MessagesUI } from './Channel/Channel';
 import { MessageInput } from './Channel/MessageInput';
+import { Sidebar } from './Sidebar/Sidebar';
 import { TopBar } from './TopBar';
 
 type Props = Readonly<{
@@ -150,19 +151,37 @@ export const ChatContainer: FC<Props> = ({
   const canShowUserProfileEdit =
     stateUI.sectionRight === SectionRight.UserProfileEdit;
 
+  const renderSectionCenter = () => {
+    switch (stateUI.sectionCenter) {
+      case SectionCenter.Channel:
+        return (
+          <div>
+            <Channel
+              messages={messagesUI}
+              editMessage={handleEditMessage}
+              hideMessage={handleHideMessage}
+            />
+            <MessageInput addMessage={handleAddMessage} />
+          </div>
+        );
+      case SectionCenter.ChannelsCatalog:
+        return (
+          <div>
+            <h2>Channels Catalog</h2>
+            All channels here
+          </div>
+        );
+    }
+  };
+
   return (
     <div>
       {errorPond}
       <TopBar userDisplayName={userDisplayName ?? ''} />
-      <div>left - main side bar here</div>
       <div>
-        <Channel
-          messages={messagesUI}
-          editMessage={handleEditMessage}
-          hideMessage={handleHideMessage}
-        />
-        <MessageInput addMessage={handleAddMessage} />
+        <Sidebar />
       </div>
+      {renderSectionCenter()}
       <div>
         {canShowUserProfileEdit && (
           <UserProfileDetails editUserProfile={handleEditUserProfile} />

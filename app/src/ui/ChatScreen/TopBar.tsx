@@ -1,6 +1,6 @@
 import React, { FC, useContext } from 'react';
 import {
-  openSectionRightUserEditProfile,
+  openUserProfileEditSection,
   signOutActiveUser,
 } from '../ui-state-manager/actions';
 import { DispatchContextUI } from '../ui-state-manager/UIStateManager';
@@ -12,8 +12,7 @@ type Props = Readonly<{
 export const TopBar: FC<Props> = ({ userDisplayName }) => {
   const dispatch = useContext(DispatchContextUI);
 
-  const handleEditUserProfile = () =>
-    dispatch(openSectionRightUserEditProfile());
+  const handleEditUserProfile = () => dispatch(openUserProfileEditSection());
 
   const handleSignOut = () => dispatch(signOutActiveUser());
 

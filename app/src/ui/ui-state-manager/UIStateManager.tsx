@@ -1,11 +1,18 @@
 import React, { FC } from 'react';
 import { reducer } from './reducer';
-import { Dispatcher, Screens, SectionRight, StateUI } from './types';
+import {
+  Dispatcher,
+  Screens,
+  SectionCenter,
+  SectionRight,
+  StateUI,
+} from './types';
 
 export const inititialState: StateUI = {
   screen: Screens.Authentication,
   signedInUserUUID: undefined,
   sectionRight: SectionRight.None,
+  sectionCenter: SectionCenter.Channel,
   activeChannelId: undefined,
 };
 

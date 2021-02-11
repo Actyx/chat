@@ -14,10 +14,16 @@ export enum SectionRight {
   UserProfileEdit = ' UserProfileEdit',
 }
 
+export enum SectionCenter {
+  Channel = 'Channel',
+  ChannelsCatalog = ' ChannelsCatalog',
+}
+
 export type StateUI = Readonly<{
   screen: Screens;
   signedInUserUUID?: UserUUID;
   sectionRight: SectionRight;
+  sectionCenter: SectionCenter;
   activeChannelId?: ChannelId;
 }>;
 
@@ -26,16 +32,31 @@ export type StateUI = Readonly<{
 //#region Actions
 
 export enum ActionType {
-  EditScreen = 'EditScreen',
+  GoToAuthenticationScreen = 'GoToAuthenticationScreen',
+  GoToChatScreen = 'GoToChatScreen',
   AddSignedInUser = 'AddSignedInUser',
   EditSectionRight = 'EditSectionRight',
   SignOutActiveUser = 'SignOutActiveUser',
+  OpenChannelsCatalogSection = 'OpenChannelsCatalogSection',
+  OpenChannelSection = 'OpenChannelSection',
 }
 
-export type EditScreenAction = Readonly<{
-  type: ActionType.EditScreen;
+export type GoToAuthenticationScreen = Readonly<{
+  type: ActionType.GoToAuthenticationScreen;
+}>;
+
+export type GoToChatScreen = Readonly<{
+  type: ActionType.GoToChatScreen;
+}>;
+
+export type OpenChannelsCatalogSection = Readonly<{
+  type: ActionType.OpenChannelsCatalogSection;
+}>;
+
+export type OpenChannelSection = Readonly<{
+  type: ActionType.OpenChannelSection;
   payload: {
-    screen: Screens;
+    channelId: ChannelId;
   };
 }>;
 
@@ -58,7 +79,10 @@ export type SignOutActiveUser = Readonly<{
 }>;
 
 export type Action =
-  | EditScreenAction
+  | GoToAuthenticationScreen
+  | GoToChatScreen
+  | OpenChannelsCatalogSection
+  | OpenChannelSection
   | AddSignedInUser
   | EditSectionRight
   | SignOutActiveUser;
