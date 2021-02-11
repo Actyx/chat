@@ -7,6 +7,7 @@ import { ScreenRooter as ScreenRouter } from './ui/ScreenRouter/ScreenRouter';
 import { PondError } from './ui/PondError/PondError';
 import { ChannelFishState } from './business-logic/channel-fish/types';
 import { ChannelFish } from './business-logic/channel-fish/channel-fish';
+import { Debug } from './ui/Debug/Debug';
 
 let pond: Pond | undefined;
 
@@ -34,11 +35,17 @@ export const App: FC = () => {
   return (
     <UIStateManager>
       {pond && stateUsersCatalogFish && stateChannelMainFish ? (
-        <ScreenRouter
-          pond={pond}
-          stateUsersCatalogFish={stateUsersCatalogFish}
-          stateChannelMainFish={stateChannelMainFish}
-        />
+        <div>
+          <ScreenRouter
+            pond={pond}
+            users={stateUsersCatalogFish.users}
+            messages={stateChannelMainFish.messages}
+          />
+          <Debug
+            stateUsersCatalogFish={stateUsersCatalogFish}
+            stateChannelMainFish={stateChannelMainFish}
+          />
+        </div>
       ) : (
         <PondError />
       )}

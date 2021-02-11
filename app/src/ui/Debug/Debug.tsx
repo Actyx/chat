@@ -1,10 +1,9 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { ChannelFishState } from '../../business-logic/channel-fish/types';
 import { UsersCatalogFishState } from '../../business-logic/users-catalog-fish/types';
-import { StateUI } from '../ui-state-manager/types';
+import { StateContextUI } from '../ui-state-manager/UIStateManager';
 
 type Props = Readonly<{
-  stateUI: StateUI;
   stateUsersCatalogFish: UsersCatalogFishState;
   stateChannelMainFish: ChannelFishState;
 }>;
@@ -12,10 +11,11 @@ type Props = Readonly<{
 const format = (value: any) => JSON.stringify(value, undefined, 4);
 
 export const Debug: FC<Props> = ({
-  stateUI,
   stateUsersCatalogFish,
   stateChannelMainFish,
 }) => {
+  const stateUI = useContext(StateContextUI);
+
   return (
     <div>
       <hr />
