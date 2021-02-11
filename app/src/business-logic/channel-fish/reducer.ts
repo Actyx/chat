@@ -1,10 +1,13 @@
 import { Reduce, Timestamp } from '@actyx/pond';
 import {
+  MessageContentEditedEvent,
   MessageEventType,
+  MessageHiddenEvent,
+  MessageId,
   PublicMessageAddedEvent,
   PublicMessageEvent,
 } from '../message/types';
-import { ChannelFishState } from './types';
+import { ChannelFishState, PublicMessages } from './types';
 
 export const reducer: Reduce<ChannelFishState, PublicMessageEvent> = (
   state,
@@ -15,11 +18,9 @@ export const reducer: Reduce<ChannelFishState, PublicMessageEvent> = (
     case MessageEventType.PublicMessageAdded:
       return publicMessageAdded(state, event, meta.timestampMicros);
     case MessageEventType.MessageHidden:
-      // TODO
-      return state;
+      return messageHidden(state, event, meta.timestampMicros);
     case MessageEventType.MessageContentEdited:
-      // TODO
-      return state;
+      return messageContentEdited(state, event, meta.timestampMicros);
     case MessageEventType.PublicMessageRecipientsEdited:
       // TODO
       return state;
@@ -36,11 +37,44 @@ const publicMessageAdded = (
   event: PublicMessageAddedEvent,
   timestampMicros: Timestamp
 ) => {
-  const newMessage = {
+  const message = {
     ...event.payload,
     createdOn: timestampMicros,
     isHidden: false,
   };
-  state.messages.push(newMessage);
+  state.messages.push(message);
   return state;
 };
+
+const messageContentEdited = (
+  state: ChannelFishState,
+  event: MessageContentEditedEvent,
+  timestampMicros: Timestamp
+) => {
+  const { content, messageId } = event.payload;
+  const message = findMessageByMessageId(messageId, state.messages);
+  if (message) {
+    message.content = content;
+    message.editedOn = timestampMicros;
+  }
+  return state;
+};
+
+const messageHidden = (
+  state: ChannelFishState,
+  event: MessageHiddenEvent,
+  timestampMicros: Timestamp
+) => {
+  const { messageId } = event.payload;
+  const message = findMessageByMessageId(messageId, state.messages);
+  if (message) {
+    message.isHidden = true;
+    message.editedOn = timestampMicros;
+  }
+  return state;
+};
+
+const findMessageByMessageId = (
+  messageId: MessageId,
+  messages: PublicMessages
+) => messages.find((m) => m.messageId === messageId);

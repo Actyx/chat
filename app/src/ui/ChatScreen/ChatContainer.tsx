@@ -1,11 +1,21 @@
-import { Pond } from '@actyx/pond';
+import { Pond, Timestamp } from '@actyx/pond';
 import React, { FC, useContext } from 'react';
-import { sendMessageToChannel } from '../../business-logic/channel-fish/logic';
+import {
+  canUserHideMessage,
+  doesMessageBelongToUser,
+  editMessageInChannel,
+  hideMessageFromChannel as hideMessageInChannel,
+  addMessageToChannel,
+} from '../../business-logic/channel-fish/logic';
 import {
   ChannelFishState,
-  Messages,
+  PublicMessages,
 } from '../../business-logic/channel-fish/types';
-import { ChannelId } from '../../business-logic/message/types';
+import {
+  ChannelId,
+  MessageId,
+  PublicMessage,
+} from '../../business-logic/message/types';
 import {
   editUserProfile,
   getDisplayNameByUserUUID,
@@ -34,19 +44,28 @@ type Props = Readonly<{
   stateChannelMainFish: ChannelFishState;
 }>;
 
-const getVisiblePublicMessages = (messages: Messages) =>
-  messages.filter((x) => x.isHidden === false);
+const getVisiblePublicMessages = (messages: PublicMessages) =>
+  messages.filter((m) => m.isHidden === false);
 
-const mapPublicMessagesToUI = (messages: Messages, users: Users): MessagesUI =>
-  messages.map((m) => {
+const mapPublicMessagesToUI = (
+  messages: PublicMessages,
+  users: Users,
+  signedInUserUUID: UserUUID
+): MessagesUI =>
+  messages.map((m: PublicMessage) => {
     const senderDisplayName =
       getDisplayNameByUserUUID(m.senderId, users) ?? 'user not found';
+    const canEdit = doesMessageBelongToUser(signedInUserUUID, m);
+    const canHide = canUserHideMessage(signedInUserUUID, m);
     return {
       messageId: m.messageId,
-      timestamp: m.editedOn ? m.editedOn / 1_000_0000 : m.createdOn / 1_000_000,
+      createdOn: Timestamp.toMilliseconds(m.createdOn),
+      editedOn: m.editedOn && Timestamp.toMilliseconds(m.editedOn),
       senderDisplayName,
       isHidden: m.isHidden,
       content: m.content,
+      canEdit,
+      canHide,
     };
   });
 
@@ -84,9 +103,9 @@ export const ChatContainer: FC<Props> = ({
     }
   };
 
-  const handleSendMessage = async (content: string) => {
+  const handleAddMessage = async (content: string) => {
     try {
-      await sendMessageToChannel(pond)(activeChannelId)(signedInUserUUID)({
+      await addMessageToChannel(pond)(activeChannelId)(signedInUserUUID)({
         content,
       });
       setErrorPond(undefined);
@@ -95,9 +114,37 @@ export const ChatContainer: FC<Props> = ({
     }
   };
 
+  const handleEditMessage = async (messageId: MessageId, content: string) => {
+    try {
+      await editMessageInChannel(pond)(activeChannelId)(
+        stateChannelMainFish.messages
+      )(signedInUserUUID)(messageId, content);
+      setErrorPond(undefined);
+    } catch (err) {
+      setErrorPond(err);
+    }
+  };
+
+  const handleHideMessage = async (messageId: MessageId) => {
+    const hasUserConfirmed = window.confirm(
+      'Are you sure to hide this message?'
+    );
+    if (hasUserConfirmed) {
+      try {
+        await hideMessageInChannel(pond)(activeChannelId)(
+          stateChannelMainFish.messages
+        )(signedInUserUUID)(messageId);
+        setErrorPond(undefined);
+      } catch (err) {
+        setErrorPond(err);
+      }
+    }
+  };
+
   const messagesUI = mapPublicMessagesToUI(
     getVisiblePublicMessages(stateChannelMainFish.messages),
-    stateUsersCatalogFish.users
+    stateUsersCatalogFish.users,
+    signedInUserUUID
   );
 
   const canShowUserProfileEdit =
@@ -109,8 +156,12 @@ export const ChatContainer: FC<Props> = ({
       <TopBar userDisplayName={userDisplayName ?? ''} />
       <div>left - main side bar here</div>
       <div>
-        <Channel messages={messagesUI} />
-        <MessageInput sendMessage={handleSendMessage} />
+        <Channel
+          messages={messagesUI}
+          editMessage={handleEditMessage}
+          hideMessage={handleHideMessage}
+        />
+        <MessageInput addMessage={handleAddMessage} />
       </div>
       <div>
         {canShowUserProfileEdit && (

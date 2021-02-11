@@ -1,10 +1,10 @@
 import { PublicMessage } from '../message/types';
 
 //#region State
-export type Messages = PublicMessage[];
+export type PublicMessages = PublicMessage[];
 
 export type ChannelFishState = {
-  messages: Messages;
+  messages: PublicMessages;
 };
 
 //#endregion
