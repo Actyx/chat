@@ -15,11 +15,7 @@ import {
   ChannelFishState,
   PublicMessages,
 } from '../../business-logic/channel-fish/types';
-import {
-  ChannelId,
-  MessageId,
-  PublicMessage,
-} from '../../business-logic/message/types';
+import { MessageId, PublicMessage } from '../../business-logic/message/types';
 import {
   editUserProfile,
   getDisplayNameByUserUUID,
@@ -48,7 +44,6 @@ import { TopBar } from './TopBar';
 type Props = Readonly<{
   pond: Pond;
   signedInUserUUID: UserUUID;
-  activeChannelId: ChannelId;
 }>;
 
 const getVisiblePublicMessages = (messages: PublicMessages) =>
@@ -76,12 +71,10 @@ const mapPublicMessagesToUI = (
     };
   });
 
-export const ChatContainer: FC<Props> = ({
-  pond,
-  signedInUserUUID,
-  activeChannelId,
-}) => {
+export const ChatContainer: FC<Props> = ({ pond, signedInUserUUID }) => {
   const dispatch = useContext(DispatchContextUI);
+
+  const stateUI = useContext(StateContextUI);
 
   const [
     stateUsersCatalogFish,
@@ -110,8 +103,6 @@ export const ChatContainer: FC<Props> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const stateUI = useContext(StateContextUI);
-
   const [errorPond, setErrorPond] = React.useState<string>();
 
   const userDisplayName = getDisplayNameByUserUUID(
@@ -136,7 +127,9 @@ export const ChatContainer: FC<Props> = ({
 
   const handleAddMessage = async (content: string) => {
     try {
-      await addMessageToChannel(pond)(activeChannelId)(signedInUserUUID)({
+      await addMessageToChannel(pond)(stateUI.activeChannelId)(
+        signedInUserUUID
+      )({
         content,
       });
       setErrorPond(undefined);
@@ -147,10 +140,9 @@ export const ChatContainer: FC<Props> = ({
 
   const handleEditMessage = async (messageId: MessageId, content: string) => {
     try {
-      await editMessageInChannel(pond)(activeChannelId)(signedInUserUUID)(
-        messageId,
-        content
-      );
+      await editMessageInChannel(pond)(stateUI.activeChannelId)(
+        signedInUserUUID
+      )(messageId, content);
       setErrorPond(undefined);
     } catch (err) {
       setErrorPond(err);
@@ -163,9 +155,9 @@ export const ChatContainer: FC<Props> = ({
     );
     if (hasUserConfirmed) {
       try {
-        await hideMessageInChannel(pond)(activeChannelId)(signedInUserUUID)(
-          messageId
-        );
+        await hideMessageInChannel(pond)(stateUI.activeChannelId)(
+          signedInUserUUID
+        )(messageId);
         setErrorPond(undefined);
       } catch (err) {
         setErrorPond(err);

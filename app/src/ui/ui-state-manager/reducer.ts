@@ -1,4 +1,4 @@
-import { MAIN_CHANNEL } from '../../business-logic/channel-fish/channel-fish';
+import { MAIN_CHANNEL as DEFAULT_CHANNEL } from '../../business-logic/channel-fish/channel-fish';
 import { Action, ActionType, Screens, SectionCenter, StateUI } from './types';
 
 export const reducer = (state: StateUI, action: Action): StateUI => {
@@ -28,7 +28,7 @@ export const reducer = (state: StateUI, action: Action): StateUI => {
       return {
         ...state,
         signedInUserUUID: action.payload.signedInUser,
-        activeChannelId: MAIN_CHANNEL,
+        activeChannelId: DEFAULT_CHANNEL,
       };
     case ActionType.EditSectionRight:
       return {
@@ -39,7 +39,7 @@ export const reducer = (state: StateUI, action: Action): StateUI => {
       return {
         ...state,
         signedInUserUUID: undefined,
-        activeChannelId: undefined,
+        activeChannelId: DEFAULT_CHANNEL,
         screen: Screens.Authentication,
       };
     default:

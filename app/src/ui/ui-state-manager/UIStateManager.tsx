@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { MAIN_CHANNEL as DEFAULT_CHANNEL } from '../../business-logic/channel-fish/channel-fish';
 import { reducer } from './reducer';
 import {
   Dispatcher,
@@ -8,12 +9,12 @@ import {
   StateUI,
 } from './types';
 
-export const inititialState: StateUI = {
+const inititialState: StateUI = {
   screen: Screens.Authentication,
   signedInUserUUID: undefined,
   sectionRight: SectionRight.None,
   sectionCenter: SectionCenter.Channel,
-  activeChannelId: undefined,
+  activeChannelId: DEFAULT_CHANNEL,
 };
 
 export const StateContextUI = React.createContext(inititialState);

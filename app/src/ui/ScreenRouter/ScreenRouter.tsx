@@ -16,20 +16,16 @@ const AccessNotAllowed = () => <div>Access is not allowed</div>;
 export const ScreenRooter: FC<Props> = ({ pond, messages }) => {
   const stateUI = useContext(StateContextUI);
 
-  const { screen, signedInUserUUID, activeChannelId } = stateUI;
+  const { screen, signedInUserUUID } = stateUI;
 
   const renderScreen = () => {
     switch (screen) {
       case Screens.Authentication:
         return <AuthenticationContainer pond={pond} />;
       case Screens.Chat:
-        const canRouteToChatScreen = signedInUserUUID && activeChannelId;
+        const canRouteToChatScreen = signedInUserUUID;
         return canRouteToChatScreen ? (
-          <ChatContainer
-            pond={pond}
-            signedInUserUUID={signedInUserUUID!}
-            activeChannelId={activeChannelId!}
-          />
+          <ChatContainer pond={pond} signedInUserUUID={signedInUserUUID!} />
         ) : (
           <AccessNotAllowed />
         );

@@ -24,7 +24,7 @@ export type StateUI = Readonly<{
   signedInUserUUID?: UserUUID;
   sectionRight: SectionRight;
   sectionCenter: SectionCenter;
-  activeChannelId?: ChannelId;
+  activeChannelId: ChannelId;
 }>;
 
 //#endregion
