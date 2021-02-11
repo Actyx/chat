@@ -4,7 +4,7 @@ import {
   MediaIds,
   MessageId,
   PublicMessage,
-  PublicRecipientsIds,
+  PublicRecipientIds,
   SenderId,
 } from '../message/types';
 import { ChannelFish } from './channel-fish';
@@ -27,11 +27,11 @@ export const addMessageToChannel = (pond: Pond) => (channelId: ChannelId) => (
 ) => async ({
   content,
   mediaIds,
-  recipientsIds,
+  recipientIds,
 }: Readonly<{
   content: string;
   mediaIds?: MediaIds;
-  recipientsIds?: PublicRecipientsIds;
+  recipientIds?: PublicRecipientIds;
 }>): Promise<boolean> => {
   let isSuccess = false;
   await pond
@@ -42,7 +42,7 @@ export const addMessageToChannel = (pond: Pond) => (channelId: ChannelId) => (
         channelId,
         content,
         mediaIds,
-        recipientsIds,
+        recipientIds,
       });
       const tags = mkPublicMessageAddedTags(channelId, senderId);
       enqueue(tags, event);
