@@ -132,9 +132,9 @@ export const ChatContainer: FC<Props> = ({
     );
     if (hasUserConfirmed) {
       try {
-        await hideMessageInChannel(pond)(activeChannelId)(
-          stateChannelMainFish.messages
-        )(signedInUserUUID)(messageId);
+        await hideMessageInChannel(pond)(activeChannelId)(signedInUserUUID)(
+          messageId
+        );
         setErrorPond(undefined);
       } catch (err) {
         setErrorPond(err);

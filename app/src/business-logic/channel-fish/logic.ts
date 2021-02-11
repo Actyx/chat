@@ -99,30 +99,25 @@ export const editMessageInChannel = (pond: Pond) => (channelId: ChannelId) => (
 
 export const hideMessageFromChannel = (pond: Pond) => (
   channelId: ChannelId
-) => (messages: PublicMessages) => (signedInUserUUID: UserUUID) => (
+) => (signedInUserUUID: UserUUID) => async (
   messageId: MessageId
 ): Promise<boolean> => {
-  return new Promise((res, rej) => {
-    const message = getMessageById(messageId, messages);
-    if (message) {
-      const canHide = doesMessageBelongToUser(signedInUserUUID, message);
-      if (canHide) {
-        pond
-          .run(ChannelFish.mainFish, (_, enqueue) => {
-            const event = mkMessageHiddenEvent(messageId);
-            const tags = mkMessageHiddenEventTags(channelId);
-            enqueue(tags, event);
-          })
-          .toPromise()
-          .then(() => res(true))
-          .catch(rej);
-      } else {
-        res(false);
+  let isSuccess = false;
+  await pond
+    .run(ChannelFish.mainFish, (fishState, enqueue) => {
+      const message = getMessageById(messageId, fishState.messages);
+      if (message) {
+        const canHide = doesMessageBelongToUser(signedInUserUUID, message);
+        if (canHide) {
+          const event = mkMessageHiddenEvent(messageId);
+          const tags = mkMessageHiddenEventTags(channelId);
+          enqueue(tags, event);
+          isSuccess = true;
+        }
       }
-    } else {
-      res(false);
-    }
-  });
+    })
+    .toPromise();
+  return isSuccess;
 };
 
 //#endregion
