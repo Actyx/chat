@@ -37,10 +37,7 @@ export const App: FC = () => {
       {pond && stateUsersCatalogFish && stateChannelMainFish ? (
         <div>
           <ScreenRouter pond={pond} messages={stateChannelMainFish.messages} />
-          <Debug
-            stateUsersCatalogFish={stateUsersCatalogFish}
-            stateChannelMainFish={stateChannelMainFish}
-          />
+          <Debug pond={pond} />
         </div>
       ) : (
         <PondError />

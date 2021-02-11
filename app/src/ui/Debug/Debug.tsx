@@ -1,20 +1,52 @@
-import React, { FC, useContext } from 'react';
+import { Pond } from '@actyx/pond';
+import React, { FC, useContext, useEffect } from 'react';
+import {
+  ChannelFish,
+  initialStateCannelFish,
+} from '../../business-logic/channel-fish/channel-fish';
 import { ChannelFishState } from '../../business-logic/channel-fish/types';
 import { UsersCatalogFishState } from '../../business-logic/users-catalog-fish/types';
+import {
+  initialStateUserCatalogFish,
+  UsersCatalogFish,
+} from '../../business-logic/users-catalog-fish/users-catalog-fish';
 import { StateContextUI } from '../ui-state-manager/UIStateManager';
 
 type Props = Readonly<{
-  stateUsersCatalogFish: UsersCatalogFishState;
-  stateChannelMainFish: ChannelFishState;
+  pond: Pond;
 }>;
 
 const format = (value: any) => JSON.stringify(value, undefined, 4);
 
-export const Debug: FC<Props> = ({
-  stateUsersCatalogFish,
-  stateChannelMainFish,
-}) => {
+export const Debug: FC<Props> = ({ pond }) => {
   const stateUI = useContext(StateContextUI);
+
+  const [
+    stateUsersCatalogFish,
+    setStateUsersCatalogFish,
+  ] = React.useState<UsersCatalogFishState>(initialStateUserCatalogFish);
+
+  const [
+    stateChannelMainFish,
+    setStateChannelMainFish,
+  ] = React.useState<ChannelFishState>(initialStateCannelFish);
+
+  useEffect(() => {
+    const cancelSubUserCatalogFish = pond.observe(
+      UsersCatalogFish.fish,
+      setStateUsersCatalogFish
+    );
+
+    const cancelSubscChannelFish = pond.observe(
+      ChannelFish.mainFish,
+      setStateChannelMainFish
+    );
+    return () => {
+      cancelSubUserCatalogFish();
+      cancelSubscChannelFish();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div>
