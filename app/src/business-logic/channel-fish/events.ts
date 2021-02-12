@@ -1,4 +1,5 @@
 import { AddEmission, Tags } from '@actyx/pond';
+import { TagsWithEvent } from '../../common/utility-types';
 import {
   ChannelId,
   MessageContentEditedEvent,
@@ -12,19 +13,19 @@ import {
 import { UserUUID } from '../users-catalog-fish/types';
 import { ChannelFish } from './channel-fish';
 
-export const emitPublicMessageAdded = (
-  enqueue: AddEmission<PublicMessageEvent>
-) => (payload: PublicMessageAddedEventPaylod) => {
+export const getPublicMessageAdded = (
+  payload: PublicMessageAddedEventPaylod
+): TagsWithEvent<PublicMessageEvent> => {
   const event: PublicMessageAddedEvent = {
     type: MessageEventType.PublicMessageAdded,
     payload,
   };
-  const tags: Tags<PublicMessageEvent> = ChannelFish.tags.message.and(
+  const tags = ChannelFish.tags.message.and(
     ChannelFish.tags.channel
       .withId(payload.channelId)
       .and(mkSenderTag(payload.senderId))
   );
-  enqueue(tags, event);
+  return [tags, event];
 };
 
 export const mkSenderTag = (senderId: UserUUID) =>

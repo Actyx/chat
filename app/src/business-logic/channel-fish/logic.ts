@@ -13,7 +13,7 @@ import { v4 as uuid } from 'uuid';
 import {
   emitMessageContentEdited,
   emitMessageHiddenEvent,
-  emitPublicMessageAdded,
+  getPublicMessageAdded,
 } from './events';
 import { UserUUID } from '../users-catalog-fish/types';
 import { ChannelFishState, PublicMessages } from './types';
@@ -22,7 +22,7 @@ import { ChannelFishState, PublicMessages } from './types';
 
 export const addMessageToChannel = (pond: Pond) => (channelId: ChannelId) => (
   senderId: SenderId
-) => async ({
+) => ({
   content,
   mediaIds,
   recipientIds,
@@ -30,26 +30,19 @@ export const addMessageToChannel = (pond: Pond) => (channelId: ChannelId) => (
   content: string;
   mediaIds?: MediaIds;
   recipientIds?: PublicRecipientIds;
-}>): Promise<boolean> => {
-  let isSuccess = false;
-  await pond
-    .run<ChannelFishState, PublicMessageEvent>(
-      mainChannelFish,
-      (_, enqueue) => {
-        emitPublicMessageAdded(enqueue)({
-          messageId: uuid(),
-          senderId,
-          channelId,
-          content,
-          mediaIds,
-          recipientIds,
-        });
-        isSuccess = true;
-      }
+}>): Promise<void> =>
+  pond
+    .emit(
+      ...getPublicMessageAdded({
+        messageId: uuid(),
+        senderId,
+        channelId,
+        content,
+        mediaIds,
+        recipientIds,
+      })
     )
     .toPromise();
-  return isSuccess;
-};
 
 //#endregion
 
