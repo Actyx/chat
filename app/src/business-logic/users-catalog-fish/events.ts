@@ -1,4 +1,3 @@
-import { AddEmission, Tags } from '@actyx/pond';
 import { TagsWithEvent } from '../../common/utility-types';
 import {
   UserAddedEvent,
@@ -30,9 +29,10 @@ export const getUserAddedEvent = (
   return [tags, event];
 };
 
-export const emitUserProfileEditedEvent = (
-  enqueue: AddEmission<UserCatalogFishEvent>
-) => (userUUID: UserUUID, displayName: string) => {
+export const getUserProfileEditedEvent = (
+  userUUID: UserUUID,
+  displayName: string
+): TagsWithEvent<UserCatalogFishEvent> => {
   const event: UserProfileEditedEvent = {
     type: UsersCatalogFishEventType.UserProfileEdited,
     payload: {
@@ -40,10 +40,8 @@ export const emitUserProfileEditedEvent = (
       displayName,
     },
   };
-  const tags: Tags<UserCatalogFishEvent> = UsersCatalogFish.tags.user.withId(
-    userUUID
-  );
-  enqueue(tags, event);
+  const tags = UsersCatalogFish.tags.user.withId(userUUID);
+  return [tags, event];
 };
 
 //#endregion
