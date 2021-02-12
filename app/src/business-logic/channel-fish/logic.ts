@@ -12,7 +12,7 @@ import { mainChannelFish } from './channel-fish';
 import { v4 as uuid } from 'uuid';
 import {
   getMessageContentEdited,
-  emitMessageHiddenEvent,
+  getMessageHiddenEvent,
   getPublicMessageAdded,
 } from './events';
 import { UserUUID } from '../users-catalog-fish/types';
@@ -104,7 +104,7 @@ export const hideMessageFromChannel = (pond: Pond) => (
         if (message) {
           const canHide = doesMessageBelongToUser(signedInUserUUID, message);
           if (canHide) {
-            emitMessageHiddenEvent(enqueue)(messageId, channelId);
+            enqueue(...getMessageHiddenEvent(messageId, channelId));
             isSuccess = true;
           }
         }

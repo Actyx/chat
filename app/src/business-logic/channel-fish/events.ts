@@ -1,4 +1,3 @@
-import { AddEmission, Tags } from '@actyx/pond';
 import { TagsWithEvent } from '../../common/utility-types';
 import {
   ChannelId,
@@ -49,17 +48,18 @@ export const getMessageContentEdited = (
   return [tags, event];
 };
 
-export const emitMessageHiddenEvent = (
-  enqueue: AddEmission<PublicMessageEvent>
-) => (messageId: MessageId, channelId: ChannelId) => {
+export const getMessageHiddenEvent = (
+  messageId: MessageId,
+  channelId: ChannelId
+): TagsWithEvent<PublicMessageEvent> => {
   const event: MessageHiddenEvent = {
     type: MessageEventType.MessageHidden,
     payload: {
       messageId,
     },
   };
-  const tags: Tags<PublicMessageEvent> = ChannelFish.tags.message.and(
+  const tags = ChannelFish.tags.message.and(
     ChannelFish.tags.channel.withId(channelId)
   );
-  enqueue(tags, event);
+  return [tags, event];
 };
