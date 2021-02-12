@@ -10,12 +10,11 @@ import {
 import { mainChannelFish } from './channel-fish';
 import { v4 as uuid } from 'uuid';
 import {
+  emitPublicMessageAdded,
   mkMessageContentEditedEvent,
   mkMessageContentEditedEventTags,
   mkMessageHiddenEvent,
   mkMessageHiddenEventTags,
-  mkPublicMessageAddedEvent,
-  mkPublicMessageAddedTags,
 } from './events';
 import { UserUUID } from '../users-catalog-fish/types';
 import { PublicMessages } from './types';
@@ -36,7 +35,7 @@ export const addMessageToChannel = (pond: Pond) => (channelId: ChannelId) => (
   let isSuccess = false;
   await pond
     .run(mainChannelFish, (_, enqueue) => {
-      const event = mkPublicMessageAddedEvent({
+      emitPublicMessageAdded(enqueue)({
         messageId: uuid(),
         senderId,
         channelId,
@@ -44,8 +43,6 @@ export const addMessageToChannel = (pond: Pond) => (channelId: ChannelId) => (
         mediaIds,
         recipientIds,
       });
-      const tags = mkPublicMessageAddedTags(channelId, senderId);
-      enqueue(tags, event);
       isSuccess = true;
     })
     .toPromise();
