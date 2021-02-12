@@ -4,6 +4,7 @@ import {
   MediaIds,
   MessageId,
   PublicMessage,
+  PublicMessageAddedEvent,
   PublicRecipientIds,
   SenderId,
 } from '../message/types';
@@ -17,7 +18,7 @@ import {
   mkMessageHiddenEventTags,
 } from './events';
 import { UserUUID } from '../users-catalog-fish/types';
-import { PublicMessages } from './types';
+import { ChannelFishState, PublicMessages } from './types';
 
 //#region Add message
 
@@ -34,17 +35,20 @@ export const addMessageToChannel = (pond: Pond) => (channelId: ChannelId) => (
 }>): Promise<boolean> => {
   let isSuccess = false;
   await pond
-    .run(mainChannelFish, (_, enqueue) => {
-      emitPublicMessageAdded(enqueue)({
-        messageId: uuid(),
-        senderId,
-        channelId,
-        content,
-        mediaIds,
-        recipientIds,
-      });
-      isSuccess = true;
-    })
+    .run<ChannelFishState, PublicMessageAddedEvent>(
+      mainChannelFish,
+      (_, enqueue) => {
+        emitPublicMessageAdded(enqueue)({
+          messageId: uuid(),
+          senderId,
+          channelId,
+          content,
+          mediaIds,
+          recipientIds,
+        });
+        isSuccess = true;
+      }
+    )
     .toPromise();
   return isSuccess;
 };
