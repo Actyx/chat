@@ -1,3 +1,7 @@
+/**
+ * The ChannelFish is responsible for displaying all messages related to a specific channel. A user is only active on one channel at one time.
+ */
+
 import { Fish, FishId, Tag } from '@actyx/pond';
 import { ChannelFishState } from './types';
 import { PublicMessageEvent } from '../message/types';

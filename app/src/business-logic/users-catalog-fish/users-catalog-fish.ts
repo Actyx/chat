@@ -1,3 +1,7 @@
+/**
+ * The UsersCatalogFish is responsible to provide users profile information in the system and relates to functionalities such sign-up and sign-in.
+ */
+
 import { UserCatalogFishEvent, UsersCatalogFishState } from './types';
 import { Fish, FishId, Tag } from '@actyx/pond';
 import { reducer } from './reducer';
