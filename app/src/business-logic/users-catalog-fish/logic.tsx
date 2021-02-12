@@ -1,8 +1,4 @@
-import {
-  emitUserAddedEvent,
-  mkUserProfileEditedEvent,
-  mkUserProfileEditedEventTags,
-} from './events';
+import { emitUserAddedEvent, emitUserProfileEditedEvent } from './events';
 import {
   Email,
   UserCatalogFishEvent,
@@ -92,9 +88,7 @@ export const editUserProfile = (pond: Pond) => async (
       const isNameNotEmpty = isDisplayNameEmpty(sanitizedName) === false;
       const canEditUserProfile = isUserRegistered && isNameNotEmpty;
       if (canEditUserProfile) {
-        const tags = mkUserProfileEditedEventTags(userUUID);
-        const event = mkUserProfileEditedEvent(userUUID, displayName);
-        enqueue(tags, event);
+        emitUserProfileEditedEvent(enqueue)(userUUID, displayName);
         isSuccess = true;
       }
     })

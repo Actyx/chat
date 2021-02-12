@@ -1,4 +1,4 @@
-import { AddEmission } from '@actyx/pond';
+import { AddEmission, Tags } from '@actyx/pond';
 import {
   UserAddedEvent,
   UserCatalogFishEvent,
@@ -21,28 +21,26 @@ export const emitUserAddedEvent = (
       email,
     },
   };
-  const tags = UsersCatalogFish.tags.usersCatalog.and(
+  const tags: Tags<UserCatalogFishEvent> = UsersCatalogFish.tags.usersCatalog.and(
     UsersCatalogFish.tags.user.withId(userUUID)
   );
   enqueue(tags, event);
 };
 
-export const mkUserProfileEditedEvent = (
-  userUUID: UserUUID,
-  displayName: string
-): UserProfileEditedEvent => ({
-  type: UsersCatalogFishEventType.UserProfileEdited,
-  payload: {
-    userUUID,
-    displayName,
-  },
-});
-
-//#endregion
-
-//#region Send events to Pond
-
-export const mkUserProfileEditedEventTags = (userUUID: UserUUID) =>
-  UsersCatalogFish.tags.user.withId(userUUID);
+export const emitUserProfileEditedEvent = (
+  enqueue: AddEmission<UserCatalogFishEvent>
+) => (userUUID: UserUUID, displayName: string) => {
+  const event: UserProfileEditedEvent = {
+    type: UsersCatalogFishEventType.UserProfileEdited,
+    payload: {
+      userUUID,
+      displayName,
+    },
+  };
+  const tags: Tags<UserCatalogFishEvent> = UsersCatalogFish.tags.user.withId(
+    userUUID
+  );
+  enqueue(tags, event);
+};
 
 //#endregion
