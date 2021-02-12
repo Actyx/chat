@@ -1,8 +1,8 @@
 import { Pond } from '@actyx/pond';
 import React, { FC, useContext, useEffect } from 'react';
 import {
-  ChannelFish,
   initialStateCannelFish,
+  mainChannelFish,
 } from '../../business-logic/channel-fish/channel-fish';
 import { ChannelFishState } from '../../business-logic/channel-fish/types';
 import { UsersCatalogFishState } from '../../business-logic/users-catalog-fish/types';
@@ -38,7 +38,7 @@ export const Debug: FC<Props> = ({ pond }) => {
     );
 
     const cancelSubscChannelFish = pond.observe(
-      ChannelFish.mainFish,
+      mainChannelFish,
       setStateChannelMainFish
     );
     return () => {

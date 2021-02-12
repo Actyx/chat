@@ -17,7 +17,7 @@ const initialState: ChannelFishState = {
 
 export const initialStateCannelFish = initialState;
 
-export const factory = (
+const factoryFish = (
   channelName: string
 ): Fish<ChannelFishState, PublicMessageEvent> => ({
   fishId: FishId.of('channel', channelName, 0),
@@ -27,6 +27,7 @@ export const factory = (
 });
 
 export const ChannelFish = {
-  mainFish: factory(MAIN_CHANNEL),
   tags,
 };
+
+export const mainChannelFish = factoryFish(MAIN_CHANNEL);

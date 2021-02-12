@@ -7,7 +7,7 @@ import {
   PublicRecipientIds,
   SenderId,
 } from '../message/types';
-import { ChannelFish } from './channel-fish';
+import { mainChannelFish } from './channel-fish';
 import { v4 as uuid } from 'uuid';
 import {
   mkMessageContentEditedEvent,
@@ -35,7 +35,7 @@ export const addMessageToChannel = (pond: Pond) => (channelId: ChannelId) => (
 }>): Promise<boolean> => {
   let isSuccess = false;
   await pond
-    .run(ChannelFish.mainFish, (_, enqueue) => {
+    .run(mainChannelFish, (_, enqueue) => {
       const event = mkPublicMessageAddedEvent({
         messageId: uuid(),
         senderId,
@@ -77,7 +77,7 @@ export const editMessageInChannel = (pond: Pond) => (channelId: ChannelId) => (
 ) => async (messageId: MessageId, content: string): Promise<boolean> => {
   let isSuccess = false;
   await pond
-    .run(ChannelFish.mainFish, (fishState, enqueue) => {
+    .run(mainChannelFish, (fishState, enqueue) => {
       const message = getMessageById(messageId, fishState.messages);
       if (message) {
         const canEdit = doesMessageBelongToUser(signedInUserUUID, message);
@@ -104,7 +104,7 @@ export const hideMessageFromChannel = (pond: Pond) => (
 ): Promise<boolean> => {
   let isSuccess = false;
   await pond
-    .run(ChannelFish.mainFish, (fishState, enqueue) => {
+    .run(mainChannelFish, (fishState, enqueue) => {
       const message = getMessageById(messageId, fishState.messages);
       if (message) {
         const canHide = doesMessageBelongToUser(signedInUserUUID, message);

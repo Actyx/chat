@@ -1,8 +1,8 @@
 import { Pond, Timestamp } from '@actyx/pond';
 import React, { FC, useContext, useEffect } from 'react';
 import {
-  ChannelFish,
   initialStateCannelFish,
+  mainChannelFish,
 } from '../../business-logic/channel-fish/channel-fish';
 import {
   canUserHideMessage,
@@ -93,7 +93,7 @@ export const ChatContainer: FC<Props> = ({ pond, signedInUserUUID }) => {
     );
 
     const cancelSubscChannelFish = pond.observe(
-      ChannelFish.mainFish,
+      mainChannelFish,
       setStateChannelMainFish
     );
     return () => {
