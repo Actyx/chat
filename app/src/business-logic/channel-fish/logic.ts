@@ -4,16 +4,15 @@ import {
   MediaIds,
   MessageId,
   PublicMessage,
-  PublicMessageAddedEvent,
+  PublicMessageEvent,
   PublicRecipientIds,
   SenderId,
 } from '../message/types';
 import { mainChannelFish } from './channel-fish';
 import { v4 as uuid } from 'uuid';
 import {
+  emitMessageContentEdited,
   emitPublicMessageAdded,
-  mkMessageContentEditedEvent,
-  mkMessageContentEditedEventTags,
   mkMessageHiddenEvent,
   mkMessageHiddenEventTags,
 } from './events';
@@ -35,7 +34,7 @@ export const addMessageToChannel = (pond: Pond) => (channelId: ChannelId) => (
 }>): Promise<boolean> => {
   let isSuccess = false;
   await pond
-    .run<ChannelFishState, PublicMessageAddedEvent>(
+    .run<ChannelFishState, PublicMessageEvent>(
       mainChannelFish,
       (_, enqueue) => {
         emitPublicMessageAdded(enqueue)({
@@ -78,18 +77,19 @@ export const editMessageInChannel = (pond: Pond) => (channelId: ChannelId) => (
 ) => async (messageId: MessageId, content: string): Promise<boolean> => {
   let isSuccess = false;
   await pond
-    .run(mainChannelFish, (fishState, enqueue) => {
-      const message = getMessageById(messageId, fishState.messages);
-      if (message) {
-        const canEdit = doesMessageBelongToUser(signedInUserUUID, message);
-        if (canEdit) {
-          const event = mkMessageContentEditedEvent(messageId, content);
-          const tags = mkMessageContentEditedEventTags(channelId);
-          enqueue(tags, event);
-          isSuccess = true;
+    .run<ChannelFishState, PublicMessageEvent>(
+      mainChannelFish,
+      (fishState, enqueue) => {
+        const message = getMessageById(messageId, fishState.messages);
+        if (message) {
+          const canEdit = doesMessageBelongToUser(signedInUserUUID, message);
+          if (canEdit) {
+            emitMessageContentEdited(enqueue)(messageId, channelId, content);
+            isSuccess = true;
+          }
         }
       }
-    })
+    )
     .toPromise();
   return isSuccess;
 };

@@ -19,7 +19,7 @@ export const emitPublicMessageAdded = (
     type: MessageEventType.PublicMessageAdded,
     payload,
   };
-  const tags = ChannelFish.tags.message.and(
+  const tags: Tags<PublicMessageEvent> = ChannelFish.tags.message.and(
     ChannelFish.tags.channel
       .withId(payload.channelId)
       .and(mkSenderTag(payload.senderId))
@@ -30,24 +30,20 @@ export const emitPublicMessageAdded = (
 export const mkSenderTag = (senderId: UserUUID) =>
   ChannelFish.tags.sender.withId(senderId);
 
-export const mkMessageContentEditedEvent = (
-  messageId: MessageId,
-  content: string
-): MessageContentEditedEvent => ({
-  type: MessageEventType.MessageContentEdited,
-  payload: {
-    messageId,
-    content,
-  },
-});
-
-export const mkMessageContentEditedEventTags = (
-  channelId: ChannelId
-): Tags<PublicMessageEvent> => {
-  const tags = ChannelFish.tags.message.and(
+export const emitMessageContentEdited = (
+  enqueue: AddEmission<PublicMessageEvent>
+) => (messageId: MessageId, channelId: ChannelId, content: string) => {
+  const event: MessageContentEditedEvent = {
+    type: MessageEventType.MessageContentEdited,
+    payload: {
+      messageId,
+      content,
+    },
+  };
+  const tags: Tags<PublicMessageEvent> = ChannelFish.tags.message.and(
     ChannelFish.tags.channel.withId(channelId)
   );
-  return tags;
+  enqueue(tags, event);
 };
 
 export const mkMessageHiddenEvent = (
