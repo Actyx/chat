@@ -1,6 +1,5 @@
 import {
-  mkUserAddedEvent,
-  mkUserAddedEventTags,
+  emitUserAddedEvent,
   mkUserProfileEditedEvent,
   mkUserProfileEditedEventTags,
 } from './events';
@@ -22,9 +21,7 @@ export const signUp = (pond: Pond, makerUUID: () => UserUUID) => async (
       const canSignUp =
         isUserEmailRegistered(email, fishState.emails) === false;
       if (canSignUp) {
-        const event = mkUserAddedEvent(userUUID, displayName, email);
-        const tags = mkUserAddedEventTags(userUUID);
-        enqueue(tags, event);
+        emitUserAddedEvent(enqueue)(userUUID, displayName, email);
         isSuccess = true;
       }
     })
