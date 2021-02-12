@@ -1,4 +1,4 @@
-import { emitUserAddedEvent, emitUserProfileEditedEvent } from './events';
+import { getUserAddedEvent, emitUserProfileEditedEvent } from './events';
 import {
   Email,
   UserCatalogFishEvent,
@@ -26,7 +26,7 @@ export const signUp = (pond: Pond, makerUUID: () => UserUUID) => async (
         const canSignUp =
           isUserEmailRegistered(email, fishState.emails) === false;
         if (canSignUp) {
-          emitUserAddedEvent(enqueue)(userUUID, displayName, email);
+          enqueue(...getUserAddedEvent(userUUID, displayName, email));
           isSuccess = true;
         }
       }
