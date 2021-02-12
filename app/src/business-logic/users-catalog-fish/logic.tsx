@@ -3,7 +3,14 @@ import {
   mkUserProfileEditedEvent,
   mkUserProfileEditedEventTags,
 } from './events';
-import { Email, Users, UsersEmails, UserUUID } from './types';
+import {
+  Email,
+  UserCatalogFishEvent,
+  Users,
+  UsersCatalogFishState,
+  UsersEmails,
+  UserUUID,
+} from './types';
 import { v4 as uuid } from 'uuid';
 import { Pond } from '@actyx/pond';
 import { UsersCatalogFish } from './users-catalog-fish';
@@ -17,14 +24,17 @@ export const signUp = (pond: Pond, makerUUID: () => UserUUID) => async (
   const userUUID = makerUUID();
   let isSuccess = false;
   await pond
-    .run(UsersCatalogFish.fish, (fishState, enqueue) => {
-      const canSignUp =
-        isUserEmailRegistered(email, fishState.emails) === false;
-      if (canSignUp) {
-        emitUserAddedEvent(enqueue)(userUUID, displayName, email);
-        isSuccess = true;
+    .run<UsersCatalogFishState, UserCatalogFishEvent>(
+      UsersCatalogFish.fish,
+      (fishState, enqueue) => {
+        const canSignUp =
+          isUserEmailRegistered(email, fishState.emails) === false;
+        if (canSignUp) {
+          emitUserAddedEvent(enqueue)(userUUID, displayName, email);
+          isSuccess = true;
+        }
       }
-    })
+    )
     .toPromise();
   return isSuccess ? userUUID : undefined;
 };
