@@ -1,4 +1,4 @@
-import { TagsWithEvent } from '../../common/utility-types';
+import { TagsWithEvent } from '../../common/types';
 import {
   ChannelId,
   MessageContentEditedEvent,
@@ -11,6 +11,9 @@ import {
 } from '../message/types';
 import { UserUUID } from '../users-catalog-fish/types';
 import { ChannelFish } from './channel-fish';
+
+export const mkSenderTag = (senderId: UserUUID) =>
+  ChannelFish.tags.sender.withId(senderId);
 
 export const getPublicMessageAdded = (
   payload: PublicMessageAddedEventPaylod
@@ -26,9 +29,6 @@ export const getPublicMessageAdded = (
   );
   return [tags, event];
 };
-
-export const mkSenderTag = (senderId: UserUUID) =>
-  ChannelFish.tags.sender.withId(senderId);
 
 export const getMessageContentEdited = (
   messageId: MessageId,

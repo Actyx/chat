@@ -2,7 +2,7 @@ import { Timestamp } from '@actyx/pond';
 import {
   ReadonlyArrayOfOne,
   ReadonlyArrayOfOneOrMore,
-} from '../../common/utility-types';
+} from '../../common/types';
 import { UserUUID } from '../users-catalog-fish/types';
 
 //#region Types
@@ -67,7 +67,6 @@ export type PrivateMessageAddedEvent = {
 };
 
 export type PublicMessageAddedEventPaylod = Readonly<{
-  // messageId: MessageId;
   senderId: SenderId;
   channelId: ChannelId;
   content: string;

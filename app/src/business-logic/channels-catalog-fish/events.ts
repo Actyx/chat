@@ -8,6 +8,7 @@ import {
   ChannelUnarchiveEvent,
 } from './types';
 
+// TODO revise using TagsWithEvent
 export const mkChannelAddedEvent = (
   channelId: ChannelId,
   createdBy: UserUUID,
@@ -23,6 +24,7 @@ export const mkChannelAddedEvent = (
   },
 });
 
+// TODO revise using TagsWithEvent
 export const mkChannelProfileEditedEvent = (
   channelId: ChannelId,
   editedBy: UserUUID,
@@ -38,6 +40,7 @@ export const mkChannelProfileEditedEvent = (
   },
 });
 
+// TODO revise using TagsWithEvent
 export const mkChannelArchivedEvent = (
   channelId: ChannelId,
   archivedBy: UserUUID
@@ -49,6 +52,7 @@ export const mkChannelArchivedEvent = (
   },
 });
 
+// TODO revise using TagsWithEvent
 export const mkChannelUnarchiveEvent = (
   channelId: ChannelId,
   unarchivedBy: UserUUID

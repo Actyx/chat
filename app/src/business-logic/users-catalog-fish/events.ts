@@ -1,4 +1,4 @@
-import { TagsWithEvent } from '../../common/utility-types';
+import { TagsWithEvent } from '../../common/types';
 import {
   UserAddedEvent,
   UserCatalogFishEvent,
@@ -7,8 +7,6 @@ import {
   UserUUID,
 } from './types';
 import { UsersCatalogFish } from './users-catalog-fish';
-
-//#region Make events
 
 export const getUserAddedEvent = (
   userUUID: UserUUID,
@@ -43,5 +41,3 @@ export const getUserProfileEditedEvent = (
   const tags = UsersCatalogFish.tags.user.withId(userUUID);
   return [tags, event];
 };
-
-//#endregion

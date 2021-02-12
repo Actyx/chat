@@ -10,6 +10,7 @@ import {
 import { v4 as uuid } from 'uuid';
 import { Pond } from '@actyx/pond';
 import { UsersCatalogFish } from './users-catalog-fish';
+import { isStringEmpty, trimString } from '../../common/utility';
 
 //#region Sign-up
 
@@ -72,10 +73,6 @@ export const getDisplayNameByUserUUID = (
   }
 };
 
-const sanitizeDisplayName = (displayName: string) => displayName.trim();
-
-const isDisplayNameEmpty = (displayName: string) => displayName.length === 0;
-
 export const editUserProfile = (pond: Pond) => async (
   userUUID: UserUUID,
   displayName: string
@@ -84,8 +81,8 @@ export const editUserProfile = (pond: Pond) => async (
   await pond
     .run(UsersCatalogFish.fish, (fishState, enqueue) => {
       const isUserRegistered = isUserUUIDRegistered(userUUID, fishState.users);
-      const sanitizedName = sanitizeDisplayName(displayName);
-      const isNameNotEmpty = isDisplayNameEmpty(sanitizedName) === false;
+      const displayNameTrimmed = trimString(displayName);
+      const isNameNotEmpty = isStringEmpty(displayNameTrimmed) === false;
       const canEditUserProfile = isUserRegistered && isNameNotEmpty;
       if (canEditUserProfile) {
         enqueue(...getUserProfileEditedEvent(userUUID, displayName));
