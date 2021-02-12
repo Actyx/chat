@@ -10,6 +10,7 @@ import {
   PublicMessageEvent,
   SenderId,
 } from '../message/types';
+import { UserUUID } from '../users-catalog-fish/types';
 import { ChannelFish } from './channel-fish';
 
 export const mkPublicMessageAddedEvent = (
@@ -19,14 +20,15 @@ export const mkPublicMessageAddedEvent = (
   payload,
 });
 
+export const mkSenderTag = (senderId: UserUUID) =>
+  ChannelFish.tags.sender.withId(senderId);
+
 export const mkPublicMessageAddedTags = (
   channelId: ChannelId,
   senderId: SenderId
 ): Tags<PublicMessageEvent> => {
   const tags = ChannelFish.tags.message.and(
-    ChannelFish.tags.channel
-      .withId(channelId)
-      .and(ChannelFish.tags.messageSender.withId(senderId))
+    ChannelFish.tags.channel.withId(channelId).and(mkSenderTag(senderId))
   );
   return tags;
 };

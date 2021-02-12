@@ -8,7 +8,7 @@ export const MAIN_CHANNEL = 'main';
 const tags = {
   channel: Tag<PublicMessageEvent>('channel'),
   message: Tag<PublicMessageEvent>('message'),
-  messageSender: Tag<PublicMessageEvent>('message-sender'),
+  sender: Tag<PublicMessageEvent>('sender'),
 };
 
 const initialState: ChannelFishState = {
