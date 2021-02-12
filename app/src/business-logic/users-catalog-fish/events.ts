@@ -27,26 +27,6 @@ export const emitUserAddedEvent = (
   enqueue(tags, event);
 };
 
-export const mkUserAddedEvent = (
-  userUUID: UserUUID,
-  displayName: string,
-  email: string
-): UserAddedEvent => ({
-  type: UsersCatalogFishEventType.UserAdded,
-  payload: {
-    userUUID,
-    displayName,
-    email,
-  },
-});
-
-export const mkUserAddedEventTags = (userUUID: UserUUID) => {
-  const tags = UsersCatalogFish.tags.usersCatalog.and(
-    UsersCatalogFish.tags.user.withId(userUUID)
-  );
-  return tags;
-};
-
 export const mkUserProfileEditedEvent = (
   userUUID: UserUUID,
   displayName: string
