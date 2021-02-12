@@ -67,7 +67,7 @@ export type PrivateMessageAddedEvent = {
 };
 
 export type PublicMessageAddedEventPaylod = Readonly<{
-  messageId: MessageId;
+  // messageId: MessageId;
   senderId: SenderId;
   channelId: ChannelId;
   content: string;

@@ -9,7 +9,6 @@ import {
   SenderId,
 } from '../message/types';
 import { mainChannelFish } from './channel-fish';
-import { v4 as uuid } from 'uuid';
 import {
   getMessageContentEdited,
   getMessageHiddenEvent,
@@ -34,7 +33,6 @@ export const addMessageToChannel = (pond: Pond) => (channelId: ChannelId) => (
   pond
     .emit(
       ...getPublicMessageAdded({
-        messageId: uuid(), //TODO get the id from the infrastructure
         senderId,
         channelId,
         content,

@@ -16,7 +16,12 @@ export const reducer: Reduce<ChannelFishState, PublicMessageEvent> = (
 ): ChannelFishState => {
   switch (event.type) {
     case MessageEventType.PublicMessageAdded:
-      return publicMessageAdded(state, event, meta.timestampMicros);
+      return publicMessageAdded(
+        state,
+        event,
+        meta.eventId,
+        meta.timestampMicros
+      );
     case MessageEventType.MessageHidden:
       return messageHidden(state, event, meta.timestampMicros);
     case MessageEventType.MessageContentEdited:
@@ -35,12 +40,14 @@ export const reducer: Reduce<ChannelFishState, PublicMessageEvent> = (
 const publicMessageAdded = (
   state: ChannelFishState,
   event: PublicMessageAddedEvent,
+  eventId: string,
   timestampMicros: Timestamp
 ) => {
   const message = {
     ...event.payload,
     createdOn: timestampMicros,
     isHidden: false,
+    messageId: eventId,
   };
   state.messages.push(message);
   return state;
