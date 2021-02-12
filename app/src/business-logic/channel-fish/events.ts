@@ -31,9 +31,11 @@ export const getPublicMessageAdded = (
 export const mkSenderTag = (senderId: UserUUID) =>
   ChannelFish.tags.sender.withId(senderId);
 
-export const emitMessageContentEdited = (
-  enqueue: AddEmission<PublicMessageEvent>
-) => (messageId: MessageId, channelId: ChannelId, content: string) => {
+export const getMessageContentEdited = (
+  messageId: MessageId,
+  channelId: ChannelId,
+  content: string
+): TagsWithEvent<PublicMessageEvent> => {
   const event: MessageContentEditedEvent = {
     type: MessageEventType.MessageContentEdited,
     payload: {
@@ -41,10 +43,10 @@ export const emitMessageContentEdited = (
       content,
     },
   };
-  const tags: Tags<PublicMessageEvent> = ChannelFish.tags.message.and(
+  const tags = ChannelFish.tags.message.and(
     ChannelFish.tags.channel.withId(channelId)
   );
-  enqueue(tags, event);
+  return [tags, event];
 };
 
 export const emitMessageHiddenEvent = (

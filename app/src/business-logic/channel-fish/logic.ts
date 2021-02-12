@@ -11,7 +11,7 @@ import {
 import { mainChannelFish } from './channel-fish';
 import { v4 as uuid } from 'uuid';
 import {
-  emitMessageContentEdited,
+  getMessageContentEdited,
   emitMessageHiddenEvent,
   getPublicMessageAdded,
 } from './events';
@@ -34,7 +34,7 @@ export const addMessageToChannel = (pond: Pond) => (channelId: ChannelId) => (
   pond
     .emit(
       ...getPublicMessageAdded({
-        messageId: uuid(),
+        messageId: uuid(), //TODO get the id from the infrastructure
         senderId,
         channelId,
         content,
@@ -76,7 +76,7 @@ export const editMessageInChannel = (pond: Pond) => (channelId: ChannelId) => (
         if (message) {
           const canEdit = doesMessageBelongToUser(signedInUserUUID, message);
           if (canEdit) {
-            emitMessageContentEdited(enqueue)(messageId, channelId, content);
+            enqueue(...getMessageContentEdited(messageId, channelId, content));
             isSuccess = true;
           }
         }
