@@ -12,9 +12,8 @@ import { mainChannelFish } from './channel-fish';
 import { v4 as uuid } from 'uuid';
 import {
   emitMessageContentEdited,
+  emitMessageHiddenEvent,
   emitPublicMessageAdded,
-  mkMessageHiddenEvent,
-  mkMessageHiddenEventTags,
 } from './events';
 import { UserUUID } from '../users-catalog-fish/types';
 import { ChannelFishState, PublicMessages } from './types';
@@ -105,18 +104,19 @@ export const hideMessageFromChannel = (pond: Pond) => (
 ): Promise<boolean> => {
   let isSuccess = false;
   await pond
-    .run(mainChannelFish, (fishState, enqueue) => {
-      const message = getMessageById(messageId, fishState.messages);
-      if (message) {
-        const canHide = doesMessageBelongToUser(signedInUserUUID, message);
-        if (canHide) {
-          const event = mkMessageHiddenEvent(messageId);
-          const tags = mkMessageHiddenEventTags(channelId);
-          enqueue(tags, event);
-          isSuccess = true;
+    .run<ChannelFishState, PublicMessageEvent>(
+      mainChannelFish,
+      (fishState, enqueue) => {
+        const message = getMessageById(messageId, fishState.messages);
+        if (message) {
+          const canHide = doesMessageBelongToUser(signedInUserUUID, message);
+          if (canHide) {
+            emitMessageHiddenEvent(enqueue)(messageId, channelId);
+            isSuccess = true;
+          }
         }
       }
-    })
+    )
     .toPromise();
   return isSuccess;
 };

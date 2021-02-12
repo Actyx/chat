@@ -46,19 +46,17 @@ export const emitMessageContentEdited = (
   enqueue(tags, event);
 };
 
-export const mkMessageHiddenEvent = (
-  messageId: MessageId
-): MessageHiddenEvent => ({
-  type: MessageEventType.MessageHidden,
-  payload: {
-    messageId,
-  },
-});
-export const mkMessageHiddenEventTags = (
-  channelId: ChannelId
-): Tags<PublicMessageEvent> => {
-  const tags = ChannelFish.tags.message.and(
+export const emitMessageHiddenEvent = (
+  enqueue: AddEmission<PublicMessageEvent>
+) => (messageId: MessageId, channelId: ChannelId) => {
+  const event: MessageHiddenEvent = {
+    type: MessageEventType.MessageHidden,
+    payload: {
+      messageId,
+    },
+  };
+  const tags: Tags<PublicMessageEvent> = ChannelFish.tags.message.and(
     ChannelFish.tags.channel.withId(channelId)
   );
-  return tags;
+  enqueue(tags, event);
 };
