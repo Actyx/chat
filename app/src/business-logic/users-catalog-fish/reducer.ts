@@ -21,6 +21,8 @@ export const reducer: Reduce<UsersCatalogFishState, UserCatalogFishEvent> = (
     case UsersCatalogFishEventType.UserProfileEdited: {
       return userProfileEdited(state, event, meta.timestampMicros);
     }
+    default:
+      return state;
   }
 };
 

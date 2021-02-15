@@ -1,49 +1,46 @@
+import { TagsWithEvent } from '../../common/types';
 import {
   UserAddedEvent,
+  UserCatalogFishEvent,
   UserProfileEditedEvent,
   UsersCatalogFishEventType,
   UserUUID,
 } from './types';
 import { UsersCatalogFish } from './users-catalog-fish';
 
-//#region Make events
+export const mkUserTagWithId = (userUUID: UserUUID) =>
+  UsersCatalogFish.tags.user.withId(userUUID);
 
-export const mkUserAddedEvent = (
+export const getUserAddedEvent = (
   userUUID: UserUUID,
   displayName: string,
   email: string
-): UserAddedEvent => ({
-  type: UsersCatalogFishEventType.UserAdded,
-  payload: {
-    userUUID,
-    displayName,
-    email,
-  },
-});
-
-export const mkUserAddedEventTags = (userUUID: UserUUID) => {
-  const tags = UsersCatalogFish.tags.user
-    .and(UsersCatalogFish.tags.usersCatalog)
-    .and(UsersCatalogFish.tags.user.withId(userUUID));
-  return tags;
+): TagsWithEvent<UserCatalogFishEvent> => {
+  const event: UserAddedEvent = {
+    type: UsersCatalogFishEventType.UserAdded,
+    payload: {
+      userUUID,
+      displayName,
+      email,
+    },
+  };
+  const tags = UsersCatalogFish.tags.usersCatalog.and(
+    mkUserTagWithId(userUUID)
+  );
+  return [tags, event];
 };
 
-export const mkUserProfileEditedEvent = (
+export const getUserProfileEditedEvent = (
   userUUID: UserUUID,
   displayName: string
-): UserProfileEditedEvent => ({
-  type: UsersCatalogFishEventType.UserProfileEdited,
-  payload: {
-    userUUID,
-    displayName,
-  },
-});
-
-//#endregion
-
-//#region Send events to Pond
-
-export const mkUserProfileEditedEventTags = (userUUID: UserUUID) =>
-  UsersCatalogFish.tags.user.withId(userUUID);
-
-//#endregion
+): TagsWithEvent<UserCatalogFishEvent> => {
+  const event: UserProfileEditedEvent = {
+    type: UsersCatalogFishEventType.UserProfileEdited,
+    payload: {
+      userUUID,
+      displayName,
+    },
+  };
+  const tags = mkUserTagWithId(userUUID);
+  return [tags, event];
+};

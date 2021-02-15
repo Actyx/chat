@@ -1,39 +1,20 @@
 import React, { FC } from 'react';
+import { MAIN_CHANNEL as DEFAULT_CHANNEL } from '../../business-logic/channel-fish/channel-fish';
+import { reducer } from './reducer';
 import {
-  Action,
-  ActionType,
   Dispatcher,
   Screens,
+  SectionCenter,
   SectionRight,
   StateUI,
 } from './types';
 
-export const inititialState: StateUI = {
+const inititialState: StateUI = {
   screen: Screens.Authentication,
-  signedInUser: '',
+  signedInUserUUID: undefined,
   sectionRight: SectionRight.None,
-};
-
-export const reducer = (state: StateUI, action: Action): StateUI => {
-  switch (action.type) {
-    case ActionType.EditScreen:
-      return {
-        ...state,
-        screen: action.payload.screen,
-      };
-    case ActionType.AddSignedInUser:
-      return {
-        ...state,
-        signedInUser: action.payload.signedInUser,
-      };
-    case ActionType.EditSectionRight:
-      return {
-        ...state,
-        sectionRight: action.payload.section,
-      };
-    default:
-      return state;
-  }
+  sectionCenter: SectionCenter.Channel,
+  activeChannelId: DEFAULT_CHANNEL,
 };
 
 export const StateContextUI = React.createContext(inititialState);

@@ -1,4 +1,5 @@
 import { Dispatch } from 'react';
+import { ChannelId } from '../../business-logic/message/types';
 import { UserUUID } from '../../business-logic/users-catalog-fish/types';
 
 //#region UI State
@@ -13,10 +14,17 @@ export enum SectionRight {
   UserProfileEdit = ' UserProfileEdit',
 }
 
+export enum SectionCenter {
+  Channel = 'Channel',
+  ChannelsCatalog = ' ChannelsCatalog',
+}
+
 export type StateUI = Readonly<{
   screen: Screens;
-  signedInUser: UserUUID;
+  signedInUserUUID?: UserUUID;
   sectionRight: SectionRight;
+  sectionCenter: SectionCenter;
+  activeChannelId: ChannelId;
 }>;
 
 //#endregion
@@ -24,15 +32,31 @@ export type StateUI = Readonly<{
 //#region Actions
 
 export enum ActionType {
-  EditScreen = 'EditScreen',
+  GoToAuthenticationScreen = 'GoToAuthenticationScreen',
+  GoToChatScreen = 'GoToChatScreen',
   AddSignedInUser = 'AddSignedInUser',
   EditSectionRight = 'EditSectionRight',
+  SignOutActiveUser = 'SignOutActiveUser',
+  OpenChannelsCatalogSection = 'OpenChannelsCatalogSection',
+  OpenChannelSection = 'OpenChannelSection',
 }
 
-export type EditScreenAction = Readonly<{
-  type: ActionType.EditScreen;
+export type GoToAuthenticationScreen = Readonly<{
+  type: ActionType.GoToAuthenticationScreen;
+}>;
+
+export type GoToChatScreen = Readonly<{
+  type: ActionType.GoToChatScreen;
+}>;
+
+export type OpenChannelsCatalogSection = Readonly<{
+  type: ActionType.OpenChannelsCatalogSection;
+}>;
+
+export type OpenChannelSection = Readonly<{
+  type: ActionType.OpenChannelSection;
   payload: {
-    screen: Screens;
+    channelId: ChannelId;
   };
 }>;
 
@@ -50,7 +74,18 @@ export type EditSectionRight = Readonly<{
   };
 }>;
 
-export type Action = EditScreenAction | AddSignedInUser | EditSectionRight;
+export type SignOutActiveUser = Readonly<{
+  type: ActionType.SignOutActiveUser;
+}>;
+
+export type Action =
+  | GoToAuthenticationScreen
+  | GoToChatScreen
+  | OpenChannelsCatalogSection
+  | OpenChannelSection
+  | AddSignedInUser
+  | EditSectionRight
+  | SignOutActiveUser;
 
 export type Dispatcher = Dispatch<Action>;
 

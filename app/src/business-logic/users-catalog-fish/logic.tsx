@@ -1,38 +1,39 @@
+import { getUserAddedEvent, getUserProfileEditedEvent } from './events';
 import {
-  mkUserAddedEvent,
-  mkUserAddedEventTags,
-  mkUserProfileEditedEvent,
-  mkUserProfileEditedEventTags,
-} from './events';
-import { Email, Users, UsersEmails, UserUUID } from './types';
+  Email,
+  UserCatalogFishEvent,
+  Users,
+  UsersCatalogFishState,
+  UsersEmails,
+  UserUUID,
+} from './types';
 import { v4 as uuid } from 'uuid';
 import { Pond } from '@actyx/pond';
 import { UsersCatalogFish } from './users-catalog-fish';
+import { isStringEmpty, trimString } from '../../common/utility';
 
 //#region Sign-up
 
-export const signUp = (pond: Pond) => (makerUUID: () => UserUUID) => (
+export const signUp = (pond: Pond, makerUUID: () => UserUUID) => async (
   displayName: string,
-  email: Email,
-  usersEmails: UsersEmails
+  email: Email
 ): Promise<UserUUID | undefined> => {
-  return new Promise((res, rej) => {
-    const canSignUp = isUserEmailRegistered(email, usersEmails) === false;
-    if (canSignUp) {
-      const userUUID = makerUUID();
-      pond
-        .run(UsersCatalogFish.fish, (_, enqueue) => {
-          const event = mkUserAddedEvent(userUUID, displayName, email);
-          const tags = mkUserAddedEventTags(userUUID);
-          enqueue(tags, event);
-        })
-        .toPromise()
-        .then(() => res(userUUID))
-        .catch(rej);
-    } else {
-      res(undefined);
-    }
-  });
+  const userUUID = makerUUID();
+  let isSuccess = false;
+  await pond
+    .run<UsersCatalogFishState, UserCatalogFishEvent>(
+      UsersCatalogFish.fish,
+      (fishState, enqueue) => {
+        const canSignUp =
+          isUserEmailRegistered(email, fishState.emails) === false;
+        if (canSignUp) {
+          enqueue(...getUserAddedEvent(userUUID, displayName, email));
+          isSuccess = true;
+        }
+      }
+    )
+    .toPromise();
+  return isSuccess ? userUUID : undefined;
 };
 
 const isUserEmailRegistered = (
@@ -63,37 +64,33 @@ export const signIn = (userUUID: UserUUID, users: Users): boolean => {
 export const getDisplayNameByUserUUID = (
   userUUID: UserUUID,
   users: Users
-): string | undefined => users[userUUID].displayName;
+): string | undefined => {
+  const isRegister = isUserUUIDRegistered(userUUID, users);
+  if (isRegister) {
+    return users[userUUID].displayName;
+  } else {
+    return undefined;
+  }
+};
 
-const sanitizeDisplayName = (displayName: string) => displayName.trim();
-
-const isDisplayNameEmpty = (displayName: string) => displayName.length === 0;
-
-export const editUserProfile = (
-  pond: Pond,
-  users: Users,
+export const editUserProfile = (pond: Pond) => async (
   userUUID: UserUUID,
   displayName: string
 ): Promise<boolean> => {
-  return new Promise((res, rej) => {
-    const isUserRegistered = isUserUUIDRegistered(userUUID, users);
-    const sanitizedName = sanitizeDisplayName(displayName);
-    const isNameNotEmpty = isDisplayNameEmpty(sanitizedName) === false;
-    const canEditUserProfile = isUserRegistered && isNameNotEmpty;
-    if (canEditUserProfile) {
-      pond
-        .run(UsersCatalogFish.fish, (_, enqueue) => {
-          const tags = mkUserProfileEditedEventTags(userUUID);
-          const event = mkUserProfileEditedEvent(userUUID, displayName);
-          enqueue(tags, event);
-        })
-        .toPromise()
-        .then(() => res(true))
-        .catch(rej);
-    } else {
-      res(false);
-    }
-  });
+  let isSuccess = false;
+  await pond
+    .run(UsersCatalogFish.fish, (fishState, enqueue) => {
+      const isUserRegistered = isUserUUIDRegistered(userUUID, fishState.users);
+      const displayNameTrimmed = trimString(displayName);
+      const isNameNotEmpty = isStringEmpty(displayNameTrimmed) === false;
+      const canEditUserProfile = isUserRegistered && isNameNotEmpty;
+      if (canEditUserProfile) {
+        enqueue(...getUserProfileEditedEvent(userUUID, displayName));
+        isSuccess = true;
+      }
+    })
+    .toPromise();
+  return isSuccess;
 };
 
 //#endregion

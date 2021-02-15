@@ -1,4 +1,4 @@
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, useEffect } from 'react';
 import { Pond } from '@actyx/pond';
 import {
   UsersCatalogFishState,
@@ -13,17 +13,31 @@ import { SignUp } from './SignUp';
 import { SignIn } from './SignIn';
 import { DispatchContextUI } from '../ui-state-manager/UIStateManager';
 import { addSignedInUser, goToChatScreen } from '../ui-state-manager/actions';
+import {
+  initialStateUserCatalogFish,
+  UsersCatalogFish,
+} from '../../business-logic/users-catalog-fish/users-catalog-fish';
 
 type Props = Readonly<{
   pond: Pond;
-  stateUsersCatalogFish: UsersCatalogFishState;
 }>;
 
-export const AuthenticationContainer: FC<Props> = ({
-  pond,
-  stateUsersCatalogFish,
-}) => {
+export const AuthenticationContainer: FC<Props> = ({ pond }) => {
   const dispatch = useContext(DispatchContextUI);
+
+  const [
+    stateUsersCatalogFish,
+    setStateUsersCatalogFish,
+  ] = React.useState<UsersCatalogFishState>(initialStateUserCatalogFish);
+
+  useEffect(() => {
+    const cancelSubscription = pond.observe(
+      UsersCatalogFish.fish,
+      setStateUsersCatalogFish
+    );
+    return () => cancelSubscription();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const [isSignUpSuccess, setIsSignUpSuccess] = React.useState<boolean>();
 
@@ -31,20 +45,16 @@ export const AuthenticationContainer: FC<Props> = ({
 
   const [userUUID, setUserUUID] = React.useState<UserUUID>();
 
-  const [errorPondSignUp, setErrorPondSignUp] = React.useState<string>();
+  const [errorPond, setErrorPond] = React.useState<string>();
 
   const handleSignUp = async (displayName: string, email: string) => {
     try {
-      const newUserUUID = await signUp(pond)(mkUserUUID)(
-        displayName,
-        email,
-        stateUsersCatalogFish.emails
-      );
+      const newUserUUID = await signUp(pond, mkUserUUID)(displayName, email);
       setIsSignUpSuccess(newUserUUID ? true : false);
       setUserUUID(newUserUUID);
-      setErrorPondSignUp(undefined);
+      setErrorPond(undefined);
     } catch (err) {
-      setErrorPondSignUp(`Sorry an error occurred, please try later: ${err}`);
+      setErrorPond(`Sorry an error occurred, please try later: ${err}`);
     }
   };
 
@@ -60,7 +70,7 @@ export const AuthenticationContainer: FC<Props> = ({
 
   return (
     <div>
-      {errorPondSignUp}
+      {errorPond}
       <SignUp
         signUp={handleSignUp}
         isSignUpSuccess={isSignUpSuccess}

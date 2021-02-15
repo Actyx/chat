@@ -1,39 +1,31 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Pond } from '@actyx/pond';
-import { UsersCatalogFishState } from './business-logic/users-catalog-fish/types';
-import { UsersCatalogFish } from './business-logic/users-catalog-fish/users-catalog-fish';
 import { UIStateManager } from './ui/ui-state-manager/UIStateManager';
 import { ScreenRooter as ScreenRouter } from './ui/ScreenRouter/ScreenRouter';
 import { PondError } from './ui/PondError/PondError';
-
-let pond: Pond | undefined;
+import { Debug } from './ui/Debug/Debug';
 
 export const App: FC = () => {
-  const [
-    stateUsersCatalogFish,
-    setStateUsersCatalogFish,
-  ] = React.useState<UsersCatalogFishState>();
+  const [pond, setPond] = useState<Pond>();
 
-  React.useEffect(() => {
+  useEffect(() => {
     const main = async () => {
-      pond = await Pond.default();
-      pond.observe(UsersCatalogFish.fish, setStateUsersCatalogFish);
+      const axPond = await Pond.default();
+      setPond(axPond);
     };
     main();
   }, []);
 
   return (
     <UIStateManager>
-      <div>
-        {pond && stateUsersCatalogFish ? (
-          <ScreenRouter
-            pond={pond}
-            stateUsersCatalogFish={stateUsersCatalogFish}
-          />
-        ) : (
-          <PondError />
-        )}
-      </div>
+      {pond ? (
+        <div>
+          <ScreenRouter pond={pond} />
+          <Debug pond={pond} />
+        </div>
+      ) : (
+        <PondError />
+      )}
     </UIStateManager>
   );
 };
