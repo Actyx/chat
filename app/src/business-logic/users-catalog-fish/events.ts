@@ -8,6 +8,9 @@ import {
 } from './types';
 import { UsersCatalogFish } from './users-catalog-fish';
 
+export const mkUserTagWithId = (userUUID: UserUUID) =>
+  UsersCatalogFish.tags.user.withId(userUUID);
+
 export const getUserAddedEvent = (
   userUUID: UserUUID,
   displayName: string,
@@ -22,7 +25,7 @@ export const getUserAddedEvent = (
     },
   };
   const tags = UsersCatalogFish.tags.usersCatalog.and(
-    UsersCatalogFish.tags.user.withId(userUUID)
+    mkUserTagWithId(userUUID)
   );
   return [tags, event];
 };
@@ -38,6 +41,6 @@ export const getUserProfileEditedEvent = (
       displayName,
     },
   };
-  const tags = UsersCatalogFish.tags.user.withId(userUUID);
+  const tags = mkUserTagWithId(userUUID);
   return [tags, event];
 };

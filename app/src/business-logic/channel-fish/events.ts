@@ -9,12 +9,24 @@ import {
   PublicMessageAddedEventPaylod,
   PublicMessageEvent,
 } from '../message/types';
+import { mkUserTagWithId } from '../users-catalog-fish/events';
 import { UserUUID } from '../users-catalog-fish/types';
-import { UsersCatalogFish } from '../users-catalog-fish/users-catalog-fish';
 import { ChannelFish } from './channel-fish';
 
-export const mkSenderTag = (senderId: UserUUID) =>
-  ChannelFish.tags.sender.withId(senderId);
+const mkMessageTagWithId = (messageId: MessageId) =>
+  ChannelFish.tags.message.withId(messageId);
+
+const mkChannelTagWithId = (channelId: ChannelId) =>
+  ChannelFish.tags.channel.withId(channelId);
+
+const mkMessageOperationTag = (
+  messageId: MessageId,
+  channelId: ChannelId,
+  userUUID: UserUUID
+) =>
+  mkMessageTagWithId(messageId).and(
+    mkChannelTagWithId(channelId).and(mkUserTagWithId(userUUID))
+  );
 
 export const getPublicMessageAdded = (
   payload: PublicMessageAddedEventPaylod
@@ -24,13 +36,11 @@ export const getPublicMessageAdded = (
     payload,
   };
   const tags = ChannelFish.tags.messagesCatalog.and(
-    ChannelFish.tags.message
-      .withId(payload.messageId)
-      .and(
-        ChannelFish.tags.channel
-          .withId(payload.channelId)
-          .and(mkSenderTag(payload.userUUID))
-      )
+    mkMessageOperationTag(
+      payload.messageId,
+      payload.channelId,
+      payload.userUUID
+    )
   );
   return [tags, event];
 };
@@ -49,13 +59,7 @@ export const getMessageContentEdited = (
     },
   };
 
-  const tags = ChannelFish.tags.message
-    .withId(messageId)
-    .and(
-      ChannelFish.tags.channel
-        .withId(channelId)
-        .and(UsersCatalogFish.tags.user.withId(userUUID))
-    );
+  const tags = mkMessageOperationTag(messageId, channelId, userUUID);
 
   return [tags, event];
 };
@@ -71,12 +75,7 @@ export const getMessageHiddenEvent = (
       messageId,
     },
   };
-  const tags = ChannelFish.tags.message
-    .withId(messageId)
-    .and(
-      ChannelFish.tags.channel
-        .withId(channelId)
-        .and(UsersCatalogFish.tags.user.withId(userUUID))
-    );
+  const tags = mkMessageOperationTag(messageId, channelId, userUUID);
+
   return [tags, event];
 };
