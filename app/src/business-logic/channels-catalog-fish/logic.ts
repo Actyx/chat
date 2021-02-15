@@ -22,8 +22,8 @@ export const addChannel = (pond: Pond) => (userUUID: UserUUID) => async (
   description: string
 ): Promise<boolean> => {
   let isSuccess = false;
-  const nameTrimmed = trimString(name);
 
+  const nameTrimmed = trimString(name);
   const descriptionTrimmed = isStringEmpty(description)
     ? undefined
     : trimString(description);
