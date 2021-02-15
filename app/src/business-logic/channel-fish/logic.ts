@@ -19,7 +19,8 @@ import { v4 as uuid } from 'uuid';
 
 //#region Add message
 
-export const addMessageToChannel = (pond: Pond) => (channelId: ChannelId) => (
+export const addMessageToChannel = (pond: Pond) => (
+  channelId: ChannelId,
   userUUID: UserUUID
 ) => ({
   content,
@@ -63,7 +64,8 @@ const getMessageById = (
   messages: PublicMessages
 ): PublicMessage | undefined => messages.find((m) => m.messageId === messageId);
 
-export const editMessageInChannel = (pond: Pond) => (channelId: ChannelId) => (
+export const editMessageInChannel = (pond: Pond) => (
+  channelId: ChannelId,
   signedInUserUUID: UserUUID
 ) => async (messageId: MessageId, content: string): Promise<boolean> => {
   let isSuccess = false;
@@ -97,10 +99,9 @@ export const editMessageInChannel = (pond: Pond) => (channelId: ChannelId) => (
 //#region Hide message
 
 export const hideMessageFromChannel = (pond: Pond) => (
-  channelId: ChannelId
-) => (signedInUserUUID: UserUUID) => async (
-  messageId: MessageId
-): Promise<boolean> => {
+  channelId: ChannelId,
+  signedInUserUUID: UserUUID
+) => async (messageId: MessageId): Promise<boolean> => {
   let isSuccess = false;
   await pond
     .run<ChannelFishState, PublicMessageEvent>(

@@ -8,7 +8,7 @@ import {
   canUserHideMessage,
   doesMessageBelongToUser,
   editMessageInChannel,
-  hideMessageFromChannel as hideMessageInChannel,
+  hideMessageFromChannel,
   addMessageToChannel,
 } from '../../business-logic/channel-fish/logic';
 import {
@@ -127,7 +127,8 @@ export const ChatContainer: FC<Props> = ({ pond, signedInUserUUID }) => {
 
   const handleAddMessage = async (content: string) => {
     try {
-      await addMessageToChannel(pond)(stateUI.activeChannelId)(
+      await addMessageToChannel(pond)(
+        stateUI.activeChannelId,
         signedInUserUUID
       )({
         content,
@@ -140,7 +141,8 @@ export const ChatContainer: FC<Props> = ({ pond, signedInUserUUID }) => {
 
   const handleEditMessage = async (messageId: MessageId, content: string) => {
     try {
-      await editMessageInChannel(pond)(stateUI.activeChannelId)(
+      await editMessageInChannel(pond)(
+        stateUI.activeChannelId,
         signedInUserUUID
       )(messageId, content);
       setErrorPond(undefined);
@@ -155,7 +157,8 @@ export const ChatContainer: FC<Props> = ({ pond, signedInUserUUID }) => {
     );
     if (hasUserConfirmed) {
       try {
-        await hideMessageInChannel(pond)(stateUI.activeChannelId)(
+        await hideMessageFromChannel(pond)(
+          stateUI.activeChannelId,
           signedInUserUUID
         )(messageId);
         setErrorPond(undefined);
