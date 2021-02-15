@@ -16,6 +16,7 @@ import {
 } from './events';
 import { UserUUID } from '../users-catalog-fish/types';
 import { ChannelFishState, PublicMessages } from './types';
+import { v4 as uuid } from 'uuid';
 
 //#region Add message
 
@@ -33,6 +34,7 @@ export const addMessageToChannel = (pond: Pond) => (channelId: ChannelId) => (
   pond
     .emit(
       ...getPublicMessageAdded({
+        messageId: uuid(),
         senderId,
         channelId,
         content,
@@ -74,7 +76,14 @@ export const editMessageInChannel = (pond: Pond) => (channelId: ChannelId) => (
         if (message) {
           const canEdit = doesMessageBelongToUser(signedInUserUUID, message);
           if (canEdit) {
-            enqueue(...getMessageContentEdited(messageId, channelId, content));
+            enqueue(
+              ...getMessageContentEdited(
+                messageId,
+                channelId,
+                content,
+                signedInUserUUID
+              )
+            );
             isSuccess = true;
           }
         }
@@ -102,7 +111,9 @@ export const hideMessageFromChannel = (pond: Pond) => (
         if (message) {
           const canHide = doesMessageBelongToUser(signedInUserUUID, message);
           if (canHide) {
-            enqueue(...getMessageHiddenEvent(messageId, channelId));
+            enqueue(
+              ...getMessageHiddenEvent(messageId, channelId, signedInUserUUID)
+            );
             isSuccess = true;
           }
         }

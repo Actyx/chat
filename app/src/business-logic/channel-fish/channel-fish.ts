@@ -10,6 +10,7 @@ import { reducer } from './reducer';
 export const MAIN_CHANNEL = 'main';
 
 const tags = {
+  messagesCatalog: Tag<PublicMessageEvent>('messages-catalog'),
   channel: Tag<PublicMessageEvent>('channel'),
   message: Tag<PublicMessageEvent>('message'),
   sender: Tag<PublicMessageEvent>('sender'),
