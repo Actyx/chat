@@ -34,3 +34,4 @@
 ## Notes
 
 `user:id`, `channel:id` and `message:id` are used to identify and trace all related operations on such entities; `user:id` also represents a unique sender of a message.
+Although tracing operations for an entity is not a feature in the current version, we add tags here to have this information available for future Fishes.
