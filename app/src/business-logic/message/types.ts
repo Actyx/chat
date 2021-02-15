@@ -11,8 +11,6 @@ export type MessageId = string;
 
 export type ChannelId = string;
 
-export type SenderId = UserUUID;
-
 type RecipientId = string;
 type PrivateRecipientIds = ReadonlyArrayOfOne<RecipientId>;
 export type PublicRecipientIds = ReadonlyArrayOfOneOrMore<RecipientId>;
@@ -24,7 +22,7 @@ type BaseMessage = {
   messageId: MessageId;
   createdOn: Timestamp;
   editedOn?: Timestamp;
-  senderId: SenderId;
+  userUUID: UserUUID;
   isHidden: boolean;
   content: string;
   mediaIds?: MediaIds;
@@ -56,7 +54,7 @@ export enum MessageEventType {
 
 type PrivateMessageAddedEventPayload = Readonly<{
   messageId: MessageId;
-  senderId: SenderId;
+  userUUID: UserUUID;
   content: string;
   mediaIds?: MediaIds;
   recipientIds: PrivateRecipientIds;
@@ -68,7 +66,7 @@ export type PrivateMessageAddedEvent = {
 
 export type PublicMessageAddedEventPaylod = Readonly<{
   messageId: MessageId;
-  senderId: SenderId;
+  userUUID: UserUUID;
   channelId: ChannelId;
   content: string;
   mediaIds?: MediaIds;

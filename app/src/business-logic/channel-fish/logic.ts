@@ -6,7 +6,6 @@ import {
   PublicMessage,
   PublicMessageEvent,
   PublicRecipientIds,
-  SenderId,
 } from '../message/types';
 import { mainChannelFish } from './channel-fish';
 import {
@@ -21,7 +20,7 @@ import { v4 as uuid } from 'uuid';
 //#region Add message
 
 export const addMessageToChannel = (pond: Pond) => (channelId: ChannelId) => (
-  senderId: SenderId
+  userUUID: UserUUID
 ) => ({
   content,
   mediaIds,
@@ -35,7 +34,7 @@ export const addMessageToChannel = (pond: Pond) => (channelId: ChannelId) => (
     .emit(
       ...getPublicMessageAdded({
         messageId: uuid(),
-        senderId,
+        userUUID,
         channelId,
         content,
         mediaIds,
@@ -51,7 +50,7 @@ export const addMessageToChannel = (pond: Pond) => (channelId: ChannelId) => (
 export const doesMessageBelongToUser = (
   userUUID: UserUUID,
   message: PublicMessage
-): boolean => message.senderId === userUUID;
+): boolean => message.userUUID === userUUID;
 
 export const canUserHideMessage = (
   userUUID: UserUUID,

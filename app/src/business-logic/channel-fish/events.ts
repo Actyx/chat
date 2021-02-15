@@ -29,7 +29,7 @@ export const getPublicMessageAdded = (
       .and(
         ChannelFish.tags.channel
           .withId(payload.channelId)
-          .and(mkSenderTag(payload.senderId))
+          .and(mkSenderTag(payload.userUUID))
       )
   );
   return [tags, event];
