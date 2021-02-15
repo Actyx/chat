@@ -5,16 +5,23 @@ import { getChannelAdded } from './events';
 import { v4 as uuid } from 'uuid';
 import { ChannelId } from '../message/types';
 import { ChannelsCatalogFishState } from './types';
+import { ChannelsCatalogFish } from './channels-catalog-fish';
 
-export const isChannelAdded = (
+export const doesChannelIdExist = (
   channelId: ChannelId,
   state: ChannelsCatalogFishState
 ) => channelId in state;
 
-export const addChannel = (pond: Pond) => (userUUID: UserUUID) => (
+export const doesChannelNameExist = (
+  name: string,
+  state: ChannelsCatalogFishState
+) => Object.values(state).some((c) => c.profile.name === name);
+
+export const addChannel = (pond: Pond) => (userUUID: UserUUID) => async (
   name: string,
   description: string
-): Promise<void> => {
+): Promise<boolean> => {
+  let isSuccess = false;
   const nameTrimmed = trimString(name);
 
   const descriptionTrimmed = isStringEmpty(description)
@@ -23,14 +30,27 @@ export const addChannel = (pond: Pond) => (userUUID: UserUUID) => (
 
   const newChannelId = uuid();
 
-  return pond
-    .emit(
-      ...getChannelAdded(
-        newChannelId,
-        userUUID,
-        nameTrimmed,
-        descriptionTrimmed
-      )
-    )
+  await pond
+    .run(ChannelsCatalogFish.fish, (fishState, enqueue) => {
+      const canAdd = doesChannelNameExist(nameTrimmed, fishState) === false;
+      if (canAdd) {
+        enqueue(
+          ...getChannelAdded(
+            newChannelId,
+            userUUID,
+            nameTrimmed,
+            descriptionTrimmed
+          )
+        );
+        isSuccess = true;
+      }
+    })
     .toPromise();
+  return isSuccess;
 };
+/*
+  .run(ChannelsCatalogFish.fish, (fishState, enqueue) => {
+    const canAdd = 
+  })
+
+*/

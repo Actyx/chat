@@ -1,10 +1,11 @@
 import React, { FC, useState } from 'react';
 
 type Props = Readonly<{
+  messageInvalid?: string;
   addChannel: (name: string, description: string) => void;
 }>;
 
-export const AddChannel: FC<Props> = ({ addChannel }) => {
+export const AddChannel: FC<Props> = ({ messageInvalid, addChannel }) => {
   const [name, setName] = useState<string>('');
 
   const [description, setDescription] = useState<string>('');
@@ -35,6 +36,7 @@ export const AddChannel: FC<Props> = ({ addChannel }) => {
         <br />
         <input type="submit" value="Add Channel" />
       </form>
+      {messageInvalid}
     </div>
   );
 };

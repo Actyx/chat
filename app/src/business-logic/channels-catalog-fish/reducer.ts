@@ -1,5 +1,5 @@
 import { Reduce, Timestamp } from '@actyx/pond';
-import { isChannelAdded as isChannelPresent } from './logic';
+import { doesChannelIdExist } from './logic';
 import {
   ChannelAddedEvent,
   ChannelsCatalogFishEvent,
@@ -34,7 +34,7 @@ const channelAdded = (
   timestampMicros: Timestamp
 ) => {
   const { channelId, createdBy, name, description } = event.payload;
-  const canAdd = isChannelPresent(channelId, state) === false;
+  const canAdd = doesChannelIdExist(channelId, state) === false;
   if (canAdd) {
     const profile = {
       channelId,
