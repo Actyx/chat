@@ -56,7 +56,7 @@ const mapPublicMessagesToUI = (
 ): MessagesUI =>
   messages.map((m: PublicMessage) => {
     const senderDisplayName =
-      getDisplayNameByUserUUID(m.senderId, users) ?? 'user not found';
+      getDisplayNameByUserUUID(m.userUUID, users) ?? 'user not found';
     const canEdit = doesMessageBelongToUser(signedInUserUUID, m);
     const canHide = canUserHideMessage(signedInUserUUID, m);
     return {
