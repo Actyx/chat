@@ -13,10 +13,10 @@
 | ChannelDissociatedUserEvent        | User was dissociated from a channel                                    | channel:id,  user:id                               |
 |                                    |                                                                        |                                                    |
 | PublicMessageAddedEvent            | New public message was added to a channel                              | messages-catalog, message:id, channel:id, user:id, |
-| MessageHiddenEvent                 | Message was hidden from a channel or private conversation              | message:id, user:id                                |
-| MessageContentEditedEvent          | Message content was edited, from a channel or private conversation     | message:id, user:id                                |
-| PublicMessageRecipientsEditedEvent | Public message recipients were edited from a message                   | message:id, user:id                                |
-| MessageMediumEdited                | Message attachments were edited from a channel or private conversation | message:id, user:id                                |
+| MessageHiddenEvent                 | Message was hidden from a channel or private conversation              | channel:id, message:id, user:id                    |
+| MessageContentEditedEvent          | Message content was edited, from a channel or private conversation     | channel:id, message:id, user:id                    |
+| PublicMessageRecipientsEditedEvent | Public message recipients were edited from a message                   | channel:id, message:id, user:id                    |
+| MessageMediumEdited                | Message attachments were edited from a channel or private conversation | channel:id, message:id, user:id                    |
 |                                    |                                                                        |                                                    |
 
 | Tag              | Description                               |
