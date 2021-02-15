@@ -5,6 +5,11 @@ import {
   mainChannelFish,
 } from '../../business-logic/channel-fish/channel-fish';
 import { ChannelFishState } from '../../business-logic/channel-fish/types';
+import {
+  ChannelsCatalogFish,
+  initialStateChannelsCatalogFish,
+} from '../../business-logic/channels-catalog-fish/channels-catalog-fish';
+import { ChannelsCatalogFishState } from '../../business-logic/channels-catalog-fish/types';
 import { UsersCatalogFishState } from '../../business-logic/users-catalog-fish/types';
 import {
   initialStateUserCatalogFish,
@@ -31,6 +36,11 @@ export const Debug: FC<Props> = ({ pond }) => {
     setStateChannelMainFish,
   ] = React.useState<ChannelFishState>(initialStateCannelFish);
 
+  const [
+    stateChannelsCatalogFish,
+    setChannelsCatalogFish,
+  ] = React.useState<ChannelsCatalogFishState>(initialStateChannelsCatalogFish);
+
   useEffect(() => {
     const cancelSubUserCatalogFish = pond.observe(
       UsersCatalogFish.fish,
@@ -41,9 +51,16 @@ export const Debug: FC<Props> = ({ pond }) => {
       mainChannelFish,
       setStateChannelMainFish
     );
+
+    const cancelChannelsCatalogFish = pond.observe(
+      ChannelsCatalogFish.fish,
+      setChannelsCatalogFish
+    );
+
     return () => {
       cancelSubUserCatalogFish();
       cancelSubscChannelFish();
+      cancelChannelsCatalogFish();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -55,10 +72,12 @@ export const Debug: FC<Props> = ({ pond }) => {
       <pre>{format(stateUI)}</pre>
       <br />
       <hr />
-      <h5>UsersCatalog fish state</h5>
+      <h5>UsersCatalog state</h5>
       <pre>{format(stateUsersCatalogFish)}</pre>
-      <h5>Channel fish main state</h5>
+      <h5>ChannelFish state</h5>
       <pre>{format(stateChannelMainFish)}</pre>
+      <h5>ChannelsCatalogFish state</h5>
+      <pre>{format(stateChannelsCatalogFish)}</pre>
     </div>
   );
 };

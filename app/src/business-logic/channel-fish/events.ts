@@ -16,7 +16,7 @@ import { ChannelFish } from './channel-fish';
 const mkMessageTagWithId = (messageId: MessageId) =>
   ChannelFish.tags.message.withId(messageId);
 
-const mkChannelTagWithId = (channelId: ChannelId) =>
+export const mkChannelTagWithId = (channelId: ChannelId) =>
   ChannelFish.tags.channel.withId(channelId);
 
 const mkMessageOperationTag = (

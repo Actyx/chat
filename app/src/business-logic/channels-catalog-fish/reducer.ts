@@ -1,5 +1,7 @@
-import { Reduce } from '@actyx/pond';
+import { Reduce, Timestamp } from '@actyx/pond';
+import { isChannelAdded as isChannelPresent } from './logic';
 import {
+  ChannelAddedEvent,
   ChannelsCatalogFishEvent,
   ChannelsCatalogFishEventType,
   ChannelsCatalogFishState,
@@ -11,8 +13,7 @@ export const reducer: Reduce<
 > = (state, event, meta): ChannelsCatalogFishState => {
   switch (event.type) {
     case ChannelsCatalogFishEventType.ChannelAdded:
-      // TODO
-      return state;
+      return channelAdded(state, event, meta.timestampMicros);
     case ChannelsCatalogFishEventType.ChannelProfileEdited:
       // TODO
       return state;
@@ -25,4 +26,28 @@ export const reducer: Reduce<
     default:
       return state;
   }
+};
+
+const channelAdded = (
+  state: ChannelsCatalogFishState,
+  event: ChannelAddedEvent,
+  timestampMicros: Timestamp
+) => {
+  const { channelId, createdBy, name, description } = event.payload;
+  const canAdd = isChannelPresent(channelId, state) === false;
+  if (canAdd) {
+    const profile = {
+      channelId,
+      createdOn: timestampMicros,
+      createdBy,
+      isArchived: false,
+      name,
+      description,
+    };
+    state[channelId] = {
+      profile,
+      users: [createdBy],
+    };
+  }
+  return state;
 };

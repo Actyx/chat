@@ -1,5 +1,9 @@
+import { TagsWithEvent } from '../../common/types';
+import { mkChannelTagWithId } from '../channel-fish/events';
 import { ChannelId } from '../message/types';
+import { mkUserTagWithId } from '../users-catalog-fish/events';
 import { UserUUID } from '../users-catalog-fish/types';
+import { ChannelsCatalogFish } from './channels-catalog-fish';
 import {
   ChannelAddedEvent,
   ChannelArchivedEvent,
@@ -8,21 +12,29 @@ import {
   ChannelUnarchiveEvent,
 } from './types';
 
-// TODO revise using TagsWithEvent
-export const mkChannelAddedEvent = (
+const mkChannelOperationTag = (channelId: ChannelId, userUUID: UserUUID) =>
+  mkChannelTagWithId(channelId).and(mkUserTagWithId(userUUID));
+
+export const getChannelAdded = (
   channelId: ChannelId,
   createdBy: UserUUID,
   name: string,
   description?: string
-): ChannelAddedEvent => ({
-  type: ChannelsCatalogFishEventType.ChannelAdded,
-  payload: {
-    channelId,
-    createdBy,
-    name,
-    description,
-  },
-});
+): TagsWithEvent<ChannelAddedEvent> => {
+  const tags = ChannelsCatalogFish.tags.channelsCatalog.and(
+    mkChannelOperationTag(channelId, createdBy)
+  );
+  const event: ChannelAddedEvent = {
+    type: ChannelsCatalogFishEventType.ChannelAdded,
+    payload: {
+      channelId,
+      createdBy,
+      name,
+      description,
+    },
+  };
+  return [tags, event];
+};
 
 // TODO revise using TagsWithEvent
 export const mkChannelProfileEditedEvent = (

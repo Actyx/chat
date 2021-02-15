@@ -71,8 +71,9 @@ export type ChannelsCatalogFishEvent =
 
 //#region State
 
-export type ChannelsCatalogFishState = Readonly<
-  Record<ChannelId, { profile: ChannelProfile; users: ReadonlyArray<UserUUID> }>
+export type ChannelsCatalogFishState = Record<
+  ChannelId,
+  { profile: ChannelProfile; users: ReadonlyArray<UserUUID> }
 >;
 
 //#endregion

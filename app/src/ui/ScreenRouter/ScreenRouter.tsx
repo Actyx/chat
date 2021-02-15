@@ -34,7 +34,7 @@ export const ScreenRooter: FC<Props> = ({ pond }) => {
   return (
     <div>
       {renderScreen()}
-      <DialogsManager />
+      <DialogsManager pond={pond} />
     </div>
   );
 };

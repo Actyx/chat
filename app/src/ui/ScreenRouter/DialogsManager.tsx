@@ -1,20 +1,23 @@
+import { Pond } from '@actyx/pond';
 import React, { FC, useContext } from 'react';
 import { AddChannelDialog } from '../ChatScreen/AddChannelDialog/AddChannelDialogContainer';
 import { Dialogs } from '../ui-state-manager/types';
 import { StateContextUI } from '../ui-state-manager/UIStateManager';
 
-type Props = Readonly<{}>;
+type Props = Readonly<{
+  pond: Pond;
+}>;
 
-const renderDialog = (dialog: Dialogs) => {
-  switch (dialog) {
-    case Dialogs.None:
-      return undefined;
-    case Dialogs.AddChannel:
-      return <AddChannelDialog />;
-  }
-};
-
-export const DialogsManager: FC<Props> = () => {
+export const DialogsManager: FC<Props> = ({ pond }) => {
   const stateUI = useContext(StateContextUI);
-  return <div>{renderDialog(stateUI.dialog)}</div>;
+
+  const renderDialog = () => {
+    switch (stateUI.dialog) {
+      case Dialogs.None:
+        return undefined;
+      case Dialogs.AddChannel:
+        return <AddChannelDialog pond={pond} />;
+    }
+  };
+  return <div>{renderDialog()}</div>;
 };
