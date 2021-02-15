@@ -62,10 +62,6 @@ Only a Container can have access to the business logic and can emit events to th
 
 There is a separation between state for UI and state for Fishes, components down in the tree can change the UI state using a convenient hook `useContext(DispatchContextUI)`, so changes to a Fish state is done only via callback to the Container by emitting events to Pond.
 
-## Events and Tags
-
-More information on Events and Tags available can be [found here](./docs/events-tags-overview.md).
-
 ## Folder structure
 
 - src/business-logic: Contains all Fishes and related business logic
@@ -85,3 +81,9 @@ More information on Events and Tags available can be [found here](./docs/events-
 Contains all UI React components, reusable components, and related utilities function.
 
 - src/ui/ExampleScreen: Each subfolder represents a main screen in the application
+
+## Others docs
+
+[Events and Tags](./docs/events-tags-overview.md)
+
+[Features and Use cases](./docs/features-use-cases.md)

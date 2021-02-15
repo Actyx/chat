@@ -48,9 +48,3 @@ export const addChannel = (pond: Pond) => (userUUID: UserUUID) => async (
     .toPromise();
   return isSuccess;
 };
-/*
-  .run(ChannelsCatalogFish.fish, (fishState, enqueue) => {
-    const canAdd = 
-  })
-
-*/
