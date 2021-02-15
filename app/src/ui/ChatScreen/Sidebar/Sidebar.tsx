@@ -3,6 +3,7 @@ import { MAIN_CHANNEL } from '../../../business-logic/channel-fish/channel-fish'
 import {
   openChannelsCatalogSection,
   openChannelSection,
+  openDialogAddChannel,
 } from '../../ui-state-manager/actions';
 import { DispatchContextUI } from '../../ui-state-manager/UIStateManager';
 
@@ -14,6 +15,8 @@ export const Sidebar: FC<Props> = () => {
   const handleChannelsCatalog = () => dispatch(openChannelsCatalogSection());
 
   const handleMain = () => dispatch(openChannelSection(MAIN_CHANNEL));
+
+  const handleAddChannel = () => dispatch(openDialogAddChannel());
 
   return (
     <div>
@@ -29,6 +32,7 @@ export const Sidebar: FC<Props> = () => {
           <button onClick={handleMain}>Main</button>
         </li>
       </ul>
+      <button onClick={handleAddChannel}>Add a Channel</button>
     </div>
   );
 };

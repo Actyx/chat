@@ -4,6 +4,7 @@ import { AuthenticationContainer } from '../AuthenticationScreen/AuthenticationC
 import { StateContextUI } from '../ui-state-manager/UIStateManager';
 import { Screens } from '../ui-state-manager/types';
 import { ChatContainer } from '../ChatScreen/ChatContainer';
+import { DialogsManager } from './DialogsManager';
 
 type Props = Readonly<{
   pond: Pond;
@@ -30,5 +31,10 @@ export const ScreenRooter: FC<Props> = ({ pond }) => {
     }
   };
 
-  return <div>{renderScreen()}</div>;
+  return (
+    <div>
+      {renderScreen()}
+      <DialogsManager />
+    </div>
+  );
 };

@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { MAIN_CHANNEL as DEFAULT_CHANNEL } from '../../business-logic/channel-fish/channel-fish';
 import { reducer } from './reducer';
 import {
+  Dialogs,
   Dispatcher,
   Screens,
   SectionCenter,
@@ -11,6 +12,7 @@ import {
 
 const inititialState: StateUI = {
   screen: Screens.Authentication,
+  dialog: Dialogs.None,
   signedInUserUUID: undefined,
   sectionRight: SectionRight.None,
   sectionCenter: SectionCenter.Channel,

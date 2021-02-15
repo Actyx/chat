@@ -1,5 +1,12 @@
 import { MAIN_CHANNEL as DEFAULT_CHANNEL } from '../../business-logic/channel-fish/channel-fish';
-import { Action, ActionType, Screens, SectionCenter, StateUI } from './types';
+import {
+  Action,
+  ActionType,
+  Dialogs,
+  Screens,
+  SectionCenter,
+  StateUI,
+} from './types';
 
 export const reducer = (state: StateUI, action: Action): StateUI => {
   switch (action.type) {
@@ -13,6 +20,10 @@ export const reducer = (state: StateUI, action: Action): StateUI => {
         ...state,
         screen: Screens.Chat,
       };
+    case ActionType.OpenDialogAddChannel:
+      return { ...state, dialog: Dialogs.AddChannel };
+    case ActionType.CloseDialog:
+      return { ...state, dialog: Dialogs.None };
     case ActionType.OpenChannelsCatalogSection:
       return {
         ...state,

@@ -9,6 +9,11 @@ export enum Screens {
   Chat = 'Chat',
 }
 
+export enum Dialogs {
+  None = 'None',
+  AddChannel = 'AddChannel',
+}
+
 export enum SectionRight {
   None = 'None',
   UserProfileEdit = ' UserProfileEdit',
@@ -21,6 +26,7 @@ export enum SectionCenter {
 
 export type StateUI = Readonly<{
   screen: Screens;
+  dialog: Dialogs;
   signedInUserUUID?: UserUUID;
   sectionRight: SectionRight;
   sectionCenter: SectionCenter;
@@ -34,6 +40,8 @@ export type StateUI = Readonly<{
 export enum ActionType {
   GoToAuthenticationScreen = 'GoToAuthenticationScreen',
   GoToChatScreen = 'GoToChatScreen',
+  OpenDialogAddChannel = 'OpenDialogAddChannel',
+  CloseDialog = 'CloseDialog',
   AddSignedInUser = 'AddSignedInUser',
   EditSectionRight = 'EditSectionRight',
   SignOutActiveUser = 'SignOutActiveUser',
@@ -47,6 +55,14 @@ export type GoToAuthenticationScreen = Readonly<{
 
 export type GoToChatScreen = Readonly<{
   type: ActionType.GoToChatScreen;
+}>;
+
+export type OpenDialogAddChannel = Readonly<{
+  type: ActionType.OpenDialogAddChannel;
+}>;
+
+export type CloseDialog = Readonly<{
+  type: ActionType.CloseDialog;
 }>;
 
 export type OpenChannelsCatalogSection = Readonly<{
@@ -81,6 +97,8 @@ export type SignOutActiveUser = Readonly<{
 export type Action =
   | GoToAuthenticationScreen
   | GoToChatScreen
+  | OpenDialogAddChannel
+  | CloseDialog
   | OpenChannelsCatalogSection
   | OpenChannelSection
   | AddSignedInUser

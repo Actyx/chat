@@ -10,6 +10,8 @@ import {
   GoToChatScreen,
   OpenChannelsCatalogSection,
   OpenChannelSection,
+  OpenDialogAddChannel,
+  CloseDialog,
 } from './types';
 
 export const goToAutheticationScreen = (): GoToAuthenticationScreen => ({
@@ -31,6 +33,14 @@ export const openChannelSection = (
   payload: {
     channelId,
   },
+});
+
+export const openDialogAddChannel = (): OpenDialogAddChannel => ({
+  type: ActionType.OpenDialogAddChannel,
+});
+
+export const closeDialog = (): CloseDialog => ({
+  type: ActionType.CloseDialog,
 });
 
 export const addSignedInUser = (signedInUser: UserUUID): AddSignedInUser => ({
