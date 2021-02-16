@@ -6,6 +6,7 @@ import {
   openChannelSection,
 } from '../../ui-state-manager/actions';
 import { DispatchContextUI } from '../../ui-state-manager/UIStateManager';
+import { ChannelsList } from './ChannelsList';
 
 export type Channels = ReadonlyArray<{ channelId: ChannelId; name: string }>;
 
@@ -19,7 +20,10 @@ export const Sidebar: FC<Props> = ({ channels, openAddChannelDialog }) => {
 
   const handleChannelsCatalog = () => dispatch(openChannelsCatalogSection());
 
-  const handleMain = () => dispatch(openChannelSection(MAIN_CHANNEL));
+  const handleMain = (channelId: ChannelId) => {
+    window.alert(channelId);
+    dispatch(openChannelSection(MAIN_CHANNEL));
+  };
 
   const handleOpenAddChannelDialog = () => openAddChannelDialog();
 
@@ -32,13 +36,7 @@ export const Sidebar: FC<Props> = ({ channels, openAddChannelDialog }) => {
         </li>
       </ul>
       Channels:
-      <ul>
-        {channels.map((x) => (
-          <li key={x.channelId}>
-            <button onClick={handleMain}>{x.name}</button>
-          </li>
-        ))}
-      </ul>
+      <ChannelsList channels={channels} selectChannel={handleMain} />
       <button onClick={handleOpenAddChannelDialog}>Add a Channel</button>
     </div>
   );
