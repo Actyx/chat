@@ -45,7 +45,7 @@ import {
   StateContextUI,
 } from '../ui-state-manager/UIStateManager';
 import { UserProfileDetails } from '../UserProfileDetails/UserProfileDetails';
-import { AddChannelDialog } from './AddChannelDialog/AddChannelDialogContainer';
+import { AddChannelDialogContainer } from './AddChannelDialog/AddChannelDialogContainer';
 import { Channel, MessagesUI } from './Channel/Channel';
 import { MessageInput } from './Channel/MessageInput';
 import {
@@ -290,7 +290,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
         )}
       </div>
       {openAddChannelDialog && (
-        <AddChannelDialog
+        <AddChannelDialogContainer
           pond={pond}
           closeDialog={handleCloseAddChannelDialog}
         />

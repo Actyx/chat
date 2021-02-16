@@ -9,7 +9,7 @@ type Props = Readonly<{
   closeDialog: () => void;
 }>;
 
-export const AddChannelDialog: FC<Props> = ({ pond, closeDialog }) => {
+export const AddChannelDialogContainer: FC<Props> = ({ pond, closeDialog }) => {
   const stateUI = useContext(StateContextUI);
 
   const [messageInvalid, setMessageInvalid] = useState<string>();
