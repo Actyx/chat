@@ -11,12 +11,21 @@ import { isUserSignedIn } from '../channel-fish/logic';
 export const doesChannelIdExist = (
   channelId: ChannelId,
   state: ChannelsCatalogFishState
-) => channelId in state;
+): boolean => channelId in state;
 
 export const doesChannelNameExist = (
   name: string,
   state: ChannelsCatalogFishState
-) => Object.values(state).some((c) => c.profile.name === name);
+): boolean => Object.values(state).some((c) => c.profile.name === name);
+
+export const isUserAssociatedToChannel = (
+  userUUID: UserUUID,
+  channelId: ChannelId,
+  state: ChannelsCatalogFishState
+): boolean =>
+  doesChannelIdExist(channelId, state)
+    ? state[channelId].users.includes(userUUID)
+    : false;
 
 export const addChannel = (pond: Pond) => (
   signedInUserUUID: UserUUID

@@ -19,11 +19,12 @@ import {
   ChannelsCatalogFish,
   initialStateChannelsCatalogFish,
 } from '../../business-logic/channels-catalog-fish/channels-catalog-fish';
+import { isUserAssociatedToChannel } from '../../business-logic/channels-catalog-fish/logic';
 import { ChannelsCatalogFishState } from '../../business-logic/channels-catalog-fish/types';
 import { MessageId, PublicMessage } from '../../business-logic/message/types';
 import {
   editUserProfile,
-  getDisplayNameByUserUUID,
+  getDisplayNameByUserUUID as getDisplayNameByUser,
 } from '../../business-logic/users-catalog-fish/logic';
 import {
   Users,
@@ -65,7 +66,7 @@ const mapPublicMessagesToUI = (
 ): MessagesUI =>
   messages.map((m: PublicMessage) => {
     const senderDisplayName =
-      getDisplayNameByUserUUID(m.userUUID, users) ?? 'user not found';
+      getDisplayNameByUser(m.userUUID, users) ?? 'user not found';
     const canEdit = doesMessageBelongToUser(signedInUserUUID, m);
     const canHide = canUserHideMessage(signedInUserUUID, m);
     return {
@@ -80,7 +81,6 @@ const mapPublicMessagesToUI = (
     };
   });
 
-// FIXME improve
 const mapChannelsToSidebarUI = (
   fishState: ChannelsCatalogFishState
 ): Channels => {
@@ -90,30 +90,32 @@ const mapChannelsToSidebarUI = (
   }));
 };
 
-// FIXME improve
 const mapChannelsToChannelCatalogUI = (
   fishState: ChannelsCatalogFishState,
   users: Users,
   userUUID: UserUUID
-): ChannelsOverview => {
-  return Object.values(fishState).map((channel) => {
-    const createdBy =
-      getDisplayNameByUserUUID(channel.profile.createdBy, users) ?? 'nouser';
+): ChannelsOverview =>
+  Object.values(fishState).map((channel) => {
+    const createdBy = getDisplayNameByUser(channel.profile.createdBy, users);
     const editedBy =
       channel.profile.editedBy &&
-      getDisplayNameByUserUUID(channel.profile.editedBy, users);
+      getDisplayNameByUser(channel.profile.editedBy, users);
     const usersAssociatedTotal = channel.users.length;
-    const userIsAssocated = channel.users.includes(userUUID);
+    const isSignedInUserAssociated = isUserAssociatedToChannel(
+      userUUID,
+      channel.profile.channelId,
+      fishState
+    );
 
     return {
       ...channel.profile,
       createdBy,
       editedBy,
       usersAssociatedTotal,
-      userIsAssocated,
+      isSignedInUserAssociated,
     };
   });
-};
+
 export const ChatContainer: FC<Props> = ({ pond }) => {
   const dispatch = useContext(DispatchContextUI);
 
@@ -234,7 +236,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
     stateUI.signedInUserUUID
   );
 
-  const userDisplayName = getDisplayNameByUserUUID(
+  const userDisplayName = getDisplayNameByUser(
     stateUI.signedInUserUUID,
     stateUsersCatalogFish.users
   );

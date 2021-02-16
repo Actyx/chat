@@ -7,12 +7,12 @@ export type ChannelsOverview = ReadonlyArray<{
   name: string;
   description?: string;
   createdOn: Timestamp;
-  createdBy: string;
+  createdBy?: string;
   editedOn?: Timestamp;
   editedBy?: string;
   isArchived: boolean;
   usersAssociatedTotal: number;
-  isSignedInUserAssocaited: boolean;
+  isSignedInUserAssociated: boolean;
 }>;
 
 type Props = Readonly<{
@@ -27,6 +27,7 @@ export const ChannelsCatalog: FC<Props> = ({ channels }) => {
         {channels.map((c) => (
           <div key={c.channelId}>
             {c.name}
+            {c.isArchived && ' (ARCHIVED)'}
             <br />
             {c.description && (
               <>
@@ -37,6 +38,8 @@ export const ChannelsCatalog: FC<Props> = ({ channels }) => {
             <br />
             {`Created by: ${c.createdBy} on ${c.createdOn}`}
             {c.editedBy && `Edited by ${c.editedBy} on ${c.editedOn}`}
+            <br />
+            {c.isSignedInUserAssociated && 'joined'}
             <hr />
           </div>
         ))}
