@@ -1,5 +1,6 @@
 import { TagsWithEvent } from '../../common/types';
 import {
+  SYSTEM_USER,
   UserAddedEvent,
   UserCatalogFishEvent,
   UserProfileEditedEvent,
@@ -22,6 +23,7 @@ export const getUserAddedEvent = (
       userUUID,
       displayName,
       email,
+      createdBy: SYSTEM_USER,
     },
   };
   const tags = UsersCatalogFish.tags.usersCatalog.and(
@@ -39,6 +41,7 @@ export const getUserProfileEditedEvent = (
     payload: {
       userUUID,
       displayName,
+      editedBy: userUUID,
     },
   };
   const tags = mkUserTagWithId(userUUID);

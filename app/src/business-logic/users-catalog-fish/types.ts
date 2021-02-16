@@ -2,10 +2,12 @@ import { Timestamp } from '@actyx/pond';
 
 //#region General
 
-export type AnonymousUser = string;
+export type AnonymousUser = UserUUID;
 export const ANONYMOUSE_USER: AnonymousUser = 'anonymous-user';
 
 export type UserUUID = string;
+
+export const SYSTEM_USER: UserUUID = 'system-user';
 
 export type Email = string;
 
@@ -30,6 +32,7 @@ export type UserAddedEvent = {
   type: UsersCatalogFishEventType.UserAdded;
   payload: {
     userUUID: UserUUID;
+    createdBy: UserUUID;
     displayName: string;
     email: Email;
   };
@@ -39,6 +42,7 @@ export type UserProfileEditedEvent = {
   type: UsersCatalogFishEventType.UserProfileEdited;
   payload: {
     userUUID: UserUUID;
+    editedBy: UserUUID;
     displayName: string;
   };
 };
