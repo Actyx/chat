@@ -30,7 +30,3 @@
 | message-catalog  | Get all added messages                    |
 | message:id       | Get all operations for a specific message |
 |                  |                                           |
-
-## Notes
-
-`user:id`, `channel:id` and `message:id` are used to identify and trace all related operations on such entities; `user:id` also represents a unique sender of a message. These tags are added to have these pieces of information available for future Fishes.
