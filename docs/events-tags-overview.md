@@ -19,14 +19,14 @@
 | MessageMediumEdited                | Message attachments were edited from a channel or private conversation | messages-catalog, channel:id, message:id, user:id  |
 |                                    |                                                                        |                                                    |
 
-| Tag              | Description                               |
-|------------------|-------------------------------------------|
-| users-catalog    | Get all operations for profiles           |
-| user:id          | Get all operations for a specific user    |
-|                  |                                           |
-| channels-catalog | Get all operations for channels           |
-| channel:id       | Get all operations for a specific channel |
-|                  |                                           |
-| message-catalog  | Get all operations on messages            |
-| message:id       | Get all operations for a specific message |
-|                  |                                           |
+| Tag              | Description                                          |
+|------------------|------------------------------------------------------|
+| users-catalog    | Get all operations for sign-up, sign-in and profiles |
+| user:id          | Get all operations for a specific user               |
+|                  |                                                      |
+| channels-catalog | Get all operations for channels                      |
+| channel:id       | Get all operations for a specific channel            |
+|                  |                                                      |
+| message-catalog  | Get all operations on messages                       |
+| message:id       | Get all operations for a specific message            |
+|                  |                                                      |
