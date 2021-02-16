@@ -11,6 +11,7 @@ import { v4 as uuid } from 'uuid';
 import { Pond } from '@actyx/pond';
 import { UsersCatalogFish } from './users-catalog-fish';
 import { isStringEmpty, trimString } from '../../common/utility';
+import { isUserSignedIn } from '../channel-fish/logic';
 
 //#region Sign-up
 
@@ -74,22 +75,27 @@ export const getDisplayNameByUserUUID = (
 };
 
 export const editUserProfile = (pond: Pond) => async (
-  userUUID: UserUUID,
+  signedInUserUUID: UserUUID,
   displayName: string
 ): Promise<boolean> => {
   let isSuccess = false;
-  await pond
-    .run(UsersCatalogFish.fish, (fishState, enqueue) => {
-      const isUserRegistered = isUserUUIDRegistered(userUUID, fishState.users);
-      const displayNameTrimmed = trimString(displayName);
-      const isNameNotEmpty = isStringEmpty(displayNameTrimmed) === false;
-      const canEditUserProfile = isUserRegistered && isNameNotEmpty;
-      if (canEditUserProfile) {
-        enqueue(...getUserProfileEditedEvent(userUUID, displayName));
-        isSuccess = true;
-      }
-    })
-    .toPromise();
+  if (isUserSignedIn(signedInUserUUID)) {
+    await pond
+      .run(UsersCatalogFish.fish, (fishState, enqueue) => {
+        const isUserRegistered = isUserUUIDRegistered(
+          signedInUserUUID,
+          fishState.users
+        );
+        const displayNameTrimmed = trimString(displayName);
+        const isNameNotEmpty = isStringEmpty(displayNameTrimmed) === false;
+        const canEditUserProfile = isUserRegistered && isNameNotEmpty;
+        if (canEditUserProfile) {
+          enqueue(...getUserProfileEditedEvent(signedInUserUUID, displayName));
+          isSuccess = true;
+        }
+      })
+      .toPromise();
+  }
   return isSuccess;
 };
 

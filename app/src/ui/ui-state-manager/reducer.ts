@@ -1,4 +1,5 @@
 import { MAIN_CHANNEL as DEFAULT_CHANNEL } from '../../business-logic/channel-fish/channel-fish';
+import { ANONYMOUSE_USER } from '../../business-logic/users-catalog-fish/types';
 import { Action, ActionType, Screens, SectionCenter, StateUI } from './types';
 
 export const reducer = (state: StateUI, action: Action): StateUI => {
@@ -38,7 +39,7 @@ export const reducer = (state: StateUI, action: Action): StateUI => {
     case ActionType.SignOutActiveUser:
       return {
         ...state,
-        signedInUserUUID: undefined,
+        signedInUserUUID: ANONYMOUSE_USER,
         activeChannelId: DEFAULT_CHANNEL,
         screen: Screens.Authentication,
       };

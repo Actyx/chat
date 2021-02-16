@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { MAIN_CHANNEL as DEFAULT_CHANNEL } from '../../business-logic/channel-fish/channel-fish';
+import { ANONYMOUSE_USER } from '../../business-logic/users-catalog-fish/types';
 import { reducer } from './reducer';
 import {
   Dialogs,
@@ -13,7 +14,7 @@ import {
 const inititialState: StateUI = {
   screen: Screens.Authentication,
   dialog: Dialogs.None,
-  signedInUserUUID: undefined,
+  signedInUserUUID: ANONYMOUSE_USER,
   sectionRight: SectionRight.None,
   sectionCenter: SectionCenter.Channel,
   activeChannelId: DEFAULT_CHANNEL,

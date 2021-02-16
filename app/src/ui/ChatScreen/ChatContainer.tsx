@@ -44,7 +44,6 @@ import { TopBar } from './TopBar';
 
 type Props = Readonly<{
   pond: Pond;
-  signedInUserUUID: UserUUID;
 }>;
 
 const getVisiblePublicMessages = (messages: PublicMessages) =>
@@ -72,7 +71,7 @@ const mapPublicMessagesToUI = (
     };
   });
 
-export const ChatContainer: FC<Props> = ({ pond, signedInUserUUID }) => {
+export const ChatContainer: FC<Props> = ({ pond }) => {
   const dispatch = useContext(DispatchContextUI);
 
   const stateUI = useContext(StateContextUI);
@@ -109,7 +108,7 @@ export const ChatContainer: FC<Props> = ({ pond, signedInUserUUID }) => {
   const handleEditUserProfile = async (displayName: string) => {
     try {
       const isUserProfileEdited = await editUserProfile(pond)(
-        signedInUserUUID,
+        stateUI.signedInUserUUID,
         displayName
       );
       if (isUserProfileEdited === true) {
@@ -125,7 +124,7 @@ export const ChatContainer: FC<Props> = ({ pond, signedInUserUUID }) => {
     try {
       await addMessageToChannel(pond)(
         stateUI.activeChannelId,
-        signedInUserUUID
+        stateUI.signedInUserUUID
       )({
         content,
       });
@@ -139,7 +138,7 @@ export const ChatContainer: FC<Props> = ({ pond, signedInUserUUID }) => {
     try {
       await editMessageInChannel(pond)(
         stateUI.activeChannelId,
-        signedInUserUUID
+        stateUI.signedInUserUUID
       )(messageId, content);
       setErrorPond(undefined);
     } catch (err) {
@@ -155,7 +154,7 @@ export const ChatContainer: FC<Props> = ({ pond, signedInUserUUID }) => {
       try {
         await hideMessageFromChannel(pond)(
           stateUI.activeChannelId,
-          signedInUserUUID
+          stateUI.signedInUserUUID
         )(messageId);
         setErrorPond(undefined);
       } catch (err) {
@@ -177,11 +176,11 @@ export const ChatContainer: FC<Props> = ({ pond, signedInUserUUID }) => {
   const messagesUI = mapPublicMessagesToUI(
     getVisiblePublicMessages(stateChannelMainFish.messages),
     stateUsersCatalogFish?.users,
-    signedInUserUUID
+    stateUI.signedInUserUUID
   );
 
   const userDisplayName = getDisplayNameByUserUUID(
-    signedInUserUUID,
+    stateUI.signedInUserUUID,
     stateUsersCatalogFish.users
   );
 
@@ -227,7 +226,6 @@ export const ChatContainer: FC<Props> = ({ pond, signedInUserUUID }) => {
       {openAddChannelDialog && (
         <AddChannelDialog
           pond={pond}
-          signedInUserUUID={signedInUserUUID}
           closeDialog={handleCloseAddChannelDialog}
         />
       )}
