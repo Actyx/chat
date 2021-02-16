@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { ChannelId } from '../../../business-logic/message/types';
-import { Channels } from './Sidebar';
+import { ChannelsSimpleList } from './Sidebar';
 
 type Props = Readonly<{
-  channels: Channels;
+  channels: ChannelsSimpleList;
   selectChannel: (channelId: ChannelId) => void;
 }>;
 

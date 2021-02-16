@@ -8,13 +8,13 @@ import {
 import { DispatchContextUI } from '../../ui-state-manager/UIStateManager';
 import { ChannelsList } from './ChannelsList';
 
-export type Channels = ReadonlyArray<{
+export type ChannelsSimpleList = ReadonlyArray<{
   channelId: ChannelId;
   name: string;
 }>;
 
 type Props = Readonly<{
-  channels: Channels;
+  channels: ChannelsSimpleList;
   openAddChannelDialog: () => void;
 }>;
 

@@ -4,14 +4,14 @@ import { UserUUID } from '../users-catalog-fish/types';
 import { getChannelAdded } from './events';
 import { v4 as uuid } from 'uuid';
 import { ChannelId } from '../message/types';
-import { ChannelsCatalogFishState } from './types';
+import { Channels, ChannelsCatalogFishState } from './types';
 import { ChannelsCatalogFish } from './channels-catalog-fish';
 import { isUserSignedIn } from '../channel-fish/logic';
 
 export const doesChannelIdExist = (
   channelId: ChannelId,
-  state: ChannelsCatalogFishState
-): boolean => channelId in state;
+  channels: Channels
+): boolean => channelId in channels;
 
 export const doesChannelNameExist = (
   name: string,
@@ -22,10 +22,10 @@ export const doesChannelNameExist = (
 export const isUserAssociatedToChannel = (
   userUUID: UserUUID,
   channelId: ChannelId,
-  state: ChannelsCatalogFishState
+  channels: Channels
 ): boolean =>
-  doesChannelIdExist(channelId, state)
-    ? state.channels[channelId].users.includes(userUUID)
+  doesChannelIdExist(channelId, channels)
+    ? channels[channelId].users.includes(userUUID)
     : false;
 
 export const addChannel = (pond: Pond) => (

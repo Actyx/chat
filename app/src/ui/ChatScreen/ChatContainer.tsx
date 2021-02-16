@@ -20,7 +20,10 @@ import {
   initialStateChannelsCatalogFish,
 } from '../../business-logic/channels-catalog-fish/channels-catalog-fish';
 import { isUserAssociatedToChannel } from '../../business-logic/channels-catalog-fish/logic';
-import { ChannelsCatalogFishState } from '../../business-logic/channels-catalog-fish/types';
+import {
+  Channels,
+  ChannelsCatalogFishState,
+} from '../../business-logic/channels-catalog-fish/types';
 import { MessageId, PublicMessage } from '../../business-logic/message/types';
 import {
   editUserProfile,
@@ -49,7 +52,7 @@ import {
   ChannelsCatalog,
   ChannelsOverview,
 } from './ChannelsCatalog/ChannelsCatalog';
-import { Channels, Sidebar } from './Sidebar/Sidebar';
+import { ChannelsSimpleList, Sidebar } from './Sidebar/Sidebar';
 import { TopBar } from './TopBar';
 
 type Props = Readonly<{
@@ -81,21 +84,19 @@ const mapPublicMessagesToUI = (
     };
   });
 
-const mapChannelsToSidebarUI = (
-  fishState: ChannelsCatalogFishState
-): Channels => {
-  return Object.values(fishState.channels).map((x) => ({
+const mapChannelsToSidebarUI = (channels: Channels): ChannelsSimpleList => {
+  return Object.values(channels).map((x) => ({
     channelId: x.profile.channelId,
     name: x.profile.name,
   }));
 };
 
 const mapChannelsToChannelCatalogUI = (
-  fishState: ChannelsCatalogFishState,
+  channels: Channels,
   users: Users,
   userUUID: UserUUID
 ): ChannelsOverview =>
-  Object.values(fishState.channels).map((channel) => {
+  Object.values(channels).map((channel) => {
     const createdBy = getDisplayNameByUser(channel.profile.createdBy, users);
     const editedBy =
       channel.profile.editedBy &&
@@ -104,7 +105,7 @@ const mapChannelsToChannelCatalogUI = (
     const isSignedInUserAssociated = isUserAssociatedToChannel(
       userUUID,
       channel.profile.channelId,
-      fishState
+      channels
     );
 
     return {
@@ -244,10 +245,12 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
   const canShowUserProfileEdit =
     stateUI.sectionRight === SectionRight.UserProfileEdit;
 
-  const channelsSideBarUI = mapChannelsToSidebarUI(stateChannelsCatalogFish);
+  const channelsSideBarUI = mapChannelsToSidebarUI(
+    stateChannelsCatalogFish.channels
+  );
 
   const channelsOverviewCatalog = mapChannelsToChannelCatalogUI(
-    stateChannelsCatalogFish,
+    stateChannelsCatalogFish.channels,
     stateUsersCatalogFish.users,
     stateUI.signedInUserUUID
   );

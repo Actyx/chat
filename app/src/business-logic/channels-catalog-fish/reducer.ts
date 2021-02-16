@@ -34,7 +34,7 @@ const channelAdded = (
   timestampMicros: Timestamp
 ) => {
   const { channelId, createdBy, name, description } = event.payload;
-  const canAdd = doesChannelIdExist(channelId, state) === false;
+  const canAdd = doesChannelIdExist(channelId, state.channels) === false;
   if (canAdd) {
     const profile = {
       channelId,

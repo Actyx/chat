@@ -72,7 +72,7 @@ export type ChannelsCatalogFishEvent =
 
 //#region State
 
-type Channels = Record<
+export type Channels = Record<
   ChannelId,
   { profile: ChannelProfile; users: ReadonlyArray<UserUUID> }
 >;
