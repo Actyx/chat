@@ -1,35 +1,34 @@
 import { Pond } from '@actyx/pond';
-import React, { FC, useContext, useState } from 'react';
-import { addChannel } from '../../../business-logic/channels-catalog-fish/logic';
-import { closeDialog } from '../../ui-state-manager/actions';
-import {
-  DispatchContextUI,
-  StateContextUI,
-} from '../../ui-state-manager/UIStateManager';
-import { AddChannel } from './AddChannel';
+import React, { FC, useState } from 'react';
+import { addChannel } from '../../business-logic/channels-catalog-fish/logic';
+import { UserUUID } from '../../business-logic/users-catalog-fish/types';
+import { AddChannel } from './AddChannelDialog/AddChannel';
 
 type Props = Readonly<{
   pond: Pond;
+  signedInUserUUID: UserUUID;
+  closeDialog: () => void;
 }>;
 
-export const AddChannelDialog: FC<Props> = ({ pond }) => {
-  const dispatch = useContext(DispatchContextUI);
-
-  const stateUI = useContext(StateContextUI);
-
+export const AddChannelDialog: FC<Props> = ({
+  pond,
+  signedInUserUUID,
+  closeDialog,
+}) => {
   const [messageInvalid, setMessageInvalid] = useState<string>();
 
   const [errorPond, setErrorPond] = React.useState<string>();
 
   const handleAddChannel = async (name: string, description: string) => {
     try {
-      const isSuccess = await addChannel(pond)(
-        stateUI.signedInUserUUID! // FIXME
-      )(name, description);
+      const isSuccess = await addChannel(pond)(signedInUserUUID)(
+        name,
+        description
+      );
       if (isSuccess) {
         setErrorPond(undefined);
         setMessageInvalid(undefined);
-        dispatch(closeDialog());
+        closeDialog();
       } else {
         setMessageInvalid(`That name is already taken by a channel`);
       }
@@ -46,6 +45,7 @@ export const AddChannelDialog: FC<Props> = ({ pond }) => {
         addChannel={handleAddChannel}
         messageInvalid={messageInvalid}
       />
+      <button onClick={closeDialog}>Close</button>
     </div>
   );
 };

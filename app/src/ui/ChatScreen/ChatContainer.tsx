@@ -1,5 +1,5 @@
 import { Pond, Timestamp } from '@actyx/pond';
-import React, { FC, useContext, useEffect } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import {
   initialStateCannelFish,
   mainChannelFish,
@@ -36,6 +36,7 @@ import {
   StateContextUI,
 } from '../ui-state-manager/UIStateManager';
 import { UserProfileDetails } from '../UserProfileDetails/UserProfileDetails';
+import { AddChannelDialog } from './AddChannelDialogContainer';
 import { Channel, MessagesUI } from './Channel/Channel';
 import { MessageInput } from './Channel/MessageInput';
 import { Sidebar } from './Sidebar/Sidebar';
@@ -79,12 +80,12 @@ export const ChatContainer: FC<Props> = ({ pond, signedInUserUUID }) => {
   const [
     stateUsersCatalogFish,
     setStateUsersCatalogFish,
-  ] = React.useState<UsersCatalogFishState>(initialStateUserCatalogFish);
+  ] = useState<UsersCatalogFishState>(initialStateUserCatalogFish);
 
   const [
     stateChannelMainFish,
     setStateChannelMainFish,
-  ] = React.useState<ChannelFishState>(initialStateCannelFish);
+  ] = useState<ChannelFishState>(initialStateCannelFish);
 
   useEffect(() => {
     const cancelSubUserCatalogFish = pond.observe(
@@ -103,12 +104,7 @@ export const ChatContainer: FC<Props> = ({ pond, signedInUserUUID }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const [errorPond, setErrorPond] = React.useState<string>();
-
-  const userDisplayName = getDisplayNameByUserUUID(
-    signedInUserUUID,
-    stateUsersCatalogFish.users
-  );
+  const [errorPond, setErrorPond] = useState<string>();
 
   const handleEditUserProfile = async (displayName: string) => {
     try {
@@ -168,10 +164,25 @@ export const ChatContainer: FC<Props> = ({ pond, signedInUserUUID }) => {
     }
   };
 
+  const handleOpenAddChannelDialog = () => {
+    setOpenAddChannelDialog(true);
+  };
+
+  const handleCloseAddChannelDialog = () => setOpenAddChannelDialog(false);
+
+  const [openAddChannelDialog, setOpenAddChannelDialog] = useState<boolean>(
+    false
+  );
+
   const messagesUI = mapPublicMessagesToUI(
     getVisiblePublicMessages(stateChannelMainFish.messages),
     stateUsersCatalogFish?.users,
     signedInUserUUID
+  );
+
+  const userDisplayName = getDisplayNameByUserUUID(
+    signedInUserUUID,
+    stateUsersCatalogFish.users
   );
 
   const canShowUserProfileEdit =
@@ -205,7 +216,7 @@ export const ChatContainer: FC<Props> = ({ pond, signedInUserUUID }) => {
       {errorPond}
       <TopBar userDisplayName={userDisplayName ?? ''} />
       <div>
-        <Sidebar />
+        <Sidebar openAddChannelDialog={handleOpenAddChannelDialog} />
       </div>
       {renderSectionCenter()}
       <div>
@@ -213,6 +224,13 @@ export const ChatContainer: FC<Props> = ({ pond, signedInUserUUID }) => {
           <UserProfileDetails editUserProfile={handleEditUserProfile} />
         )}
       </div>
+      {openAddChannelDialog && (
+        <AddChannelDialog
+          pond={pond}
+          signedInUserUUID={signedInUserUUID}
+          closeDialog={handleCloseAddChannelDialog}
+        />
+      )}
     </div>
   );
 };
