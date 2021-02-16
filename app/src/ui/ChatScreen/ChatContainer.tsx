@@ -19,12 +19,19 @@ import {
   ChannelsCatalogFish,
   initialStateChannelsCatalogFish,
 } from '../../business-logic/channels-catalog-fish/channels-catalog-fish';
-import { isUserAssociatedToChannel } from '../../business-logic/channels-catalog-fish/logic';
+import {
+  addChannel,
+  isUserAssociatedToChannel,
+} from '../../business-logic/channels-catalog-fish/logic';
 import {
   Channels,
   ChannelsCatalogFishState,
 } from '../../business-logic/channels-catalog-fish/types';
-import { MessageId, PublicMessage } from '../../business-logic/message/types';
+import {
+  ChannelId,
+  MessageId,
+  PublicMessage,
+} from '../../business-logic/message/types';
 import {
   editUserProfile,
   getDisplayNameByUserUUID as getDisplayNameByUser,
@@ -45,13 +52,14 @@ import {
   StateContextUI,
 } from '../ui-state-manager/UIStateManager';
 import { UserProfileDetails } from '../UserProfileDetails/UserProfileDetails';
-import { AddChannelDialogContainer } from './AddChannelDialog/AddChannelDialogContainer';
+import { AddChannelDialog } from './AddChannelDialog/AddChannelDialog';
 import { Channel, MessagesUI } from './Channel/Channel';
 import { MessageInput } from './Channel/MessageInput';
 import {
   ChannelsCatalog,
   ChannelsOverview,
 } from './ChannelsCatalog/ChannelsCatalog';
+import { EditChannelDialogContainer } from './EditChannelDialog/EditChannelDialogContainer';
 import { ChannelsSimpleList, Sidebar } from './Sidebar/Sidebar';
 import { TopBar } from './TopBar';
 
@@ -122,6 +130,17 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
 
   const stateUI = useContext(StateContextUI);
 
+  const [openAddChannelDialog, setOpenAddChannelDialog] = useState<boolean>(
+    false
+  );
+
+  const [openEditChannelDialog, setOpenEditChannelDialog] = useState<boolean>(
+    false
+  );
+
+  const [messageInvalid, setMessageInvalid] = useState<string | undefined>();
+
+  //#region Pond and Fishes
   const [
     stateUsersCatalogFish,
     setStateUsersCatalogFish,
@@ -136,6 +155,8 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
     stateChannelsCatalogFish,
     setStateChannelsCatalogFish,
   ] = useState<ChannelsCatalogFishState>(initialStateChannelsCatalogFish);
+
+  const [errorPond, setErrorPond] = useState<string>();
 
   useEffect(() => {
     const cancelSubUserCatalogFish = pond.observe(
@@ -161,7 +182,9 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const [errorPond, setErrorPond] = useState<string>();
+  //#endregion
+
+  //#region UI handlers
 
   const handleEditUserProfile = async (displayName: string) => {
     try {
@@ -227,13 +250,36 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
 
   const handleCloseAddChannelDialog = () => setOpenAddChannelDialog(false);
 
-  const [openAddChannelDialog, setOpenAddChannelDialog] = useState<boolean>(
-    false
-  );
+  const handleOpenEditChannelDialog = (channelId: ChannelId) =>
+    setOpenEditChannelDialog(true);
 
+  const handleCloseEditChannelDialog = () => setOpenEditChannelDialog(false);
+
+  const handleAddChannel = async (name: string, description: string) => {
+    try {
+      const isSuccess = await addChannel(pond)(stateUI.signedInUserUUID)(
+        name,
+        description
+      );
+      if (isSuccess) {
+        setErrorPond(undefined);
+        setMessageInvalid(undefined);
+        handleCloseAddChannelDialog();
+      } else {
+        setMessageInvalid(`That name is already taken by a channel`);
+      }
+    } catch (err) {
+      setMessageInvalid(undefined);
+      setErrorPond(err);
+    }
+  };
+
+  //#endregion
+
+  //#region UI mapping
   const messagesUI = mapPublicMessagesToUI(
     getVisiblePublicMessages(stateChannelMainFish.messages),
-    stateUsersCatalogFish?.users,
+    stateUsersCatalogFish.users,
     stateUI.signedInUserUUID
   );
 
@@ -254,6 +300,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
     stateUsersCatalogFish.users,
     stateUI.signedInUserUUID
   );
+  //#endregion
 
   const renderSectionCenter = () => {
     switch (stateUI.sectionCenter) {
@@ -269,7 +316,12 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
           </div>
         );
       case SectionCenter.ChannelsCatalog:
-        return <ChannelsCatalog channels={channelsOverviewCatalog} />;
+        return (
+          <ChannelsCatalog
+            channels={channelsOverviewCatalog}
+            editChannel={handleOpenEditChannelDialog}
+          />
+        );
     }
   };
 
@@ -290,9 +342,17 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
         )}
       </div>
       {openAddChannelDialog && (
-        <AddChannelDialogContainer
-          pond={pond}
+        <AddChannelDialog
+          messageError={errorPond}
+          messageInvalid={messageInvalid}
+          addChannel={handleAddChannel}
           closeDialog={handleCloseAddChannelDialog}
+        />
+      )}
+      {openEditChannelDialog && (
+        <EditChannelDialogContainer
+          pond={pond}
+          closeDialog={handleCloseEditChannelDialog}
         />
       )}
     </div>

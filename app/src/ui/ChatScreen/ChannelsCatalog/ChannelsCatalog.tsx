@@ -17,9 +17,10 @@ export type ChannelsOverview = ReadonlyArray<{
 
 type Props = Readonly<{
   channels: ChannelsOverview;
+  editChannel: (channelId: ChannelId) => void;
 }>;
 
-export const ChannelsCatalog: FC<Props> = ({ channels }) => {
+export const ChannelsCatalog: FC<Props> = ({ channels, editChannel }) => {
   return (
     <div>
       <h2>Channels Catalog</h2>
@@ -40,6 +41,10 @@ export const ChannelsCatalog: FC<Props> = ({ channels }) => {
             {c.editedBy && `Edited by ${c.editedBy} on ${c.editedOn}`}
             <br />
             {c.isSignedInUserAssociated && 'joined'}
+            <br />
+            <button onClick={() => editChannel(c.channelId)}>
+              Edit channel
+            </button>
             <hr />
           </div>
         ))}

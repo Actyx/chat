@@ -2,21 +2,25 @@ import { Pond } from '@actyx/pond';
 import React, { FC, useContext, useState } from 'react';
 import { addChannel } from '../../../business-logic/channels-catalog-fish/logic';
 import { StateContextUI } from '../../ui-state-manager/UIStateManager';
-import { AddChannel } from './AddChannel';
+import { EditChannel } from './EditChannel';
 
 type Props = Readonly<{
   pond: Pond;
   closeDialog: () => void;
 }>;
 
-export const AddChannelDialogContainer: FC<Props> = ({ pond, closeDialog }) => {
+export const EditChannelDialogContainer: FC<Props> = ({
+  pond,
+  closeDialog,
+}) => {
   const stateUI = useContext(StateContextUI);
 
   const [messageInvalid, setMessageInvalid] = useState<string>();
 
   const [errorPond, setErrorPond] = React.useState<string>();
 
-  const handleAddChannel = async (name: string, description: string) => {
+  const handleEditChannel = async (name: string, description: string) => {
+    // FIXME all this code here
     try {
       const isSuccess = await addChannel(pond)(stateUI.signedInUserUUID)(
         name,
@@ -38,8 +42,8 @@ export const AddChannelDialogContainer: FC<Props> = ({ pond, closeDialog }) => {
   return (
     <div>
       {errorPond}
-      <AddChannel
-        addChannel={handleAddChannel}
+      <EditChannel
+        editChannel={handleEditChannel}
         messageInvalid={messageInvalid}
       />
       <button onClick={closeDialog}>Close</button>
