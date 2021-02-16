@@ -44,6 +44,8 @@ export const getUserProfileEditedEvent = (
       editedBy: userUUID,
     },
   };
-  const tags = mkUserTagWithId(userUUID);
+  const tags = UsersCatalogFish.tags.usersCatalog.and(
+    mkUserTagWithId(userUUID)
+  );
   return [tags, event];
 };

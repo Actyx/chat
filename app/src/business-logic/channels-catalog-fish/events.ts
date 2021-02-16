@@ -21,9 +21,6 @@ export const getChannelAdded = (
   name: string,
   description?: string
 ): TagsWithEvent<ChannelAddedEvent> => {
-  const tags = ChannelsCatalogFish.tags.channelsCatalog.and(
-    mkChannelOperationTag(channelId, createdBy)
-  );
   const event: ChannelAddedEvent = {
     type: ChannelsCatalogFishEventType.ChannelAdded,
     payload: {
@@ -33,10 +30,13 @@ export const getChannelAdded = (
       description,
     },
   };
+
+  const tags = ChannelsCatalogFish.tags.channelsCatalog.and(
+    mkChannelOperationTag(channelId, createdBy)
+  );
   return [tags, event];
 };
 
-// TODO revise using TagsWithEvent
 export const mkChannelProfileEditedEvent = (
   channelId: ChannelId,
   editedBy: UserUUID,
@@ -52,7 +52,6 @@ export const mkChannelProfileEditedEvent = (
   },
 });
 
-// TODO revise using TagsWithEvent
 export const mkChannelArchivedEvent = (
   channelId: ChannelId,
   archivedBy: UserUUID
@@ -64,7 +63,6 @@ export const mkChannelArchivedEvent = (
   },
 });
 
-// TODO revise using TagsWithEvent
 export const mkChannelUnarchiveEvent = (
   channelId: ChannelId,
   unarchivedBy: UserUUID

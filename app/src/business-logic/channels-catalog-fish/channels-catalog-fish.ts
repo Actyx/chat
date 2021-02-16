@@ -18,7 +18,7 @@ const fish: Fish<ChannelsCatalogFishState, ChannelsCatalogFishEvent> = {
   fishId: FishId.of('channelsCatalog', 'channelsCatalog', 0),
   initialState: initialStateChannelsCatalogFish,
   onEvent: reducer,
-  where: tags.channelsCatalog.or(tags.channel),
+  where: tags.channelsCatalog,
 };
 
 export const ChannelsCatalogFish = {
