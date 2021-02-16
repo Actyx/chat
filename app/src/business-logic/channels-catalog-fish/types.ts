@@ -7,8 +7,9 @@ import { UserUUID } from '../users-catalog-fish/types';
 export type ChannelProfile = Readonly<{
   channelId: ChannelId;
   createdOn: Timestamp;
-  editedOn?: Timestamp;
   createdBy: UserUUID;
+  editedOn?: Timestamp;
+  editedBy?: UserUUID;
   isArchived: boolean;
   name: string;
   description?: string;

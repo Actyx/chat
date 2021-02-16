@@ -8,7 +8,10 @@ import {
 import { DispatchContextUI } from '../../ui-state-manager/UIStateManager';
 import { ChannelsList } from './ChannelsList';
 
-export type Channels = ReadonlyArray<{ channelId: ChannelId; name: string }>;
+export type Channels = ReadonlyArray<{
+  channelId: ChannelId;
+  name: string;
+}>;
 
 type Props = Readonly<{
   channels: Channels;
@@ -21,6 +24,7 @@ export const Sidebar: FC<Props> = ({ channels, openAddChannelDialog }) => {
   const handleChannelsCatalog = () => dispatch(openChannelsCatalogSection());
 
   const handleMain = (channelId: ChannelId) => {
+    //FIXME use the right channel fish here
     window.alert(channelId);
     dispatch(openChannelSection(MAIN_CHANNEL));
   };

@@ -44,6 +44,10 @@ import { UserProfileDetails } from '../UserProfileDetails/UserProfileDetails';
 import { AddChannelDialog } from './AddChannelDialog/AddChannelDialogContainer';
 import { Channel, MessagesUI } from './Channel/Channel';
 import { MessageInput } from './Channel/MessageInput';
+import {
+  ChannelsCatalog,
+  ChannelsOverview,
+} from './ChannelsCatalog/ChannelsCatalog';
 import { Channels, Sidebar } from './Sidebar/Sidebar';
 import { TopBar } from './TopBar';
 
@@ -77,12 +81,29 @@ const mapPublicMessagesToUI = (
   });
 
 // FIXME improve
-const mapChannelsToUI = (fishState: ChannelsCatalogFishState): Channels => {
+const mapChannelsToSidebarUI = (
+  fishState: ChannelsCatalogFishState
+): Channels => {
   return Object.values(fishState).map((x) => ({
     channelId: x.profile.channelId,
     name: x.profile.name,
   }));
 };
+
+// FIXME improve
+const mapChannelsToChannelCatalogUI = (
+  fishState: ChannelsCatalogFishState,
+  users: Users
+): ChannelsOverview =>
+  Object.values(fishState).map((channel) => ({
+    ...channel.profile,
+    createdBy:
+      getDisplayNameByUserUUID(channel.profile.createdBy, users) ?? 'nouser',
+    editedBy:
+      channel.profile.editedBy &&
+      getDisplayNameByUserUUID(channel.profile.editedBy, users),
+    usersAssociatedTotal: channel.users.length,
+  }));
 
 export const ChatContainer: FC<Props> = ({ pond }) => {
   const dispatch = useContext(DispatchContextUI);
@@ -212,7 +233,12 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
   const canShowUserProfileEdit =
     stateUI.sectionRight === SectionRight.UserProfileEdit;
 
-  const channelsUI = mapChannelsToUI(stateChannelsCatalogFish);
+  const channelsSideBarUI = mapChannelsToSidebarUI(stateChannelsCatalogFish);
+
+  const channelsOverviewCatalog = mapChannelsToChannelCatalogUI(
+    stateChannelsCatalogFish,
+    stateUsersCatalogFish.users
+  );
 
   const renderSectionCenter = () => {
     switch (stateUI.sectionCenter) {
@@ -228,12 +254,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
           </div>
         );
       case SectionCenter.ChannelsCatalog:
-        return (
-          <div>
-            <h2>Channels Catalog</h2>
-            All channels here
-          </div>
-        );
+        return <ChannelsCatalog channels={channelsOverviewCatalog} />;
     }
   };
 
@@ -243,7 +264,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
       <TopBar userDisplayName={userDisplayName ?? ''} />
       <div>
         <Sidebar
-          channels={channelsUI}
+          channels={channelsSideBarUI}
           openAddChannelDialog={handleOpenAddChannelDialog}
         />
       </div>
