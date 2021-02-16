@@ -84,7 +84,7 @@ const mapPublicMessagesToUI = (
 const mapChannelsToSidebarUI = (
   fishState: ChannelsCatalogFishState
 ): Channels => {
-  return Object.values(fishState).map((x) => ({
+  return Object.values(fishState.channels).map((x) => ({
     channelId: x.profile.channelId,
     name: x.profile.name,
   }));
@@ -95,7 +95,7 @@ const mapChannelsToChannelCatalogUI = (
   users: Users,
   userUUID: UserUUID
 ): ChannelsOverview =>
-  Object.values(fishState).map((channel) => {
+  Object.values(fishState.channels).map((channel) => {
     const createdBy = getDisplayNameByUser(channel.profile.createdBy, users);
     const editedBy =
       channel.profile.editedBy &&

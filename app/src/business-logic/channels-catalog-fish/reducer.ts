@@ -44,7 +44,7 @@ const channelAdded = (
       name,
       description,
     };
-    state[channelId] = {
+    state.channels[channelId] = {
       profile,
       users: [createdBy],
     };

@@ -12,7 +12,9 @@ const tags = {
   channelsCatalog: Tag<ChannelsCatalogFishEvent>('channels-catalog'),
 };
 
-export const initialStateChannelsCatalogFish: ChannelsCatalogFishState = {};
+export const initialStateChannelsCatalogFish: ChannelsCatalogFishState = {
+  channels: {},
+};
 
 const fish: Fish<ChannelsCatalogFishState, ChannelsCatalogFishEvent> = {
   fishId: FishId.of('channelsCatalog', 'channelsCatalog', 0),

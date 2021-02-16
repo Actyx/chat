@@ -45,6 +45,7 @@ Notes:
 
 - [x] The system, when initiated, creates a default channel called main, this channel cannot be deleted, renamed, or archived
 - [x] A user can create a channel providing a unique name and an optional description, if the name is already present in the system, the user is notified
+- [x] A user can create a channel and he will automatically join it
 - [ ] A user can edit the channel name and description
 - [ ] A user can archive a channel, when archived the channel won't be visible as active channels
 - [ ] A user can activate/unarchived a channel

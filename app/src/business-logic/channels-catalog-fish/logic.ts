@@ -16,7 +16,8 @@ export const doesChannelIdExist = (
 export const doesChannelNameExist = (
   name: string,
   state: ChannelsCatalogFishState
-): boolean => Object.values(state).some((c) => c.profile.name === name);
+): boolean =>
+  Object.values(state.channels).some((c) => c.profile.name === name);
 
 export const isUserAssociatedToChannel = (
   userUUID: UserUUID,
@@ -24,7 +25,7 @@ export const isUserAssociatedToChannel = (
   state: ChannelsCatalogFishState
 ): boolean =>
   doesChannelIdExist(channelId, state)
-    ? state[channelId].users.includes(userUUID)
+    ? state.channels[channelId].users.includes(userUUID)
     : false;
 
 export const addChannel = (pond: Pond) => (
