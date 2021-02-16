@@ -28,11 +28,12 @@ export const isUserAssociatedToChannel = (
     ? channels[channelId].users.includes(userUUID)
     : false;
 
-export const addChannel = (pond: Pond) => (
-  signedInUserUUID: UserUUID
-) => async (name: string, description: string): Promise<boolean> => {
+export const addChannel = (pond: Pond) => (signedInUser: UserUUID) => async (
+  name: string,
+  description: string
+): Promise<boolean> => {
   let isSuccess = false;
-  if (isUserSignedIn(signedInUserUUID)) {
+  if (isUserSignedIn(signedInUser)) {
     const newName = prepareString(name);
     const newDescription = isStringEmpty(description)
       ? undefined
@@ -47,7 +48,7 @@ export const addChannel = (pond: Pond) => (
           enqueue(
             ...getChannelAdded(
               newChannelId,
-              signedInUserUUID,
+              signedInUser,
               newName,
               newDescription
             )

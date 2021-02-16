@@ -28,7 +28,7 @@ export const reducer = (state: StateUI, action: Action): StateUI => {
     case ActionType.AddSignedInUser:
       return {
         ...state,
-        signedInUserUUID: action.payload.signedInUser,
+        signedInUser: action.payload.signedInUser,
         activeChannelId: DEFAULT_CHANNEL,
       };
     case ActionType.EditSectionRight:
@@ -39,7 +39,7 @@ export const reducer = (state: StateUI, action: Action): StateUI => {
     case ActionType.SignOutActiveUser:
       return {
         ...state,
-        signedInUserUUID: ANONYMOUSE_USER,
+        signedInUser: ANONYMOUSE_USER,
         activeChannelId: DEFAULT_CHANNEL,
         screen: Screens.Authentication,
       };

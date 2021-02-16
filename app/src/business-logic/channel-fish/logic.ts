@@ -21,7 +21,7 @@ import { v4 as uuid } from 'uuid';
 
 export const addMessageToChannel = (pond: Pond) => (
   channelId: ChannelId,
-  signedInUserUUID: UserUUID
+  signedInUser: UserUUID
 ) => ({
   content,
   mediaIds,
@@ -31,12 +31,12 @@ export const addMessageToChannel = (pond: Pond) => (
   mediaIds?: MediaIds;
   recipientIds?: PublicRecipientIds;
 }>): Promise<void> => {
-  if (isUserSignedIn(signedInUserUUID)) {
+  if (isUserSignedIn(signedInUser)) {
     return pond
       .emit(
         ...getPublicMessageAdded({
           messageId: uuid(),
-          userUUID: signedInUserUUID,
+          userUUID: signedInUser,
           channelId,
           content,
           mediaIds,
@@ -69,24 +69,24 @@ const getMessageById = (
 
 export const editMessageInChannel = (pond: Pond) => (
   channelId: ChannelId,
-  signedInUserUUID: UserUUID
+  signedInUser: UserUUID
 ) => async (messageId: MessageId, content: string): Promise<boolean> => {
   let isSuccess = false;
-  if (isUserSignedIn(signedInUserUUID)) {
+  if (isUserSignedIn(signedInUser)) {
     await pond
       .run<ChannelFishState, PublicMessageEvent>(
         mainChannelFish,
         (fishState, enqueue) => {
           const message = getMessageById(messageId, fishState.messages);
           if (message) {
-            const canEdit = doesMessageBelongToUser(signedInUserUUID, message);
+            const canEdit = doesMessageBelongToUser(signedInUser, message);
             if (canEdit) {
               enqueue(
                 ...getMessageContentEdited(
                   messageId,
                   channelId,
                   content,
-                  signedInUserUUID
+                  signedInUser
                 )
               );
               isSuccess = true;
@@ -105,7 +105,7 @@ export const editMessageInChannel = (pond: Pond) => (
 
 export const hideMessageFromChannel = (pond: Pond) => (
   channelId: ChannelId,
-  signedInUserUUID: UserUUID
+  signedInUser: UserUUID
 ) => async (messageId: MessageId): Promise<boolean> => {
   let isSuccess = false;
   await pond
@@ -114,10 +114,10 @@ export const hideMessageFromChannel = (pond: Pond) => (
       (fishState, enqueue) => {
         const message = getMessageById(messageId, fishState.messages);
         if (message) {
-          const canHide = doesMessageBelongToUser(signedInUserUUID, message);
+          const canHide = doesMessageBelongToUser(signedInUser, message);
           if (canHide) {
             enqueue(
-              ...getMessageHiddenEvent(messageId, channelId, signedInUserUUID)
+              ...getMessageHiddenEvent(messageId, channelId, signedInUser)
             );
             isSuccess = true;
           }
