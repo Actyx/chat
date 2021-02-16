@@ -12,8 +12,10 @@ import {
   ChannelUnarchiveEvent,
 } from './types';
 
-const mkChannelOperationTag = (channelId: ChannelId, userUUID: UserUUID) =>
-  mkChannelTagWithId(channelId).and(mkUserTagWithId(userUUID));
+const mkChannelOperationTags = (channelId: ChannelId, userUUID: UserUUID) =>
+  ChannelsCatalogFish.tags.channelsCatalog.and(
+    mkChannelTagWithId(channelId).and(mkUserTagWithId(userUUID))
+  );
 
 export const getChannelAdded = (
   channelId: ChannelId,
@@ -31,9 +33,8 @@ export const getChannelAdded = (
     },
   };
 
-  const tags = ChannelsCatalogFish.tags.channelsCatalog.and(
-    mkChannelOperationTag(channelId, createdBy)
-  );
+  const tags = mkChannelOperationTags(channelId, createdBy);
+
   return [tags, event];
 };
 

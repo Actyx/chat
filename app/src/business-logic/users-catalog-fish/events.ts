@@ -12,6 +12,9 @@ import { UsersCatalogFish } from './users-catalog-fish';
 export const mkUserTagWithId = (userUUID: UserUUID) =>
   UsersCatalogFish.tags.user.withId(userUUID);
 
+export const mkUserCatelogOperationsTags = (userUUID: UserUUID) =>
+  UsersCatalogFish.tags.usersCatalog.and(mkUserTagWithId(userUUID));
+
 export const getUserAddedEvent = (
   userUUID: UserUUID,
   displayName: string,
@@ -26,9 +29,8 @@ export const getUserAddedEvent = (
       createdBy: SYSTEM_USER,
     },
   };
-  const tags = UsersCatalogFish.tags.usersCatalog.and(
-    mkUserTagWithId(userUUID)
-  );
+  const tags = mkUserCatelogOperationsTags(userUUID);
+
   return [tags, event];
 };
 
