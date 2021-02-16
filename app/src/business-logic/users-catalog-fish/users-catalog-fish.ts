@@ -22,7 +22,7 @@ const fish: Fish<UsersCatalogFishState, UserCatalogFishEvent> = {
   fishId: FishId.of('usersCatalog', 'usersCatalog', 0),
   initialState,
   onEvent: reducer,
-  where: tags.usersCatalog.or(tags.user),
+  where: tags.usersCatalog,
 };
 
 export const UsersCatalogFish = {
