@@ -71,6 +71,7 @@ export type ChannelsCatalogFishEvent =
 
 //#region State
 
+// FIXME add a prop channels instead of the root
 export type ChannelsCatalogFishState = Record<
   ChannelId,
   { profile: ChannelProfile; users: ReadonlyArray<UserUUID> }

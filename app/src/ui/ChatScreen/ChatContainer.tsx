@@ -15,6 +15,11 @@ import {
   ChannelFishState,
   PublicMessages,
 } from '../../business-logic/channel-fish/types';
+import {
+  ChannelsCatalogFish,
+  initialStateChannelsCatalogFish,
+} from '../../business-logic/channels-catalog-fish/channels-catalog-fish';
+import { ChannelsCatalogFishState } from '../../business-logic/channels-catalog-fish/types';
 import { MessageId, PublicMessage } from '../../business-logic/message/types';
 import {
   editUserProfile,
@@ -39,7 +44,7 @@ import { UserProfileDetails } from '../UserProfileDetails/UserProfileDetails';
 import { AddChannelDialog } from './AddChannelDialog/AddChannelDialogContainer';
 import { Channel, MessagesUI } from './Channel/Channel';
 import { MessageInput } from './Channel/MessageInput';
-import { Sidebar } from './Sidebar/Sidebar';
+import { Channels, Sidebar } from './Sidebar/Sidebar';
 import { TopBar } from './TopBar';
 
 type Props = Readonly<{
@@ -71,6 +76,14 @@ const mapPublicMessagesToUI = (
     };
   });
 
+// FIXME improve
+const mapChannelsToUI = (fishState: ChannelsCatalogFishState): Channels => {
+  return Object.values(fishState).map((x) => ({
+    channelId: x.profile.channelId,
+    name: x.profile.name,
+  }));
+};
+
 export const ChatContainer: FC<Props> = ({ pond }) => {
   const dispatch = useContext(DispatchContextUI);
 
@@ -86,19 +99,31 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
     setStateChannelMainFish,
   ] = useState<ChannelFishState>(initialStateCannelFish);
 
+  const [
+    stateChannelsCatalogFish,
+    setStateChannelsCatalogFish,
+  ] = useState<ChannelsCatalogFishState>(initialStateChannelsCatalogFish);
+
   useEffect(() => {
     const cancelSubUserCatalogFish = pond.observe(
       UsersCatalogFish.fish,
       setStateUsersCatalogFish
     );
 
-    const cancelSubscChannelFish = pond.observe(
+    const cancelSubChannelFish = pond.observe(
       mainChannelFish,
       setStateChannelMainFish
     );
+
+    const cancelSubChannelsCatalogFish = pond.observe(
+      ChannelsCatalogFish.fish,
+      setStateChannelsCatalogFish
+    );
+
     return () => {
       cancelSubUserCatalogFish();
-      cancelSubscChannelFish();
+      cancelSubChannelFish();
+      cancelSubChannelsCatalogFish();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -187,6 +212,8 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
   const canShowUserProfileEdit =
     stateUI.sectionRight === SectionRight.UserProfileEdit;
 
+  const channelsUI = mapChannelsToUI(stateChannelsCatalogFish);
+
   const renderSectionCenter = () => {
     switch (stateUI.sectionCenter) {
       case SectionCenter.Channel:
@@ -215,7 +242,10 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
       {errorPond}
       <TopBar userDisplayName={userDisplayName ?? ''} />
       <div>
-        <Sidebar openAddChannelDialog={handleOpenAddChannelDialog} />
+        <Sidebar
+          channels={channelsUI}
+          openAddChannelDialog={handleOpenAddChannelDialog}
+        />
       </div>
       {renderSectionCenter()}
       <div>
