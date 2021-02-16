@@ -36,7 +36,7 @@ import {
   StateContextUI,
 } from '../ui-state-manager/UIStateManager';
 import { UserProfileDetails } from '../UserProfileDetails/UserProfileDetails';
-import { AddChannelDialog } from './AddChannelDialogContainer';
+import { AddChannelDialog } from './AddChannelDialog/AddChannelDialogContainer';
 import { Channel, MessagesUI } from './Channel/Channel';
 import { MessageInput } from './Channel/MessageInput';
 import { Sidebar } from './Sidebar/Sidebar';

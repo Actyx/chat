@@ -1,8 +1,8 @@
 import { Pond } from '@actyx/pond';
 import React, { FC, useContext, useState } from 'react';
-import { addChannel } from '../../business-logic/channels-catalog-fish/logic';
-import { StateContextUI } from '../ui-state-manager/UIStateManager';
-import { AddChannel } from './AddChannelDialog/AddChannel';
+import { addChannel } from '../../../business-logic/channels-catalog-fish/logic';
+import { StateContextUI } from '../../ui-state-manager/UIStateManager';
+import { AddChannel } from './AddChannel';
 
 type Props = Readonly<{
   pond: Pond;
