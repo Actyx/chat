@@ -12,6 +12,7 @@ export type ChannelsOverview = ReadonlyArray<{
   editedBy?: string;
   isArchived: boolean;
   usersAssociatedTotal: number;
+  isSignedInUserAssocaited: boolean;
 }>;
 
 type Props = Readonly<{
@@ -27,8 +28,11 @@ export const ChannelsCatalog: FC<Props> = ({ channels }) => {
           <div key={c.channelId}>
             {c.name}
             <br />
-            {c.description}
-            <br />
+            {c.description && (
+              <>
+                {c.description} <br />
+              </>
+            )}
             {c.usersAssociatedTotal} members
             <br />
             {`Created by: ${c.createdBy} on ${c.createdOn}`}

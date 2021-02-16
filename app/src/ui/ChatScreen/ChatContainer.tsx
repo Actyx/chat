@@ -93,18 +93,27 @@ const mapChannelsToSidebarUI = (
 // FIXME improve
 const mapChannelsToChannelCatalogUI = (
   fishState: ChannelsCatalogFishState,
-  users: Users
-): ChannelsOverview =>
-  Object.values(fishState).map((channel) => ({
-    ...channel.profile,
-    createdBy:
-      getDisplayNameByUserUUID(channel.profile.createdBy, users) ?? 'nouser',
-    editedBy:
+  users: Users,
+  userUUID: UserUUID
+): ChannelsOverview => {
+  return Object.values(fishState).map((channel) => {
+    const createdBy =
+      getDisplayNameByUserUUID(channel.profile.createdBy, users) ?? 'nouser';
+    const editedBy =
       channel.profile.editedBy &&
-      getDisplayNameByUserUUID(channel.profile.editedBy, users),
-    usersAssociatedTotal: channel.users.length,
-  }));
+      getDisplayNameByUserUUID(channel.profile.editedBy, users);
+    const usersAssociatedTotal = channel.users.length;
+    const userIsAssocated = channel.users.includes(userUUID);
 
+    return {
+      ...channel.profile,
+      createdBy,
+      editedBy,
+      usersAssociatedTotal,
+      userIsAssocated,
+    };
+  });
+};
 export const ChatContainer: FC<Props> = ({ pond }) => {
   const dispatch = useContext(DispatchContextUI);
 
@@ -237,7 +246,8 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
 
   const channelsOverviewCatalog = mapChannelsToChannelCatalogUI(
     stateChannelsCatalogFish,
-    stateUsersCatalogFish.users
+    stateUsersCatalogFish.users,
+    stateUI.signedInUserUUID
   );
 
   const renderSectionCenter = () => {
