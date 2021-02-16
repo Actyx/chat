@@ -59,7 +59,7 @@ import {
   ChannelsCatalog,
   ChannelsOverview,
 } from './ChannelsCatalog/ChannelsCatalog';
-import { EditChannelDialogContainer } from './EditChannelDialog/EditChannelDialogContainer';
+import { EditChannelDialogContainer } from './EditChannelDialog/EditChannelDialog';
 import { ChannelsSimpleList, Sidebar } from './Sidebar/Sidebar';
 import { TopBar } from './TopBar';
 
@@ -274,6 +274,10 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
     }
   };
 
+  const handleEditChannel = async (name: string, description: string) => {
+    window.alert(`edit channel ${name} ${description}`);
+  };
+
   //#endregion
 
   //#region UI mapping
@@ -351,7 +355,9 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
       )}
       {openEditChannelDialog && (
         <EditChannelDialogContainer
-          pond={pond}
+          currentName={''}
+          currentDescription={''}
+          editChannel={handleEditChannel}
           closeDialog={handleCloseEditChannelDialog}
         />
       )}

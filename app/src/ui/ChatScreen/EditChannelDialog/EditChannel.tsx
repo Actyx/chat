@@ -1,13 +1,20 @@
 import React, { FC, useState } from 'react';
 type Props = Readonly<{
+  currentName: string;
+  currentDescription: string;
   messageInvalid?: string;
   editChannel: (name: string, description: string) => void;
 }>;
 
-export const EditChannel: FC<Props> = ({ messageInvalid, editChannel }) => {
-  const [name, setName] = useState<string>('');
+export const EditChannel: FC<Props> = ({
+  currentName,
+  currentDescription,
+  messageInvalid,
+  editChannel,
+}) => {
+  const [name, setName] = useState<string>(currentName);
 
-  const [description, setDescription] = useState<string>('');
+  const [description, setDescription] = useState<string>(currentDescription);
 
   const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) =>
     setName(e.target.value);
