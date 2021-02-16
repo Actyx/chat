@@ -56,6 +56,7 @@ export const getMessageContentEdited = (
     payload: {
       messageId,
       content,
+      editedBy: userUUID,
     },
   };
 
@@ -73,6 +74,7 @@ export const getMessageHiddenEvent = (
     type: MessageEventType.MessageHidden,
     payload: {
       messageId,
+      hiddenBy: userUUID,
     },
   };
   const tags = mkMessageOperationTag(messageId, channelId, userUUID);

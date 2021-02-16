@@ -81,6 +81,7 @@ export type MessageHiddenEvent = {
   type: MessageEventType.MessageHidden;
   payload: {
     messageId: MessageId;
+    hiddenBy: UserUUID;
   };
 };
 
@@ -89,6 +90,7 @@ export type MessageContentEditedEvent = {
   payload: {
     messageId: MessageId;
     content: string;
+    editedBy: UserUUID;
   };
 };
 
@@ -96,7 +98,7 @@ export type PublicMessageRecipientsEditedEvent = {
   type: MessageEventType.PublicMessageRecipientsEdited;
   payload: {
     messageId: MessageId;
-    editedOn: Timestamp;
+    editedBy: UserUUID;
     recipientIds?: PublicRecipientIds;
   };
 };
@@ -105,7 +107,7 @@ export type MessageMediumEdited = {
   type: MessageEventType.MessageMediumEdited;
   payload: {
     messageId: MessageId;
-    editedOn: Timestamp;
+    editedBy: UserUUID;
     mediaIds?: MediaIds;
   };
 };
