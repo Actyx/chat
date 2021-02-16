@@ -24,8 +24,10 @@ const mkMessageOperationTag = (
   channelId: ChannelId,
   userUUID: UserUUID
 ) =>
-  mkMessageTagWithId(messageId).and(
-    mkChannelTagWithId(channelId).and(mkUserTagWithId(userUUID))
+  ChannelFish.tags.messagesCatalog.and(
+    mkChannelTagWithId(channelId).and(
+      mkMessageTagWithId(messageId).and(mkUserTagWithId(userUUID))
+    )
   );
 
 export const getPublicMessageAdded = (
@@ -35,13 +37,12 @@ export const getPublicMessageAdded = (
     type: MessageEventType.PublicMessageAdded,
     payload,
   };
-  const tags = ChannelFish.tags.messagesCatalog.and(
-    mkMessageOperationTag(
-      payload.messageId,
-      payload.channelId,
-      payload.userUUID
-    )
+  const tags = mkMessageOperationTag(
+    payload.messageId,
+    payload.channelId,
+    payload.userUUID
   );
+
   return [tags, event];
 };
 

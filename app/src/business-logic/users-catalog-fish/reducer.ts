@@ -14,7 +14,6 @@ export const reducer: Reduce<UsersCatalogFishState, UserCatalogFishEvent> = (
   event,
   meta
 ): UsersCatalogFishState => {
-  console.log(event, meta);
   switch (event.type) {
     case UsersCatalogFishEventType.UserAdded: {
       return userAdded(state, event, meta.timestampMicros);
