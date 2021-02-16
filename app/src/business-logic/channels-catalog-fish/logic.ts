@@ -1,5 +1,5 @@
 import { Pond } from '@actyx/pond';
-import { isStringEmpty, trimString } from '../../common/utility';
+import { isStringEmpty, prepareString } from '../../common/utility';
 import { UserUUID } from '../users-catalog-fish/types';
 import { getChannelAdded } from './events';
 import { v4 as uuid } from 'uuid';
@@ -23,23 +23,23 @@ export const addChannel = (pond: Pond) => (
 ) => async (name: string, description: string): Promise<boolean> => {
   let isSuccess = false;
   if (isUserSignedIn(signedInUserUUID)) {
-    const nameTrimmed = trimString(name);
-    const descriptionTrimmed = isStringEmpty(description)
+    const newName = prepareString(name);
+    const newDescription = isStringEmpty(description)
       ? undefined
-      : trimString(description);
+      : prepareString(description);
 
     const newChannelId = uuid();
 
     await pond
       .run(ChannelsCatalogFish.fish, (fishState, enqueue) => {
-        const canAdd = doesChannelNameExist(nameTrimmed, fishState) === false;
+        const canAdd = doesChannelNameExist(newName, fishState) === false;
         if (canAdd) {
           enqueue(
             ...getChannelAdded(
               newChannelId,
               signedInUserUUID,
-              nameTrimmed,
-              descriptionTrimmed
+              newName,
+              newDescription
             )
           );
           isSuccess = true;

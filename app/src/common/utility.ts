@@ -1,3 +1,3 @@
-export const trimString = (str: string) => str.trim();
+export const prepareString = (str: string) => str.trim();
 
-export const isStringEmpty = (str: string) => str.length === 0;
+export const isStringEmpty = (str: string) => str.trim().length === 0;
