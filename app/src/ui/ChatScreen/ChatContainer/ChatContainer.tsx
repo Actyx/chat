@@ -18,7 +18,7 @@ import {
   addChannel,
   editChannel,
   getChannelProfileByChannelId,
-  isUserOwnerOfChannel,
+  hasUserCreatedChannel,
 } from '../../../business-logic/channels-catalog-fish/logic';
 import { ChannelsCatalogFishState } from '../../../business-logic/channels-catalog-fish/types';
 import { ChannelId, MessageId } from '../../../business-logic/message/types';
@@ -283,7 +283,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
   );
 
   const canUserManageArchiviation = (channelId: ChannelId) =>
-    isUserOwnerOfChannel(
+    hasUserCreatedChannel(
       stateUI.signedInUser,
       channelId,
       stateChannelsCatalogFish.channels

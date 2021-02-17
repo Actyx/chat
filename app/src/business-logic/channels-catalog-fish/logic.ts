@@ -24,7 +24,7 @@ export const getChannelProfileByChannelId = (
   channels: Channels
 ): ChannelProfile | undefined => channels[channelId].profile;
 
-export const isUserOwnerOfChannel = (
+export const hasUserCreatedChannel = (
   userUUID: UserUUID,
   channelId: ChannelId,
   channels: Channels
