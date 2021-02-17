@@ -12,7 +12,7 @@ import {
   Users,
   UserUUID,
 } from '../../../business-logic/users-catalog-fish/types';
-import { genericSort, localeComparator } from '../../../common/sorts';
+import { genericSorter, localeComparator } from '../../../common/sorts';
 import { MessagesUI } from '../Channel/Channel';
 import { ChannelsOverview } from '../ChannelsCatalog/ChannelsCatalog';
 import { ChannelsSimpleList } from '../Sidebar/Sidebar';
@@ -80,7 +80,7 @@ export const sortAlphabeticChannelsOverview = (
   channelsOverview
     .map((x) => x)
     .sort((a, b) =>
-      genericSort(a.name, b.name, localeComparator, {
+      genericSorter(a.name, b.name, localeComparator, {
         isDescending: false,
       })
     );
