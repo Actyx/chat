@@ -1,5 +1,5 @@
 import { Pond } from '@actyx/pond';
-import { isStringEmpty, prepareString } from '../../common/utility';
+import { isStringEmpty, prepareString } from '../../common/strings';
 import { UserUUID } from '../users-catalog-fish/types';
 import {
   getChannelAdded,

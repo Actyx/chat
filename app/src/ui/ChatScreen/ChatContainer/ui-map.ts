@@ -12,7 +12,7 @@ import {
   Users,
   UserUUID,
 } from '../../../business-logic/users-catalog-fish/types';
-import { genericSort, localeComparator } from '../../../common/utility';
+import { genericSort, localeComparator } from '../../../common/sorts';
 import { MessagesUI } from '../Channel/Channel';
 import { ChannelsOverview } from '../ChannelsCatalog/ChannelsCatalog';
 import { ChannelsSimpleList } from '../Sidebar/Sidebar';

@@ -10,7 +10,7 @@ import {
 import { v4 as uuid } from 'uuid';
 import { Pond } from '@actyx/pond';
 import { UsersCatalogFish } from './users-catalog-fish';
-import { isStringEmpty, prepareString } from '../../common/utility';
+import { isStringEmpty, prepareString } from '../../common/strings';
 import { isUserSignedIn } from '../channel-fish/logic';
 
 //#region Sign-up
