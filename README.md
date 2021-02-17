@@ -76,6 +76,12 @@ There is a separation between state for UI and state for Fishes, components down
 
 - src/business-logic/example-fish/example-fish.ts: The actual Fish
 
+## Naming conventions
+
+- UI types should be postfixed with UI, for example, `ChannelListUI`
+
+- React component files should be written in `CamelCase`, all other files are should be named in `kebab-case`
+
 ### src/ui
 
 Contains all UI React components, reusable components, and related utilities function.
