@@ -81,7 +81,7 @@ export const sortAlphabeticChannelsOverview = (
     .map((x) => x)
     .sort((a, b) =>
       genericSort(a.name, b.name, localeComparator, {
-        isDescending: true,
+        isDescending: false,
       })
     );
 
