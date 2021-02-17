@@ -14,9 +14,12 @@ import {
   ChannelsCatalogFish,
   initialStateChannelsCatalogFish,
 } from '../../../business-logic/channels-catalog-fish/channels-catalog-fish';
-import { addChannel } from '../../../business-logic/channels-catalog-fish/logic';
+import {
+  addChannel,
+  getChannelProfileByChannelId,
+} from '../../../business-logic/channels-catalog-fish/logic';
 import { ChannelsCatalogFishState } from '../../../business-logic/channels-catalog-fish/types';
-import { MessageId } from '../../../business-logic/message/types';
+import { ChannelId, MessageId } from '../../../business-logic/message/types';
 import { editUserProfile } from '../../../business-logic/users-catalog-fish/logic';
 import { UsersCatalogFishState } from '../../../business-logic/users-catalog-fish/types';
 import {
@@ -61,6 +64,10 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
   const [openEditChannelDialog, setOpenEditChannelDialog] = useState<boolean>(
     false
   );
+
+  const [selectedChannel, setSelectedChannel] = useState<
+    Readonly<{ channelId: ChannelId; name: string; description: string }>
+  >();
 
   const [messageInvalid, setMessageInvalid] = useState<string | undefined>();
 
@@ -174,7 +181,20 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
 
   const handleCloseAddChannelDialog = () => setOpenAddChannelDialog(false);
 
-  const handleOpenEditChannelDialog = () => setOpenEditChannelDialog(true);
+  const handleOpenEditChannelDialog = (channelId: ChannelId) => {
+    const channelProfile = getChannelProfileByChannelId(
+      channelId,
+      stateChannelsCatalogFish.channels
+    );
+    if (channelProfile) {
+      setSelectedChannel({
+        channelId: channelProfile.channelId,
+        name: channelProfile.name,
+        description: channelProfile.description ?? '',
+      });
+      setOpenEditChannelDialog(true);
+    }
+  };
 
   const handleCloseEditChannelDialog = () => setOpenEditChannelDialog(false);
 
@@ -197,7 +217,10 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
     }
   };
 
-  const handleEditChannel = async (name: string, description: string) => {
+  const handleEditChannelFromDialog = async (
+    name: string,
+    description: string
+  ) => {
     window.alert(`edit channel ${name} ${description}`);
   };
 
@@ -276,11 +299,11 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
           closeDialog={handleCloseAddChannelDialog}
         />
       )}
-      {openEditChannelDialog && (
+      {openEditChannelDialog && selectedChannel && (
         <EditChannelDialogContainer
-          currentName={''}
-          currentDescription={''}
-          editChannel={handleEditChannel}
+          currentName={selectedChannel.name}
+          currentDescription={selectedChannel.description}
+          editChannel={handleEditChannelFromDialog}
           closeDialog={handleCloseEditChannelDialog}
         />
       )}

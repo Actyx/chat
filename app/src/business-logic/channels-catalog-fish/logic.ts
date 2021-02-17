@@ -4,7 +4,7 @@ import { UserUUID } from '../users-catalog-fish/types';
 import { getChannelAdded } from './events';
 import { v4 as uuid } from 'uuid';
 import { ChannelId } from '../message/types';
-import { Channels, ChannelsCatalogFishState } from './types';
+import { ChannelProfile, Channels, ChannelsCatalogFishState } from './types';
 import { ChannelsCatalogFish } from './channels-catalog-fish';
 import { isUserSignedIn } from '../channel-fish/logic';
 
@@ -18,6 +18,11 @@ export const doesChannelNameExist = (
   state: ChannelsCatalogFishState
 ): boolean =>
   Object.values(state.channels).some((c) => c.profile.name === name);
+
+export const getChannelProfileByChannelId = (
+  channelId: ChannelId,
+  channels: Channels
+): ChannelProfile | undefined => channels[channelId].profile;
 
 export const isUserAssociatedToChannel = (
   userUUID: UserUUID,
