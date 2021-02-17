@@ -6,7 +6,7 @@ export type SorterOptions = Readonly<{
   isDescending: boolean;
 }>;
 
-// type Comparator = <T>(a: T, b: T) => number;
+// type Comparator = <T>(a: T, b: T) => number; //FIXME use Comparator in genericSort
 
 export const localeComparator = (a: string, b: string) =>
   a.toLowerCase().localeCompare(b.toLowerCase());
