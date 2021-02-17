@@ -74,10 +74,10 @@ const channelArchived = (
   timestampMicros: Timestamp
 ) => {
   const { channelId, archivedBy } = event.payload;
-  const canEdit =
+  const canArchive =
     doesChannelExist(channelId, state.channels) &&
     hasUserCreatedChannel(archivedBy, channelId, state.channels);
-  if (canEdit) {
+  if (canArchive) {
     state.channels[channelId].profile.isArchived = true;
     state.channels[channelId].profile.editedOn = timestampMicros;
     state.channels[channelId].profile.editedBy = archivedBy;
@@ -91,10 +91,10 @@ const channelUnarchived = (
   timestampMicros: Timestamp
 ) => {
   const { channelId, unarchivedBy } = event.payload;
-  const canEdit =
+  const canUnarchive =
     doesChannelExist(channelId, state.channels) &&
     hasUserCreatedChannel(unarchivedBy, channelId, state.channels);
-  if (canEdit) {
+  if (canUnarchive) {
     state.channels[channelId].profile.isArchived = false;
     state.channels[channelId].profile.editedOn = timestampMicros;
     state.channels[channelId].profile.editedBy = unarchivedBy;
