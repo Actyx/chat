@@ -74,6 +74,13 @@ export const mapChannelsToChannelCatalogUI = (
     };
   });
 
+export const sortAlphabeticChannelsSidebar = (channels: ChannelsSimpleList) =>
+  channels
+    .map((x) => x)
+    .sort((a, b) =>
+      genericSorter(a.name, b.name, localeComparator, { isDescending: false })
+    );
+
 export const sortAlphabeticChannelsOverview = (
   channelsOverview: ChannelsOverview
 ) =>

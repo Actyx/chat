@@ -51,6 +51,7 @@ import {
   mapChannelsToSidebarUI,
   mapPublicMessagesToChannelUI,
   sortAlphabeticChannelsOverview,
+  sortAlphabeticChannelsSidebar,
 } from './ui-map';
 
 // TODO create separate modules
@@ -283,8 +284,8 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
   const canShowUserProfileEdit =
     stateUI.sectionRight === SectionRight.UserProfileEdit;
 
-  const channelsSideBarUI = mapChannelsToSidebarUI(
-    stateChannelsCatalogFish.channels
+  const channelsSideBarUI = sortAlphabeticChannelsSidebar(
+    mapChannelsToSidebarUI(stateChannelsCatalogFish.channels)
   );
 
   const channelsOverviewCatalog = sortAlphabeticChannelsOverview(
