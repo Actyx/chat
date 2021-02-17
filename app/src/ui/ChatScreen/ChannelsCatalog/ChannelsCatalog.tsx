@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Timestamp } from '@actyx/pond';
 import { ChannelId } from '../../../business-logic/message/types';
 
-export type ChannelsOverview = ReadonlyArray<{
+export type ChannelOverview = Readonly<{
   channelId: ChannelId;
   name: string;
   description?: string;
@@ -14,6 +14,8 @@ export type ChannelsOverview = ReadonlyArray<{
   usersAssociatedTotal: number;
   isSignedInUserAssociated: boolean;
 }>;
+
+export type ChannelsOverview = ReadonlyArray<ChannelOverview>;
 
 type Props = Readonly<{
   channels: ChannelsOverview;

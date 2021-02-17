@@ -12,6 +12,7 @@ import {
   Users,
   UserUUID,
 } from '../../../business-logic/users-catalog-fish/types';
+import { genericSort, localeComparator } from '../../../common/utility';
 import { MessagesUI } from '../Channel/Channel';
 import { ChannelsOverview } from '../ChannelsCatalog/ChannelsCatalog';
 import { ChannelsSimpleList } from '../Sidebar/Sidebar';
@@ -75,11 +76,14 @@ export const mapChannelsToChannelCatalogUI = (
 
 export const sortAlphabeticChannelsOverview = (
   channelsOverview: ChannelsOverview
-) => {
-  return channelsOverview
-    .map((c) => c)
-    .sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
-};
+) =>
+  channelsOverview
+    .map((x) => x)
+    .sort((a, b) =>
+      genericSort(a.name, b.name, localeComparator, {
+        isDescending: true,
+      })
+    );
 
 export const getDisplayNameByUser = (
   userUUID: UserUUID,
