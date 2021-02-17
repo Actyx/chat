@@ -73,6 +73,14 @@ export const mapChannelsToChannelCatalogUI = (
     };
   });
 
+export const sortAlphabeticChannelsOverview = (
+  channelsOverview: ChannelsOverview
+) => {
+  return channelsOverview
+    .map((c) => c)
+    .sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+};
+
 export const getDisplayNameByUser = (
   userUUID: UserUUID,
   users: Users

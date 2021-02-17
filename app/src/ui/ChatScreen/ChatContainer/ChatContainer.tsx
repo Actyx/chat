@@ -50,6 +50,7 @@ import {
   mapChannelsToChannelCatalogUI,
   mapChannelsToSidebarUI,
   mapPublicMessagesToChannelUI,
+  sortAlphabeticChannelsOverview,
 } from './ui-map';
 
 // TODO create separate modules
@@ -286,10 +287,12 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
     stateChannelsCatalogFish.channels
   );
 
-  const channelsOverviewCatalog = mapChannelsToChannelCatalogUI(
-    stateChannelsCatalogFish.channels,
-    stateUsersCatalogFish.users,
-    stateUI.signedInUser
+  const channelsOverviewCatalog = sortAlphabeticChannelsOverview(
+    mapChannelsToChannelCatalogUI(
+      stateChannelsCatalogFish.channels,
+      stateUsersCatalogFish.users,
+      stateUI.signedInUser
+    )
   );
 
   const canUserManageArchiviation = (channelId: ChannelId) =>
