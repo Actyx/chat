@@ -59,39 +59,32 @@ export const getChannelProfileEdited = (
   return [tags, event];
 };
 
-export const mkChannelProfileEditedEvent = (
-  channelId: ChannelId,
-  editedBy: UserUUID,
-  name: string,
-  description?: string
-): ChannelProfileEditedEvent => ({
-  type: ChannelsCatalogFishEventType.ChannelProfileEdited,
-  payload: {
-    channelId,
-    editedBy,
-    name,
-    description,
-  },
-});
-
-export const mkChannelArchivedEvent = (
+export const getChannelArchived = (
   channelId: ChannelId,
   archivedBy: UserUUID
-): ChannelArchivedEvent => ({
-  type: ChannelsCatalogFishEventType.ChannelArchived,
-  payload: {
-    channelId,
-    archivedBy,
-  },
-});
+): TagsWithEvent<ChannelArchivedEvent> => {
+  const event: ChannelArchivedEvent = {
+    type: ChannelsCatalogFishEventType.ChannelArchived,
+    payload: {
+      channelId,
+      archivedBy,
+    },
+  };
+  const tags = mkChannelOperationTags(channelId, archivedBy);
+  return [tags, event];
+};
 
-export const mkChannelUnarchiveEvent = (
+export const getChannelUnarchived = (
   channelId: ChannelId,
   unarchivedBy: UserUUID
-): ChannelUnarchiveEvent => ({
-  type: ChannelsCatalogFishEventType.ChannelUnarchive,
-  payload: {
-    channelId,
-    unarchivedBy,
-  },
-});
+): TagsWithEvent<ChannelUnarchiveEvent> => {
+  const event: ChannelUnarchiveEvent = {
+    type: ChannelsCatalogFishEventType.ChannelUnarchive,
+    payload: {
+      channelId,
+      unarchivedBy,
+    },
+  };
+  const tags = mkChannelOperationTags(channelId, unarchivedBy);
+  return [tags, event];
+};

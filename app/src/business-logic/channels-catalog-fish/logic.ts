@@ -1,7 +1,12 @@
 import { Pond } from '@actyx/pond';
 import { isStringEmpty, prepareString } from '../../common/utility';
 import { UserUUID } from '../users-catalog-fish/types';
-import { getChannelAdded, getChannelProfileEdited } from './events';
+import {
+  getChannelAdded,
+  getChannelArchived,
+  getChannelProfileEdited,
+  getChannelUnarchived,
+} from './events';
 import { v4 as uuid } from 'uuid';
 import { ChannelId } from '../message/types';
 import { ChannelProfile, Channels, ChannelsCatalogFishState } from './types';
@@ -115,6 +120,52 @@ export const editChannel = (pond: Pond) => (
               newDescription
             )
           );
+          isSuccess = true;
+        }
+      })
+      .toPromise();
+  }
+  return isSuccess;
+};
+
+export const archiveChannel = (pond: Pond) => async (
+  signedInUser: UserUUID,
+  channelId: ChannelId
+): Promise<boolean> => {
+  let isSuccess = false;
+  if (isUserSignedIn(signedInUser)) {
+    await pond
+      .run(ChannelsCatalogFish.fish, (fishState, enqueue) => {
+        const canArchive = hasUserCreatedChannel(
+          signedInUser,
+          channelId,
+          fishState.channels
+        );
+        if (canArchive) {
+          enqueue(...getChannelArchived(channelId, signedInUser));
+          isSuccess = true;
+        }
+      })
+      .toPromise();
+  }
+  return isSuccess;
+};
+
+export const unarchiveChannel = (pond: Pond) => async (
+  signedInUser: UserUUID,
+  channelId: ChannelId
+): Promise<boolean> => {
+  let isSuccess = false;
+  if (isUserSignedIn(signedInUser)) {
+    await pond
+      .run(ChannelsCatalogFish.fish, (fishState, enqueue) => {
+        const canArchive = hasUserCreatedChannel(
+          signedInUser,
+          channelId,
+          fishState.channels
+        );
+        if (canArchive) {
+          enqueue(...getChannelUnarchived(channelId, signedInUser));
           isSuccess = true;
         }
       })
