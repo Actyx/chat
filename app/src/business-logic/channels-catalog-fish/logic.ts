@@ -24,6 +24,17 @@ export const getChannelProfileByChannelId = (
   channels: Channels
 ): ChannelProfile | undefined => channels[channelId].profile;
 
+const prepareContentChannelProfile = (
+  name: string,
+  description: string
+): Readonly<{ newName: string; newDescription?: string }> => {
+  const newName = prepareString(name);
+  const newDescription = isStringEmpty(description)
+    ? undefined
+    : prepareString(description);
+  return { newName, newDescription };
+};
+
 export const isUserAssociatedToChannel = (
   userUUID: UserUUID,
   channelId: ChannelId,
@@ -39,10 +50,10 @@ export const addChannel = (pond: Pond) => (signedInUser: UserUUID) => async (
 ): Promise<boolean> => {
   let isSuccess = false;
   if (isUserSignedIn(signedInUser)) {
-    const newName = prepareString(name);
-    const newDescription = isStringEmpty(description)
-      ? undefined
-      : prepareString(description);
+    const { newName, newDescription } = prepareContentChannelProfile(
+      name,
+      description
+    );
 
     const newChannelId = uuid();
 
@@ -72,10 +83,10 @@ export const editChannel = (pond: Pond) => (
 ) => async (name: string, description: string): Promise<boolean> => {
   let isSuccess = false;
   if (isUserSignedIn(signedInUser)) {
-    const newName = prepareString(name);
-    const newDescription = isStringEmpty(description)
-      ? undefined
-      : prepareString(description);
+    const { newName, newDescription } = prepareContentChannelProfile(
+      name,
+      description
+    );
 
     await pond
       .run(ChannelsCatalogFish.fish, (fishState, enqueue) => {
