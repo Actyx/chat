@@ -254,6 +254,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
   const handleArchiveChannel = async (channelId: ChannelId) => {
     try {
       await archiveChannel(pond)(stateUI.signedInUser, channelId);
+      setErrorPond(undefined);
     } catch (err) {
       setErrorPond(err);
     }
@@ -262,6 +263,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
   const handleUnarchiveChannel = async (channelId: ChannelId) => {
     try {
       await unarchiveChannel(pond)(stateUI.signedInUser, channelId);
+      setErrorPond(undefined);
     } catch (err) {
       setErrorPond(err);
     }
