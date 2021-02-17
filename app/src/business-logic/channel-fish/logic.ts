@@ -36,7 +36,7 @@ export const addMessageToChannel = (pond: Pond) => (
       .emit(
         ...getPublicMessageAdded({
           messageId: uuid(),
-          userUUID: signedInUser,
+          createdBy: signedInUser,
           channelId,
           content,
           mediaIds,
@@ -54,7 +54,7 @@ export const addMessageToChannel = (pond: Pond) => (
 export const doesMessageBelongToUser = (
   userUUID: UserUUID,
   message: PublicMessage
-): boolean => message.userUUID === userUUID;
+): boolean => message.createdBy === userUUID;
 
 export const canUserHideMessage = (
   userUUID: UserUUID,

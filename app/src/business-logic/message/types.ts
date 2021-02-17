@@ -20,9 +20,9 @@ export type MediaIds = ReadonlyArrayOfOneOrMore<MediumId>;
 
 type BaseMessage = {
   messageId: MessageId;
+  createdBy: UserUUID;
   createdOn: Timestamp;
   editedOn?: Timestamp;
-  userUUID: UserUUID;
   isHidden: boolean;
   content: string;
   mediaIds?: MediaIds;
@@ -66,7 +66,7 @@ export type PrivateMessageAddedEvent = {
 
 export type PublicMessageAddedEventPaylod = Readonly<{
   messageId: MessageId;
-  userUUID: UserUUID;
+  createdBy: UserUUID;
   channelId: ChannelId;
   content: string;
   mediaIds?: MediaIds;

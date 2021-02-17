@@ -23,7 +23,7 @@ export const mapPublicMessagesToChannelUI = (
 ): MessagesUI =>
   messages.map((m: PublicMessage) => {
     const senderDisplayName =
-      getDisplayNameByUser(m.userUUID, users) ?? 'user not found';
+      getDisplayNameByUser(m.createdBy, users) ?? 'user not found';
     const canEdit = doesMessageBelongToUser(signedInUser, m);
     const canHide = canUserHideMessage(signedInUser, m);
     return {

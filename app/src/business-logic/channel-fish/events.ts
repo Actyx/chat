@@ -40,7 +40,7 @@ export const getPublicMessageAdded = (
   const tags = mkMessageOperationTag(
     payload.messageId,
     payload.channelId,
-    payload.userUUID
+    payload.createdBy
   );
 
   return [tags, event];
