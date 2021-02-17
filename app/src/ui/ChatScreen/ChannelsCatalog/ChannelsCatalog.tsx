@@ -15,10 +15,10 @@ export type ChannelOverview = Readonly<{
   isSignedInUserAssociated: boolean;
 }>;
 
-export type ChannelsOverview = ReadonlyArray<ChannelOverview>;
+export type ChannelsOverviewUI = ReadonlyArray<ChannelOverview>;
 
 type Props = Readonly<{
-  channels: ChannelsOverview;
+  channels: ChannelsOverviewUI;
   editChannel: (channelId: ChannelId) => void;
   canUserManageArchiviation: (channelId: ChannelId) => boolean;
   archiveChannel: (channelId: ChannelId) => void;

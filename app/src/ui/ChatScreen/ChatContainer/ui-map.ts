@@ -14,8 +14,8 @@ import {
 } from '../../../business-logic/users-catalog-fish/types';
 import { genericSorter, localeComparator } from '../../../common/sorts';
 import { MessagesUI } from '../Channel/Channel';
-import { ChannelsOverview } from '../ChannelsCatalog/ChannelsCatalog';
-import { ChannelsSimpleList } from '../Sidebar/Sidebar';
+import { ChannelsOverviewUI } from '../ChannelsCatalog/ChannelsCatalog';
+import { ChannelsListUI } from '../Sidebar/Sidebar';
 
 export const mapPublicMessagesToChannelUI = (
   messages: PublicMessages,
@@ -39,20 +39,17 @@ export const mapPublicMessagesToChannelUI = (
     };
   });
 
-export const mapChannelsToSidebarUI = (
-  channels: Channels
-): ChannelsSimpleList => {
-  return Object.values(channels).map((x) => ({
+export const mapChannelsToSidebarUI = (channels: Channels): ChannelsListUI =>
+  Object.values(channels).map((x) => ({
     channelId: x.profile.channelId,
     name: x.profile.name,
   }));
-};
 
 export const mapChannelsToChannelCatalogUI = (
   channels: Channels,
   users: Users,
   userUUID: UserUUID
-): ChannelsOverview =>
+): ChannelsOverviewUI =>
   Object.values(channels).map((channel) => {
     const createdBy = getDisplayNameByUser(channel.profile.createdBy, users);
     const editedBy =
@@ -74,7 +71,9 @@ export const mapChannelsToChannelCatalogUI = (
     };
   });
 
-export const sortAlphabeticChannelsSidebar = (channels: ChannelsSimpleList) =>
+export const sortAlphabeticChannelsSidebar = (
+  channels: ChannelsListUI
+): ChannelsListUI =>
   channels
     .map((x) => x)
     .sort((a, b) =>
@@ -82,7 +81,7 @@ export const sortAlphabeticChannelsSidebar = (channels: ChannelsSimpleList) =>
     );
 
 export const sortAlphabeticChannelsOverview = (
-  channelsOverview: ChannelsOverview
+  channelsOverview: ChannelsOverviewUI
 ) =>
   channelsOverview
     .map((x) => x)
@@ -104,5 +103,6 @@ export const getDisplayNameByUser = (
   }
 };
 
-export const getVisiblePublicMessages = (messages: PublicMessages) =>
-  messages.filter((m) => m.isHidden === false);
+export const getVisiblePublicMessages = (
+  messages: PublicMessages
+): PublicMessages => messages.filter((m) => m.isHidden === false);
