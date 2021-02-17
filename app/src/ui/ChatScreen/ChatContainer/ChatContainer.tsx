@@ -235,7 +235,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
         )(name, description);
         if (isSuccess) {
           setErrorPond(undefined);
-          setMessageInvalid(undefined); //FIXME write some utility fn to cleanup
+          setMessageInvalid(undefined);
           handleCloseAddChannelDialog();
         } else {
           setMessageInvalid(MESSAGE.invalidName);
