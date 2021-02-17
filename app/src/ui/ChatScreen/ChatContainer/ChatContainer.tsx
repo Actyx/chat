@@ -223,27 +223,26 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
     }
   };
 
-  const handleEditChannelFromDialog = async (
-    name: string,
-    description: string
+  const handleEditChannel = async (
+    channelId: ChannelId,
+    newName: string,
+    newDescription: string
   ) => {
-    if (selectedChannel) {
-      try {
-        const isSuccess = await editChannel(pond)(
-          stateUI.signedInUser,
-          selectedChannel.channelId
-        )(name, description);
-        if (isSuccess) {
-          setErrorPond(undefined);
-          setMessageInvalid(undefined);
-          handleCloseAddChannelDialog();
-        } else {
-          setMessageInvalid(MESSAGE.invalidName);
-        }
-      } catch (err) {
+    try {
+      const isSuccess = await editChannel(pond)(
+        stateUI.signedInUser,
+        channelId
+      )(newName, newDescription);
+      if (isSuccess) {
+        setErrorPond(undefined);
         setMessageInvalid(undefined);
-        setErrorPond(err);
+        handleCloseAddChannelDialog();
+      } else {
+        setMessageInvalid(MESSAGE.invalidName);
       }
+    } catch (err) {
+      setMessageInvalid(undefined);
+      setErrorPond(err);
     }
   };
 
@@ -326,7 +325,13 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
         <EditChannelDialogContainer
           currentName={selectedChannel.name}
           currentDescription={selectedChannel.description}
-          editChannel={handleEditChannelFromDialog}
+          editChannel={(newName, newDescription) =>
+            handleEditChannel(
+              selectedChannel.channelId,
+              newName,
+              newDescription
+            )
+          }
           closeDialog={handleCloseEditChannelDialog}
         />
       )}

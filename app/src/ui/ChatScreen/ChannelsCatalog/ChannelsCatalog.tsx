@@ -38,8 +38,13 @@ export const ChannelsCatalog: FC<Props> = ({ channels, editChannel }) => {
             {c.usersAssociatedTotal} members
             <br />
             {`Created by: ${c.createdBy} on ${c.createdOn}`}
-            {c.editedBy && `Edited by ${c.editedBy} on ${c.editedOn}`}
             <br />
+            {c.editedBy && (
+              <>
+                Edited by ${c.editedBy} on ${c.editedOn}
+                <br />
+              </>
+            )}
             {c.isSignedInUserAssociated && 'joined'}
             <br />
             <button onClick={() => editChannel(c.channelId)}>
