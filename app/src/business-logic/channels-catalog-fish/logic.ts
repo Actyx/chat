@@ -159,12 +159,12 @@ export const unarchiveChannel = (pond: Pond) => async (
   if (isUserSignedIn(signedInUser)) {
     await pond
       .run(ChannelsCatalogFish.fish, (fishState, enqueue) => {
-        const canArchive = hasUserCreatedChannel(
+        const canUnarchive = hasUserCreatedChannel(
           signedInUser,
           channelId,
           fishState.channels
         );
-        if (canArchive) {
+        if (canUnarchive) {
           enqueue(...getChannelUnarchived(channelId, signedInUser));
           isSuccess = true;
         }

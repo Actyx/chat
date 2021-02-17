@@ -1,4 +1,6 @@
 import { Reduce, Timestamp } from '@actyx/pond';
+import { ChannelId } from '../message/types';
+import { UserUUID } from '../users-catalog-fish/types';
 import { doesChannelExist, hasUserCreatedChannel } from './logic';
 import {
   ChannelAddedEvent,
@@ -73,15 +75,13 @@ const channelArchived = (
   event: ChannelArchivedEvent,
   timestampMicros: Timestamp
 ) => {
-  const { channelId, archivedBy } = event.payload;
-  const canArchive =
-    doesChannelExist(channelId, state.channels) &&
-    hasUserCreatedChannel(archivedBy, channelId, state.channels);
-  if (canArchive) {
-    state.channels[channelId].profile.isArchived = true;
-    state.channels[channelId].profile.editedOn = timestampMicros;
-    state.channels[channelId].profile.editedBy = archivedBy;
-  }
+  state = handleArchiviation(
+    event.payload.channelId,
+    event.payload.archivedBy,
+    state,
+    timestampMicros,
+    true
+  );
   return state;
 };
 
@@ -90,14 +90,30 @@ const channelUnarchived = (
   event: ChannelUnarchiveEvent,
   timestampMicros: Timestamp
 ) => {
-  const { channelId, unarchivedBy } = event.payload;
-  const canUnarchive =
+  state = handleArchiviation(
+    event.payload.channelId,
+    event.payload.unarchivedBy,
+    state,
+    timestampMicros,
+    false
+  );
+  return state;
+};
+
+const handleArchiviation = (
+  channelId: ChannelId,
+  userUUID: UserUUID,
+  state: ChannelsCatalogFishState,
+  timestampMicros: number,
+  isArchived: boolean
+) => {
+  const canProcess =
     doesChannelExist(channelId, state.channels) &&
-    hasUserCreatedChannel(unarchivedBy, channelId, state.channels);
-  if (canUnarchive) {
-    state.channels[channelId].profile.isArchived = false;
+    hasUserCreatedChannel(userUUID, channelId, state.channels);
+  if (canProcess) {
+    state.channels[channelId].profile.isArchived = isArchived;
     state.channels[channelId].profile.editedOn = timestampMicros;
-    state.channels[channelId].profile.editedBy = unarchivedBy;
+    state.channels[channelId].profile.editedBy = userUUID;
   }
   return state;
 };
