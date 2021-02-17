@@ -62,15 +62,15 @@ export const ChannelsCatalog: FC<Props> = ({
               <button onClick={() => editChannel(c.channelId)}>
                 Edit channel
               </button>
-              {canUserManageArchive && (
-                <>
-                  <button onClick={() => archiveChannel(c.channelId)}>
-                    Archive channel
-                  </button>
-                  <button onClick={() => unarchiveChannel(c.channelId)}>
-                    Unarchive channel
-                  </button>
-                </>
+              {canUserManageArchive && c.isArchived && (
+                <button onClick={() => unarchiveChannel(c.channelId)}>
+                  Unarchive channel
+                </button>
+              )}
+              {canUserManageArchive && !c.isArchived && (
+                <button onClick={() => archiveChannel(c.channelId)}>
+                  Archive channel
+                </button>
               )}
               <hr />
             </div>
