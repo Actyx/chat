@@ -43,7 +43,7 @@ import {
   mapChannelsToChannelCatalogUI,
   mapChannelsToSidebarUI,
   mapPublicMessagesToChannelUI,
-} from './ui-mapping';
+} from './ui-map';
 
 type Props = Readonly<{
   pond: Pond;
