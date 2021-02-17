@@ -1,5 +1,5 @@
 import { Reduce, Timestamp } from '@actyx/pond';
-import { doesChannelExist } from './logic';
+import { doesChannelExist, hasUserCreatedChannel } from './logic';
 import {
   ChannelAddedEvent,
   ChannelArchivedEvent,
@@ -74,7 +74,9 @@ const channelArchived = (
   timestampMicros: Timestamp
 ) => {
   const { channelId, archivedBy } = event.payload;
-  const canEdit = doesChannelExist(channelId, state.channels);
+  const canEdit =
+    doesChannelExist(channelId, state.channels) &&
+    hasUserCreatedChannel(archivedBy, channelId, state.channels);
   if (canEdit) {
     state.channels[channelId].profile.isArchived = true;
     state.channels[channelId].profile.editedOn = timestampMicros;
@@ -89,7 +91,9 @@ const channelUnarchived = (
   timestampMicros: Timestamp
 ) => {
   const { channelId, unarchivedBy } = event.payload;
-  const canEdit = doesChannelExist(channelId, state.channels);
+  const canEdit =
+    doesChannelExist(channelId, state.channels) &&
+    hasUserCreatedChannel(unarchivedBy, channelId, state.channels);
   if (canEdit) {
     state.channels[channelId].profile.isArchived = false;
     state.channels[channelId].profile.editedOn = timestampMicros;
