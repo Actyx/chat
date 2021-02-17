@@ -25,7 +25,7 @@ export const Sidebar: FC<Props> = ({ channels, openAddChannelDialog }) => {
 
   const handleMain = (channelId: ChannelId) => {
     //FIXME use the right channel fish here
-    window.alert(channelId);
+    window.alert(`now swtich to this ${channelId}`);
     dispatch(openChannelSection(MAIN_CHANNEL));
   };
 

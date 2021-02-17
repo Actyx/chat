@@ -269,6 +269,14 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
     }
   };
 
+  const handleAssociateUserChannel = async (channelId: ChannelId) => {
+    window.alert(`JOIN user to channel ${channelId}`);
+  };
+
+  const handleDissociateUserChannel = async (channelId: ChannelId) => {
+    window.alert(`LEAVE user to channel ${channelId}`);
+  };
+
   //#endregion
 
   //#region UI mapping
@@ -327,6 +335,8 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
             editChannel={handleOpenEditChannelDialog}
             archiveChannel={handleArchiveChannel}
             unarchiveChannel={handleUnarchiveChannel}
+            associateUserChannel={handleAssociateUserChannel}
+            dissociateUserChannel={handleDissociateUserChannel}
           />
         );
     }

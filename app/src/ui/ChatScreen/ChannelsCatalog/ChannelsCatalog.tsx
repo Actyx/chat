@@ -23,6 +23,8 @@ type Props = Readonly<{
   canUserManageArchiviation: (channelId: ChannelId) => boolean;
   archiveChannel: (channelId: ChannelId) => void;
   unarchiveChannel: (channelId: ChannelId) => void;
+  associateUserChannel: (channelId: ChannelId) => void;
+  dissociateUserChannel: (channelId: ChannelId) => void;
 }>;
 
 export const ChannelsCatalog: FC<Props> = ({
@@ -31,6 +33,8 @@ export const ChannelsCatalog: FC<Props> = ({
   canUserManageArchiviation,
   archiveChannel,
   unarchiveChannel,
+  associateUserChannel,
+  dissociateUserChannel,
 }) => {
   return (
     <div>
@@ -59,7 +63,7 @@ export const ChannelsCatalog: FC<Props> = ({
                   <br />
                 </>
               )}
-              {c.isSignedInUserAssociated && 'joined'}
+              {c.isSignedInUserAssociated && <strong>Joined</strong>}
               <br />
               <button onClick={() => editChannel(c.channelId)}>
                 Edit channel
@@ -72,6 +76,15 @@ export const ChannelsCatalog: FC<Props> = ({
               {canUserManageArchive && !c.isArchived && (
                 <button onClick={() => archiveChannel(c.channelId)}>
                   Archive channel
+                </button>
+              )}
+              {c.isSignedInUserAssociated ? (
+                <button onClick={() => dissociateUserChannel(c.channelId)}>
+                  Leave channel
+                </button>
+              ) : (
+                <button onClick={() => associateUserChannel(c.channelId)}>
+                  Join channel
                 </button>
               )}
               <hr />
