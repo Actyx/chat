@@ -52,7 +52,7 @@ Notes:
 - [x] A user can browse all channels in alphabetical ascending order
 - [ ] A user can see the users joined to a channel
 - [ ] A user can join a channel
-- [ ] A user can leave channel
+- [ ] A user can leave a channel
 - [x] A user can enter a new message into a channel
 - [x] A channel display all its messages in simple ascending order, the latest are always visible at the bottom
 
