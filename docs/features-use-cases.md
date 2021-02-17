@@ -56,6 +56,8 @@ Notes:
 - [x] A user can enter a new message into a channel
 - [x] A channel display all its messages in simple ascending order, the latest are always visible at the bottom
 
+Notes: it is not possible to delete a channel only unarchive it
+
 ### Messaging
 
 - [x] A message displays textual content, sender, and date/time
