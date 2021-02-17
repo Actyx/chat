@@ -7,6 +7,8 @@ import { ChannelsCatalogFish } from './channels-catalog-fish';
 import {
   ChannelAddedEvent,
   ChannelArchivedEvent,
+  ChannelAssociatedUserEvent,
+  ChannelDissociatedUserEvent,
   ChannelProfileEditedEvent,
   ChannelsCatalogFishEventType,
   ChannelUnarchiveEvent,
@@ -86,5 +88,35 @@ export const getChannelUnarchived = (
     },
   };
   const tags = mkChannelOperationTags(channelId, unarchivedBy);
+  return [tags, event];
+};
+
+export const getChannelAssociatedUser = (
+  channelId: ChannelId,
+  userUUID: UserUUID
+): TagsWithEvent<ChannelAssociatedUserEvent> => {
+  const event: ChannelAssociatedUserEvent = {
+    type: ChannelsCatalogFishEventType.ChannelAssociatedUser,
+    payload: {
+      channelId,
+      userUUID,
+    },
+  };
+  const tags = mkChannelOperationTags(channelId, userUUID);
+  return [tags, event];
+};
+
+export const getChannelDissociatedUser = (
+  channelId: ChannelId,
+  userUUID: UserUUID
+): TagsWithEvent<ChannelDissociatedUserEvent> => {
+  const event: ChannelDissociatedUserEvent = {
+    type: ChannelsCatalogFishEventType.ChannelDissociatedUser,
+    payload: {
+      channelId,
+      userUUID,
+    },
+  };
+  const tags = mkChannelOperationTags(channelId, userUUID);
   return [tags, event];
 };
