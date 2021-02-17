@@ -246,6 +246,14 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
     }
   };
 
+  const handleArchiveChannel = (channelId: ChannelId) => {
+    window.alert(`archive channel ${channelId}`);
+  };
+
+  const handleUnarchiveChannel = (channelId: ChannelId) => {
+    window.alert(`unarchive channel ${channelId}`);
+  };
+
   //#endregion
 
   //#region UI mapping
@@ -292,6 +300,8 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
           <ChannelsCatalog
             channels={channelsOverviewCatalog}
             editChannel={handleOpenEditChannelDialog}
+            archiveChannel={handleArchiveChannel}
+            unarchiveChannel={handleUnarchiveChannel}
           />
         );
     }

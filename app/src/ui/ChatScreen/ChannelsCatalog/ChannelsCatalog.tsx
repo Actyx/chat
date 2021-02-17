@@ -18,9 +18,16 @@ export type ChannelsOverview = ReadonlyArray<{
 type Props = Readonly<{
   channels: ChannelsOverview;
   editChannel: (channelId: ChannelId) => void;
+  archiveChannel: (channelId: ChannelId) => void;
+  unarchiveChannel: (channelId: ChannelId) => void;
 }>;
 
-export const ChannelsCatalog: FC<Props> = ({ channels, editChannel }) => {
+export const ChannelsCatalog: FC<Props> = ({
+  channels,
+  editChannel,
+  archiveChannel,
+  unarchiveChannel,
+}) => {
   return (
     <div>
       <h2>Channels Catalog</h2>
@@ -49,6 +56,12 @@ export const ChannelsCatalog: FC<Props> = ({ channels, editChannel }) => {
             <br />
             <button onClick={() => editChannel(c.channelId)}>
               Edit channel
+            </button>
+            <button onClick={() => archiveChannel(c.channelId)}>
+              Archive channel
+            </button>
+            <button onClick={() => unarchiveChannel(c.channelId)}>
+              Unarchive channel
             </button>
             <hr />
           </div>
