@@ -79,7 +79,7 @@ export const getChannelUnarchived = (
   unarchivedBy: UserUUID
 ): TagsWithEvent<ChannelUnarchiveEvent> => {
   const event: ChannelUnarchiveEvent = {
-    type: ChannelsCatalogFishEventType.ChannelUnarchive,
+    type: ChannelsCatalogFishEventType.ChannelUnarchived,
     payload: {
       channelId,
       unarchivedBy,

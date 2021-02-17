@@ -23,8 +23,14 @@ export const reducer: Reduce<
       return channelProfileEdited(state, event, meta.timestampMicros);
     case ChannelsCatalogFishEventType.ChannelArchived:
       return channelArchived(state, event, meta.timestampMicros);
-    case ChannelsCatalogFishEventType.ChannelUnarchive:
+    case ChannelsCatalogFishEventType.ChannelUnarchived:
       return channelUnarchived(state, event, meta.timestampMicros);
+    case ChannelsCatalogFishEventType.ChannelAssociatedUser:
+      //TODO
+      return state;
+    case ChannelsCatalogFishEventType.ChannelDissociatedUser:
+      //TODO
+      return state;
     default:
       return state;
   }

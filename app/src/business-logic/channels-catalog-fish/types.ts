@@ -23,7 +23,9 @@ export enum ChannelsCatalogFishEventType {
   ChannelAdded = 'ChannelAdded',
   ChannelProfileEdited = 'ChannelProfileEdited',
   ChannelArchived = 'ChannelArchived',
-  ChannelUnarchive = 'ChannelUnarchive',
+  ChannelUnarchived = 'ChannelUnarchived',
+  ChannelAssociatedUser = 'ChannelAssociatedUser',
+  ChannelDissociatedUser = 'ChannelDissociatedUser',
 }
 
 export type ChannelAddedEvent = Readonly<{
@@ -55,10 +57,26 @@ export type ChannelArchivedEvent = Readonly<{
 }>;
 
 export type ChannelUnarchiveEvent = Readonly<{
-  type: ChannelsCatalogFishEventType.ChannelUnarchive;
+  type: ChannelsCatalogFishEventType.ChannelUnarchived;
   payload: {
     channelId: ChannelId;
     unarchivedBy: UserUUID;
+  };
+}>;
+
+export type ChannelAssociatedUserEvent = Readonly<{
+  type: ChannelsCatalogFishEventType.ChannelAssociatedUser;
+  payload: {
+    channelId: ChannelId;
+    userUUID: UserUUID;
+  };
+}>;
+
+export type ChannelDissociatedUserEvent = Readonly<{
+  type: ChannelsCatalogFishEventType.ChannelDissociatedUser;
+  payload: {
+    channelId: ChannelId;
+    userUUID: UserUUID;
   };
 }>;
 
@@ -66,7 +84,9 @@ export type ChannelsCatalogFishEvent =
   | ChannelAddedEvent
   | ChannelProfileEditedEvent
   | ChannelArchivedEvent
-  | ChannelUnarchiveEvent;
+  | ChannelUnarchiveEvent
+  | ChannelAssociatedUserEvent
+  | ChannelDissociatedUserEvent;
 
 //#endregion
 
