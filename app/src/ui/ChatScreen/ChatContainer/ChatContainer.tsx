@@ -18,6 +18,7 @@ import {
   addChannel,
   editChannel,
   getChannelProfileByChannelId,
+  isUserOwnerOfChannel,
 } from '../../../business-logic/channels-catalog-fish/logic';
 import { ChannelsCatalogFishState } from '../../../business-logic/channels-catalog-fish/types';
 import { ChannelId, MessageId } from '../../../business-logic/message/types';
@@ -280,6 +281,13 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
     stateUsersCatalogFish.users,
     stateUI.signedInUser
   );
+
+  const canUserManageArchiviation = (channelId: ChannelId) =>
+    isUserOwnerOfChannel(
+      stateUI.signedInUser,
+      channelId,
+      stateChannelsCatalogFish.channels
+    );
   //#endregion
 
   const renderSectionCenter = () => {
@@ -299,6 +307,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
         return (
           <ChannelsCatalog
             channels={channelsOverviewCatalog}
+            canUserManageArchiviation={canUserManageArchiviation}
             editChannel={handleOpenEditChannelDialog}
             archiveChannel={handleArchiveChannel}
             unarchiveChannel={handleUnarchiveChannel}

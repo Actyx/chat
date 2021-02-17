@@ -8,7 +8,7 @@ import { ChannelProfile, Channels, ChannelsCatalogFishState } from './types';
 import { ChannelsCatalogFish } from './channels-catalog-fish';
 import { isUserSignedIn } from '../channel-fish/logic';
 
-export const doesChannelIdExist = (
+export const doesChannelExist = (
   channelId: ChannelId,
   channels: Channels
 ): boolean => channelId in channels;
@@ -23,6 +23,21 @@ export const getChannelProfileByChannelId = (
   channelId: ChannelId,
   channels: Channels
 ): ChannelProfile | undefined => channels[channelId].profile;
+
+export const isUserOwnerOfChannel = (
+  userUUID: UserUUID,
+  channelId: ChannelId,
+  channels: Channels
+): boolean => {
+  const hasChannel = doesChannelExist(channelId, channels);
+  if (hasChannel) {
+    const profile = getChannelProfileByChannelId(channelId, channels);
+    if (profile) {
+      return profile.createdBy === userUUID;
+    }
+  }
+  return false;
+};
 
 const prepareContentChannelProfile = (
   name: string,
@@ -40,7 +55,7 @@ export const isUserAssociatedToChannel = (
   channelId: ChannelId,
   channels: Channels
 ): boolean =>
-  doesChannelIdExist(channelId, channels)
+  doesChannelExist(channelId, channels)
     ? channels[channelId].users.includes(userUUID)
     : false;
 

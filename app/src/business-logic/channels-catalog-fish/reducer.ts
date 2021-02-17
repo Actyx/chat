@@ -1,5 +1,5 @@
 import { Reduce, Timestamp } from '@actyx/pond';
-import { doesChannelIdExist } from './logic';
+import { doesChannelExist } from './logic';
 import {
   ChannelAddedEvent,
   ChannelProfileEditedEvent,
@@ -34,7 +34,7 @@ const channelAdded = (
   timestampMicros: Timestamp
 ) => {
   const { channelId, createdBy, name, description } = event.payload;
-  const canAdd = doesChannelIdExist(channelId, state.channels) === false;
+  const canAdd = doesChannelExist(channelId, state.channels) === false;
   if (canAdd) {
     const profile = {
       channelId,
@@ -58,7 +58,7 @@ const channelProfileEdited = (
   timestampMicros: Timestamp
 ) => {
   const { channelId, editedBy, name, description } = event.payload;
-  const canEdit = doesChannelIdExist(channelId, state.channels);
+  const canEdit = doesChannelExist(channelId, state.channels);
   if (canEdit) {
     state.channels[channelId].profile.editedBy = editedBy;
     state.channels[channelId].profile.editedOn = timestampMicros;
