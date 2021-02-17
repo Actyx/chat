@@ -2,6 +2,7 @@ import { Reduce, Timestamp } from '@actyx/pond';
 import { doesChannelIdExist } from './logic';
 import {
   ChannelAddedEvent,
+  ChannelProfileEditedEvent,
   ChannelsCatalogFishEvent,
   ChannelsCatalogFishEventType,
   ChannelsCatalogFishState,
@@ -15,8 +16,7 @@ export const reducer: Reduce<
     case ChannelsCatalogFishEventType.ChannelAdded:
       return channelAdded(state, event, meta.timestampMicros);
     case ChannelsCatalogFishEventType.ChannelProfileEdited:
-      // TODO
-      return state;
+      return channelProfileEdited(state, event, meta.timestampMicros);
     case ChannelsCatalogFishEventType.ChannelArchived:
       // TODO
       return state;
@@ -48,6 +48,22 @@ const channelAdded = (
       profile,
       users: [createdBy],
     };
+  }
+  return state;
+};
+
+const channelProfileEdited = (
+  state: ChannelsCatalogFishState,
+  event: ChannelProfileEditedEvent,
+  timestampMicros: Timestamp
+) => {
+  const { channelId, editedBy, name, description } = event.payload;
+  const canEdit = doesChannelIdExist(channelId, state.channels);
+  if (canEdit) {
+    state.channels[channelId].profile.editedBy = editedBy;
+    state.channels[channelId].profile.editedOn = timestampMicros;
+    state.channels[channelId].profile.name = name;
+    state.channels[channelId].profile.description = description;
   }
   return state;
 };

@@ -16,6 +16,7 @@ import {
 } from '../../../business-logic/channels-catalog-fish/channels-catalog-fish';
 import {
   addChannel,
+  editChannel,
   getChannelProfileByChannelId,
 } from '../../../business-logic/channels-catalog-fish/logic';
 import { ChannelsCatalogFishState } from '../../../business-logic/channels-catalog-fish/types';
@@ -47,6 +48,11 @@ import {
   mapChannelsToSidebarUI,
   mapPublicMessagesToChannelUI,
 } from './ui-map';
+
+// TODO create separate modules
+const MESSAGE = {
+  invalidName: 'That name is already taken by a channel',
+};
 
 type Props = Readonly<{
   pond: Pond;
@@ -209,7 +215,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
         setMessageInvalid(undefined);
         handleCloseAddChannelDialog();
       } else {
-        setMessageInvalid(`That name is already taken by a channel`);
+        setMessageInvalid(MESSAGE.invalidName);
       }
     } catch (err) {
       setMessageInvalid(undefined);
@@ -221,7 +227,24 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
     name: string,
     description: string
   ) => {
-    window.alert(`edit channel ${name} ${description}`);
+    if (selectedChannel) {
+      try {
+        const isSuccess = await editChannel(pond)(
+          stateUI.signedInUser,
+          selectedChannel.channelId
+        )(name, description);
+        if (isSuccess) {
+          setErrorPond(undefined);
+          setMessageInvalid(undefined); //FIXME write some utility fn to cleanup
+          handleCloseAddChannelDialog();
+        } else {
+          setMessageInvalid(MESSAGE.invalidName);
+        }
+      } catch (err) {
+        setMessageInvalid(undefined);
+        setErrorPond(err);
+      }
+    }
   };
 
   //#endregion

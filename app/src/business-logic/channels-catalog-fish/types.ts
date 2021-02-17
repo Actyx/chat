@@ -4,7 +4,7 @@ import { UserUUID } from '../users-catalog-fish/types';
 
 //#region General
 
-export type ChannelProfile = Readonly<{
+export type ChannelProfile = {
   channelId: ChannelId;
   createdOn: Timestamp;
   createdBy: UserUUID;
@@ -13,7 +13,7 @@ export type ChannelProfile = Readonly<{
   isArchived: boolean;
   name: string;
   description?: string;
-}>;
+};
 
 //#endregion
 

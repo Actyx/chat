@@ -38,6 +38,27 @@ export const getChannelAdded = (
   return [tags, event];
 };
 
+export const getChannelProfileEdited = (
+  channelId: ChannelId,
+  editedBy: UserUUID,
+  name: string,
+  description?: string
+): TagsWithEvent<ChannelProfileEditedEvent> => {
+  const event: ChannelProfileEditedEvent = {
+    type: ChannelsCatalogFishEventType.ChannelProfileEdited,
+    payload: {
+      channelId,
+      editedBy,
+      name,
+      description,
+    },
+  };
+
+  const tags = mkChannelOperationTags(channelId, editedBy);
+
+  return [tags, event];
+};
+
 export const mkChannelProfileEditedEvent = (
   channelId: ChannelId,
   editedBy: UserUUID,
