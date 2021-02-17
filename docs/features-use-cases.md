@@ -47,8 +47,8 @@ Notes:
 - [x] A user can create a channel providing a unique name and an optional description, if the name is already present in the system, the user is notified
 - [x] A user can create a channel and he will automatically join it
 - [x] Any users can edit the channel name and description, information on when and who made the last edit are shown to every user
-- [ ] Only the user who created the channel can archive it, when archived the channel won't be visible as active channels
-- [ ] Only the user who created the channel can activate/unarchived a channel
+- [ ] Only the user who created the channel can archive it, when archived the channel won't be visible as active channels for every user
+- [ ] Only the user who created the channel can unarchived it
 - [ ] A user can browse all channels in ascending order
 - [ ] A user can see the users joined to a channel
 - [ ] A user can join a channel
