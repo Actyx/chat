@@ -1,7 +1,4 @@
-import {
-  getUserAddedEvent,
-  getUserProfileEditedEvent,
-} from '../users-catalog-fish/events';
+import { getUserAddedEvent, getUserProfileEditedEvent } from './events';
 
 describe('getUserAddedEvent', () => {
   it('should return valid tags and event', () => {
