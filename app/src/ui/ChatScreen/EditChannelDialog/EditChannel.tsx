@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react';
+import { FormEvent, InputChangeEvent } from '../../../common/ui-types';
 type Props = Readonly<{
   currentName: string;
   currentDescription: string;
@@ -16,13 +17,12 @@ export const EditChannel: FC<Props> = ({
 
   const [description, setDescription] = useState<string>(currentDescription);
 
-  const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setName(e.target.value);
+  const handleChangeName = (e: InputChangeEvent) => setName(e.target.value);
 
-  const handleChangeDescription = (e: React.ChangeEvent<HTMLInputElement>) =>
+  const handleChangeDescription = (e: InputChangeEvent) =>
     setDescription(e.target.value);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent) => {
     editChannel(name, description);
     e.preventDefault();
   };
