@@ -180,11 +180,9 @@ export const associateUserToChannel = (pond: Pond) => async (
   if (isUserSignedIn(userUUID)) {
     await pond
       .run(ChannelsCatalogFish.fish, (fishState, enqueue) => {
-        const canAssociate = !isUserAssociatedToChannel(
-          userUUID,
-          channelId,
-          fishState.channels
-        );
+        const canAssociate =
+          isUserAssociatedToChannel(userUUID, channelId, fishState.channels) ===
+          false;
         if (canAssociate) {
           enqueue(...getChannelAssociatedUser(channelId, userUUID));
           isSuccess = true;
