@@ -4,6 +4,7 @@ import { UserUUID } from '../users-catalog-fish/types';
 import {
   getChannelAdded,
   getChannelArchived,
+  getChannelAssociatedUser,
   getChannelProfileEdited,
   getChannelUnarchived,
 } from './events';
@@ -59,10 +60,11 @@ export const isUserAssociatedToChannel = (
   userUUID: UserUUID,
   channelId: ChannelId,
   channels: Channels
-): boolean =>
-  doesChannelExist(channelId, channels)
+): boolean => {
+  return doesChannelExist(channelId, channels)
     ? channels[channelId].users.includes(userUUID)
     : false;
+};
 
 export const addChannel = (pond: Pond) => (signedInUser: UserUUID) => async (
   name: string,
@@ -166,6 +168,29 @@ export const unarchiveChannel = (pond: Pond) => async (
         );
         if (canUnarchive) {
           enqueue(...getChannelUnarchived(channelId, signedInUser));
+          isSuccess = true;
+        }
+      })
+      .toPromise();
+  }
+  return isSuccess;
+};
+
+export const associateUserToChannel = (pond: Pond) => async (
+  signedInUser: UserUUID,
+  channelId: ChannelId
+): Promise<boolean> => {
+  let isSuccess = false;
+  if (isUserSignedIn(signedInUser)) {
+    await pond
+      .run(ChannelsCatalogFish.fish, (fishState, enqueue) => {
+        const canAssociate = !isUserAssociatedToChannel(
+          signedInUser,
+          channelId,
+          fishState.channels
+        );
+        if (canAssociate) {
+          enqueue(...getChannelAssociatedUser(channelId, signedInUser));
           isSuccess = true;
         }
       })

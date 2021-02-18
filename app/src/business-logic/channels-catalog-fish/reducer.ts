@@ -1,10 +1,15 @@
 import { Reduce, Timestamp } from '@actyx/pond';
 import { ChannelId } from '../message/types';
 import { UserUUID } from '../users-catalog-fish/types';
-import { doesChannelExist, hasUserCreatedChannel } from './logic';
+import {
+  doesChannelExist,
+  hasUserCreatedChannel,
+  isUserAssociatedToChannel,
+} from './logic';
 import {
   ChannelAddedEvent,
   ChannelArchivedEvent,
+  ChannelAssociatedUserEvent,
   ChannelProfileEditedEvent,
   ChannelsCatalogFishEvent,
   ChannelsCatalogFishEventType,
@@ -26,8 +31,7 @@ export const reducer: Reduce<
     case ChannelsCatalogFishEventType.ChannelUnarchived:
       return channelUnarchived(state, event, meta.timestampMicros);
     case ChannelsCatalogFishEventType.ChannelAssociatedUser:
-      //TODO
-      return state;
+      return channelAssociatedUser(state, event);
     case ChannelsCatalogFishEventType.ChannelDissociatedUser:
       //TODO
       return state;
@@ -120,6 +124,20 @@ const handleArchiviation = (
     state.channels[channelId].profile.isArchived = isArchived;
     state.channels[channelId].profile.editedOn = timestampMicros;
     state.channels[channelId].profile.editedBy = userUUID;
+  }
+  return state;
+};
+
+const channelAssociatedUser = (
+  state: ChannelsCatalogFishState,
+  event: ChannelAssociatedUserEvent
+) => {
+  const { channelId, userUUID } = event.payload;
+  const canProcess =
+    doesChannelExist(channelId, state.channels) &&
+    !isUserAssociatedToChannel(userUUID, channelId, state.channels);
+  if (canProcess) {
+    state.channels[channelId].users.push(userUUID);
   }
   return state;
 };

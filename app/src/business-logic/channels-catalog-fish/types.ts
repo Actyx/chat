@@ -94,7 +94,7 @@ export type ChannelsCatalogFishEvent =
 
 export type Channels = Record<
   ChannelId,
-  { profile: ChannelProfile; users: ReadonlyArray<UserUUID> }
+  { profile: ChannelProfile; users: UserUUID[] }
 >;
 
 export type ChannelsCatalogFishState = Readonly<{
