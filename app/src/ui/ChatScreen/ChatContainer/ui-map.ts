@@ -13,6 +13,7 @@ import {
   UserUUID,
 } from '../../../business-logic/users-catalog-fish/types';
 import { genericSorter, localeComparator } from '../../../common/sorts';
+import { notUndefined } from '../../../common/filters';
 import { MessagesUI } from '../Channel/Channel';
 import { ChannelsOverviewUI } from '../ChannelsCatalog/ChannelsCatalog';
 import { ChannelsListUI } from '../Sidebar/Sidebar';
@@ -61,12 +62,16 @@ export const mapChannelsToChannelCatalogUI = (
       channel.profile.channelId,
       channels
     );
+    const usersAssociated = channel.users
+      .map((x: UserUUID) => getDisplayNameByUser(x, users))
+      .filter(notUndefined);
 
     return {
       ...channel.profile,
       createdBy,
       editedBy,
       usersAssociatedTotal,
+      usersAssociated,
       isSignedInUserAssociated,
     };
   });

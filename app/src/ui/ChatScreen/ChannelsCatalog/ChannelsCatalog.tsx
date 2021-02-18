@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Timestamp } from '@actyx/pond';
 import { ChannelId } from '../../../business-logic/message/types';
 
-export type ChannelOverview = Readonly<{
+export type ChannelOverviewUI = Readonly<{
   channelId: ChannelId;
   name: string;
   description?: string;
@@ -12,10 +12,11 @@ export type ChannelOverview = Readonly<{
   editedBy?: string;
   isArchived: boolean;
   usersAssociatedTotal: number;
+  usersAssociated: ReadonlyArray<string>;
   isSignedInUserAssociated: boolean;
 }>;
 
-export type ChannelsOverviewUI = ReadonlyArray<ChannelOverview>;
+export type ChannelsOverviewUI = ReadonlyArray<ChannelOverviewUI>;
 
 type Props = Readonly<{
   channels: ChannelsOverviewUI;
@@ -53,7 +54,8 @@ export const ChannelsCatalog: FC<Props> = ({
                   {c.description} <br />
                 </>
               )}
-              {c.usersAssociatedTotal} members
+              {c.usersAssociatedTotal} members{' '}
+              {`(${c.usersAssociated.join(', ')})`}
               <br />
               {`Created by: ${c.createdBy} on ${c.createdOn}`}
               <br />

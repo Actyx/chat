@@ -50,7 +50,7 @@ Notes:
 - [x] Only the user who created the channel can archive it, when archived the channel won't be visible as active channels for every user
 - [x] Only the user who created the channel can unarchived it
 - [x] A user can browse all channels in alphabetical ascending order
-- [ ] A user can see the users joined to a channel
+- [x] A user can see the users joined to a channel
 - [x] A user can join a channel
 - [x] A user can leave a channel
 - [x] A user can enter a new message into a channel
