@@ -7,7 +7,6 @@ import {
   MessageId,
   PublicMessageAddedEvent,
   PublicMessageAddedEventPaylod,
-  PublicMessageEvent,
 } from '../message/types';
 import { mkUserTagWithId } from '../users-catalog-fish/events';
 import { UserUUID } from '../users-catalog-fish/types';
@@ -32,7 +31,7 @@ const mkMessageOperationTag = (
 
 export const getPublicMessageAdded = (
   payload: PublicMessageAddedEventPaylod
-): TagsWithEvent<PublicMessageEvent> => {
+): TagsWithEvent<PublicMessageAddedEvent> => {
   const event: PublicMessageAddedEvent = {
     type: MessageEventType.PublicMessageAdded,
     payload,
@@ -51,7 +50,7 @@ export const getMessageContentEdited = (
   channelId: ChannelId,
   content: string,
   userUUID: UserUUID
-): TagsWithEvent<PublicMessageEvent> => {
+): TagsWithEvent<MessageContentEditedEvent> => {
   const event: MessageContentEditedEvent = {
     type: MessageEventType.MessageContentEdited,
     payload: {
@@ -70,7 +69,7 @@ export const getMessageHiddenEvent = (
   messageId: MessageId,
   channelId: ChannelId,
   userUUID: UserUUID
-): TagsWithEvent<PublicMessageEvent> => {
+): TagsWithEvent<MessageHiddenEvent> => {
   const event: MessageHiddenEvent = {
     type: MessageEventType.MessageHidden,
     payload: {
