@@ -1,5 +1,5 @@
-import React, { FC, useState } from 'react';
-import { InputChangeEvent } from '../../../common/ui-types';
+import { FC, useState } from 'react';
+import { FormEvent, InputChangeEvent } from '../../../common/ui-types';
 
 type Props = Readonly<{
   messageInvalid?: string;
@@ -16,7 +16,7 @@ export const AddChannel: FC<Props> = ({ messageInvalid, addChannel }) => {
   const handleChangeDescription = (e: InputChangeEvent) =>
     setDescription(e.target.value);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent) => {
     addChannel(name, description);
     e.preventDefault();
   };

@@ -1,5 +1,5 @@
 import { Milliseconds } from '@actyx/pond';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { MessageId } from '../../../business-logic/message/types';
 import { Message } from './Message';
 

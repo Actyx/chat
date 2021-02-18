@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { FormEvent, InputChangeEvent } from '../../../common/ui-types';
 type Props = Readonly<{
   currentName: string;

@@ -1,5 +1,5 @@
 import { Milliseconds } from '@actyx/pond';
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { MessageId } from '../../../business-logic/message/types';
 import { FormEvent, InputChangeEvent } from '../../../common/ui-types';
 

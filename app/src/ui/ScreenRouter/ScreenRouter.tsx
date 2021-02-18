@@ -1,5 +1,5 @@
 import { Pond } from '@actyx/pond';
-import React, { FC, useContext } from 'react';
+import { FC, useContext } from 'react';
 import { AuthenticationContainer } from '../AuthenticationScreen/AuthenticationContainer';
 import { StateContextUI } from '../ui-state-manager/UIStateManager';
 import { Screens } from '../ui-state-manager/types';

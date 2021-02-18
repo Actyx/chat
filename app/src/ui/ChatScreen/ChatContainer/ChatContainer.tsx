@@ -1,5 +1,5 @@
 import { Pond } from '@actyx/pond';
-import React, { FC, useContext, useEffect, useState } from 'react';
+import { FC, useContext, useEffect, useState } from 'react';
 import {
   initialStateCannelFish,
   mainChannelFish,

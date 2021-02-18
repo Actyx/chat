@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect } from 'react';
+import { FC, useState, useContext, useEffect } from 'react';
 import { Pond } from '@actyx/pond';
 import {
   UsersCatalogFishState,
@@ -28,7 +28,7 @@ export const AuthenticationContainer: FC<Props> = ({ pond }) => {
   const [
     stateUsersCatalogFish,
     setStateUsersCatalogFish,
-  ] = React.useState<UsersCatalogFishState>(initialStateUserCatalogFish);
+  ] = useState<UsersCatalogFishState>(initialStateUserCatalogFish);
 
   useEffect(() => {
     const cancelSubscription = pond.observe(
@@ -39,13 +39,13 @@ export const AuthenticationContainer: FC<Props> = ({ pond }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const [isSignUpSuccess, setIsSignUpSuccess] = React.useState<boolean>();
+  const [isSignUpSuccess, setIsSignUpSuccess] = useState<boolean>();
 
-  const [isSignInSuccess, setIsSignInSuccess] = React.useState<boolean>();
+  const [isSignInSuccess, setIsSignInSuccess] = useState<boolean>();
 
-  const [userUUID, setUserUUID] = React.useState<UserUUID>();
+  const [userUUID, setUserUUID] = useState<UserUUID>();
 
-  const [errorPond, setErrorPond] = React.useState<string>();
+  const [errorPond, setErrorPond] = useState<string>();
 
   const handleSignUp = async (displayName: string, email: string) => {
     try {

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC, useState } from 'react';
 import { UserUUID } from '../../business-logic/users-catalog-fish/types';
 import { FormEvent, InputChangeEvent } from '../../common/ui-types';
 
@@ -9,9 +9,9 @@ type Props = Readonly<{
 }>;
 
 export const SignUp: FC<Props> = ({ isSignUpSuccess, userUUID, signUp }) => {
-  const [name, setName] = React.useState('');
+  const [name, setName] = useState('');
 
-  const [email, setEmail] = React.useState('');
+  const [email, setEmail] = useState('');
 
   const handleChangeName = (e: InputChangeEvent) => setName(e.target.value);
 

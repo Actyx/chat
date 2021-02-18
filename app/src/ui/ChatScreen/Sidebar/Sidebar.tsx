@@ -1,4 +1,4 @@
-import React, { FC, useContext } from 'react';
+import { FC, useContext } from 'react';
 import { MAIN_CHANNEL } from '../../../business-logic/channel-fish/channel-fish';
 import { ChannelId } from '../../../business-logic/message/types';
 import {

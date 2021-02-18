@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { ChannelId } from '../../../business-logic/message/types';
 import { ChannelsListUI } from './Sidebar';
 

@@ -1,5 +1,5 @@
 import { Pond } from '@actyx/pond';
-import React, { FC, useContext, useEffect } from 'react';
+import { FC, useContext, useEffect, useState } from 'react';
 import {
   initialStateCannelFish,
   mainChannelFish,
@@ -29,17 +29,17 @@ export const Debug: FC<Props> = ({ pond }) => {
   const [
     stateUsersCatalogFish,
     setStateUsersCatalogFish,
-  ] = React.useState<UsersCatalogFishState>(initialStateUserCatalogFish);
+  ] = useState<UsersCatalogFishState>(initialStateUserCatalogFish);
 
   const [
     stateChannelMainFish,
     setStateChannelMainFish,
-  ] = React.useState<ChannelFishState>(initialStateCannelFish);
+  ] = useState<ChannelFishState>(initialStateCannelFish);
 
   const [
     stateChannelsCatalogFish,
     setChannelsCatalogFish,
-  ] = React.useState<ChannelsCatalogFishState>(initialStateChannelsCatalogFish);
+  ] = useState<ChannelsCatalogFishState>(initialStateChannelsCatalogFish);
 
   useEffect(() => {
     const cancelSubUserCatalogFish = pond.observe(
