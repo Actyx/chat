@@ -59,6 +59,7 @@ import {
 // TODO create separate modules
 const MESSAGE = {
   invalidName: 'That name is already taken by a channel',
+  confirmHideMessage: 'Are you sure to hide this message?',
 };
 
 type Props = Readonly<{
@@ -172,9 +173,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
   };
 
   const handleHideMessage = async (messageId: MessageId) => {
-    const hasUserConfirmed = window.confirm(
-      'Are you sure to hide this message?'
-    );
+    const hasUserConfirmed = window.confirm(MESSAGE.confirmHideMessage);
     if (hasUserConfirmed) {
       try {
         await hideMessageFromChannel(pond)(
