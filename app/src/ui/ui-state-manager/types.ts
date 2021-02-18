@@ -30,7 +30,7 @@ export enum SectionCenter {
 export type StateUI = Readonly<{
   screen: Screens;
   dialog: Dialogs;
-  signedInUser: UserUUID | AnonymousUser;
+  userUUID: UserUUID | AnonymousUser;
   sectionRight: SectionRight;
   sectionCenter: SectionCenter;
   activeChannelId: ChannelId;
@@ -72,7 +72,7 @@ export type OpenChannelSection = Readonly<{
 export type AddSignedInUser = Readonly<{
   type: ActionType.AddSignedInUser;
   payload: {
-    signedInUser: UserUUID;
+    userUUID: UserUUID;
   };
 }>;
 

@@ -133,7 +133,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
   const handleEditUserProfile = async (displayName: string) => {
     try {
       const isUserProfileEdited = await editUserProfile(pond)(
-        stateUI.signedInUser,
+        stateUI.userUUID,
         displayName
       );
       if (isUserProfileEdited === true) {
@@ -149,7 +149,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
     try {
       await addMessageToChannel(pond)(
         stateUI.activeChannelId,
-        stateUI.signedInUser
+        stateUI.userUUID
       )({
         content,
       });
@@ -163,7 +163,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
     try {
       await editMessageInChannel(pond)(
         stateUI.activeChannelId,
-        stateUI.signedInUser
+        stateUI.userUUID
       )(messageId, content);
       setErrorPond(undefined);
     } catch (err) {
@@ -179,7 +179,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
       try {
         await hideMessageFromChannel(pond)(
           stateUI.activeChannelId,
-          stateUI.signedInUser
+          stateUI.userUUID
         )(messageId);
         setErrorPond(undefined);
       } catch (err) {
@@ -213,7 +213,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
 
   const handleAddChannel = async (name: string, description: string) => {
     try {
-      const isSuccess = await addChannel(pond)(stateUI.signedInUser)(
+      const isSuccess = await addChannel(pond)(stateUI.userUUID)(
         name,
         description
       );
@@ -236,10 +236,10 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
     newDescription: string
   ) => {
     try {
-      const isSuccess = await editChannel(pond)(
-        stateUI.signedInUser,
-        channelId
-      )(newName, newDescription);
+      const isSuccess = await editChannel(pond)(stateUI.userUUID, channelId)(
+        newName,
+        newDescription
+      );
       if (isSuccess) {
         setErrorPond(undefined);
         setMessageInvalid(undefined);
@@ -255,7 +255,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
 
   const handleArchiveChannel = async (channelId: ChannelId) => {
     try {
-      await archiveChannel(pond)(stateUI.signedInUser, channelId);
+      await archiveChannel(pond)(stateUI.userUUID, channelId);
       setErrorPond(undefined);
     } catch (err) {
       setErrorPond(err);
@@ -264,7 +264,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
 
   const handleUnarchiveChannel = async (channelId: ChannelId) => {
     try {
-      await unarchiveChannel(pond)(stateUI.signedInUser, channelId);
+      await unarchiveChannel(pond)(stateUI.userUUID, channelId);
       setErrorPond(undefined);
     } catch (err) {
       setErrorPond(err);
@@ -273,7 +273,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
 
   const handleAssociateUserChannel = async (channelId: ChannelId) => {
     try {
-      await associateUserToChannel(pond)(stateUI.signedInUser, channelId);
+      await associateUserToChannel(pond)(stateUI.userUUID, channelId);
       setErrorPond(undefined);
     } catch (err) {
       setErrorPond(err);
@@ -282,7 +282,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
 
   const handleDissociateUserChannel = async (channelId: ChannelId) => {
     try {
-      await dissociateUserChannel(pond)(stateUI.signedInUser, channelId);
+      await dissociateUserChannel(pond)(stateUI.userUUID, channelId);
       setErrorPond(undefined);
     } catch (err) {
       setErrorPond(err);
@@ -295,11 +295,11 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
   const channelMessages = mapPublicMessagesToChannelUI(
     getVisiblePublicMessages(stateChannelMainFish.messages),
     stateUsersCatalogFish.users,
-    stateUI.signedInUser
+    stateUI.userUUID
   );
 
   const userDisplayName = getDisplayNameByUser(
-    stateUI.signedInUser,
+    stateUI.userUUID,
     stateUsersCatalogFish.users
   );
 
@@ -314,13 +314,13 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
     mapChannelsToChannelCatalogUI(
       stateChannelsCatalogFish.channels,
       stateUsersCatalogFish.users,
-      stateUI.signedInUser
+      stateUI.userUUID
     )
   );
 
   const canUserManageArchiviation = (channelId: ChannelId) =>
     hasUserCreatedChannel(
-      stateUI.signedInUser,
+      stateUI.userUUID,
       channelId,
       stateChannelsCatalogFish.channels
     );

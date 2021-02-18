@@ -67,12 +67,12 @@ export const isUserAssociatedToChannel = (
     : false;
 };
 
-export const addChannel = (pond: Pond) => (signedInUser: UserUUID) => async (
+export const addChannel = (pond: Pond) => (userUUID: UserUUID) => async (
   name: string,
   description: string
 ): Promise<boolean> => {
   let isSuccess = false;
-  if (isUserSignedIn(signedInUser)) {
+  if (isUserSignedIn(userUUID)) {
     const { newName, newDescription } = prepareContentChannelProfile(
       name,
       description
@@ -85,12 +85,7 @@ export const addChannel = (pond: Pond) => (signedInUser: UserUUID) => async (
         const canAdd = doesChannelNameExist(newName, fishState) === false;
         if (canAdd) {
           enqueue(
-            ...getChannelAdded(
-              newChannelId,
-              signedInUser,
-              newName,
-              newDescription
-            )
+            ...getChannelAdded(newChannelId, userUUID, newName, newDescription)
           );
           isSuccess = true;
         }
@@ -101,11 +96,11 @@ export const addChannel = (pond: Pond) => (signedInUser: UserUUID) => async (
 };
 
 export const editChannel = (pond: Pond) => (
-  signedInUser: UserUUID,
+  userUUID: UserUUID,
   channelId: ChannelId
 ) => async (name: string, description: string): Promise<boolean> => {
   let isSuccess = false;
-  if (isUserSignedIn(signedInUser)) {
+  if (isUserSignedIn(userUUID)) {
     const { newName, newDescription } = prepareContentChannelProfile(
       name,
       description
@@ -118,7 +113,7 @@ export const editChannel = (pond: Pond) => (
           enqueue(
             ...getChannelProfileEdited(
               channelId,
-              signedInUser,
+              userUUID,
               newName,
               newDescription
             )
@@ -132,20 +127,20 @@ export const editChannel = (pond: Pond) => (
 };
 
 export const archiveChannel = (pond: Pond) => async (
-  signedInUser: UserUUID,
+  userUUID: UserUUID,
   channelId: ChannelId
 ): Promise<boolean> => {
   let isSuccess = false;
-  if (isUserSignedIn(signedInUser)) {
+  if (isUserSignedIn(userUUID)) {
     await pond
       .run(ChannelsCatalogFish.fish, (fishState, enqueue) => {
         const canArchive = hasUserCreatedChannel(
-          signedInUser,
+          userUUID,
           channelId,
           fishState.channels
         );
         if (canArchive) {
-          enqueue(...getChannelArchived(channelId, signedInUser));
+          enqueue(...getChannelArchived(channelId, userUUID));
           isSuccess = true;
         }
       })
@@ -155,20 +150,20 @@ export const archiveChannel = (pond: Pond) => async (
 };
 
 export const unarchiveChannel = (pond: Pond) => async (
-  signedInUser: UserUUID,
+  userUUID: UserUUID,
   channelId: ChannelId
 ): Promise<boolean> => {
   let isSuccess = false;
-  if (isUserSignedIn(signedInUser)) {
+  if (isUserSignedIn(userUUID)) {
     await pond
       .run(ChannelsCatalogFish.fish, (fishState, enqueue) => {
         const canUnarchive = hasUserCreatedChannel(
-          signedInUser,
+          userUUID,
           channelId,
           fishState.channels
         );
         if (canUnarchive) {
-          enqueue(...getChannelUnarchived(channelId, signedInUser));
+          enqueue(...getChannelUnarchived(channelId, userUUID));
           isSuccess = true;
         }
       })
@@ -178,20 +173,20 @@ export const unarchiveChannel = (pond: Pond) => async (
 };
 
 export const associateUserToChannel = (pond: Pond) => async (
-  signedInUser: UserUUID,
+  userUUID: UserUUID,
   channelId: ChannelId
 ): Promise<boolean> => {
   let isSuccess = false;
-  if (isUserSignedIn(signedInUser)) {
+  if (isUserSignedIn(userUUID)) {
     await pond
       .run(ChannelsCatalogFish.fish, (fishState, enqueue) => {
         const canAssociate = !isUserAssociatedToChannel(
-          signedInUser,
+          userUUID,
           channelId,
           fishState.channels
         );
         if (canAssociate) {
-          enqueue(...getChannelAssociatedUser(channelId, signedInUser));
+          enqueue(...getChannelAssociatedUser(channelId, userUUID));
           isSuccess = true;
         }
       })
@@ -201,20 +196,20 @@ export const associateUserToChannel = (pond: Pond) => async (
 };
 
 export const dissociateUserChannel = (pond: Pond) => async (
-  signedInUser: UserUUID,
+  userUUID: UserUUID,
   channelId: ChannelId
 ): Promise<boolean> => {
   let isSuccess = false;
-  if (isUserSignedIn(signedInUser)) {
+  if (isUserSignedIn(userUUID)) {
     await pond
       .run(ChannelsCatalogFish.fish, (fishState, enqueue) => {
         const canDissociate = isUserAssociatedToChannel(
-          signedInUser,
+          userUUID,
           channelId,
           fishState.channels
         );
         if (canDissociate) {
-          enqueue(...getChannelDissociatedUser(channelId, signedInUser));
+          enqueue(...getChannelDissociatedUser(channelId, userUUID));
           isSuccess = true;
         }
       })

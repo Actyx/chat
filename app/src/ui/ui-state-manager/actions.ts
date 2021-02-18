@@ -33,10 +33,10 @@ export const openChannelSection = (
   },
 });
 
-export const addSignedInUser = (signedInUser: UserUUID): AddSignedInUser => ({
+export const addSignedInUser = (userUUID: UserUUID): AddSignedInUser => ({
   type: ActionType.AddSignedInUser,
   payload: {
-    signedInUser,
+    userUUID,
   },
 });
 

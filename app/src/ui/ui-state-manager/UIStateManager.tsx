@@ -14,7 +14,7 @@ import {
 const inititialState: StateUI = {
   screen: Screens.Authentication,
   dialog: Dialogs.None,
-  signedInUser: ANONYMOUSE_USER,
+  userUUID: ANONYMOUSE_USER,
   sectionRight: SectionRight.None,
   sectionCenter: SectionCenter.Channel,
   activeChannelId: DEFAULT_CHANNEL,

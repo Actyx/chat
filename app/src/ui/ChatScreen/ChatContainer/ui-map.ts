@@ -21,13 +21,13 @@ import { ChannelsListUI } from '../Sidebar/Sidebar';
 export const mapPublicMessagesToChannelUI = (
   messages: PublicMessages,
   users: Users,
-  signedInUser: UserUUID
+  userUUID: UserUUID
 ): MessagesUI =>
   messages.map((m: PublicMessage) => {
     const senderDisplayName =
       getDisplayNameByUser(m.createdBy, users) ?? 'user not found';
-    const canEdit = doesMessageBelongToUser(signedInUser, m);
-    const canHide = canUserHideMessage(signedInUser, m);
+    const canEdit = doesMessageBelongToUser(userUUID, m);
+    const canHide = canUserHideMessage(userUUID, m);
     return {
       messageId: m.messageId,
       createdOn: Timestamp.toMilliseconds(m.createdOn),

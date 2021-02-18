@@ -63,22 +63,22 @@ export const signIn = (userUUID: UserUUID, users: Users): boolean => {
 //#region User profile edit
 
 export const editUserProfile = (pond: Pond) => async (
-  signedInUser: UserUUID,
+  userUUID: UserUUID,
   displayName: string
 ): Promise<boolean> => {
   let isSuccess = false;
-  if (isUserSignedIn(signedInUser)) {
+  if (isUserSignedIn(userUUID)) {
     await pond
       .run(UsersCatalogFish.fish, (fishState, enqueue) => {
         const isUserRegistered = isUserUUIDRegistered(
-          signedInUser,
+          userUUID,
           fishState.users
         );
         const newDisplayName = prepareString(displayName);
         const isNameNotEmpty = isStringEmpty(newDisplayName) === false;
         const canEditUserProfile = isUserRegistered && isNameNotEmpty;
         if (canEditUserProfile) {
-          enqueue(...getUserProfileEditedEvent(signedInUser, displayName));
+          enqueue(...getUserProfileEditedEvent(userUUID, displayName));
           isSuccess = true;
         }
       })

@@ -15,14 +15,14 @@ const AccessNotAllowed = () => <div>Access is not allowed</div>;
 export const ScreenRooter: FC<Props> = ({ pond }) => {
   const stateUI = useContext(StateContextUI);
 
-  const { screen, signedInUser } = stateUI;
+  const { screen, userUUID } = stateUI;
 
   const renderScreen = () => {
     switch (screen) {
       case Screens.Authentication:
         return <AuthenticationContainer pond={pond} />;
       case Screens.Chat:
-        const canRouteToChatScreen = isUserSignedIn(signedInUser);
+        const canRouteToChatScreen = isUserSignedIn(userUUID);
         return canRouteToChatScreen ? (
           <ChatContainer pond={pond} />
         ) : (
