@@ -24,8 +24,8 @@ export type UserProfile = {
 //#region Events
 
 export enum UsersCatalogFishEventType {
-  UserAdded = 'userAdded',
-  UserProfileEdited = 'userProfileEdited',
+  UserAdded = 'UserAdded',
+  UserProfileEdited = 'UserProfileEdited',
 }
 
 export type UserAddedEvent = {
