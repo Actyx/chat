@@ -1,20 +1,44 @@
-import { getUserAddedEvent } from '../users-catalog-fish/events';
+import {
+  getUserAddedEvent,
+  getUserProfileEditedEvent,
+} from '../users-catalog-fish/events';
 
 describe('getUserAddedEvent', () => {
   it('should return valid tags and event', () => {
-    const result = getUserAddedEvent('user-1', 'Simon', 'simone@gmail.com');
+    const result = getUserAddedEvent('111', 'Simon', 'simone@gmail.com');
 
     const expectedTags = {
-      rawTags: ['users-catalog', 'user', 'user:user-1'],
+      rawTags: ['users-catalog', 'user', 'user:111'],
     };
 
     const expectedEvent = {
       type: 'userAdded',
       payload: {
-        userUUID: 'user-1',
+        userUUID: '111',
         displayName: 'Simon',
         email: 'simone@gmail.com',
         createdBy: 'system-user',
+      },
+    };
+
+    expect(result).toMatchObject([expectedTags, expectedEvent]);
+  });
+});
+
+describe('getUserProfileEditedEvent', () => {
+  it('should return valid tags and event', () => {
+    const result = getUserProfileEditedEvent('111', 'SPO');
+
+    const expectedTags = {
+      rawTags: ['users-catalog', 'user', 'user:111'],
+    };
+
+    const expectedEvent = {
+      type: 'userProfileEdited',
+      payload: {
+        userUUID: '111',
+        displayName: 'SPO',
+        editedBy: '111',
       },
     };
 
