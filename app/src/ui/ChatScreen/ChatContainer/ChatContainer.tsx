@@ -187,9 +187,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
     }
   };
 
-  const handleOpenAddChannelDialog = () => {
-    setOpenAddChannelDialog(true);
-  };
+  const handleOpenAddChannelDialog = () => setOpenAddChannelDialog(true);
 
   const handleCloseAddChannelDialog = () => setOpenAddChannelDialog(false);
 
