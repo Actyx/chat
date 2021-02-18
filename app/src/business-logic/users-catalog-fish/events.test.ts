@@ -9,7 +9,7 @@ describe('getUserAddedEvent', () => {
     };
 
     const expectedEvent = {
-      type: 'userAdded',
+      type: 'UserAdded',
       payload: {
         userUUID: 'user-1',
         displayName: 'Simon',
@@ -31,7 +31,7 @@ describe('getUserProfileEditedEvent', () => {
     };
 
     const expectedEvent = {
-      type: 'userProfileEdited',
+      type: 'UserProfileEdited',
       payload: {
         userUUID: 'user-1',
         displayName: 'SPO',
