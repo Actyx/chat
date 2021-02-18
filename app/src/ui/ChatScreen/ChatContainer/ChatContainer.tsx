@@ -18,6 +18,7 @@ import {
   addChannel,
   archiveChannel,
   associateUserToChannel,
+  dissociateUserChannel,
   editChannel,
   getChannelProfileByChannelId,
   hasUserCreatedChannel,
@@ -280,7 +281,12 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
   };
 
   const handleDissociateUserChannel = async (channelId: ChannelId) => {
-    window.alert(`LEAVE user to channel ${channelId}`);
+    try {
+      await dissociateUserChannel(pond)(stateUI.signedInUser, channelId);
+      setErrorPond(undefined);
+    } catch (err) {
+      setErrorPond(err);
+    }
   };
 
   //#endregion

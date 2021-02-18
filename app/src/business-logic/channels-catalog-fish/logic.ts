@@ -5,6 +5,7 @@ import {
   getChannelAdded,
   getChannelArchived,
   getChannelAssociatedUser,
+  getChannelDissociatedUser,
   getChannelProfileEdited,
   getChannelUnarchived,
 } from './events';
@@ -191,6 +192,29 @@ export const associateUserToChannel = (pond: Pond) => async (
         );
         if (canAssociate) {
           enqueue(...getChannelAssociatedUser(channelId, signedInUser));
+          isSuccess = true;
+        }
+      })
+      .toPromise();
+  }
+  return isSuccess;
+};
+
+export const dissociateUserChannel = (pond: Pond) => async (
+  signedInUser: UserUUID,
+  channelId: ChannelId
+): Promise<boolean> => {
+  let isSuccess = false;
+  if (isUserSignedIn(signedInUser)) {
+    await pond
+      .run(ChannelsCatalogFish.fish, (fishState, enqueue) => {
+        const canDissociate = isUserAssociatedToChannel(
+          signedInUser,
+          channelId,
+          fishState.channels
+        );
+        if (canDissociate) {
+          enqueue(...getChannelDissociatedUser(channelId, signedInUser));
           isSuccess = true;
         }
       })

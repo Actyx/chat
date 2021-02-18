@@ -10,6 +10,7 @@ import {
   ChannelAddedEvent,
   ChannelArchivedEvent,
   ChannelAssociatedUserEvent,
+  ChannelDissociatedUserEvent,
   ChannelProfileEditedEvent,
   ChannelsCatalogFishEvent,
   ChannelsCatalogFishEventType,
@@ -33,8 +34,7 @@ export const reducer: Reduce<
     case ChannelsCatalogFishEventType.ChannelAssociatedUser:
       return channelAssociatedUser(state, event);
     case ChannelsCatalogFishEventType.ChannelDissociatedUser:
-      //TODO
-      return state;
+      return channelDissociatedUser(state, event);
     default:
       return state;
   }
@@ -138,6 +138,21 @@ const channelAssociatedUser = (
     !isUserAssociatedToChannel(userUUID, channelId, state.channels);
   if (canProcess) {
     state.channels[channelId].users.push(userUUID);
+  }
+  return state;
+};
+
+const channelDissociatedUser = (
+  state: ChannelsCatalogFishState,
+  event: ChannelDissociatedUserEvent
+) => {
+  const { channelId, userUUID } = event.payload;
+  const canProcess =
+    doesChannelExist(channelId, state.channels) &&
+    isUserAssociatedToChannel(userUUID, channelId, state.channels);
+  if (canProcess) {
+    const { users } = state.channels[channelId];
+    state.channels[channelId].users = users.filter((x) => x !== userUUID);
   }
   return state;
 };
