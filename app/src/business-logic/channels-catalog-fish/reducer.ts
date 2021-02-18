@@ -135,7 +135,7 @@ const channelAssociatedUser = (
   const { channelId, userUUID } = event.payload;
   const canProcess =
     doesChannelExist(channelId, state.channels) &&
-    !isUserAssociatedToChannel(userUUID, channelId, state.channels);
+    isUserAssociatedToChannel(userUUID, channelId, state.channels) === false;
   if (canProcess) {
     state.channels[channelId].users.push(userUUID);
   }
