@@ -4,7 +4,7 @@ import { AuthenticationContainer } from '../AuthenticationScreen/AuthenticationC
 import { StateContextUI } from '../ui-state-manager/UIStateManager';
 import { Screens } from '../ui-state-manager/types';
 import { ChatContainer } from '../ChatScreen/ChatContainer/ChatContainer';
-import { isUserSignedIn } from '../../business-logic/channel-fish/logic';
+import { isSignedInUser } from '../../business-logic/channel-fish/logic';
 
 type Props = Readonly<{
   pond: Pond;
@@ -22,7 +22,7 @@ export const ScreenRooter: FC<Props> = ({ pond }) => {
       case Screens.Authentication:
         return <AuthenticationContainer pond={pond} />;
       case Screens.Chat:
-        const canRouteToChatScreen = isUserSignedIn(userUUID);
+        const canRouteToChatScreen = isSignedInUser(userUUID);
         return canRouteToChatScreen ? (
           <ChatContainer pond={pond} />
         ) : (

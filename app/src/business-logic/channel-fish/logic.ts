@@ -31,7 +31,7 @@ export const addMessageToChannel = (pond: Pond) => (
   mediaIds?: MediaIds;
   recipientIds?: PublicRecipientIds;
 }>): Promise<void> => {
-  if (isUserSignedIn(userUUID)) {
+  if (isSignedInUser(userUUID)) {
     return pond
       .emit(
         ...getPublicMessageAdded({
@@ -72,7 +72,7 @@ export const editMessageInChannel = (pond: Pond) => (
   userUUID: UserUUID
 ) => async (messageId: MessageId, content: string): Promise<boolean> => {
   let isSuccess = false;
-  if (isUserSignedIn(userUUID)) {
+  if (isSignedInUser(userUUID)) {
     await pond
       .run<ChannelFishState, PublicMessageEvent>(
         mainChannelFish,
@@ -130,7 +130,7 @@ export const hideMessageFromChannel = (pond: Pond) => (
 
 //#region Others
 
-export const isUserSignedIn = (userUUID: UserUUID) =>
+export const isSignedInUser = (userUUID: UserUUID) =>
   userUUID !== ANONYMOUS_USER;
 
 //#endregion

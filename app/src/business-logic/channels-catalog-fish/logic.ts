@@ -13,7 +13,7 @@ import { v4 as uuid } from 'uuid';
 import { ChannelId } from '../message/types';
 import { ChannelProfile, Channels, ChannelsCatalogFishState } from './types';
 import { ChannelsCatalogFish } from './channels-catalog-fish';
-import { isUserSignedIn } from '../channel-fish/logic';
+import { isSignedInUser } from '../channel-fish/logic';
 
 export const doesChannelExist = (
   channelId: ChannelId,
@@ -72,7 +72,7 @@ export const addChannel = (pond: Pond) => (userUUID: UserUUID) => async (
   description: string
 ): Promise<boolean> => {
   let isSuccess = false;
-  if (isUserSignedIn(userUUID)) {
+  if (isSignedInUser(userUUID)) {
     const { newName, newDescription } = prepareContentChannelProfile(
       name,
       description
@@ -100,7 +100,7 @@ export const editChannel = (pond: Pond) => (
   channelId: ChannelId
 ) => async (name: string, description: string): Promise<boolean> => {
   let isSuccess = false;
-  if (isUserSignedIn(userUUID)) {
+  if (isSignedInUser(userUUID)) {
     const { newName, newDescription } = prepareContentChannelProfile(
       name,
       description
@@ -131,7 +131,7 @@ export const archiveChannel = (pond: Pond) => async (
   channelId: ChannelId
 ): Promise<boolean> => {
   let isSuccess = false;
-  if (isUserSignedIn(userUUID)) {
+  if (isSignedInUser(userUUID)) {
     await pond
       .run(ChannelsCatalogFish.fish, (fishState, enqueue) => {
         const canArchive = hasUserCreatedChannel(
@@ -154,7 +154,7 @@ export const unarchiveChannel = (pond: Pond) => async (
   channelId: ChannelId
 ): Promise<boolean> => {
   let isSuccess = false;
-  if (isUserSignedIn(userUUID)) {
+  if (isSignedInUser(userUUID)) {
     await pond
       .run(ChannelsCatalogFish.fish, (fishState, enqueue) => {
         const canUnarchive = hasUserCreatedChannel(
@@ -177,7 +177,7 @@ export const associateUserToChannel = (pond: Pond) => async (
   channelId: ChannelId
 ): Promise<boolean> => {
   let isSuccess = false;
-  if (isUserSignedIn(userUUID)) {
+  if (isSignedInUser(userUUID)) {
     await pond
       .run(ChannelsCatalogFish.fish, (fishState, enqueue) => {
         const canAssociate =
@@ -198,7 +198,7 @@ export const dissociateUserChannel = (pond: Pond) => async (
   channelId: ChannelId
 ): Promise<boolean> => {
   let isSuccess = false;
-  if (isUserSignedIn(userUUID)) {
+  if (isSignedInUser(userUUID)) {
     await pond
       .run(ChannelsCatalogFish.fish, (fishState, enqueue) => {
         const canDissociate = isUserAssociatedToChannel(

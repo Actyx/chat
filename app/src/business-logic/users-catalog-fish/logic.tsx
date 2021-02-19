@@ -11,7 +11,7 @@ import { v4 as uuid } from 'uuid';
 import { Pond } from '@actyx/pond';
 import { UsersCatalogFish } from './users-catalog-fish';
 import { isStringEmpty, prepareString } from '../../common/strings';
-import { isUserSignedIn } from '../channel-fish/logic';
+import { isSignedInUser } from '../channel-fish/logic';
 
 //#region Sign-up
 
@@ -67,7 +67,7 @@ export const editUserProfile = (pond: Pond) => async (
   displayName: string
 ): Promise<boolean> => {
   let isSuccess = false;
-  if (isUserSignedIn(userUUID)) {
+  if (isSignedInUser(userUUID)) {
     await pond
       .run(UsersCatalogFish.fish, (fishState, enqueue) => {
         const isUserRegistered = isUserUUIDRegistered(
