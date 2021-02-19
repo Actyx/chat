@@ -11,12 +11,10 @@ const tags = {
   user: Tag<UserCatalogFishEvent>('user'),
 };
 
-export const initialState: UsersCatalogFishState = {
+const initialState: UsersCatalogFishState = {
   users: {},
   emails: {},
 };
-
-export const initialStateUserCatalogFish = initialState;
 
 const fish: Fish<UsersCatalogFishState, UserCatalogFishEvent> = {
   fishId: FishId.of('usersCatalog', 'usersCatalog', 0),

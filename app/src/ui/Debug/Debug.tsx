@@ -5,10 +5,7 @@ import { ChannelFishState } from '../../business-logic/channel-fish/types';
 import { ChannelsCatalogFish } from '../../business-logic/channels-catalog-fish/channels-catalog-fish';
 import { ChannelsCatalogFishState } from '../../business-logic/channels-catalog-fish/types';
 import { UsersCatalogFishState } from '../../business-logic/users-catalog-fish/types';
-import {
-  initialStateUserCatalogFish,
-  UsersCatalogFish,
-} from '../../business-logic/users-catalog-fish/users-catalog-fish';
+import { UsersCatalogFish } from '../../business-logic/users-catalog-fish/users-catalog-fish';
 import { StateContextUI } from '../ui-state-manager/UIStateManager';
 
 type Props = Readonly<{
@@ -23,7 +20,7 @@ export const Debug: FC<Props> = ({ pond }) => {
   const [
     stateUsersCatalogFish,
     setStateUsersCatalogFish,
-  ] = useState<UsersCatalogFishState>(initialStateUserCatalogFish);
+  ] = useState<UsersCatalogFishState>(UsersCatalogFish.fish.initialState);
 
   const [
     stateChannelMainFish,

@@ -13,10 +13,7 @@ import { SignUp } from './SignUp';
 import { SignIn } from './SignIn';
 import { DispatchContextUI } from '../ui-state-manager/UIStateManager';
 import { addSignedInUser, goToChatScreen } from '../ui-state-manager/actions';
-import {
-  initialStateUserCatalogFish,
-  UsersCatalogFish,
-} from '../../business-logic/users-catalog-fish/users-catalog-fish';
+import { UsersCatalogFish } from '../../business-logic/users-catalog-fish/users-catalog-fish';
 
 type Props = Readonly<{
   pond: Pond;
@@ -28,7 +25,7 @@ export const AuthenticationContainer: FC<Props> = ({ pond }) => {
   const [
     stateUsersCatalogFish,
     setStateUsersCatalogFish,
-  ] = useState<UsersCatalogFishState>(initialStateUserCatalogFish);
+  ] = useState<UsersCatalogFishState>(UsersCatalogFish.fish.initialState);
 
   useEffect(() => {
     const cancelSubscription = pond.observe(

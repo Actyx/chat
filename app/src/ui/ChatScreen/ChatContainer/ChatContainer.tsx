@@ -22,10 +22,7 @@ import { ChannelsCatalogFishState } from '../../../business-logic/channels-catal
 import { ChannelId, MessageId } from '../../../business-logic/message/types';
 import { editUserProfile } from '../../../business-logic/users-catalog-fish/logic';
 import { UsersCatalogFishState } from '../../../business-logic/users-catalog-fish/types';
-import {
-  initialStateUserCatalogFish,
-  UsersCatalogFish,
-} from '../../../business-logic/users-catalog-fish/users-catalog-fish';
+import { UsersCatalogFish } from '../../../business-logic/users-catalog-fish/users-catalog-fish';
 import { closeSectionRight } from '../../ui-state-manager/actions';
 import { SectionCenter, SectionRight } from '../../ui-state-manager/types';
 import {
@@ -83,7 +80,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
   const [
     stateUsersCatalogFish,
     setStateUsersCatalogFish,
-  ] = useState<UsersCatalogFishState>(initialStateUserCatalogFish);
+  ] = useState<UsersCatalogFishState>(UsersCatalogFish.fish.initialState);
 
   const [
     stateChannelMainFish,
