@@ -10,10 +10,7 @@ import {
   addMessageToChannel,
 } from '../../../business-logic/channel-fish/logic';
 import { ChannelFishState } from '../../../business-logic/channel-fish/types';
-import {
-  ChannelsCatalogFish,
-  initialStateChannelsCatalogFish,
-} from '../../../business-logic/channels-catalog-fish/channels-catalog-fish';
+import { ChannelsCatalogFish } from '../../../business-logic/channels-catalog-fish/channels-catalog-fish';
 import {
   addChannel,
   archiveChannel,
@@ -99,7 +96,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
   const [
     stateChannelsCatalogFish,
     setStateChannelsCatalogFish,
-  ] = useState<ChannelsCatalogFishState>(initialStateChannelsCatalogFish);
+  ] = useState<ChannelsCatalogFishState>(ChannelsCatalogFish.fish.initialState);
 
   const [errorPond, setErrorPond] = useState<string>();
 

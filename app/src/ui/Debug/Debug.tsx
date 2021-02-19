@@ -5,10 +5,7 @@ import {
   mainChannelFish,
 } from '../../business-logic/channel-fish/channel-fish';
 import { ChannelFishState } from '../../business-logic/channel-fish/types';
-import {
-  ChannelsCatalogFish,
-  initialStateChannelsCatalogFish,
-} from '../../business-logic/channels-catalog-fish/channels-catalog-fish';
+import { ChannelsCatalogFish } from '../../business-logic/channels-catalog-fish/channels-catalog-fish';
 import { ChannelsCatalogFishState } from '../../business-logic/channels-catalog-fish/types';
 import { UsersCatalogFishState } from '../../business-logic/users-catalog-fish/types';
 import {
@@ -39,7 +36,7 @@ export const Debug: FC<Props> = ({ pond }) => {
   const [
     stateChannelsCatalogFish,
     setChannelsCatalogFish,
-  ] = useState<ChannelsCatalogFishState>(initialStateChannelsCatalogFish);
+  ] = useState<ChannelsCatalogFishState>(ChannelsCatalogFish.fish.initialState);
 
   useEffect(() => {
     const cancelSubUserCatalogFish = pond.observe(
