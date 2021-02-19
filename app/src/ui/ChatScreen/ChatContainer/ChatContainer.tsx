@@ -1,9 +1,6 @@
 import { Pond } from '@actyx/pond';
 import { FC, useContext, useEffect, useState } from 'react';
-import {
-  initialStateCannelFish,
-  mainChannelFish,
-} from '../../../business-logic/channel-fish/channel-fish';
+import { mainChannelFish } from '../../../business-logic/channel-fish/channel-fish';
 import {
   editMessageInChannel,
   hideMessageFromChannel,
@@ -91,7 +88,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
   const [
     stateChannelMainFish,
     setStateChannelMainFish,
-  ] = useState<ChannelFishState>(initialStateCannelFish);
+  ] = useState<ChannelFishState>(mainChannelFish.initialState);
 
   const [
     stateChannelsCatalogFish,

@@ -1,9 +1,6 @@
 import { Pond } from '@actyx/pond';
 import { FC, useContext, useEffect, useState } from 'react';
-import {
-  initialStateCannelFish,
-  mainChannelFish,
-} from '../../business-logic/channel-fish/channel-fish';
+import { mainChannelFish } from '../../business-logic/channel-fish/channel-fish';
 import { ChannelFishState } from '../../business-logic/channel-fish/types';
 import { ChannelsCatalogFish } from '../../business-logic/channels-catalog-fish/channels-catalog-fish';
 import { ChannelsCatalogFishState } from '../../business-logic/channels-catalog-fish/types';
@@ -31,7 +28,7 @@ export const Debug: FC<Props> = ({ pond }) => {
   const [
     stateChannelMainFish,
     setStateChannelMainFish,
-  ] = useState<ChannelFishState>(initialStateCannelFish);
+  ] = useState<ChannelFishState>(mainChannelFish.initialState);
 
   const [
     stateChannelsCatalogFish,
