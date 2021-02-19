@@ -34,9 +34,7 @@ export const getChannelAdded = (
       description,
     },
   };
-
   const tags = mkChannelOperationTags(channelId, createdBy);
-
   return [tags, event];
 };
 
@@ -55,9 +53,7 @@ export const getChannelProfileEdited = (
       description,
     },
   };
-
   const tags = mkChannelOperationTags(channelId, editedBy);
-
   return [tags, event];
 };
 
