@@ -3,7 +3,7 @@ import { Timestamp } from '@actyx/pond';
 //#region General
 
 export type AnonymousUser = UserUUID;
-export const ANONYMOUSE_USER: AnonymousUser = 'anonymous-user';
+export const ANONYMOUS_USER: AnonymousUser = 'anonymous-user';
 
 export type UserUUID = string;
 

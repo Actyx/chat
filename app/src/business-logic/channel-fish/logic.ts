@@ -13,7 +13,7 @@ import {
   getMessageHiddenEvent,
   getPublicMessageAdded,
 } from './events';
-import { UserUUID, ANONYMOUSE_USER } from '../users-catalog-fish/types';
+import { UserUUID, ANONYMOUS_USER } from '../users-catalog-fish/types';
 import { ChannelFishState, PublicMessages } from './types';
 import { v4 as uuid } from 'uuid';
 
@@ -131,6 +131,6 @@ export const hideMessageFromChannel = (pond: Pond) => (
 //#region Others
 
 export const isUserSignedIn = (userUUID: UserUUID) =>
-  userUUID !== ANONYMOUSE_USER;
+  userUUID !== ANONYMOUS_USER;
 
 //#endregion
