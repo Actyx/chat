@@ -85,7 +85,7 @@ const channelArchived = (
   event: ChannelArchivedEvent,
   timestampMicros: Timestamp
 ) => {
-  state = handleArchiviation(
+  state = handleArchiving(
     event.payload.channelId,
     event.payload.archivedBy,
     state,
@@ -100,7 +100,7 @@ const channelUnarchived = (
   event: ChannelUnarchiveEvent,
   timestampMicros: Timestamp
 ) => {
-  state = handleArchiviation(
+  state = handleArchiving(
     event.payload.channelId,
     event.payload.unarchivedBy,
     state,
@@ -110,7 +110,7 @@ const channelUnarchived = (
   return state;
 };
 
-const handleArchiviation = (
+const handleArchiving = (
   channelId: ChannelId,
   userUUID: UserUUID,
   state: ChannelsCatalogFishState,
