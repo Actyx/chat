@@ -55,6 +55,7 @@ Notes:
 - [x] A user can leave a channel
 - [x] A user can enter a new message into a channel
 - [x] A channel display all its messages in simple ascending order, the latest are always visible at the bottom
+- [x] A user can view all related messages in a channel
 
 Notes: it is not possible to delete a channel only unarchive it
 
