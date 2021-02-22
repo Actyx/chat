@@ -74,7 +74,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
     Readonly<{ channelId: ChannelId; name: string; description: string }>
   >();
 
-  const [messageInvalid, setMessageInvalid] = useState<string | undefined>();
+  const [invalidMessage, setInvalidMessage] = useState<string | undefined>();
 
   //#region Pond and Fishes
   const [
@@ -92,7 +92,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
     setStateChannelsCatalogFish,
   ] = useState<ChannelsCatalogFishState>(ChannelsCatalogFish.fish.initialState);
 
-  const [errorPond, setErrorPond] = useState<string>();
+  const [pondErrorMessage, setPondErrorMessage] = useState<string>();
 
   useEffect(() => {
     const cancelSubUserCatalogFish = pond.observe(
@@ -131,9 +131,9 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
       if (isUserProfileEdited === true) {
         dispatch(closeSectionRight());
       }
-      setErrorPond(undefined);
+      setPondErrorMessage(undefined);
     } catch (err) {
-      setErrorPond(err);
+      setPondErrorMessage(err);
     }
   };
 
@@ -145,9 +145,9 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
       )({
         content,
       });
-      setErrorPond(undefined);
+      setPondErrorMessage(undefined);
     } catch (err) {
-      setErrorPond(err);
+      setPondErrorMessage(err);
     }
   };
 
@@ -157,9 +157,9 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
         stateUI.activeChannelId,
         stateUI.userUUID
       )(messageId, content);
-      setErrorPond(undefined);
+      setPondErrorMessage(undefined);
     } catch (err) {
-      setErrorPond(err);
+      setPondErrorMessage(err);
     }
   };
 
@@ -171,9 +171,9 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
           stateUI.activeChannelId,
           stateUI.userUUID
         )(messageId);
-        setErrorPond(undefined);
+        setPondErrorMessage(undefined);
       } catch (err) {
-        setErrorPond(err);
+        setPondErrorMessage(err);
       }
     }
   };
@@ -206,15 +206,15 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
         description
       );
       if (isSuccess) {
-        setErrorPond(undefined);
-        setMessageInvalid(undefined);
+        setPondErrorMessage(undefined);
+        setInvalidMessage(undefined);
         handleCloseAddChannelDialog();
       } else {
-        setMessageInvalid(MESSAGE.invalidName);
+        setInvalidMessage(MESSAGE.invalidName);
       }
     } catch (err) {
-      setMessageInvalid(undefined);
-      setErrorPond(err);
+      setInvalidMessage(undefined);
+      setPondErrorMessage(err);
     }
   };
 
@@ -229,51 +229,51 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
         newDescription
       );
       if (isSuccess) {
-        setErrorPond(undefined);
-        setMessageInvalid(undefined);
+        setPondErrorMessage(undefined);
+        setInvalidMessage(undefined);
         handleCloseAddChannelDialog();
       } else {
-        setMessageInvalid(MESSAGE.invalidName);
+        setInvalidMessage(MESSAGE.invalidName);
       }
     } catch (err) {
-      setMessageInvalid(undefined);
-      setErrorPond(err);
+      setInvalidMessage(undefined);
+      setPondErrorMessage(err);
     }
   };
 
   const handleArchiveChannel = async (channelId: ChannelId) => {
     try {
       await archiveChannel(pond)(stateUI.userUUID, channelId);
-      setErrorPond(undefined);
+      setPondErrorMessage(undefined);
     } catch (err) {
-      setErrorPond(err);
+      setPondErrorMessage(err);
     }
   };
 
   const handleUnarchiveChannel = async (channelId: ChannelId) => {
     try {
       await unarchiveChannel(pond)(stateUI.userUUID, channelId);
-      setErrorPond(undefined);
+      setPondErrorMessage(undefined);
     } catch (err) {
-      setErrorPond(err);
+      setPondErrorMessage(err);
     }
   };
 
   const handleAssociateUserChannel = async (channelId: ChannelId) => {
     try {
       await associateUserToChannel(pond)(stateUI.userUUID, channelId);
-      setErrorPond(undefined);
+      setPondErrorMessage(undefined);
     } catch (err) {
-      setErrorPond(err);
+      setPondErrorMessage(err);
     }
   };
 
   const handleDissociateUserChannel = async (channelId: ChannelId) => {
     try {
       await dissociateUserChannel(pond)(stateUI.userUUID, channelId);
-      setErrorPond(undefined);
+      setPondErrorMessage(undefined);
     } catch (err) {
-      setErrorPond(err);
+      setPondErrorMessage(err);
     }
   };
 
@@ -344,7 +344,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
 
   return (
     <div>
-      {errorPond}
+      {pondErrorMessage}
       <TopBar userDisplayName={userDisplayName ?? ''} />
       <div>
         <Sidebar
@@ -360,8 +360,8 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
       </div>
       {openAddChannelDialog && (
         <AddChannelDialog
-          messageError={errorPond}
-          messageInvalid={messageInvalid}
+          errorMessage={pondErrorMessage}
+          invalidMessage={invalidMessage}
           addChannel={handleAddChannel}
           closeDialog={handleCloseAddChannelDialog}
         />

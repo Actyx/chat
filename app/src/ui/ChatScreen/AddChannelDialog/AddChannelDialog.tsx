@@ -2,22 +2,22 @@ import { FC } from 'react';
 import { AddChannel } from './AddChannel';
 
 type Props = Readonly<{
-  messageError?: string;
-  messageInvalid?: string;
+  errorMessage?: string;
+  invalidMessage?: string;
   addChannel: (name: string, description: string) => void;
   closeDialog: () => void;
 }>;
 
 export const AddChannelDialog: FC<Props> = ({
-  messageError,
-  messageInvalid,
+  errorMessage,
+  invalidMessage,
   addChannel,
   closeDialog,
 }) => {
   return (
     <div>
-      {messageError}
-      <AddChannel addChannel={addChannel} messageInvalid={messageInvalid} />
+      {errorMessage}
+      <AddChannel addChannel={addChannel} invalidMessage={invalidMessage} />
       <button onClick={closeDialog}>Close</button>
     </div>
   );

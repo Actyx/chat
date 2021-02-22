@@ -2,11 +2,11 @@ import { FC, useState } from 'react';
 import { FormEvent, InputChangeEvent } from '../../../common/ui-types';
 
 type Props = Readonly<{
-  messageInvalid?: string;
+  invalidMessage?: string;
   addChannel: (name: string, description: string) => void;
 }>;
 
-export const AddChannel: FC<Props> = ({ messageInvalid, addChannel }) => {
+export const AddChannel: FC<Props> = ({ invalidMessage, addChannel }) => {
   const [name, setName] = useState<string>('');
 
   const [description, setDescription] = useState<string>('');
@@ -36,7 +36,7 @@ export const AddChannel: FC<Props> = ({ messageInvalid, addChannel }) => {
         <br />
         <input type="submit" value="Add Channel" />
       </form>
-      {messageInvalid}
+      {invalidMessage}
     </div>
   );
 };
