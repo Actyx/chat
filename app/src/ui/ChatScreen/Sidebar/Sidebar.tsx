@@ -1,5 +1,4 @@
 import { FC, useContext } from 'react';
-import { MAIN_CHANNEL } from '../../../business-logic/channel-fish/channel-fish';
 import { ChannelId } from '../../../business-logic/message/types';
 import {
   showChannelsCatalogSection,
@@ -23,11 +22,8 @@ export const Sidebar: FC<Props> = ({ channels, showAddChannelDialog }) => {
 
   const handleChannelsCatalog = () => dispatch(showChannelsCatalogSection());
 
-  const handleMain = (channelId: ChannelId) => {
-    //FIXME use the right channel fish here
-    window.alert(`now swtich to this ${channelId}`);
-    dispatch(showChannelSection(MAIN_CHANNEL));
-  };
+  const handleMain = (channelId: ChannelId) =>
+    dispatch(showChannelSection(channelId));
 
   const handleShowAddChannelDialog = () => showAddChannelDialog();
 
