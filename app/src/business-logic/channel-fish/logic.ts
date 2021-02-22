@@ -7,7 +7,6 @@ import {
   PublicMessageEvent,
   PublicRecipientIds,
 } from '../message/types';
-import { mainChannelFish } from './channel-fish';
 import {
   getMessageContentEdited,
   getMessageHiddenEvent,
@@ -16,6 +15,7 @@ import {
 import { UserUUID, ANONYMOUS_USER } from '../user-catalog-fish/types';
 import { ChannelFishState, PublicMessages } from './types';
 import { v4 as uuid } from 'uuid';
+import { mkChannelFish } from './channel-fish';
 
 //#region Add message
 
@@ -74,7 +74,7 @@ export const editMessageInChannel = (pond: Pond) => (
   if (isSignedInUser(userUUID)) {
     await pond
       .run<ChannelFishState, PublicMessageEvent>(
-        mainChannelFish,
+        mkChannelFish(channelId), // TODO review it
         (fishState, enqueue) => {
           const message = getMessageById(messageId, fishState.messages);
           if (message) {
@@ -109,7 +109,7 @@ export const hideMessageFromChannel = (pond: Pond) => (
   let isSuccess = false;
   await pond
     .run<ChannelFishState, PublicMessageEvent>(
-      mainChannelFish,
+      mkChannelFish(channelId), //TODO review it
       (fishState, enqueue) => {
         const message = getMessageById(messageId, fishState.messages);
         if (message) {

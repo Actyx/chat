@@ -1,6 +1,9 @@
 import { Pond } from '@actyx/pond';
 import { FC, useContext, useEffect, useState } from 'react';
-import { mainChannelFish } from '../../business-logic/channel-fish/channel-fish';
+import {
+  initialStateCannelFish,
+  mkChannelFish,
+} from '../../business-logic/channel-fish/channel-fish';
 import { ChannelFishState } from '../../business-logic/channel-fish/types';
 import { ChannelCatalogFish } from '../../business-logic/channel-catalog-fish/channel-catalog-fish';
 import { ChannelCatalogFishState } from '../../business-logic/channel-catalog-fish/types';
@@ -22,10 +25,9 @@ export const Debug: FC<Props> = ({ pond }) => {
     setStateUserCatalogFish,
   ] = useState<UserCatalogFishState>(UserCatalogFish.fish.initialState);
 
-  const [
-    stateChannelMainFish,
-    setStateChannelMainFish,
-  ] = useState<ChannelFishState>(mainChannelFish.initialState);
+  const [stateChannelFish, setStateChannelFish] = useState<ChannelFishState>(
+    initialStateCannelFish
+  );
 
   const [
     stateChannelsCatalogFish,
@@ -39,8 +41,8 @@ export const Debug: FC<Props> = ({ pond }) => {
     );
 
     const cancelSubscChannelFish = pond.observe(
-      mainChannelFish,
-      setStateChannelMainFish
+      mkChannelFish(stateUI.activeChannelId),
+      setStateChannelFish
     );
 
     const cancelChannelsCatalogFish = pond.observe(
@@ -53,7 +55,7 @@ export const Debug: FC<Props> = ({ pond }) => {
       cancelSubscChannelFish();
       cancelChannelsCatalogFish();
     };
-  }, [pond]);
+  }, [pond, stateUI.activeChannelId]);
 
   return (
     <div>
@@ -65,7 +67,7 @@ export const Debug: FC<Props> = ({ pond }) => {
       <h5>UserCatalog state</h5>
       <pre>{format(stateUserCatalogFish)}</pre>
       <h5>ChannelFish state</h5>
-      <pre>{format(stateChannelMainFish)}</pre>
+      <pre>{format(stateChannelFish)}</pre>
       <h5>ChannelsCatalogFish state</h5>
       <pre>{format(stateChannelsCatalogFish)}</pre>
     </div>

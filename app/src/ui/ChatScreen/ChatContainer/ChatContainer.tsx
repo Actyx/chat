@@ -1,6 +1,9 @@
 import { Pond } from '@actyx/pond';
 import { FC, useContext, useEffect, useState } from 'react';
-import { mainChannelFish } from '../../../business-logic/channel-fish/channel-fish';
+import {
+  initialStateCannelFish,
+  mkChannelFish,
+} from '../../../business-logic/channel-fish/channel-fish';
 import {
   editMessageInChannel,
   hideMessageFromChannel,
@@ -77,6 +80,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
   const [invalidMessage, setInvalidMessage] = useState<string | undefined>();
 
   //#region Pond and Fishes
+
   const [
     stateUserCatalogFish,
     setStateUserCatalogFish,
@@ -85,7 +89,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
   const [
     stateChannelMainFish,
     setStateChannelMainFish,
-  ] = useState<ChannelFishState>(mainChannelFish.initialState);
+  ] = useState<ChannelFishState>(initialStateCannelFish);
 
   const [
     stateChannelsCatalogFish,
@@ -101,7 +105,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
     );
 
     const cancelSubChannelFish = pond.observe(
-      mainChannelFish,
+      mkChannelFish(stateUI.activeChannelId),
       setStateChannelMainFish
     );
 
@@ -115,7 +119,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
       cancelSubChannelFish();
       cancelSubChannelsCatalogFish();
     };
-  }, [pond]);
+  }, [pond, stateUI.activeChannelId]);
 
   //#endregion
 
