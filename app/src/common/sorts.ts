@@ -8,8 +8,7 @@ export const localeComparator = (a: string, b: string) =>
   a.toLowerCase().localeCompare(b.toLowerCase());
 
 export const genericSorter = <T>(
-  a: T,
-  b: T,
   comparator: Comparator<T>,
   sorter: SorterOptions
-) => (sorter.isDescending ? comparator(a, b) * -1 : comparator(a, b));
+): Comparator<T> =>
+  sorter.isDescending ? (a: T, b: T) => comparator(a, b) * -1 : comparator;

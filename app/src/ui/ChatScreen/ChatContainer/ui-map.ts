@@ -81,7 +81,7 @@ export const sortAlphabeticChannelsSidebar = (
   channels
     .map((x) => x)
     .sort((a, b) =>
-      genericSorter(a.name, b.name, localeComparator, { isDescending: false })
+      genericSorter(localeComparator, { isDescending: false })(a.name, b.name)
     );
 
 export const sortAlphabeticChannelsOverview = (
@@ -90,9 +90,9 @@ export const sortAlphabeticChannelsOverview = (
   channelsOverview
     .map((x) => x)
     .sort((a, b) =>
-      genericSorter(a.name, b.name, localeComparator, {
+      genericSorter(localeComparator, {
         isDescending: false,
-      })
+      })(a.name, b.name)
     );
 
 export const getDisplayNameByUser = (
