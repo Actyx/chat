@@ -53,8 +53,7 @@ export const Debug: FC<Props> = ({ pond }) => {
       cancelSubscChannelFish();
       cancelChannelsCatalogFish();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [pond]);
 
   return (
     <div>

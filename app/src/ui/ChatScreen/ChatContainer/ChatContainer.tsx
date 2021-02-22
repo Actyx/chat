@@ -115,8 +115,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
       cancelSubChannelFish();
       cancelSubChannelsCatalogFish();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [pond]);
 
   //#endregion
 

@@ -33,8 +33,7 @@ export const AuthenticationContainer: FC<Props> = ({ pond }) => {
       setStateUsersCatalogFish
     );
     return () => cancelSubscription();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [pond]);
 
   const [isSignUpSuccess, setIsSignUpSuccess] = useState<boolean>();
 
