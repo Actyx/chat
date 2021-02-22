@@ -78,12 +78,11 @@ export const addChannel = (pond: Pond) => (userUUID: UserUUID) => async (
       description
     );
 
-    const newChannelId = uuid();
-
     await pond
       .run(ChannelsCatalogFish.fish, (fishState, enqueue) => {
         const canAdd = doesChannelNameExist(newName, fishState) === false;
         if (canAdd) {
+          const newChannelId = uuid();
           enqueue(
             ...getChannelAdded(newChannelId, userUUID, newName, newDescription)
           );
