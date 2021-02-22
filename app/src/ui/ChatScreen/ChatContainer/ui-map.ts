@@ -109,4 +109,4 @@ export const getDisplayNameByUser = (
 
 export const getVisiblePublicMessages = (
   messages: PublicMessages
-): PublicMessages => messages.filter((m) => m.isHidden === false);
+): PublicMessages => messages.filter((m) => !m.isHidden);

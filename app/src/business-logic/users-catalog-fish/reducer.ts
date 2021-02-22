@@ -35,7 +35,7 @@ const userAdded = (
     payload: { userUUID, displayName, email },
   } = event;
   const isRegistered = isUserUUIDRegistered(userUUID, state.users);
-  if (isRegistered === false) {
+  if (!isRegistered) {
     state.users[userUUID] = {
       userUUID,
       createdOn: timestampMicros,

@@ -75,7 +75,7 @@ export const ChannelsCatalog: FC<Props> = ({
                   Unarchive channel
                 </button>
               )}
-              {canUserManageArchive && c.isArchived === false && (
+              {canUserManageArchive && !c.isArchived && (
                 <button onClick={() => archiveChannel(c.channelId)}>
                   Archive channel
                 </button>

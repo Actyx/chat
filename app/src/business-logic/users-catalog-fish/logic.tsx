@@ -25,8 +25,7 @@ export const signUp = (pond: Pond, makerUUID: () => UserUUID) => async (
     .run<UsersCatalogFishState, UserCatalogFishEvent>(
       UsersCatalogFish.fish,
       (fishState, enqueue) => {
-        const canSignUp =
-          isUserEmailRegistered(email, fishState.emails) === false;
+        const canSignUp = !isUserEmailRegistered(email, fishState.emails);
         if (canSignUp) {
           enqueue(...getUserAddedEvent(userUUID, displayName, email));
           isSuccess = true;
@@ -75,7 +74,7 @@ export const editUserProfile = (pond: Pond) => async (
           fishState.users
         );
         const newDisplayName = prepareString(displayName);
-        const isNameNotEmpty = isStringEmpty(newDisplayName) === false;
+        const isNameNotEmpty = !isStringEmpty(newDisplayName);
         const canEditUserProfile = isUserRegistered && isNameNotEmpty;
         if (canEditUserProfile) {
           enqueue(...getUserProfileEditedEvent(userUUID, displayName));

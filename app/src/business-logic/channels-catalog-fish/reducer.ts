@@ -46,7 +46,7 @@ const channelAdded = (
   timestampMicros: Timestamp
 ) => {
   const { channelId, createdBy, name, description } = event.payload;
-  const canAdd = doesChannelExist(channelId, state.channels) === false;
+  const canAdd = !doesChannelExist(channelId, state.channels);
   if (canAdd) {
     const profile = {
       channelId,
@@ -135,7 +135,7 @@ const channelAssociatedUser = (
   const { channelId, userUUID } = event.payload;
   const canProcess =
     doesChannelExist(channelId, state.channels) &&
-    isUserAssociatedToChannel(userUUID, channelId, state.channels) === false;
+    !isUserAssociatedToChannel(userUUID, channelId, state.channels);
   if (canProcess) {
     state.channels[channelId].users.push(userUUID);
   }
