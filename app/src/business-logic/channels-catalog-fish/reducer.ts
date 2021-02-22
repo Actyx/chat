@@ -70,13 +70,10 @@ const channelProfileEdited = (
   timestampMicros: Timestamp
 ) => {
   const { channelId, editedBy, name, description } = event.payload;
-  const canEdit = getChannelProfileByChannelId(channelId, state.channels);
-  if (canEdit) {
-    state.channels[channelId].profile.editedBy = editedBy;
-    state.channels[channelId].profile.editedOn = timestampMicros;
-    state.channels[channelId].profile.name = name;
-    state.channels[channelId].profile.description = description;
-  }
+  state.channels[channelId].profile.editedBy = editedBy;
+  state.channels[channelId].profile.editedOn = timestampMicros;
+  state.channels[channelId].profile.name = name;
+  state.channels[channelId].profile.description = description;
   return state;
 };
 
