@@ -62,11 +62,11 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
 
   const stateUI = useContext(StateContextUI);
 
-  const [openAddChannelDialog, setOpenAddChannelDialog] = useState<boolean>(
+  const [showAddChannelDialog, setShowAddChannelDialog] = useState<boolean>(
     false
   );
 
-  const [openEditChannelDialog, setOpenEditChannelDialog] = useState<boolean>(
+  const [showEditChannelDialog, setShowEditChannelDialog] = useState<boolean>(
     false
   );
 
@@ -177,11 +177,11 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
     }
   };
 
-  const handleOpenAddChannelDialog = () => setOpenAddChannelDialog(true);
+  const handleShowAddChannelDialog = () => setShowAddChannelDialog(true);
 
-  const handleCloseAddChannelDialog = () => setOpenAddChannelDialog(false);
+  const handleHideAddChannelDialog = () => setShowAddChannelDialog(false);
 
-  const handleOpenEditChannelDialog = (channelId: ChannelId) => {
+  const handleShowEditChannelDialog = (channelId: ChannelId) => {
     const channelProfile = getChannelProfileByChannelId(
       channelId,
       stateChannelsCatalogFish.channels
@@ -192,11 +192,11 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
         name: channelProfile.name,
         description: channelProfile.description ?? '',
       });
-      setOpenEditChannelDialog(true);
+      setShowEditChannelDialog(true);
     }
   };
 
-  const handleCloseEditChannelDialog = () => setOpenEditChannelDialog(false);
+  const handleCloseEditChannelDialog = () => setShowEditChannelDialog(false);
 
   const handleAddChannel = async (name: string, description: string) => {
     try {
@@ -207,7 +207,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
       if (isSuccess) {
         setPondErrorMessage(undefined);
         setInvalidMessage(undefined);
-        handleCloseAddChannelDialog();
+        handleHideAddChannelDialog();
       } else {
         setInvalidMessage(MESSAGE.invalidName);
       }
@@ -230,7 +230,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
       if (isSuccess) {
         setPondErrorMessage(undefined);
         setInvalidMessage(undefined);
-        handleCloseAddChannelDialog();
+        handleHideAddChannelDialog();
       } else {
         setInvalidMessage(MESSAGE.invalidName);
       }
@@ -331,7 +331,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
           <ChannelsCatalog
             channels={channelsOverviewCatalog}
             canUserManageArchiviation={canUserManageArchiviation}
-            editChannel={handleOpenEditChannelDialog}
+            editChannel={handleShowEditChannelDialog}
             archiveChannel={handleArchiveChannel}
             unarchiveChannel={handleUnarchiveChannel}
             associateUserChannel={handleAssociateUserChannel}
@@ -348,7 +348,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
       <div>
         <Sidebar
           channels={channelsSideBarUI}
-          openAddChannelDialog={handleOpenAddChannelDialog}
+          showAddChannelDialog={handleShowAddChannelDialog}
         />
       </div>
       {renderSectionCenter()}
@@ -357,15 +357,15 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
           <UserProfileDetails editUserProfile={handleEditUserProfile} />
         )}
       </div>
-      {openAddChannelDialog && (
+      {showAddChannelDialog && (
         <AddChannelDialog
           errorMessage={pondErrorMessage}
           invalidMessage={invalidMessage}
           addChannel={handleAddChannel}
-          closeDialog={handleCloseAddChannelDialog}
+          closeDialog={handleHideAddChannelDialog}
         />
       )}
-      {openEditChannelDialog && selectedChannel && (
+      {showEditChannelDialog && selectedChannel && (
         <EditChannelDialogContainer
           currentName={selectedChannel.name}
           currentDescription={selectedChannel.description}

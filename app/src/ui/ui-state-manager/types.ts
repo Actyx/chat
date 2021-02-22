@@ -46,8 +46,8 @@ export enum ActionType {
   AddSignedInUser = 'AddSignedInUser',
   EditSectionRight = 'EditSectionRight',
   SignOutActiveUser = 'SignOutActiveUser',
-  OpenChannelsCatalogSection = 'OpenChannelsCatalogSection',
-  OpenChannelSection = 'OpenChannelSection',
+  ShowChannelsCatalogSection = 'ShowChannelsCatalogSection',
+  ShowChannelSection = 'ShowChannelSection',
 }
 
 export type GoToAuthenticationScreen = Readonly<{
@@ -58,12 +58,12 @@ export type GoToChatScreen = Readonly<{
   type: ActionType.GoToChatScreen;
 }>;
 
-export type OpenChannelsCatalogSection = Readonly<{
-  type: ActionType.OpenChannelsCatalogSection;
+export type ShowChannelsCatalogSection = Readonly<{
+  type: ActionType.ShowChannelsCatalogSection;
 }>;
 
-export type OpenChannelSection = Readonly<{
-  type: ActionType.OpenChannelSection;
+export type ShowChannelSection = Readonly<{
+  type: ActionType.ShowChannelSection;
   payload: {
     channelId: ChannelId;
   };
@@ -90,8 +90,8 @@ export type SignOutActiveUser = Readonly<{
 export type Action =
   | GoToAuthenticationScreen
   | GoToChatScreen
-  | OpenChannelsCatalogSection
-  | OpenChannelSection
+  | ShowChannelsCatalogSection
+  | ShowChannelSection
   | AddSignedInUser
   | EditSectionRight
   | SignOutActiveUser;

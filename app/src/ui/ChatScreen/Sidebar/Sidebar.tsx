@@ -2,8 +2,8 @@ import { FC, useContext } from 'react';
 import { MAIN_CHANNEL } from '../../../business-logic/channel-fish/channel-fish';
 import { ChannelId } from '../../../business-logic/message/types';
 import {
-  openChannelsCatalogSection,
-  openChannelSection,
+  showChannelsCatalogSection,
+  showChannelSection,
 } from '../../ui-state-manager/actions';
 import { DispatchContextUI } from '../../ui-state-manager/UIStateManager';
 import { ChannelsList } from './ChannelsList';
@@ -15,21 +15,21 @@ export type ChannelsListUI = ReadonlyArray<{
 
 type Props = Readonly<{
   channels: ChannelsListUI;
-  openAddChannelDialog: () => void;
+  showAddChannelDialog: () => void;
 }>;
 
-export const Sidebar: FC<Props> = ({ channels, openAddChannelDialog }) => {
+export const Sidebar: FC<Props> = ({ channels, showAddChannelDialog }) => {
   const dispatch = useContext(DispatchContextUI);
 
-  const handleChannelsCatalog = () => dispatch(openChannelsCatalogSection());
+  const handleChannelsCatalog = () => dispatch(showChannelsCatalogSection());
 
   const handleMain = (channelId: ChannelId) => {
     //FIXME use the right channel fish here
     window.alert(`now swtich to this ${channelId}`);
-    dispatch(openChannelSection(MAIN_CHANNEL));
+    dispatch(showChannelSection(MAIN_CHANNEL));
   };
 
-  const handleOpenAddChannelDialog = () => openAddChannelDialog();
+  const handleShowAddChannelDialog = () => showAddChannelDialog();
 
   return (
     <div>
@@ -41,7 +41,7 @@ export const Sidebar: FC<Props> = ({ channels, openAddChannelDialog }) => {
       </ul>
       Channels:
       <ChannelsList channels={channels} selectChannel={handleMain} />
-      <button onClick={handleOpenAddChannelDialog}>Add a Channel</button>
+      <button onClick={handleShowAddChannelDialog}>Add a Channel</button>
     </div>
   );
 };

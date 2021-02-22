@@ -8,8 +8,8 @@ import {
   SectionRight,
   SignOutActiveUser,
   GoToChatScreen,
-  OpenChannelsCatalogSection,
-  OpenChannelSection,
+  ShowChannelsCatalogSection,
+  ShowChannelSection,
 } from './types';
 
 export const goToAutheticationScreen = (): GoToAuthenticationScreen => ({
@@ -20,14 +20,14 @@ export const goToChatScreen = (): GoToChatScreen => ({
   type: ActionType.GoToChatScreen,
 });
 
-export const openChannelsCatalogSection = (): OpenChannelsCatalogSection => ({
-  type: ActionType.OpenChannelsCatalogSection,
+export const showChannelsCatalogSection = (): ShowChannelsCatalogSection => ({
+  type: ActionType.ShowChannelsCatalogSection,
 });
 
-export const openChannelSection = (
+export const showChannelSection = (
   channelId: ChannelId
-): OpenChannelSection => ({
-  type: ActionType.OpenChannelSection,
+): ShowChannelSection => ({
+  type: ActionType.ShowChannelSection,
   payload: {
     channelId,
   },
@@ -40,7 +40,7 @@ export const addSignedInUser = (userUUID: UserUUID): AddSignedInUser => ({
   },
 });
 
-export const openUserProfileEditSection = (): EditSectionRight => ({
+export const showUserProfileEditSection = (): EditSectionRight => ({
   type: ActionType.EditSectionRight,
   payload: {
     section: SectionRight.UserProfileEdit,

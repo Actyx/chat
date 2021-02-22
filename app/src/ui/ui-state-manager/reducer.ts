@@ -14,12 +14,12 @@ export const reducer = (state: StateUI, action: Action): StateUI => {
         ...state,
         screen: Screens.Chat,
       };
-    case ActionType.OpenChannelsCatalogSection:
+    case ActionType.ShowChannelsCatalogSection:
       return {
         ...state,
         sectionCenter: SectionCenter.ChannelsCatalog,
       };
-    case ActionType.OpenChannelSection:
+    case ActionType.ShowChannelSection:
       return {
         ...state,
         sectionCenter: SectionCenter.Channel,
