@@ -3,7 +3,6 @@ import { ChannelId } from '../message/types';
 import { UserUUID } from '../users-catalog-fish/types';
 import {
   getChannelProfileByChannelId,
-  hasUserCreatedChannel,
   isUserAssociatedToChannel,
 } from './logic';
 import {
@@ -114,14 +113,9 @@ const handleArchiving = (
   timestampMicros: number,
   isArchived: boolean
 ) => {
-  const canProcess =
-    getChannelProfileByChannelId(channelId, state.channels) &&
-    hasUserCreatedChannel(userUUID, channelId, state.channels);
-  if (canProcess) {
-    state.channels[channelId].profile.isArchived = isArchived;
-    state.channels[channelId].profile.editedOn = timestampMicros;
-    state.channels[channelId].profile.editedBy = userUUID;
-  }
+  state.channels[channelId].profile.isArchived = isArchived;
+  state.channels[channelId].profile.editedOn = timestampMicros;
+  state.channels[channelId].profile.editedBy = userUUID;
   return state;
 };
 
