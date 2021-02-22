@@ -1,5 +1,6 @@
-import React, { FC } from 'react';
-import { UserUUID } from '../../business-logic/users-catalog-fish/types';
+import { FC, useState } from 'react';
+import { UserUUID } from '../../business-logic/user-catalog-fish/types';
+import { FormEvent, InputChangeEvent } from '../../common/ui-types';
 
 type Props = Readonly<{
   isSignUpSuccess?: boolean;
@@ -8,17 +9,15 @@ type Props = Readonly<{
 }>;
 
 export const SignUp: FC<Props> = ({ isSignUpSuccess, userUUID, signUp }) => {
-  const [name, setName] = React.useState('');
+  const [name, setName] = useState('');
 
-  const [email, setEmail] = React.useState('');
+  const [email, setEmail] = useState('');
 
-  const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setName(e.target.value);
+  const handleChangeName = (e: InputChangeEvent) => setName(e.target.value);
 
-  const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setEmail(e.target.value);
+  const handleChangeEmail = (e: InputChangeEvent) => setEmail(e.target.value);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent) => {
     signUp(name, email);
     e.preventDefault();
   };

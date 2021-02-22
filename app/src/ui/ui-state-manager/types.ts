@@ -1,12 +1,20 @@
 import { Dispatch } from 'react';
 import { ChannelId } from '../../business-logic/message/types';
-import { UserUUID } from '../../business-logic/users-catalog-fish/types';
+import {
+  AnonymousUser,
+  UserUUID,
+} from '../../business-logic/user-catalog-fish/types';
 
 //#region UI State
 
 export enum Screens {
   Authentication = 'Authentication',
   Chat = 'Chat',
+}
+
+export enum Dialogs {
+  None = 'None',
+  AddChannel = 'AddChannel',
 }
 
 export enum SectionRight {
@@ -21,7 +29,8 @@ export enum SectionCenter {
 
 export type StateUI = Readonly<{
   screen: Screens;
-  signedInUserUUID?: UserUUID;
+  dialog: Dialogs;
+  userUUID: UserUUID | AnonymousUser;
   sectionRight: SectionRight;
   sectionCenter: SectionCenter;
   activeChannelId: ChannelId;
@@ -37,8 +46,8 @@ export enum ActionType {
   AddSignedInUser = 'AddSignedInUser',
   EditSectionRight = 'EditSectionRight',
   SignOutActiveUser = 'SignOutActiveUser',
-  OpenChannelsCatalogSection = 'OpenChannelsCatalogSection',
-  OpenChannelSection = 'OpenChannelSection',
+  ShowChannelsCatalogSection = 'ShowChannelsCatalogSection',
+  ShowChannelSection = 'ShowChannelSection',
 }
 
 export type GoToAuthenticationScreen = Readonly<{
@@ -49,12 +58,12 @@ export type GoToChatScreen = Readonly<{
   type: ActionType.GoToChatScreen;
 }>;
 
-export type OpenChannelsCatalogSection = Readonly<{
-  type: ActionType.OpenChannelsCatalogSection;
+export type ShowChannelsCatalogSection = Readonly<{
+  type: ActionType.ShowChannelsCatalogSection;
 }>;
 
-export type OpenChannelSection = Readonly<{
-  type: ActionType.OpenChannelSection;
+export type ShowChannelSection = Readonly<{
+  type: ActionType.ShowChannelSection;
   payload: {
     channelId: ChannelId;
   };
@@ -63,7 +72,7 @@ export type OpenChannelSection = Readonly<{
 export type AddSignedInUser = Readonly<{
   type: ActionType.AddSignedInUser;
   payload: {
-    signedInUser: UserUUID;
+    userUUID: UserUUID;
   };
 }>;
 
@@ -81,8 +90,8 @@ export type SignOutActiveUser = Readonly<{
 export type Action =
   | GoToAuthenticationScreen
   | GoToChatScreen
-  | OpenChannelsCatalogSection
-  | OpenChannelSection
+  | ShowChannelsCatalogSection
+  | ShowChannelSection
   | AddSignedInUser
   | EditSectionRight
   | SignOutActiveUser;

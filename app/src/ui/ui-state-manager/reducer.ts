@@ -1,4 +1,5 @@
 import { MAIN_CHANNEL as DEFAULT_CHANNEL } from '../../business-logic/channel-fish/channel-fish';
+import { ANONYMOUS_USER } from '../../business-logic/user-catalog-fish/types';
 import { Action, ActionType, Screens, SectionCenter, StateUI } from './types';
 
 export const reducer = (state: StateUI, action: Action): StateUI => {
@@ -13,12 +14,12 @@ export const reducer = (state: StateUI, action: Action): StateUI => {
         ...state,
         screen: Screens.Chat,
       };
-    case ActionType.OpenChannelsCatalogSection:
+    case ActionType.ShowChannelsCatalogSection:
       return {
         ...state,
         sectionCenter: SectionCenter.ChannelsCatalog,
       };
-    case ActionType.OpenChannelSection:
+    case ActionType.ShowChannelSection:
       return {
         ...state,
         sectionCenter: SectionCenter.Channel,
@@ -27,7 +28,7 @@ export const reducer = (state: StateUI, action: Action): StateUI => {
     case ActionType.AddSignedInUser:
       return {
         ...state,
-        signedInUserUUID: action.payload.signedInUser,
+        userUUID: action.payload.userUUID,
         activeChannelId: DEFAULT_CHANNEL,
       };
     case ActionType.EditSectionRight:
@@ -38,7 +39,7 @@ export const reducer = (state: StateUI, action: Action): StateUI => {
     case ActionType.SignOutActiveUser:
       return {
         ...state,
-        signedInUserUUID: undefined,
+        userUUID: ANONYMOUS_USER,
         activeChannelId: DEFAULT_CHANNEL,
         screen: Screens.Authentication,
       };

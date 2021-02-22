@@ -1,6 +1,7 @@
 import { Milliseconds } from '@actyx/pond';
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { MessageId } from '../../../business-logic/message/types';
+import { FormEvent, InputChangeEvent } from '../../../common/ui-types';
 
 export type MessageUI = Readonly<{
   messageId: string;
@@ -67,10 +68,10 @@ const EditMessage = ({
 }>) => {
   const [content, setContent] = useState<string>('');
 
-  const handleChangeContent = (e: React.ChangeEvent<HTMLInputElement>) =>
+  const handleChangeContent = (e: InputChangeEvent) =>
     setContent(e.target.value);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent) => {
     editContent(content);
     setContent('');
     e.preventDefault();

@@ -1,22 +1,19 @@
-import React, { FC, useContext, useEffect } from 'react';
+import { FC, useState, useContext, useEffect } from 'react';
 import { Pond } from '@actyx/pond';
 import {
-  UsersCatalogFishState,
+  UserCatalogFishState,
   UserUUID,
-} from '../../business-logic/users-catalog-fish/types';
+} from '../../business-logic/user-catalog-fish/types';
 import {
   signUp,
   signIn,
   mkUserUUID,
-} from '../../business-logic/users-catalog-fish/logic';
+} from '../../business-logic/user-catalog-fish/logic';
 import { SignUp } from './SignUp';
 import { SignIn } from './SignIn';
 import { DispatchContextUI } from '../ui-state-manager/UIStateManager';
 import { addSignedInUser, goToChatScreen } from '../ui-state-manager/actions';
-import {
-  initialStateUserCatalogFish,
-  UsersCatalogFish,
-} from '../../business-logic/users-catalog-fish/users-catalog-fish';
+import { UserCatalogFish } from '../../business-logic/user-catalog-fish/user-catalog-fish';
 
 type Props = Readonly<{
   pond: Pond;
@@ -26,40 +23,39 @@ export const AuthenticationContainer: FC<Props> = ({ pond }) => {
   const dispatch = useContext(DispatchContextUI);
 
   const [
-    stateUsersCatalogFish,
-    setStateUsersCatalogFish,
-  ] = React.useState<UsersCatalogFishState>(initialStateUserCatalogFish);
+    stateUserCatalogFish,
+    setStateUserCatalogFish,
+  ] = useState<UserCatalogFishState>(UserCatalogFish.fish.initialState);
 
   useEffect(() => {
     const cancelSubscription = pond.observe(
-      UsersCatalogFish.fish,
-      setStateUsersCatalogFish
+      UserCatalogFish.fish,
+      setStateUserCatalogFish
     );
     return () => cancelSubscription();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [pond]);
 
-  const [isSignUpSuccess, setIsSignUpSuccess] = React.useState<boolean>();
+  const [isSignUpSuccess, setIsSignUpSuccess] = useState<boolean>();
 
-  const [isSignInSuccess, setIsSignInSuccess] = React.useState<boolean>();
+  const [isSignInSuccess, setIsSignInSuccess] = useState<boolean>();
 
-  const [userUUID, setUserUUID] = React.useState<UserUUID>();
+  const [userUUID, setUserUUID] = useState<UserUUID>();
 
-  const [errorPond, setErrorPond] = React.useState<string>();
+  const [pondErrorMessage, setPondErrorMessage] = useState<string>();
 
   const handleSignUp = async (displayName: string, email: string) => {
     try {
       const newUserUUID = await signUp(pond, mkUserUUID)(displayName, email);
       setIsSignUpSuccess(newUserUUID ? true : false);
       setUserUUID(newUserUUID);
-      setErrorPond(undefined);
+      setPondErrorMessage(undefined);
     } catch (err) {
-      setErrorPond(`Sorry an error occurred, please try later: ${err}`);
+      setPondErrorMessage(`Sorry an error occurred, please try later: ${err}`);
     }
   };
 
   const handleSignIn = (userUUID: UserUUID) => {
-    const isUserSignedIn = signIn(userUUID, stateUsersCatalogFish.users);
+    const isUserSignedIn = signIn(userUUID, stateUserCatalogFish.users);
     setIsSignInSuccess(isUserSignedIn);
     if (isUserSignedIn) {
       dispatch(addSignedInUser(userUUID));
@@ -70,7 +66,7 @@ export const AuthenticationContainer: FC<Props> = ({ pond }) => {
 
   return (
     <div>
-      {errorPond}
+      {pondErrorMessage}
       <SignUp
         signUp={handleSignUp}
         isSignUpSuccess={isSignUpSuccess}

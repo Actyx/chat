@@ -2,23 +2,23 @@ import {
   UserAddedEvent,
   UserCatalogFishEvent,
   UserProfileEditedEvent,
-  UsersCatalogFishEventType,
-  UsersCatalogFishState,
+  UserCatalogFishEventType,
+  UserCatalogFishState,
 } from './types';
 import { Timestamp } from '@actyx/pond';
 import { Reduce } from '@actyx/pond';
 import { isUserUUIDRegistered } from './logic';
 
-export const reducer: Reduce<UsersCatalogFishState, UserCatalogFishEvent> = (
+export const reducer: Reduce<UserCatalogFishState, UserCatalogFishEvent> = (
   state,
   event,
   meta
-): UsersCatalogFishState => {
+): UserCatalogFishState => {
   switch (event.type) {
-    case UsersCatalogFishEventType.UserAdded: {
+    case UserCatalogFishEventType.UserAdded: {
       return userAdded(state, event, meta.timestampMicros);
     }
-    case UsersCatalogFishEventType.UserProfileEdited: {
+    case UserCatalogFishEventType.UserProfileEdited: {
       return userProfileEdited(state, event, meta.timestampMicros);
     }
     default:
@@ -27,15 +27,15 @@ export const reducer: Reduce<UsersCatalogFishState, UserCatalogFishEvent> = (
 };
 
 const userAdded = (
-  state: UsersCatalogFishState,
+  state: UserCatalogFishState,
   event: UserAddedEvent,
   timestampMicros: Timestamp
-): UsersCatalogFishState => {
+): UserCatalogFishState => {
   const {
     payload: { userUUID, displayName, email },
   } = event;
   const isRegistered = isUserUUIDRegistered(userUUID, state.users);
-  if (isRegistered === false) {
+  if (!isRegistered) {
     state.users[userUUID] = {
       userUUID,
       createdOn: timestampMicros,
@@ -48,10 +48,10 @@ const userAdded = (
 };
 
 const userProfileEdited = (
-  state: UsersCatalogFishState,
+  state: UserCatalogFishState,
   event: UserProfileEditedEvent,
   timestampMicros: Timestamp
-): UsersCatalogFishState => {
+): UserCatalogFishState => {
   const {
     payload: { userUUID, displayName },
   } = event;

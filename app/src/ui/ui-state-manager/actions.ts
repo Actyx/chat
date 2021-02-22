@@ -1,5 +1,5 @@
 import { ChannelId } from '../../business-logic/message/types';
-import { UserUUID } from '../../business-logic/users-catalog-fish/types';
+import { UserUUID } from '../../business-logic/user-catalog-fish/types';
 import {
   ActionType,
   AddSignedInUser,
@@ -8,8 +8,8 @@ import {
   SectionRight,
   SignOutActiveUser,
   GoToChatScreen,
-  OpenChannelsCatalogSection,
-  OpenChannelSection,
+  ShowChannelsCatalogSection,
+  ShowChannelSection,
 } from './types';
 
 export const goToAutheticationScreen = (): GoToAuthenticationScreen => ({
@@ -20,27 +20,27 @@ export const goToChatScreen = (): GoToChatScreen => ({
   type: ActionType.GoToChatScreen,
 });
 
-export const openChannelsCatalogSection = (): OpenChannelsCatalogSection => ({
-  type: ActionType.OpenChannelsCatalogSection,
+export const showChannelsCatalogSection = (): ShowChannelsCatalogSection => ({
+  type: ActionType.ShowChannelsCatalogSection,
 });
 
-export const openChannelSection = (
+export const showChannelSection = (
   channelId: ChannelId
-): OpenChannelSection => ({
-  type: ActionType.OpenChannelSection,
+): ShowChannelSection => ({
+  type: ActionType.ShowChannelSection,
   payload: {
     channelId,
   },
 });
 
-export const addSignedInUser = (signedInUser: UserUUID): AddSignedInUser => ({
+export const addSignedInUser = (userUUID: UserUUID): AddSignedInUser => ({
   type: ActionType.AddSignedInUser,
   payload: {
-    signedInUser,
+    userUUID,
   },
 });
 
-export const openUserProfileEditSection = (): EditSectionRight => ({
+export const showUserProfileEditSection = (): EditSectionRight => ({
   type: ActionType.EditSectionRight,
   payload: {
     section: SectionRight.UserProfileEdit,

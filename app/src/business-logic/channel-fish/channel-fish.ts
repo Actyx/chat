@@ -28,7 +28,7 @@ const factoryFish = (
   fishId: FishId.of('channel', channelName, 0),
   initialState,
   onEvent: reducer,
-  where: tags.message.and(tags.channel.withId(channelName)),
+  where: tags.messagesCatalog.and(tags.channel.withId(channelName)),
 });
 
 export const ChannelFish = {

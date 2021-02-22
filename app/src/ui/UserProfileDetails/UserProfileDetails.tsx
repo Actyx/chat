@@ -1,4 +1,5 @@
-import React, { FC } from 'react';
+import { FC, useState } from 'react';
+import { FormEvent, InputChangeEvent } from '../../common/ui-types';
 
 type Props = Readonly<{
   isEditProfileSuccess?: boolean;
@@ -9,12 +10,12 @@ export const UserProfileDetails: FC<Props> = ({
   isEditProfileSuccess,
   editUserProfile,
 }) => {
-  const [displayName, setDisplayName] = React.useState<string>('');
+  const [displayName, setDisplayName] = useState<string>('');
 
-  const handleChangeDisplayName = (e: React.ChangeEvent<HTMLInputElement>) =>
+  const handleChangeDisplayName = (e: InputChangeEvent) =>
     setDisplayName(e.target.value);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent) => {
     editUserProfile(displayName);
     e.preventDefault();
   };

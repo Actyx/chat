@@ -1,5 +1,6 @@
-import React, { FC } from 'react';
-import { UserUUID } from '../../business-logic/users-catalog-fish/types';
+import { FC, useState } from 'react';
+import { UserUUID } from '../../business-logic/user-catalog-fish/types';
+import { FormEvent, InputChangeEvent } from '../../common/ui-types';
 
 type Props = Readonly<{
   isSignInSuccess?: boolean;
@@ -12,12 +13,12 @@ export const SignIn: FC<Props> = ({
   signIn,
   goToChatScreen,
 }) => {
-  const [userUUID, setUserUUID] = React.useState<UserUUID>('');
+  const [userUUID, setUserUUID] = useState<UserUUID>('');
 
-  const handleChangeUserUUID = (e: React.ChangeEvent<HTMLInputElement>) =>
+  const handleChangeUserUUID = (e: InputChangeEvent) =>
     setUserUUID(e.target.value);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent) => {
     signIn(userUUID);
     e.preventDefault();
   };

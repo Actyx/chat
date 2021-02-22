@@ -1,15 +1,19 @@
 import { TagsWithEvent } from '../../common/types';
 import {
+  SYSTEM_USER,
   UserAddedEvent,
   UserCatalogFishEvent,
   UserProfileEditedEvent,
-  UsersCatalogFishEventType,
+  UserCatalogFishEventType,
   UserUUID,
 } from './types';
-import { UsersCatalogFish } from './users-catalog-fish';
+import { UserCatalogFish } from './user-catalog-fish';
 
 export const mkUserTagWithId = (userUUID: UserUUID) =>
-  UsersCatalogFish.tags.user.withId(userUUID);
+  UserCatalogFish.tags.user.withId(userUUID);
+
+export const mkUserCatelogOperationsTags = (userUUID: UserUUID) =>
+  UserCatalogFish.tags.userCatalog.and(mkUserTagWithId(userUUID));
 
 export const getUserAddedEvent = (
   userUUID: UserUUID,
@@ -17,16 +21,16 @@ export const getUserAddedEvent = (
   email: string
 ): TagsWithEvent<UserCatalogFishEvent> => {
   const event: UserAddedEvent = {
-    type: UsersCatalogFishEventType.UserAdded,
+    type: UserCatalogFishEventType.UserAdded,
     payload: {
       userUUID,
       displayName,
       email,
+      createdBy: SYSTEM_USER,
     },
   };
-  const tags = UsersCatalogFish.tags.usersCatalog.and(
-    mkUserTagWithId(userUUID)
-  );
+  const tags = mkUserCatelogOperationsTags(userUUID);
+
   return [tags, event];
 };
 
@@ -35,12 +39,13 @@ export const getUserProfileEditedEvent = (
   displayName: string
 ): TagsWithEvent<UserCatalogFishEvent> => {
   const event: UserProfileEditedEvent = {
-    type: UsersCatalogFishEventType.UserProfileEdited,
+    type: UserCatalogFishEventType.UserProfileEdited,
     payload: {
       userUUID,
       displayName,
+      editedBy: userUUID,
     },
   };
-  const tags = mkUserTagWithId(userUUID);
+  const tags = UserCatalogFish.tags.userCatalog.and(mkUserTagWithId(userUUID));
   return [tags, event];
 };

@@ -3,7 +3,7 @@ import {
   ReadonlyArrayOfOne,
   ReadonlyArrayOfOneOrMore,
 } from '../../common/types';
-import { UserUUID } from '../users-catalog-fish/types';
+import { UserUUID } from '../user-catalog-fish/types';
 
 //#region Types
 
@@ -20,9 +20,9 @@ export type MediaIds = ReadonlyArrayOfOneOrMore<MediumId>;
 
 type BaseMessage = {
   messageId: MessageId;
+  createdBy: UserUUID;
   createdOn: Timestamp;
   editedOn?: Timestamp;
-  userUUID: UserUUID;
   isHidden: boolean;
   content: string;
   mediaIds?: MediaIds;
@@ -66,7 +66,7 @@ export type PrivateMessageAddedEvent = {
 
 export type PublicMessageAddedEventPaylod = Readonly<{
   messageId: MessageId;
-  userUUID: UserUUID;
+  createdBy: UserUUID;
   channelId: ChannelId;
   content: string;
   mediaIds?: MediaIds;
@@ -81,6 +81,7 @@ export type MessageHiddenEvent = {
   type: MessageEventType.MessageHidden;
   payload: {
     messageId: MessageId;
+    hiddenBy: UserUUID;
   };
 };
 
@@ -89,6 +90,7 @@ export type MessageContentEditedEvent = {
   payload: {
     messageId: MessageId;
     content: string;
+    editedBy: UserUUID;
   };
 };
 
@@ -96,7 +98,7 @@ export type PublicMessageRecipientsEditedEvent = {
   type: MessageEventType.PublicMessageRecipientsEdited;
   payload: {
     messageId: MessageId;
-    editedOn: Timestamp;
+    editedBy: UserUUID;
     recipientIds?: PublicRecipientIds;
   };
 };
@@ -105,7 +107,7 @@ export type MessageMediumEdited = {
   type: MessageEventType.MessageMediumEdited;
   payload: {
     messageId: MessageId;
-    editedOn: Timestamp;
+    editedBy: UserUUID;
     mediaIds?: MediaIds;
   };
 };
