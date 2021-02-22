@@ -13,7 +13,7 @@ import {
   getMessageHiddenEvent,
   getPublicMessageAdded,
 } from './events';
-import { UserUUID, ANONYMOUS_USER } from '../users-catalog-fish/types';
+import { UserUUID, ANONYMOUS_USER } from '../user-catalog-fish/types';
 import { ChannelFishState, PublicMessages } from './types';
 import { v4 as uuid } from 'uuid';
 

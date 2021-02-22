@@ -4,14 +4,14 @@ import {
   doesMessageBelongToUser,
 } from '../../../business-logic/channel-fish/logic';
 import { PublicMessages } from '../../../business-logic/channel-fish/types';
-import { isUserAssociatedToChannel } from '../../../business-logic/channels-catalog-fish/logic';
-import { Channels } from '../../../business-logic/channels-catalog-fish/types';
+import { isUserAssociatedToChannel } from '../../../business-logic/channel-catalog-fish/logic';
+import { Channels } from '../../../business-logic/channel-catalog-fish/types';
 import { PublicMessage } from '../../../business-logic/message/types';
-import { isUserUUIDRegistered } from '../../../business-logic/users-catalog-fish/logic';
+import { isUserUUIDRegistered } from '../../../business-logic/user-catalog-fish/logic';
 import {
   Users,
   UserUUID,
-} from '../../../business-logic/users-catalog-fish/types';
+} from '../../../business-logic/user-catalog-fish/types';
 import { genericSorter, localeComparator } from '../../../common/sorts';
 import { isDefined } from '../../../common/filters';
 import { MessagesUI } from '../Channel/Channel';

@@ -17,7 +17,7 @@ describe('getChannelAdded', () => {
     );
     const expectedTags = {
       rawTags: [
-        'channels-catalog',
+        'channel-catalog',
         'channel',
         'channel:channel-1',
         'user',
@@ -49,7 +49,7 @@ describe('getChannelProfileEdited', () => {
     );
     const expectedTags = {
       rawTags: [
-        'channels-catalog',
+        'channel-catalog',
         'channel',
         'channel:channel-1',
         'user',
@@ -76,7 +76,7 @@ describe('getChannelArchived', () => {
     const result = getChannelArchived('channel-1', 'user-1');
     const expectedTags = {
       rawTags: [
-        'channels-catalog',
+        'channel-catalog',
         'channel',
         'channel:channel-1',
         'user',
@@ -101,7 +101,7 @@ describe('getChannelUnarchived', () => {
     const result = getChannelUnarchived('channel-1', 'user-1');
     const expectedTags = {
       rawTags: [
-        'channels-catalog',
+        'channel-catalog',
         'channel',
         'channel:channel-1',
         'user',
@@ -126,7 +126,7 @@ describe('getChannelAssociatedUser', () => {
     const result = getChannelAssociatedUser('channel-1', 'user-1');
     const expectedTags = {
       rawTags: [
-        'channels-catalog',
+        'channel-catalog',
         'channel',
         'channel:channel-1',
         'user',
@@ -151,7 +151,7 @@ describe('getChannelDissociatedUser', () => {
     const result = getChannelDissociatedUser('channel-1', 'user-1');
     const expectedTags = {
       rawTags: [
-        'channels-catalog',
+        'channel-catalog',
         'channel',
         'channel:channel-1',
         'user',

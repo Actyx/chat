@@ -8,8 +8,8 @@ import {
   PublicMessageAddedEvent,
   PublicMessageAddedEventPaylod,
 } from '../message/types';
-import { mkUserTagWithId } from '../users-catalog-fish/events';
-import { UserUUID } from '../users-catalog-fish/types';
+import { mkUserTagWithId } from '../user-catalog-fish/events';
+import { UserUUID } from '../user-catalog-fish/types';
 import { ChannelFish } from './channel-fish';
 
 const mkMessageTagWithId = (messageId: MessageId) =>

@@ -3,7 +3,7 @@ import {
   ReadonlyArrayOfOne,
   ReadonlyArrayOfOneOrMore,
 } from '../../common/types';
-import { UserUUID } from '../users-catalog-fish/types';
+import { UserUUID } from '../user-catalog-fish/types';
 
 //#region Types
 

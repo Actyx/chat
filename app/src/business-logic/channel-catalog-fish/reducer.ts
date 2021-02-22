@@ -1,6 +1,6 @@
 import { Reduce, Timestamp } from '@actyx/pond';
 import { ChannelId } from '../message/types';
-import { UserUUID } from '../users-catalog-fish/types';
+import { UserUUID } from '../user-catalog-fish/types';
 import {
   getChannelProfileByChannelId,
   isUserAssociatedToChannel,
@@ -11,28 +11,28 @@ import {
   ChannelAssociatedUserEvent,
   ChannelDissociatedUserEvent,
   ChannelProfileEditedEvent,
-  ChannelsCatalogFishEvent,
-  ChannelsCatalogFishEventType,
-  ChannelsCatalogFishState,
+  ChannelCatalogFishEvent,
+  ChannelCatalogFishEventType,
+  ChannelCatalogFishState,
   ChannelUnarchiveEvent,
 } from './types';
 
 export const reducer: Reduce<
-  ChannelsCatalogFishState,
-  ChannelsCatalogFishEvent
-> = (state, event, meta): ChannelsCatalogFishState => {
+  ChannelCatalogFishState,
+  ChannelCatalogFishEvent
+> = (state, event, meta): ChannelCatalogFishState => {
   switch (event.type) {
-    case ChannelsCatalogFishEventType.ChannelAdded:
+    case ChannelCatalogFishEventType.ChannelAdded:
       return channelAdded(state, event, meta.timestampMicros);
-    case ChannelsCatalogFishEventType.ChannelProfileEdited:
+    case ChannelCatalogFishEventType.ChannelProfileEdited:
       return channelProfileEdited(state, event, meta.timestampMicros);
-    case ChannelsCatalogFishEventType.ChannelArchived:
+    case ChannelCatalogFishEventType.ChannelArchived:
       return channelArchived(state, event, meta.timestampMicros);
-    case ChannelsCatalogFishEventType.ChannelUnarchived:
+    case ChannelCatalogFishEventType.ChannelUnarchived:
       return channelUnarchived(state, event, meta.timestampMicros);
-    case ChannelsCatalogFishEventType.ChannelAssociatedUser:
+    case ChannelCatalogFishEventType.ChannelAssociatedUser:
       return channelAssociatedUser(state, event);
-    case ChannelsCatalogFishEventType.ChannelDissociatedUser:
+    case ChannelCatalogFishEventType.ChannelDissociatedUser:
       return channelDissociatedUser(state, event);
     default:
       return state;
@@ -40,7 +40,7 @@ export const reducer: Reduce<
 };
 
 const channelAdded = (
-  state: ChannelsCatalogFishState,
+  state: ChannelCatalogFishState,
   event: ChannelAddedEvent,
   timestampMicros: Timestamp
 ) => {
@@ -64,7 +64,7 @@ const channelAdded = (
 };
 
 const channelProfileEdited = (
-  state: ChannelsCatalogFishState,
+  state: ChannelCatalogFishState,
   event: ChannelProfileEditedEvent,
   timestampMicros: Timestamp
 ) => {
@@ -77,7 +77,7 @@ const channelProfileEdited = (
 };
 
 const channelArchived = (
-  state: ChannelsCatalogFishState,
+  state: ChannelCatalogFishState,
   event: ChannelArchivedEvent,
   timestampMicros: Timestamp
 ) => {
@@ -92,7 +92,7 @@ const channelArchived = (
 };
 
 const channelUnarchived = (
-  state: ChannelsCatalogFishState,
+  state: ChannelCatalogFishState,
   event: ChannelUnarchiveEvent,
   timestampMicros: Timestamp
 ) => {
@@ -109,7 +109,7 @@ const channelUnarchived = (
 const handleArchiving = (
   channelId: ChannelId,
   userUUID: UserUUID,
-  state: ChannelsCatalogFishState,
+  state: ChannelCatalogFishState,
   timestampMicros: number,
   isArchived: boolean
 ) => {
@@ -120,7 +120,7 @@ const handleArchiving = (
 };
 
 const channelAssociatedUser = (
-  state: ChannelsCatalogFishState,
+  state: ChannelCatalogFishState,
   event: ChannelAssociatedUserEvent
 ) => {
   const { channelId, userUUID } = event.payload;
@@ -134,7 +134,7 @@ const channelAssociatedUser = (
 };
 
 const channelDissociatedUser = (
-  state: ChannelsCatalogFishState,
+  state: ChannelCatalogFishState,
   event: ChannelDissociatedUserEvent
 ) => {
   const { channelId, userUUID } = event.payload;

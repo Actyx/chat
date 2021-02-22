@@ -2,29 +2,29 @@
 
 | Event                              | Description                                                            | Related Tags                                       |
 |------------------------------------|------------------------------------------------------------------------|----------------------------------------------------|
-| UserAddedEvent                     | User was added after sign-up                                           | users-catalog, user:id                             |
-| UserProfileEditedEvent             | User profile was edited after sign-in                                  | users-catalog, user:id                             |
+| UserAddedEvent                     | User was added after sign-up                                           | user-catalog, user:id                             |
+| UserProfileEditedEvent             | User profile was edited after sign-in                                  | user-catalog, user:id                             |
 |                                    |                                                                        |                                                    |
-| ChannelAddedEvent                  | New channel was added                                                  | channels-catalog, channel:id, user:id              |
-| ChannelProfileEditedEvent          | Channel profile was edited                                             | channels-catalog, channel:id, user:id              |
-| ChannelArchivedEvent               | Channel was archived                                                   | channels-catalog, channel:id, user:id              |
-| ChannelUnarchiveEvent              | Channel was unarchived                                                 | channels-catalog, channel:id, user:id              |
-| ChannelAssociatedUserEvent         | User was associated/joined a channel                                   | channels-catalog, channel:id, user:id              |
-| ChannelDissociatedUserEvent        | User was dissociated from a channel                                    | channels-catalog, channel:id, user:id              |
+| ChannelAddedEvent                  | New channel was added                                                  | channel-catalog, channel:id, user:id              |
+| ChannelProfileEditedEvent          | Channel profile was edited                                             | channel-catalog, channel:id, user:id              |
+| ChannelArchivedEvent               | Channel was archived                                                   | channel-catalog, channel:id, user:id              |
+| ChannelUnarchiveEvent              | Channel was unarchived                                                 | channel-catalog, channel:id, user:id              |
+| ChannelAssociatedUserEvent         | User was associated/joined a channel                                   | channel-catalog, channel:id, user:id              |
+| ChannelDissociatedUserEvent        | User was dissociated from a channel                                    | channel-catalog, channel:id, user:id              |
 |                                    |                                                                        |                                                    |
-| PublicMessageAddedEvent            | New public message was added to a channel                              | messages-catalog, channel:id, message:id, user:id, |
-| MessageHiddenEvent                 | Message was hidden from a channel or private conversation              | messages-catalog, channel:id, message:id, user:id  |
-| MessageContentEditedEvent          | Message content was edited, from a channel or private conversation     | messages-catalog, channel:id, message:id, user:id  |
-| PublicMessageRecipientsEditedEvent | Public message recipients were edited from a message                   | messages-catalog, channel:id, message:id, user:id  |
-| MessageMediumEdited                | Message attachments were edited from a channel or private conversation | messages-catalog, channel:id, message:id, user:id  |
+| PublicMessageAddedEvent            | New public message was added to a channel                              | message-catalog, channel:id, message:id, user:id, |
+| MessageHiddenEvent                 | Message was hidden from a channel or private conversation              | message-catalog, channel:id, message:id, user:id  |
+| MessageContentEditedEvent          | Message content was edited, from a channel or private conversation     | message-catalog, channel:id, message:id, user:id  |
+| PublicMessageRecipientsEditedEvent | Public message recipients were edited from a message                   | message-catalog, channel:id, message:id, user:id  |
+| MessageMediumEdited                | Message attachments were edited from a channel or private conversation | message-catalog, channel:id, message:id, user:id  |
 |                                    |                                                                        |                                                    |
 
 | Tag              | Description                                          |
 |------------------|------------------------------------------------------|
-| users-catalog    | Get all operations for sign-up, sign-in and profiles |
+| user-catalog    | Get all operations for sign-up, sign-in and profiles |
 | user:id          | Get all operations for a specific user               |
 |                  |                                                      |
-| channels-catalog | Get all operations for channels                      |
+| channel-catalog | Get all operations for channels                      |
 | channel:id       | Get all operations for a specific channel            |
 |                  |                                                      |
 | message-catalog  | Get all operations on messages                       |

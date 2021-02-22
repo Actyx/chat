@@ -5,7 +5,7 @@ describe('getUserAddedEvent', () => {
     const result = getUserAddedEvent('user-1', 'Simon', 'simone@gmail.com');
 
     const expectedTags = {
-      rawTags: ['users-catalog', 'user', 'user:user-1'],
+      rawTags: ['user-catalog', 'user', 'user:user-1'],
     };
 
     const expectedEvent = {
@@ -27,7 +27,7 @@ describe('getUserProfileEditedEvent', () => {
     const result = getUserProfileEditedEvent('user-1', 'SPO');
 
     const expectedTags = {
-      rawTags: ['users-catalog', 'user', 'user:user-1'],
+      rawTags: ['user-catalog', 'user', 'user:user-1'],
     };
 
     const expectedEvent = {

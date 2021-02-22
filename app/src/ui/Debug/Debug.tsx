@@ -2,10 +2,10 @@ import { Pond } from '@actyx/pond';
 import { FC, useContext, useEffect, useState } from 'react';
 import { mainChannelFish } from '../../business-logic/channel-fish/channel-fish';
 import { ChannelFishState } from '../../business-logic/channel-fish/types';
-import { ChannelsCatalogFish } from '../../business-logic/channels-catalog-fish/channels-catalog-fish';
-import { ChannelsCatalogFishState } from '../../business-logic/channels-catalog-fish/types';
-import { UsersCatalogFishState } from '../../business-logic/users-catalog-fish/types';
-import { UsersCatalogFish } from '../../business-logic/users-catalog-fish/users-catalog-fish';
+import { ChannelCatalogFish } from '../../business-logic/channel-catalog-fish/channel-catalog-fish';
+import { ChannelCatalogFishState } from '../../business-logic/channel-catalog-fish/types';
+import { UserCatalogFishState } from '../../business-logic/user-catalog-fish/types';
+import { UserCatalogFish } from '../../business-logic/user-catalog-fish/user-catalog-fish';
 import { StateContextUI } from '../ui-state-manager/UIStateManager';
 
 type Props = Readonly<{
@@ -18,9 +18,9 @@ export const Debug: FC<Props> = ({ pond }) => {
   const stateUI = useContext(StateContextUI);
 
   const [
-    stateUsersCatalogFish,
-    setStateUsersCatalogFish,
-  ] = useState<UsersCatalogFishState>(UsersCatalogFish.fish.initialState);
+    stateUserCatalogFish,
+    setStateUserCatalogFish,
+  ] = useState<UserCatalogFishState>(UserCatalogFish.fish.initialState);
 
   const [
     stateChannelMainFish,
@@ -30,12 +30,12 @@ export const Debug: FC<Props> = ({ pond }) => {
   const [
     stateChannelsCatalogFish,
     setChannelsCatalogFish,
-  ] = useState<ChannelsCatalogFishState>(ChannelsCatalogFish.fish.initialState);
+  ] = useState<ChannelCatalogFishState>(ChannelCatalogFish.fish.initialState);
 
   useEffect(() => {
     const cancelSubUserCatalogFish = pond.observe(
-      UsersCatalogFish.fish,
-      setStateUsersCatalogFish
+      UserCatalogFish.fish,
+      setStateUserCatalogFish
     );
 
     const cancelSubscChannelFish = pond.observe(
@@ -44,7 +44,7 @@ export const Debug: FC<Props> = ({ pond }) => {
     );
 
     const cancelChannelsCatalogFish = pond.observe(
-      ChannelsCatalogFish.fish,
+      ChannelCatalogFish.fish,
       setChannelsCatalogFish
     );
 
@@ -62,8 +62,8 @@ export const Debug: FC<Props> = ({ pond }) => {
       <pre>{format(stateUI)}</pre>
       <br />
       <hr />
-      <h5>UsersCatalog state</h5>
-      <pre>{format(stateUsersCatalogFish)}</pre>
+      <h5>UserCatalog state</h5>
+      <pre>{format(stateUserCatalogFish)}</pre>
       <h5>ChannelFish state</h5>
       <pre>{format(stateChannelMainFish)}</pre>
       <h5>ChannelsCatalogFish state</h5>

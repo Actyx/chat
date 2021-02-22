@@ -1,19 +1,19 @@
 import { FC, useState, useContext, useEffect } from 'react';
 import { Pond } from '@actyx/pond';
 import {
-  UsersCatalogFishState,
+  UserCatalogFishState,
   UserUUID,
-} from '../../business-logic/users-catalog-fish/types';
+} from '../../business-logic/user-catalog-fish/types';
 import {
   signUp,
   signIn,
   mkUserUUID,
-} from '../../business-logic/users-catalog-fish/logic';
+} from '../../business-logic/user-catalog-fish/logic';
 import { SignUp } from './SignUp';
 import { SignIn } from './SignIn';
 import { DispatchContextUI } from '../ui-state-manager/UIStateManager';
 import { addSignedInUser, goToChatScreen } from '../ui-state-manager/actions';
-import { UsersCatalogFish } from '../../business-logic/users-catalog-fish/users-catalog-fish';
+import { UserCatalogFish } from '../../business-logic/user-catalog-fish/user-catalog-fish';
 
 type Props = Readonly<{
   pond: Pond;
@@ -23,14 +23,14 @@ export const AuthenticationContainer: FC<Props> = ({ pond }) => {
   const dispatch = useContext(DispatchContextUI);
 
   const [
-    stateUsersCatalogFish,
-    setStateUsersCatalogFish,
-  ] = useState<UsersCatalogFishState>(UsersCatalogFish.fish.initialState);
+    stateUserCatalogFish,
+    setStateUserCatalogFish,
+  ] = useState<UserCatalogFishState>(UserCatalogFish.fish.initialState);
 
   useEffect(() => {
     const cancelSubscription = pond.observe(
-      UsersCatalogFish.fish,
-      setStateUsersCatalogFish
+      UserCatalogFish.fish,
+      setStateUserCatalogFish
     );
     return () => cancelSubscription();
   }, [pond]);
@@ -55,7 +55,7 @@ export const AuthenticationContainer: FC<Props> = ({ pond }) => {
   };
 
   const handleSignIn = (userUUID: UserUUID) => {
-    const isUserSignedIn = signIn(userUUID, stateUsersCatalogFish.users);
+    const isUserSignedIn = signIn(userUUID, stateUserCatalogFish.users);
     setIsSignInSuccess(isUserSignedIn);
     if (isUserSignedIn) {
       dispatch(addSignedInUser(userUUID));

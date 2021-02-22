@@ -1,5 +1,5 @@
 import { ChannelId } from '../../business-logic/message/types';
-import { UserUUID } from '../../business-logic/users-catalog-fish/types';
+import { UserUUID } from '../../business-logic/user-catalog-fish/types';
 import {
   ActionType,
   AddSignedInUser,

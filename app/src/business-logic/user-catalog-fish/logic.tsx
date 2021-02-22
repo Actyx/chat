@@ -3,13 +3,13 @@ import {
   Email,
   UserCatalogFishEvent,
   Users,
-  UsersCatalogFishState,
+  UserCatalogFishState,
   UsersEmails,
   UserUUID,
 } from './types';
 import { v4 as uuid } from 'uuid';
 import { Pond } from '@actyx/pond';
-import { UsersCatalogFish } from './users-catalog-fish';
+import { UserCatalogFish } from './user-catalog-fish';
 import { isStringEmpty, prepareString } from '../../common/strings';
 import { isSignedInUser } from '../channel-fish/logic';
 
@@ -22,8 +22,8 @@ export const signUp = (pond: Pond, makerUUID: () => UserUUID) => async (
   const userUUID = makerUUID();
   let isSuccess = false;
   await pond
-    .run<UsersCatalogFishState, UserCatalogFishEvent>(
-      UsersCatalogFish.fish,
+    .run<UserCatalogFishState, UserCatalogFishEvent>(
+      UserCatalogFish.fish,
       (fishState, enqueue) => {
         const canSignUp = !isUserEmailRegistered(email, fishState.emails);
         if (canSignUp) {
@@ -68,7 +68,7 @@ export const editUserProfile = (pond: Pond) => async (
   let isSuccess = false;
   if (isSignedInUser(userUUID)) {
     await pond
-      .run(UsersCatalogFish.fish, (fishState, enqueue) => {
+      .run(UserCatalogFish.fish, (fishState, enqueue) => {
         const isUserRegistered = isUserUUIDRegistered(
           userUUID,
           fishState.users

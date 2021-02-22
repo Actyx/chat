@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { UserUUID } from '../../business-logic/users-catalog-fish/types';
+import { UserUUID } from '../../business-logic/user-catalog-fish/types';
 import { FormEvent, InputChangeEvent } from '../../common/ui-types';
 
 type Props = Readonly<{

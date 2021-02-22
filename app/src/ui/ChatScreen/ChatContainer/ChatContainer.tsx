@@ -7,7 +7,7 @@ import {
   addMessageToChannel,
 } from '../../../business-logic/channel-fish/logic';
 import { ChannelFishState } from '../../../business-logic/channel-fish/types';
-import { ChannelsCatalogFish } from '../../../business-logic/channels-catalog-fish/channels-catalog-fish';
+import { ChannelCatalogFish } from '../../../business-logic/channel-catalog-fish/channel-catalog-fish';
 import {
   addChannel,
   archiveChannel,
@@ -17,12 +17,12 @@ import {
   getChannelProfileByChannelId,
   hasUserCreatedChannel,
   unarchiveChannel,
-} from '../../../business-logic/channels-catalog-fish/logic';
-import { ChannelsCatalogFishState } from '../../../business-logic/channels-catalog-fish/types';
+} from '../../../business-logic/channel-catalog-fish/logic';
+import { ChannelCatalogFishState } from '../../../business-logic/channel-catalog-fish/types';
 import { ChannelId, MessageId } from '../../../business-logic/message/types';
-import { editUserProfile } from '../../../business-logic/users-catalog-fish/logic';
-import { UsersCatalogFishState } from '../../../business-logic/users-catalog-fish/types';
-import { UsersCatalogFish } from '../../../business-logic/users-catalog-fish/users-catalog-fish';
+import { editUserProfile } from '../../../business-logic/user-catalog-fish/logic';
+import { UserCatalogFishState } from '../../../business-logic/user-catalog-fish/types';
+import { UserCatalogFish } from '../../../business-logic/user-catalog-fish/user-catalog-fish';
 import { closeSectionRight } from '../../ui-state-manager/actions';
 import { SectionCenter, SectionRight } from '../../ui-state-manager/types';
 import {
@@ -78,9 +78,9 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
 
   //#region Pond and Fishes
   const [
-    stateUsersCatalogFish,
-    setStateUsersCatalogFish,
-  ] = useState<UsersCatalogFishState>(UsersCatalogFish.fish.initialState);
+    stateUserCatalogFish,
+    setStateUserCatalogFish,
+  ] = useState<UserCatalogFishState>(UserCatalogFish.fish.initialState);
 
   const [
     stateChannelMainFish,
@@ -90,14 +90,14 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
   const [
     stateChannelsCatalogFish,
     setStateChannelsCatalogFish,
-  ] = useState<ChannelsCatalogFishState>(ChannelsCatalogFish.fish.initialState);
+  ] = useState<ChannelCatalogFishState>(ChannelCatalogFish.fish.initialState);
 
   const [pondErrorMessage, setPondErrorMessage] = useState<string>();
 
   useEffect(() => {
     const cancelSubUserCatalogFish = pond.observe(
-      UsersCatalogFish.fish,
-      setStateUsersCatalogFish
+      UserCatalogFish.fish,
+      setStateUserCatalogFish
     );
 
     const cancelSubChannelFish = pond.observe(
@@ -106,7 +106,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
     );
 
     const cancelSubChannelsCatalogFish = pond.observe(
-      ChannelsCatalogFish.fish,
+      ChannelCatalogFish.fish,
       setStateChannelsCatalogFish
     );
 
@@ -281,13 +281,13 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
   //#region UI mapping
   const channelMessages = mapPublicMessagesToChannelUI(
     getVisiblePublicMessages(stateChannelMainFish.messages),
-    stateUsersCatalogFish.users,
+    stateUserCatalogFish.users,
     stateUI.userUUID
   );
 
   const userDisplayName = getDisplayNameByUser(
     stateUI.userUUID,
-    stateUsersCatalogFish.users
+    stateUserCatalogFish.users
   );
 
   const canShowUserProfileEdit =
@@ -300,7 +300,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
   const channelsOverviewCatalog = sortAlphabeticChannelsOverview(
     mapChannelsToChannelCatalogUI(
       stateChannelsCatalogFish.channels,
-      stateUsersCatalogFish.users,
+      stateUserCatalogFish.users,
       stateUI.userUUID
     )
   );

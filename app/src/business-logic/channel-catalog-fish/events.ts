@@ -1,21 +1,21 @@
 import { TagsWithEvent } from '../../common/types';
 import { mkChannelTagWithId } from '../channel-fish/events';
 import { ChannelId } from '../message/types';
-import { mkUserTagWithId } from '../users-catalog-fish/events';
-import { UserUUID } from '../users-catalog-fish/types';
-import { ChannelsCatalogFish } from './channels-catalog-fish';
+import { mkUserTagWithId } from '../user-catalog-fish/events';
+import { UserUUID } from '../user-catalog-fish/types';
+import { ChannelCatalogFish } from './channel-catalog-fish';
 import {
   ChannelAddedEvent,
   ChannelArchivedEvent,
   ChannelAssociatedUserEvent,
   ChannelDissociatedUserEvent,
   ChannelProfileEditedEvent,
-  ChannelsCatalogFishEventType,
+  ChannelCatalogFishEventType,
   ChannelUnarchiveEvent,
 } from './types';
 
 const mkChannelOperationTags = (channelId: ChannelId, userUUID: UserUUID) =>
-  ChannelsCatalogFish.tags.channelsCatalog.and(
+  ChannelCatalogFish.tags.channelCatalog.and(
     mkChannelTagWithId(channelId).and(mkUserTagWithId(userUUID))
   );
 
@@ -26,7 +26,7 @@ export const getChannelAdded = (
   description?: string
 ): TagsWithEvent<ChannelAddedEvent> => {
   const event: ChannelAddedEvent = {
-    type: ChannelsCatalogFishEventType.ChannelAdded,
+    type: ChannelCatalogFishEventType.ChannelAdded,
     payload: {
       channelId,
       createdBy,
@@ -45,7 +45,7 @@ export const getChannelProfileEdited = (
   description?: string
 ): TagsWithEvent<ChannelProfileEditedEvent> => {
   const event: ChannelProfileEditedEvent = {
-    type: ChannelsCatalogFishEventType.ChannelProfileEdited,
+    type: ChannelCatalogFishEventType.ChannelProfileEdited,
     payload: {
       channelId,
       editedBy,
@@ -62,7 +62,7 @@ export const getChannelArchived = (
   archivedBy: UserUUID
 ): TagsWithEvent<ChannelArchivedEvent> => {
   const event: ChannelArchivedEvent = {
-    type: ChannelsCatalogFishEventType.ChannelArchived,
+    type: ChannelCatalogFishEventType.ChannelArchived,
     payload: {
       channelId,
       archivedBy,
@@ -77,7 +77,7 @@ export const getChannelUnarchived = (
   unarchivedBy: UserUUID
 ): TagsWithEvent<ChannelUnarchiveEvent> => {
   const event: ChannelUnarchiveEvent = {
-    type: ChannelsCatalogFishEventType.ChannelUnarchived,
+    type: ChannelCatalogFishEventType.ChannelUnarchived,
     payload: {
       channelId,
       unarchivedBy,
@@ -92,7 +92,7 @@ export const getChannelAssociatedUser = (
   userUUID: UserUUID
 ): TagsWithEvent<ChannelAssociatedUserEvent> => {
   const event: ChannelAssociatedUserEvent = {
-    type: ChannelsCatalogFishEventType.ChannelAssociatedUser,
+    type: ChannelCatalogFishEventType.ChannelAssociatedUser,
     payload: {
       channelId,
       userUUID,
@@ -107,7 +107,7 @@ export const getChannelDissociatedUser = (
   userUUID: UserUUID
 ): TagsWithEvent<ChannelDissociatedUserEvent> => {
   const event: ChannelDissociatedUserEvent = {
-    type: ChannelsCatalogFishEventType.ChannelDissociatedUser,
+    type: ChannelCatalogFishEventType.ChannelDissociatedUser,
     payload: {
       channelId,
       userUUID,

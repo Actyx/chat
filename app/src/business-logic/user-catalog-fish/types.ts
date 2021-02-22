@@ -23,13 +23,13 @@ export type UserProfile = {
 
 //#region Events
 
-export enum UsersCatalogFishEventType {
+export enum UserCatalogFishEventType {
   UserAdded = 'UserAdded',
   UserProfileEdited = 'UserProfileEdited',
 }
 
 export type UserAddedEvent = {
-  type: UsersCatalogFishEventType.UserAdded;
+  type: UserCatalogFishEventType.UserAdded;
   payload: {
     userUUID: UserUUID;
     createdBy: UserUUID;
@@ -39,7 +39,7 @@ export type UserAddedEvent = {
 };
 
 export type UserProfileEditedEvent = {
-  type: UsersCatalogFishEventType.UserProfileEdited;
+  type: UserCatalogFishEventType.UserProfileEdited;
   payload: {
     userUUID: UserUUID;
     editedBy: UserUUID;
@@ -56,7 +56,7 @@ export type UserCatalogFishEvent = UserAddedEvent | UserProfileEditedEvent;
 export type UsersEmails = Record<Email, null>;
 export type Users = Record<UserUUID, UserProfile>;
 
-export type UsersCatalogFishState = {
+export type UserCatalogFishState = {
   users: Users;
   emails: UsersEmails;
 };

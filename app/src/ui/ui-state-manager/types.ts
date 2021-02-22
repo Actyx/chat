@@ -3,7 +3,7 @@ import { ChannelId } from '../../business-logic/message/types';
 import {
   AnonymousUser,
   UserUUID,
-} from '../../business-logic/users-catalog-fish/types';
+} from '../../business-logic/user-catalog-fish/types';
 
 //#region UI State
 

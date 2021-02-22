@@ -1,6 +1,6 @@
 import { FC, ReactChild, useReducer, createContext } from 'react';
 import { MAIN_CHANNEL as DEFAULT_CHANNEL } from '../../business-logic/channel-fish/channel-fish';
-import { ANONYMOUS_USER } from '../../business-logic/users-catalog-fish/types';
+import { ANONYMOUS_USER } from '../../business-logic/user-catalog-fish/types';
 import { reducer } from './reducer';
 import {
   Dialogs,

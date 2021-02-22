@@ -2,28 +2,28 @@
  * The UsersCatalogFish is responsible to provide users profile information in the system and relates to functionalities such sign-up and sign-in.
  */
 
-import { UserCatalogFishEvent, UsersCatalogFishState } from './types';
+import { UserCatalogFishEvent, UserCatalogFishState } from './types';
 import { Fish, FishId, Tag } from '@actyx/pond';
 import { reducer } from './reducer';
 
 const tags = {
-  usersCatalog: Tag<UserCatalogFishEvent>('users-catalog'),
+  userCatalog: Tag<UserCatalogFishEvent>('user-catalog'),
   user: Tag<UserCatalogFishEvent>('user'),
 };
 
-const initialState: UsersCatalogFishState = {
+const initialState: UserCatalogFishState = {
   users: {},
   emails: {},
 };
 
-const fish: Fish<UsersCatalogFishState, UserCatalogFishEvent> = {
+const fish: Fish<UserCatalogFishState, UserCatalogFishEvent> = {
   fishId: FishId.of('usersCatalog', 'usersCatalog', 0),
   initialState,
   onEvent: reducer,
-  where: tags.usersCatalog,
+  where: tags.userCatalog,
 };
 
-export const UsersCatalogFish = {
+export const UserCatalogFish = {
   fish,
   tags,
 };
