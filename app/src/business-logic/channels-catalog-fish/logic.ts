@@ -15,11 +15,6 @@ import { ChannelProfile, Channels, ChannelsCatalogFishState } from './types';
 import { ChannelsCatalogFish } from './channels-catalog-fish';
 import { isSignedInUser } from '../channel-fish/logic';
 
-export const doesChannelExist = (
-  channelId: ChannelId,
-  channels: Channels
-): boolean => channelId in channels;
-
 export const doesChannelNameExist = (
   name: string,
   state: ChannelsCatalogFishState
@@ -29,19 +24,16 @@ export const doesChannelNameExist = (
 export const getChannelProfileByChannelId = (
   channelId: ChannelId,
   channels: Channels
-): ChannelProfile | undefined => channels[channelId].profile;
+): ChannelProfile | undefined => channels[channelId]?.profile;
 
 export const hasUserCreatedChannel = (
   userUUID: UserUUID,
   channelId: ChannelId,
   channels: Channels
 ): boolean => {
-  const hasChannel = doesChannelExist(channelId, channels);
-  if (hasChannel) {
-    const profile = getChannelProfileByChannelId(channelId, channels);
-    if (profile) {
-      return profile.createdBy === userUUID;
-    }
+  const profile = getChannelProfileByChannelId(channelId, channels);
+  if (profile) {
+    return profile.createdBy === userUUID;
   }
   return false;
 };
@@ -62,7 +54,7 @@ export const isUserAssociatedToChannel = (
   channelId: ChannelId,
   channels: Channels
 ): boolean => {
-  return doesChannelExist(channelId, channels)
+  return getChannelProfileByChannelId(channelId, channels)
     ? channels[channelId].users.includes(userUUID)
     : false;
 };

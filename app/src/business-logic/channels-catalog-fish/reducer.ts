@@ -2,7 +2,7 @@ import { Reduce, Timestamp } from '@actyx/pond';
 import { ChannelId } from '../message/types';
 import { UserUUID } from '../users-catalog-fish/types';
 import {
-  doesChannelExist,
+  getChannelProfileByChannelId,
   hasUserCreatedChannel,
   isUserAssociatedToChannel,
 } from './logic';
@@ -46,7 +46,7 @@ const channelAdded = (
   timestampMicros: Timestamp
 ) => {
   const { channelId, createdBy, name, description } = event.payload;
-  const canAdd = !doesChannelExist(channelId, state.channels);
+  const canAdd = !getChannelProfileByChannelId(channelId, state.channels);
   if (canAdd) {
     const profile = {
       channelId,
@@ -70,7 +70,7 @@ const channelProfileEdited = (
   timestampMicros: Timestamp
 ) => {
   const { channelId, editedBy, name, description } = event.payload;
-  const canEdit = doesChannelExist(channelId, state.channels);
+  const canEdit = getChannelProfileByChannelId(channelId, state.channels);
   if (canEdit) {
     state.channels[channelId].profile.editedBy = editedBy;
     state.channels[channelId].profile.editedOn = timestampMicros;
@@ -118,7 +118,7 @@ const handleArchiving = (
   isArchived: boolean
 ) => {
   const canProcess =
-    doesChannelExist(channelId, state.channels) &&
+    getChannelProfileByChannelId(channelId, state.channels) &&
     hasUserCreatedChannel(userUUID, channelId, state.channels);
   if (canProcess) {
     state.channels[channelId].profile.isArchived = isArchived;
@@ -134,7 +134,7 @@ const channelAssociatedUser = (
 ) => {
   const { channelId, userUUID } = event.payload;
   const canProcess =
-    doesChannelExist(channelId, state.channels) &&
+    getChannelProfileByChannelId(channelId, state.channels) &&
     !isUserAssociatedToChannel(userUUID, channelId, state.channels);
   if (canProcess) {
     state.channels[channelId].users.push(userUUID);
@@ -148,7 +148,7 @@ const channelDissociatedUser = (
 ) => {
   const { channelId, userUUID } = event.payload;
   const canProcess =
-    doesChannelExist(channelId, state.channels) &&
+    getChannelProfileByChannelId(channelId, state.channels) &&
     isUserAssociatedToChannel(userUUID, channelId, state.channels);
   if (canProcess) {
     const { users } = state.channels[channelId];
