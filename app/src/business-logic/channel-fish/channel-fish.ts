@@ -4,10 +4,16 @@
 
 import { Fish, FishId, Tag } from '@actyx/pond';
 import { ChannelFishState } from './types';
-import { PublicMessageEvent } from '../message/types';
+import { ChannelId, PublicMessageEvent } from '../message/types';
 import { reducer } from './reducer';
 
-export const MAIN_CHANNEL = 'main';
+export const DEFAULT_CHANNEL: Readonly<{
+  channelId: ChannelId;
+  name: string;
+}> = {
+  channelId: 'main',
+  name: 'Main',
+};
 
 const tags = {
   messagesCatalog: Tag<PublicMessageEvent>('messages-catalog'),

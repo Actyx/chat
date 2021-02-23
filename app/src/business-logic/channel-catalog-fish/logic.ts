@@ -15,6 +15,11 @@ import { ChannelProfile, Channels, ChannelCatalogFishState } from './types';
 import { ChannelCatalogFish } from './channel-catalog-fish';
 import { isSignedInUser } from '../channel-fish/logic';
 
+export const isChannelIdRegistered = (
+  channelId: ChannelId,
+  channels: Channels
+): boolean => channelId in channels;
+
 export const doesChannelNameExist = (
   name: string,
   state: ChannelCatalogFishState

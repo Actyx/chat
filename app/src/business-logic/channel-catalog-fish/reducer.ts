@@ -1,8 +1,16 @@
 import { Reduce, Timestamp } from '@actyx/pond';
+import { DEFAULT_CHANNEL } from '../channel-fish/channel-fish';
 import { ChannelId } from '../message/types';
-import { UserUUID } from '../user-catalog-fish/types';
+import {
+  SYSTEM_USER,
+  UserAddedEvent,
+  UserCatalogFishEvent,
+  UserCatalogFishEventType,
+  UserUUID,
+} from '../user-catalog-fish/types';
 import {
   getChannelProfileByChannelId,
+  isChannelIdRegistered,
   isUserAssociatedToChannel,
 } from './logic';
 import {
@@ -19,8 +27,9 @@ import {
 
 export const reducer: Reduce<
   ChannelCatalogFishState,
-  ChannelCatalogFishEvent
+  ChannelCatalogFishEvent | UserCatalogFishEvent
 > = (state, event, meta): ChannelCatalogFishState => {
+  console.log('channel-catalog-fish', event);
   switch (event.type) {
     case ChannelCatalogFishEventType.ChannelAdded:
       return channelAdded(state, event, meta.timestampMicros);
@@ -34,6 +43,11 @@ export const reducer: Reduce<
       return channelAssociatedUser(state, event);
     case ChannelCatalogFishEventType.ChannelDissociatedUser:
       return channelDissociatedUser(state, event);
+    case UserCatalogFishEventType.UserAdded:
+      //TODO
+      return userAdded(state, event, meta.timestampMicros);
+    case UserCatalogFishEventType.UserProfileEdited:
+      return state;
     default:
       return state;
   }
@@ -144,6 +158,32 @@ const channelDissociatedUser = (
   if (canProcess) {
     const { users } = state.channels[channelId];
     state.channels[channelId].users = users.filter((x) => x !== userUUID);
+  }
+  return state;
+};
+
+const userAdded = (
+  state: ChannelCatalogFishState,
+  event: UserAddedEvent,
+  timestampMicros: number
+) => {
+  debugger;
+  const { userUUID } = event.payload;
+  const canAddDefaultChannel = !isChannelIdRegistered(
+    DEFAULT_CHANNEL.channelId,
+    state.channels
+  );
+  if (canAddDefaultChannel) {
+    state.channels[DEFAULT_CHANNEL.channelId] = {
+      profile: {
+        channelId: DEFAULT_CHANNEL.channelId,
+        createdOn: timestampMicros,
+        createdBy: SYSTEM_USER,
+        isArchived: false,
+        name: DEFAULT_CHANNEL.name,
+      },
+      users: [userUUID],
+    };
   }
   return state;
 };

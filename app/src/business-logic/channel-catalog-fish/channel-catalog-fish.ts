@@ -4,6 +4,8 @@
  */
 
 import { Fish, FishId, Tag } from '@actyx/pond';
+import { UserCatalogFishEvent } from '../user-catalog-fish/types';
+import { UserCatalogFish } from '../user-catalog-fish/user-catalog-fish';
 import { reducer } from './reducer';
 import { ChannelCatalogFishEvent, ChannelCatalogFishState } from './types';
 
@@ -16,11 +18,14 @@ const initialState: ChannelCatalogFishState = {
   channels: {},
 };
 
-const fish: Fish<ChannelCatalogFishState, ChannelCatalogFishEvent> = {
+const fish: Fish<
+  ChannelCatalogFishState,
+  ChannelCatalogFishEvent | UserCatalogFishEvent
+> = {
   fishId: FishId.of('channelCatalog', 'channelCatalog', 0),
   initialState,
   onEvent: reducer,
-  where: tags.channelCatalog,
+  where: tags.channelCatalog.or(UserCatalogFish.tags.userCatalog),
 };
 
 export const ChannelCatalogFish = {
