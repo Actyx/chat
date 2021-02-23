@@ -7,12 +7,13 @@ export type ChannelOverviewUI = Readonly<{
   name: string;
   description?: string;
   createdOn: Timestamp;
-  createdBy?: string;
+  createdBy: string;
   editedOn?: Timestamp;
   editedBy?: string;
   isArchived: boolean;
   usersAssociatedTotal: number;
   usersAssociated: ReadonlyArray<string>;
+  isSystemUser: boolean;
   isSignedInUserAssociated: boolean;
 }>;
 
@@ -61,7 +62,7 @@ export const ChannelsCatalog: FC<Props> = ({
               <br />
               {c.editedBy && (
                 <>
-                  Edited by ${c.editedBy} on ${c.editedOn}
+                  {`Edited by ${c.editedBy} on ${c.editedOn}`}
                   <br />
                 </>
               )}

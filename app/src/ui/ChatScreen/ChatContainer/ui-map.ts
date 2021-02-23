@@ -13,7 +13,10 @@ import {
   ChannelId,
   PublicMessage,
 } from '../../../business-logic/message/types';
-import { isUserUUIDRegistered } from '../../../business-logic/user-catalog-fish/logic';
+import {
+  isUserCreatedBySystem,
+  isUserUUIDRegistered,
+} from '../../../business-logic/user-catalog-fish/logic';
 import {
   Users,
   UserUUID,
@@ -70,6 +73,7 @@ export const mapChannelsToChannelCatalogUI = (
     const usersAssociated = channel.users
       .map((x: UserUUID) => getDisplayNameByUser(x, users))
       .filter(isDefined);
+    const isSystemUser = isUserCreatedBySystem(channel.profile.createdBy);
 
     return {
       ...channel.profile,
@@ -78,6 +82,7 @@ export const mapChannelsToChannelCatalogUI = (
       usersAssociatedTotal,
       usersAssociated,
       isSignedInUserAssociated,
+      isSystemUser,
     };
   });
 
@@ -108,6 +113,8 @@ export const getDisplayNameByUser = (
   const isRegister = isUserUUIDRegistered(userUUID, users);
   if (isRegister) {
     return users[userUUID].displayName;
+  } else if (isUserCreatedBySystem(userUUID)) {
+    return 'System';
   } else {
     return '';
   }

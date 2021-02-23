@@ -167,7 +167,6 @@ const userAdded = (
   event: UserAddedEvent,
   timestampMicros: number
 ) => {
-  debugger;
   const { userUUID } = event.payload;
   const canAddDefaultChannel = !isChannelIdRegistered(
     DEFAULT_CHANNEL.channelId,
