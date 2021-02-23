@@ -16,13 +16,15 @@ import { UserUUID, ANONYMOUS_USER } from '../user-catalog-fish/types';
 import { ChannelFishState, PublicMessages } from './types';
 import { v4 as uuid } from 'uuid';
 import { mkChannelFish } from './channel-fish';
+import { ChannelCatalogFish } from '../channel-catalog-fish/channel-catalog-fish';
+import { isChannelIdRegistered } from '../channel-catalog-fish/logic';
 
 //#region Add message
 
 export const addMessageToChannel = (pond: Pond) => (
   channelId: ChannelId,
   userUUID: UserUUID
-) => ({
+) => async ({
   content,
   mediaIds,
   recipientIds,
@@ -30,22 +32,29 @@ export const addMessageToChannel = (pond: Pond) => (
   content: string;
   mediaIds?: MediaIds;
   recipientIds?: PublicRecipientIds;
-}>): Promise<void> => {
+}>): Promise<boolean> => {
+  let isSuccess = false;
   if (isSignedInUser(userUUID)) {
-    return pond
-      .emit(
-        ...getPublicMessageAdded({
-          messageId: uuid(),
-          createdBy: userUUID,
-          channelId,
-          content,
-          mediaIds,
-          recipientIds,
-        })
-      )
+    await pond
+      .run(ChannelCatalogFish.fish, (fishState, enqueue) => {
+        const canAdd = isChannelIdRegistered(channelId, fishState.channels);
+        if (canAdd) {
+          enqueue(
+            ...getPublicMessageAdded({
+              messageId: uuid(),
+              createdBy: userUUID,
+              channelId,
+              content,
+              mediaIds,
+              recipientIds,
+            })
+          );
+          isSuccess = true;
+        }
+      })
       .toPromise();
   }
-  return Promise.resolve(undefined);
+  return isSuccess;
 };
 //#endregion
 
