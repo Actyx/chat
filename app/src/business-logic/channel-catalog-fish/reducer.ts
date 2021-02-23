@@ -44,7 +44,6 @@ export const reducer: Reduce<
     case ChannelCatalogFishEventType.ChannelDissociatedUser:
       return channelDissociatedUser(state, event);
     case UserCatalogFishEventType.UserAdded:
-      //TODO
       return userAdded(state, event, meta.timestampMicros);
     case UserCatalogFishEventType.UserProfileEdited:
       return state;

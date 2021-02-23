@@ -83,7 +83,7 @@ export const editMessageInChannel = (pond: Pond) => (
   if (isSignedInUser(userUUID)) {
     await pond
       .run<ChannelFishState, PublicMessageEvent>(
-        mkChannelFish(channelId), // TODO review it
+        mkChannelFish(channelId),
         (fishState, enqueue) => {
           const message = getMessageById(messageId, fishState.messages);
           if (message) {
@@ -118,7 +118,7 @@ export const hideMessageFromChannel = (pond: Pond) => (
   let isSuccess = false;
   await pond
     .run<ChannelFishState, PublicMessageEvent>(
-      mkChannelFish(channelId), //TODO review it
+      mkChannelFish(channelId),
       (fishState, enqueue) => {
         const message = getMessageById(messageId, fishState.messages);
         if (message) {
