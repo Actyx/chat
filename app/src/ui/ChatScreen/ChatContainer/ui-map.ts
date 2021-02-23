@@ -4,9 +4,15 @@ import {
   doesMessageBelongToUser,
 } from '../../../business-logic/channel-fish/logic';
 import { PublicMessages } from '../../../business-logic/channel-fish/types';
-import { isUserAssociatedToChannel } from '../../../business-logic/channel-catalog-fish/logic';
+import {
+  getChannelProfileByChannelId,
+  isUserAssociatedToChannel,
+} from '../../../business-logic/channel-catalog-fish/logic';
 import { Channels } from '../../../business-logic/channel-catalog-fish/types';
-import { PublicMessage } from '../../../business-logic/message/types';
+import {
+  ChannelId,
+  PublicMessage,
+} from '../../../business-logic/message/types';
 import { isUserUUIDRegistered } from '../../../business-logic/user-catalog-fish/logic';
 import {
   Users,
@@ -98,15 +104,18 @@ export const sortAlphabeticChannelsOverview = (
 export const getDisplayNameByUser = (
   userUUID: UserUUID,
   users: Users
-): string | undefined => {
+): string => {
   const isRegister = isUserUUIDRegistered(userUUID, users);
   if (isRegister) {
     return users[userUUID].displayName;
   } else {
-    return undefined;
+    return '';
   }
 };
 
 export const getVisiblePublicMessages = (
   messages: PublicMessages
 ): PublicMessages => messages.filter((m) => !m.isHidden);
+
+export const getChannelName = (channelId: ChannelId, channels: Channels) =>
+  getChannelProfileByChannelId(channelId, channels)?.name ?? '';

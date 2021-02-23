@@ -1,9 +1,6 @@
 import { Pond } from '@actyx/pond';
 import { FC, useContext, useEffect, useState } from 'react';
-import {
-  initialStateCannelFish,
-  mkChannelFish,
-} from '../../../business-logic/channel-fish/channel-fish';
+import { mkChannelFish } from '../../../business-logic/channel-fish/channel-fish';
 import {
   editMessageInChannel,
   hideMessageFromChannel,
@@ -41,6 +38,7 @@ import { EditChannelDialogContainer } from '../EditChannelDialog/EditChannelDial
 import { Sidebar } from '../Sidebar/Sidebar';
 import { TopBar } from '../TopBar';
 import {
+  getChannelName,
   getDisplayNameByUser,
   getVisiblePublicMessages,
   mapChannelsToChannelCatalogUI,
@@ -89,7 +87,9 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
   const [
     stateChannelMainFish,
     setStateChannelMainFish,
-  ] = useState<ChannelFishState>(initialStateCannelFish);
+  ] = useState<ChannelFishState>(
+    mkChannelFish(stateUI.activeChannelId).initialState
+  );
 
   const [
     stateChannelsCatalogFish,
@@ -315,6 +315,11 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
       channelId,
       stateChannelsCatalogFish.channels
     );
+
+  const channelName = getChannelName(
+    stateUI.activeChannelId,
+    stateChannelsCatalogFish.channels
+  );
   //#endregion
 
   const renderSectionCenter = () => {
@@ -323,6 +328,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
         return (
           <div>
             <Channel
+              channelName={channelName}
               messages={channelMessages}
               editMessage={handleEditMessage}
               hideMessage={handleHideMessage}
@@ -348,7 +354,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
   return (
     <div>
       {pondErrorMessage}
-      <TopBar userDisplayName={userDisplayName ?? ''} />
+      <TopBar userDisplayName={userDisplayName} />
       <div>
         <Sidebar
           channels={channelsSideBarUI}

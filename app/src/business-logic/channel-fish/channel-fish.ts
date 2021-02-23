@@ -20,8 +20,6 @@ const initialState: ChannelFishState = {
   messages: [],
 };
 
-export const initialStateCannelFish = initialState;
-
 export const mkChannelFish = (
   channelName: string
 ): Fish<ChannelFishState, PublicMessageEvent> => ({
