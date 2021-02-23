@@ -81,11 +81,12 @@ export const ChannelsCatalog: FC<Props> = ({
                   Archive channel
                 </button>
               )}
-              {c.isSignedInUserAssociated ? (
+              {c.isSignedInUserAssociated && !c.isSystemUser && (
                 <button onClick={() => dissociateUserChannel(c.channelId)}>
                   Leave channel
                 </button>
-              ) : (
+              )}
+              {!c.isSignedInUserAssociated && !c.isSystemUser && (
                 <button onClick={() => associateUserChannel(c.channelId)}>
                   Join channel
                 </button>
