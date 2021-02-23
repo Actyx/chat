@@ -29,7 +29,6 @@ export const reducer: Reduce<
   ChannelCatalogFishState,
   ChannelCatalogFishEvent | UserCatalogFishEvent
 > = (state, event, meta): ChannelCatalogFishState => {
-  console.log('channel-catalog-fish', event);
   switch (event.type) {
     case ChannelCatalogFishEventType.ChannelAdded:
       return channelAdded(state, event, meta.timestampMicros);
