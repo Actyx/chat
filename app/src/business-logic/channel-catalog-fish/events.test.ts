@@ -15,6 +15,7 @@ describe('getChannelAdded', () => {
       'marketing',
       'all about marketing'
     );
+
     const expectedTags = {
       rawTags: [
         'channel-catalog',
@@ -47,6 +48,7 @@ describe('getChannelProfileEdited', () => {
       'online marketing',
       'all about online marketing'
     );
+
     const expectedTags = {
       rawTags: [
         'channel-catalog',
@@ -74,6 +76,7 @@ describe('getChannelProfileEdited', () => {
 describe('getChannelArchived', () => {
   it('should return valid tags and event', () => {
     const result = getChannelArchived('channel-1', 'user-1');
+
     const expectedTags = {
       rawTags: [
         'channel-catalog',
@@ -99,6 +102,7 @@ describe('getChannelArchived', () => {
 describe('getChannelUnarchived', () => {
   it('should return valid tags and event', () => {
     const result = getChannelUnarchived('channel-1', 'user-1');
+
     const expectedTags = {
       rawTags: [
         'channel-catalog',
@@ -124,6 +128,7 @@ describe('getChannelUnarchived', () => {
 describe('getChannelAssociatedUser', () => {
   it('should return valid tags and event', () => {
     const result = getChannelAssociatedUser('channel-1', 'user-1');
+
     const expectedTags = {
       rawTags: [
         'channel-catalog',
@@ -149,6 +154,7 @@ describe('getChannelAssociatedUser', () => {
 describe('getChannelDissociatedUser', () => {
   it('should return valid tags and event', () => {
     const result = getChannelDissociatedUser('channel-1', 'user-1');
+
     const expectedTags = {
       rawTags: [
         'channel-catalog',
