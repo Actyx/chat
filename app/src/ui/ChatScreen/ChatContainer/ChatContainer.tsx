@@ -34,7 +34,7 @@ import { AddChannelDialog } from '../AddChannelDialog/AddChannelDialog';
 import { Channel } from '../Channel/Channel';
 import { MessageInput } from '../Channel/MessageInput';
 import { ChannelsCatalog } from '../ChannelsCatalog/ChannelsCatalog';
-import { EditChannelDialogContainer } from '../EditChannelDialog/EditChannelDialog';
+import { EditChannelDialog } from '../EditChannelDialog/EditChannelDialog';
 import { Sidebar } from '../Sidebar/Sidebar';
 import { TopBar } from '../TopBar';
 import {
@@ -183,7 +183,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
 
   const handleShowAddChannelDialog = () => setShowAddChannelDialog(true);
 
-  const handleHideAddChannelDialog = () => setShowAddChannelDialog(false);
+  const handleHideAddChannelDialog = () => setShowEditChannelDialog(false);
 
   const handleShowEditChannelDialog = (channelId: ChannelId) => {
     const channelProfile = getChannelProfileByChannelId(
@@ -376,7 +376,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
         />
       )}
       {showEditChannelDialog && selectedChannel && (
-        <EditChannelDialogContainer
+        <EditChannelDialog
           currentName={selectedChannel.name}
           currentDescription={selectedChannel.description}
           editChannel={(newName, newDescription) =>
