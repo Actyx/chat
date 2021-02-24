@@ -7,17 +7,20 @@ import {
   UsersEmails,
   UserUUID,
   SYSTEM_USER,
+  ANONYMOUS_USER,
 } from './types';
 import { v4 as uuid } from 'uuid';
 import { Pond } from '@actyx/pond';
 import { UserCatalogFish } from './user-catalog-fish';
 import { isStringEmpty, prepareString } from '../../common/strings';
-import { isSignedInUser } from '../channel-fish/logic';
 
 //#region Others
 
 export const isUserCreatedBySystem = (userUUID: UserUUID): boolean =>
   userUUID === SYSTEM_USER;
+
+export const isSignedInUser = (userUUID: UserUUID) =>
+  userUUID !== ANONYMOUS_USER;
 
 //#endregion
 

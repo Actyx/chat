@@ -12,12 +12,13 @@ import {
   getMessageHiddenEvent,
   getPublicMessageAdded,
 } from './events';
-import { UserUUID, ANONYMOUS_USER } from '../user-catalog-fish/types';
+import { UserUUID } from '../user-catalog-fish/types';
 import { ChannelFishState, PublicMessages } from './types';
 import { v4 as uuid } from 'uuid';
 import { mkChannelFish } from './channel-fish';
 import { ChannelCatalogFish } from '../channel-catalog-fish/channel-catalog-fish';
 import { isChannelIdRegistered } from '../channel-catalog-fish/logic';
+import { isSignedInUser } from '../user-catalog-fish/logic';
 
 //#region Add message
 
@@ -133,12 +134,5 @@ export const hideMessageFromChannel = (pond: Pond) => (
     .toPromise();
   return isSuccess;
 };
-
-//#endregion
-
-//#region Others
-
-export const isSignedInUser = (userUUID: UserUUID) =>
-  userUUID !== ANONYMOUS_USER;
 
 //#endregion

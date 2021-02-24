@@ -13,7 +13,7 @@ import { v4 as uuid } from 'uuid';
 import { ChannelId } from '../message/types';
 import { ChannelProfile, Channels, ChannelCatalogFishState } from './types';
 import { ChannelCatalogFish } from './channel-catalog-fish';
-import { isSignedInUser } from '../channel-fish/logic';
+import { isSignedInUser } from '../user-catalog-fish/logic';
 
 export const isChannelIdRegistered = (
   channelId: ChannelId,
