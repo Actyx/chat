@@ -82,7 +82,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
   const [
     stateUserCatalogFish,
     setStateUserCatalogFish,
-  ] = useState<UserCatalogFishState>(UserCatalogFish.fish.initialState);
+  ] = useState<UserCatalogFishState>(UserCatalogFish.initialState);
 
   const [
     stateChannelMainFish,
@@ -94,13 +94,13 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
   const [
     stateChannelsCatalogFish,
     setStateChannelsCatalogFish,
-  ] = useState<ChannelCatalogFishState>(ChannelCatalogFish.fish.initialState);
+  ] = useState<ChannelCatalogFishState>(ChannelCatalogFish.initialState);
 
   const [pondErrorMessage, setPondErrorMessage] = useState<string>();
 
   useEffect(() => {
     const cancelSubUserCatalogFish = pond.observe(
-      UserCatalogFish.fish,
+      UserCatalogFish,
       setStateUserCatalogFish
     );
 
@@ -110,7 +110,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
     );
 
     const cancelSubChannelsCatalogFish = pond.observe(
-      ChannelCatalogFish.fish,
+      ChannelCatalogFish,
       setStateChannelsCatalogFish
     );
 

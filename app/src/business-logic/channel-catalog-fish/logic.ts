@@ -76,7 +76,7 @@ export const addChannel = (pond: Pond) => (userUUID: UserUUID) => async (
     );
 
     await pond
-      .run(ChannelCatalogFish.fish, (fishState, enqueue) => {
+      .run(ChannelCatalogFish, (fishState, enqueue) => {
         const canAdd = !doesChannelNameExist(newName, fishState);
         if (canAdd) {
           const newChannelId = uuid();
@@ -103,7 +103,7 @@ export const editChannel = (pond: Pond) => (
     );
 
     await pond
-      .run(ChannelCatalogFish.fish, (fishState, enqueue) => {
+      .run(ChannelCatalogFish, (fishState, enqueue) => {
         const canEdit =
           !doesChannelNameExist(newName, fishState) &&
           isChannelIdRegistered(channelId, fishState.channels);
@@ -131,7 +131,7 @@ export const archiveChannel = (pond: Pond) => async (
   let isSuccess = false;
   if (isSignedInUser(userUUID)) {
     await pond
-      .run(ChannelCatalogFish.fish, (fishState, enqueue) => {
+      .run(ChannelCatalogFish, (fishState, enqueue) => {
         const canArchive =
           hasUserCreatedChannel(userUUID, channelId, fishState.channels) &&
           isChannelIdRegistered(channelId, fishState.channels);
@@ -152,7 +152,7 @@ export const unarchiveChannel = (pond: Pond) => async (
   let isSuccess = false;
   if (isSignedInUser(userUUID)) {
     await pond
-      .run(ChannelCatalogFish.fish, (fishState, enqueue) => {
+      .run(ChannelCatalogFish, (fishState, enqueue) => {
         const canUnarchive =
           hasUserCreatedChannel(userUUID, channelId, fishState.channels) &&
           isChannelIdRegistered(channelId, fishState.channels);
@@ -173,7 +173,7 @@ export const associateUserToChannel = (pond: Pond) => async (
   let isSuccess = false;
   if (isSignedInUser(userUUID)) {
     await pond
-      .run(ChannelCatalogFish.fish, (fishState, enqueue) => {
+      .run(ChannelCatalogFish, (fishState, enqueue) => {
         const canAssociate =
           !isUserAssociatedToChannel(userUUID, channelId, fishState.channels) &&
           isChannelIdRegistered(channelId, fishState.channels);
@@ -194,7 +194,7 @@ export const dissociateUserChannel = (pond: Pond) => async (
   let isSuccess = false;
   if (isSignedInUser(userUUID)) {
     await pond
-      .run(ChannelCatalogFish.fish, (fishState, enqueue) => {
+      .run(ChannelCatalogFish, (fishState, enqueue) => {
         const canDissociate =
           isUserAssociatedToChannel(userUUID, channelId, fishState.channels) &&
           isChannelIdRegistered(channelId, fishState.channels);
