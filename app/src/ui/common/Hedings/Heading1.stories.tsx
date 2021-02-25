@@ -4,7 +4,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import { Heading1, HeadingProps } from './Heading1';
 
 export default {
-  title: 'common/Heading1',
+  title: 'Common/Heading1',
   component: Heading1,
   argTypes: {
     children: { control: 'text' },

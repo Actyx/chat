@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { UserUUID } from '../../business-logic/user-catalog-fish/types';
 import { FormEvent, InputChangeEvent } from '../../common/ui-types';
+import { TextField } from '../common/Form/TextField/TextField';
 import { Heading1 } from '../common/Hedings/Heading1';
 import { SubHeading } from '../common/SubHeading/SubHeading';
 
@@ -28,8 +29,8 @@ export const SignIn = ({ isSignInSuccess, signIn, goToChatScreen }: Props) => {
       <Heading1>Sign-in</Heading1>
       <SubHeading>Enter your credentials</SubHeading>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
+        <TextField
+          type="password"
           required
           value={userUUID}
           onChange={handleChangeUserUUID}
