@@ -1,6 +1,6 @@
 import { Pond } from '@actyx/pond';
 import { isStringEmpty, prepareString } from '../../common/strings';
-import { UserUUID } from '../user-catalog-fish/types';
+import { SYSTEM_USER, UserUUID } from '../user-catalog-fish/types';
 import {
   getChannelAdded,
   getChannelArchived,
@@ -224,7 +224,7 @@ export const addDefaultChannelIfDoesNotExist = (pond: Pond) => async (
           enqueue(
             ...getChannelAdded(
               DEFAULT_CHANNEL.channelId,
-              userUUID,
+              SYSTEM_USER,
               DEFAULT_CHANNEL.name
             )
           );
