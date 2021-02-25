@@ -65,7 +65,7 @@ export const AuthenticationContainer = ({ pond }: Props) => {
   const handleGoToChatScreen = () => dispatch(goToChatScreen());
 
   return (
-    <div>
+    <div className="flex flex-col w-screen items-center">
       {pondErrorMessage}
       <SignIn
         isSignInSuccess={isSignInSuccess}

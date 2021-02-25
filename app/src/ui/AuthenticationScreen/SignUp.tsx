@@ -27,11 +27,11 @@ export const SignUp = ({ isSignUpSuccess, userUUID, signUp }: Props) => {
   };
 
   return (
-    <div>
+    <div className="text-center space-y-3">
       <Heading1>Sign-up</Heading1>
       <SubHeading>Create an account</SubHeading>
       <form onSubmit={handleSubmit}>
-        <div className="w-96">
+        <div className="w-96 space-y-5">
           <TextField
             required
             placeholder="Name"

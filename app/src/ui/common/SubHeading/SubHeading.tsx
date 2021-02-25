@@ -3,5 +3,5 @@ export type SubHeadingProps = Readonly<{
 }>;
 
 export const SubHeading = ({ children }: SubHeadingProps) => {
-  return <h1 className="text-lg text-gray-700">{children}</h1>;
+  return <h1 className="font-sans text-lg text-gray-700">{children}</h1>;
 };

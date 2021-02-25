@@ -3,5 +3,9 @@ export type HeadingProps = Readonly<{
 }>;
 
 export const Heading1 = ({ children }: HeadingProps) => {
-  return <h1 className="text-5xl font-semibold text-gray-900">{children}</h1>;
+  return (
+    <h1 className="font-sans text-5xl font-semibold text-gray-900">
+      {children}
+    </h1>
+  );
 };

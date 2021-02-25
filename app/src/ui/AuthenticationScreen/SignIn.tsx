@@ -27,11 +27,11 @@ export const SignIn = ({ isSignInSuccess, signIn, goToChatScreen }: Props) => {
   const handleGoToChangeScreen = () => goToChatScreen();
 
   return (
-    <div>
+    <div className="text-center space-y-3">
       <Heading1>Sign-in</Heading1>
       <SubHeading>Enter your credentials</SubHeading>
       <form onSubmit={handleSubmit}>
-        <div className="w-96">
+        <div className="w-96 space-y-5">
           <TextField
             type="password"
             required

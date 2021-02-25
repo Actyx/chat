@@ -7,14 +7,10 @@ export type SubmitProps = Readonly<{
 
 export const Submit = ({ children, full = false }: SubmitProps) => {
   const styles = classnames(
-    'bg-pink-900',
-    'hover:bg-pink-800',
-    'text-white',
-    'text-xl',
-    'font-bold',
-    'font-extrabold',
-    'py-2',
-    'px-4',
+    'font-sans',
+    'bg-pink-900 hover:bg-pink-800',
+    'text-white text-xl',
+    'font-bold font-extrabold',
     'rounded',
     'h-11',
     'p-2',
