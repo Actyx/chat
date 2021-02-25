@@ -14,6 +14,7 @@ import { ChannelId } from '../message/types';
 import { ChannelProfile, Channels, ChannelCatalogFishState } from './types';
 import { ChannelCatalogFish } from './channel-catalog-fish';
 import { isSignedInUser } from '../user-catalog-fish/logic';
+import { DEFAULT_CHANNEL } from '../channel-fish/channel-fish';
 
 export const isChannelIdRegistered = (
   channelId: ChannelId,
@@ -200,6 +201,33 @@ export const dissociateUserChannel = (pond: Pond) => async (
           isChannelIdRegistered(channelId, fishState.channels);
         if (canDissociate) {
           enqueue(...getChannelDissociatedUser(channelId, userUUID));
+          isSuccess = true;
+        }
+      })
+      .toPromise();
+  }
+  return isSuccess;
+};
+
+export const addDefaultChannelIfDoesNotExist = (pond: Pond) => async (
+  userUUID: UserUUID
+): Promise<boolean> => {
+  let isSuccess = false;
+  if (isSignedInUser(userUUID)) {
+    await pond
+      .run(ChannelCatalogFish, (fishState, enqueue) => {
+        const canAddDefault = !isChannelIdRegistered(
+          DEFAULT_CHANNEL.channelId,
+          fishState.channels
+        );
+        if (canAddDefault) {
+          enqueue(
+            ...getChannelAdded(
+              DEFAULT_CHANNEL.channelId,
+              userUUID,
+              DEFAULT_CHANNEL.name
+            )
+          );
           isSuccess = true;
         }
       })

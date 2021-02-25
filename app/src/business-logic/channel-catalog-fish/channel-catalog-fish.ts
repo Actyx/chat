@@ -4,7 +4,7 @@
  */
 
 import { Fish, FishId } from '@actyx/pond';
-import { channelCatalogTag, userCatalogTag } from '../tags/tags';
+import { channelCatalogTag } from '../tags/tags';
 import { UserCatalogFishEvent } from '../user-catalog-fish/types';
 import { reducer } from './reducer';
 import { ChannelCatalogFishEvent, ChannelCatalogFishState } from './types';
@@ -20,5 +20,5 @@ export const ChannelCatalogFish: Fish<
   fishId: FishId.of('channelCatalog', 'channelCatalog', 0),
   initialState,
   onEvent: reducer,
-  where: channelCatalogTag.or(userCatalogTag),
+  where: channelCatalogTag,
 };

@@ -1,16 +1,8 @@
 import { Reduce, Timestamp } from '@actyx/pond';
-import { DEFAULT_CHANNEL } from '../channel-fish/channel-fish';
 import { ChannelId } from '../message/types';
-import {
-  SYSTEM_USER,
-  UserAddedEvent,
-  UserCatalogFishEvent,
-  UserCatalogFishEventType,
-  UserUUID,
-} from '../user-catalog-fish/types';
+import { UserCatalogFishEvent, UserUUID } from '../user-catalog-fish/types';
 import {
   getChannelProfileByChannelId,
-  isChannelIdRegistered,
   isUserAssociatedToChannel,
 } from './logic';
 import {
@@ -42,10 +34,6 @@ export const reducer: Reduce<
       return channelAssociatedUser(state, event);
     case ChannelCatalogFishEventType.ChannelDissociatedUser:
       return channelDissociatedUser(state, event);
-    case UserCatalogFishEventType.UserAdded:
-      return userAdded(state, event, meta.timestampMicros);
-    case UserCatalogFishEventType.UserProfileEdited:
-      return state;
     default:
       return state;
   }
@@ -160,27 +148,4 @@ const channelDissociatedUser = (
   return state;
 };
 
-const userAdded = (
-  state: ChannelCatalogFishState,
-  event: UserAddedEvent,
-  timestampMicros: number
-) => {
-  const { userUUID } = event.payload;
-  const canAddDefaultChannel = !isChannelIdRegistered(
-    DEFAULT_CHANNEL.channelId,
-    state.channels
-  );
-  if (canAddDefaultChannel) {
-    state.channels[DEFAULT_CHANNEL.channelId] = {
-      profile: {
-        channelId: DEFAULT_CHANNEL.channelId,
-        createdOn: timestampMicros,
-        createdBy: SYSTEM_USER,
-        isArchived: false,
-        name: DEFAULT_CHANNEL.name,
-      },
-      users: [userUUID],
-    };
-  }
-  return state;
-};
+// SPO

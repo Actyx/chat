@@ -10,6 +10,7 @@ import { ChannelFishState } from '../../../business-logic/channel-fish/types';
 import { ChannelCatalogFish } from '../../../business-logic/channel-catalog-fish/channel-catalog-fish';
 import {
   addChannel,
+  addDefaultChannelIfDoesNotExist,
   archiveChannel,
   associateUserToChannel,
   dissociateUserChannel,
@@ -120,6 +121,17 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
       cancelSubChannelsCatalogFish();
     };
   }, [pond, stateUI.activeChannelId]);
+
+  useEffect(() => {
+    const mainChannel = async () => {
+      try {
+        await addDefaultChannelIfDoesNotExist(pond)(stateUI.userUUID);
+      } catch (err) {
+        setPondErrorMessage(undefined);
+      }
+    };
+    mainChannel();
+  }, [pond, stateUI.userUUID]);
 
   //#endregion
 
