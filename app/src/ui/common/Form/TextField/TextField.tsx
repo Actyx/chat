@@ -2,29 +2,27 @@ import { InputChangeEvent } from '../../../../common/ui-types';
 
 export type TextFieldProps = Readonly<{
   type?: 'text' | 'password';
-  value?: string;
   required?: boolean;
+  value?: string;
   placeholder?: string;
   onChange: (e: InputChangeEvent) => void;
 }>;
 
 export const TextField = ({
   type = 'text',
-  value,
   required = false,
+  value,
   placeholder,
   onChange,
 }: TextFieldProps) => {
   return (
-    <>
-      <input
-        type={type}
-        value={value}
-        required={required}
-        placeholder={placeholder}
-        className="rounded"
-        onChange={onChange}
-      />
-    </>
+    <input
+      type={type}
+      required={required}
+      value={value}
+      placeholder={placeholder}
+      className="rounded"
+      onChange={onChange}
+    />
   );
 };
