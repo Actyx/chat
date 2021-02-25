@@ -1,5 +1,5 @@
 import { Pond } from '@actyx/pond';
-import { FC, useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { mkChannelFish } from '../../business-logic/channel-fish/channel-fish';
 import { ChannelFishState } from '../../business-logic/channel-fish/types';
 import { ChannelCatalogFish } from '../../business-logic/channel-catalog-fish/channel-catalog-fish';
@@ -14,7 +14,7 @@ type Props = Readonly<{
 
 const format = (value: any) => JSON.stringify(value, undefined, 4);
 
-export const Debug: FC<Props> = ({ pond }) => {
+export const Debug = ({ pond }: Props) => {
   const stateUI = useContext(StateContextUI);
 
   const [

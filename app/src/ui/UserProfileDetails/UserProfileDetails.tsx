@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import { FormEvent, InputChangeEvent } from '../../common/ui-types';
 
 type Props = Readonly<{
@@ -6,10 +6,10 @@ type Props = Readonly<{
   editUserProfile: (displayName: string) => void;
 }>;
 
-export const UserProfileDetails: FC<Props> = ({
+export const UserProfileDetails = ({
   isEditProfileSuccess,
   editUserProfile,
-}) => {
+}: Props) => {
   const [displayName, setDisplayName] = useState<string>('');
 
   const handleChangeDisplayName = (e: InputChangeEvent) =>

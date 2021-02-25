@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react';
+import { useContext } from 'react';
 import {
   showUserProfileEditSection,
   signOutActiveUser,
@@ -9,7 +9,7 @@ type Props = Readonly<{
   userDisplayName: string;
 }>;
 
-export const TopBar: FC<Props> = ({ userDisplayName }) => {
+export const TopBar = ({ userDisplayName }: Props) => {
   const dispatch = useContext(DispatchContextUI);
 
   const handleEditUserProfile = () => dispatch(showUserProfileEditSection());

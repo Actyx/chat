@@ -1,6 +1,7 @@
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import { UserUUID } from '../../business-logic/user-catalog-fish/types';
 import { FormEvent, InputChangeEvent } from '../../common/ui-types';
+import { Heading1 } from '../common/Hedings/Heading1';
 
 type Props = Readonly<{
   isSignInSuccess?: boolean;
@@ -8,11 +9,7 @@ type Props = Readonly<{
   goToChatScreen: () => void;
 }>;
 
-export const SignIn: FC<Props> = ({
-  isSignInSuccess,
-  signIn,
-  goToChatScreen,
-}) => {
+export const SignIn = ({ isSignInSuccess, signIn, goToChatScreen }: Props) => {
   const [userUUID, setUserUUID] = useState<UserUUID>('');
 
   const handleChangeUserUUID = (e: InputChangeEvent) =>
@@ -27,7 +24,7 @@ export const SignIn: FC<Props> = ({
 
   return (
     <div>
-      <h2>Sign-in</h2>
+      <Heading1>Sign-in</Heading1>
       <form onSubmit={handleSubmit}>
         <label>Credential:</label>
         <input

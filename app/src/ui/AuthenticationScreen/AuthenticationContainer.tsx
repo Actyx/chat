@@ -1,4 +1,4 @@
-import { FC, useState, useContext, useEffect } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { Pond } from '@actyx/pond';
 import {
   UserCatalogFishState,
@@ -19,7 +19,7 @@ type Props = Readonly<{
   pond: Pond;
 }>;
 
-export const AuthenticationContainer: FC<Props> = ({ pond }) => {
+export const AuthenticationContainer = ({ pond }: Props) => {
   const dispatch = useContext(DispatchContextUI);
 
   const [
@@ -67,15 +67,15 @@ export const AuthenticationContainer: FC<Props> = ({ pond }) => {
   return (
     <div>
       {pondErrorMessage}
-      <SignUp
-        signUp={handleSignUp}
-        isSignUpSuccess={isSignUpSuccess}
-        userUUID={userUUID}
-      />
       <SignIn
         isSignInSuccess={isSignInSuccess}
         signIn={handleSignIn}
         goToChatScreen={handleGoToChatScreen}
+      />
+      <SignUp
+        signUp={handleSignUp}
+        isSignUpSuccess={isSignUpSuccess}
+        userUUID={userUUID}
       />
     </div>
   );

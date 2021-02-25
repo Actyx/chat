@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { Timestamp } from '@actyx/pond';
 import { ChannelId } from '../../../business-logic/message/types';
 
@@ -29,7 +28,7 @@ type Props = Readonly<{
   dissociateUserChannel: (channelId: ChannelId) => void;
 }>;
 
-export const ChannelsCatalog: FC<Props> = ({
+export const ChannelsCatalog = ({
   channels,
   editChannel,
   canUserManageArchiviation,
@@ -37,7 +36,7 @@ export const ChannelsCatalog: FC<Props> = ({
   unarchiveChannel,
   associateUserChannel,
   dissociateUserChannel,
-}) => {
+}: Props) => {
   return (
     <div>
       <h2>Channels Catalog</h2>

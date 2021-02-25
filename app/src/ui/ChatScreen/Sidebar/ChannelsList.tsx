@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { ChannelId } from '../../../business-logic/message/types';
 import { ChannelsListUI } from './Sidebar';
 
@@ -7,7 +6,7 @@ type Props = Readonly<{
   selectChannel: (channelId: ChannelId) => void;
 }>;
 
-export const ChannelsList: FC<Props> = ({ channels, selectChannel }) => {
+export const ChannelsList = ({ channels, selectChannel }: Props) => {
   return (
     <ul>
       {channels.map((x) => (

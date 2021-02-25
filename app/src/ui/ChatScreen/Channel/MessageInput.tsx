@@ -1,11 +1,11 @@
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import { FormEvent, InputChangeEvent } from '../../../common/ui-types';
 
 type Props = Readonly<{
   addMessage: (content: string) => void;
 }>;
 
-export const MessageInput: FC<Props> = ({ addMessage }) => {
+export const MessageInput = ({ addMessage }: Props) => {
   const [message, setMessage] = useState<string>('');
 
   const handleChangeContent = (e: InputChangeEvent) =>
