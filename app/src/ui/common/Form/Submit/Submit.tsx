@@ -1,4 +1,4 @@
-import cn from 'classnames';
+import cx from 'classnames';
 
 export type SubmitProps = Readonly<{
   children: string;
@@ -6,7 +6,7 @@ export type SubmitProps = Readonly<{
 }>;
 
 export const Submit = ({ children, full = false }: SubmitProps) => {
-  const styles = cn(
+  const styles = cx(
     'bg-pink-900 hover:bg-pink-800',
     'font-sans text-white text-xl font-bold font-extrabold',
     'rounded h-11 p-2',
