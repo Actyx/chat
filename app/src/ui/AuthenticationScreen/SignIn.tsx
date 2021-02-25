@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { UserUUID } from '../../business-logic/user-catalog-fish/types';
 import { FormEvent, InputChangeEvent } from '../../common/ui-types';
 import { TextField } from '../common/Form/TextField/TextField';
+import { Submit } from '../common/Form/Submit/Submit';
+
 import { Heading1 } from '../common/Hedings/Heading1';
 import { SubHeading } from '../common/SubHeading/SubHeading';
 
@@ -29,24 +31,25 @@ export const SignIn = ({ isSignInSuccess, signIn, goToChatScreen }: Props) => {
       <Heading1>Sign-in</Heading1>
       <SubHeading>Enter your credentials</SubHeading>
       <form onSubmit={handleSubmit}>
-        <TextField
-          type="password"
-          required
-          value={userUUID}
-          onChange={handleChangeUserUUID}
-        />
-        <br />
-        <input type="submit" value="Sign-in" />
-        <br />
-        {isSignInSuccess === undefined
-          ? ''
-          : isSignInSuccess === true
-          ? 'Sign-in success'
-          : 'Sign-in error: could not sign-in, credential not valid'}
-        {isSignInSuccess && (
-          <button onClick={handleGoToChangeScreen}>Go to chat</button>
-        )}
+        <div className="w-96">
+          <TextField
+            type="password"
+            required
+            value={userUUID}
+            full
+            onChange={handleChangeUserUUID}
+          />
+          <Submit full>Sign-in</Submit>
+        </div>
       </form>
+      {isSignInSuccess === undefined
+        ? ''
+        : isSignInSuccess === true
+        ? 'Sign-in success'
+        : 'Sign-in error: could not sign-in, credential not valid'}
+      {isSignInSuccess && (
+        <button onClick={handleGoToChangeScreen}>Go to chat</button>
+      )}
     </div>
   );
 };

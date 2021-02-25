@@ -4,7 +4,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import { TextField, TextFieldProps } from './TextField';
 
 export default {
-  title: 'Common/TextField',
+  title: 'Common/Form/TextField',
   component: TextField,
 } as Meta;
 
@@ -16,4 +16,9 @@ Text.args = {};
 export const Password = Template.bind({});
 Password.args = {
   type: 'password',
+};
+
+export const Email = Template.bind({});
+Email.args = {
+  type: 'email',
 };
