@@ -6,7 +6,7 @@ import { Fish, FishId } from '@actyx/pond';
 import { ChannelFishState } from './types';
 import { ChannelId, PublicMessageEvent } from '../message/types';
 import { reducer } from './reducer';
-import { channelTag2, messagesCatalogTag } from '../tags/tags';
+import { channelTag, messagesCatalogTag } from '../tags/tags';
 
 export const DEFAULT_CHANNEL: Readonly<{
   channelId: ChannelId;
@@ -26,5 +26,5 @@ export const mkChannelFish = (
   fishId: FishId.of('channel', channelName, 0),
   initialState,
   onEvent: reducer,
-  where: messagesCatalogTag.and(channelTag2.withId(channelName)),
+  where: messagesCatalogTag.and(channelTag.withId(channelName)),
 });

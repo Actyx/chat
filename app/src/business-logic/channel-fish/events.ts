@@ -8,7 +8,7 @@ import {
   PublicMessageAddedEvent,
   PublicMessageAddedEventPaylod,
 } from '../message/types';
-import { channelTag2, messagesCatalogTag, messageTag } from '../tags/tags';
+import { channelTag, messagesCatalogTag, messageTag } from '../tags/tags';
 import { mkUserTagWithId } from '../user-catalog-fish/events';
 import { UserUUID } from '../user-catalog-fish/types';
 
@@ -16,7 +16,7 @@ const mkMessageTagWithId = (messageId: MessageId) =>
   messageTag.withId(messageId);
 
 export const mkChannelTagWithId = (channelId: ChannelId) =>
-  channelTag2.withId(channelId);
+  channelTag.withId(channelId);
 
 const mkMessageOperationTag = (
   messageId: MessageId,

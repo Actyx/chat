@@ -9,7 +9,6 @@ export const channelCatalogTag = Tag<ChannelCatalogFishEvent>(
 );
 
 export const messagesCatalogTag = Tag<PublicMessageEvent>('messages-catalog');
-export const channelTag2 = Tag<PublicMessageEvent>('channel'); // FIXME
 export const messageTag = Tag<PublicMessageEvent>('message');
 export const sender = Tag<PublicMessageEvent>('sender');
 
