@@ -18,9 +18,7 @@ export const TextField = ({
   full = false,
   onChange,
 }: TextFieldProps) => {
-  const styles = cx('rounded', {
-    'w-full': full,
-  });
+  const styles = cx('rounded', { 'w-full': full });
 
   return (
     <input
