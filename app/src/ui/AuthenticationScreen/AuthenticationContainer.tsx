@@ -67,7 +67,9 @@ export const AuthenticationContainer = ({ pond }: Props) => {
 
   const handleGoToChatScreen = () => dispatch(goToChatScreen());
 
-  const handleCreateAccount = () => setShowSignUp(true);
+  const handleShowSignUp = () => setShowSignUp(true);
+
+  const handleShowSignIn = () => setShowSignUp(false);
 
   return (
     <div className="mt-24 flex flex-col w-screen items-center">
@@ -77,10 +79,11 @@ export const AuthenticationContainer = ({ pond }: Props) => {
           signUp={handleSignUp}
           isSignUpSuccess={isSignUpSuccess}
           userUUID={userUUID}
+          showSignIn={handleShowSignIn}
         />
       ) : (
         <>
-          <CreateAccount createAccount={handleCreateAccount} />
+          <CreateAccount createAccount={handleShowSignUp} />
           <SignIn
             isSignInSuccess={isSignInSuccess}
             signIn={handleSignIn}

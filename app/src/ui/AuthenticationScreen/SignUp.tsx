@@ -1,18 +1,26 @@
-import { useState } from 'react';
+import { useState, MouseEvent } from 'react';
 import { UserUUID } from '../../business-logic/user-catalog-fish/types';
 import { FormEvent, InputChangeEvent } from '../../common/ui-types';
 import { TextField } from '../common/Form/TextField/TextField';
 import { Heading1 } from '../common/Hedings/Heading1';
 import { SubHeading } from '../common/SubHeading/SubHeading';
 import { Submit } from '../common/Form/Submit/Submit';
+import { Alert } from '../common/Alert/Alert';
+import { Button } from '../common/Button/Button';
 
 type Props = Readonly<{
   isSignUpSuccess?: boolean;
   userUUID?: UserUUID;
   signUp: (displayName: string, email: string) => void;
+  showSignIn: () => void;
 }>;
 
-export const SignUp = ({ isSignUpSuccess, userUUID, signUp }: Props) => {
+export const SignUp = ({
+  isSignUpSuccess,
+  userUUID,
+  signUp,
+  showSignIn,
+}: Props) => {
   const [name, setName] = useState('');
 
   const [email, setEmail] = useState('');
@@ -25,6 +33,8 @@ export const SignUp = ({ isSignUpSuccess, userUUID, signUp }: Props) => {
     signUp(name, email);
     e.preventDefault();
   };
+
+  const handleOpenSignIn = (e: MouseEvent<HTMLButtonElement>) => showSignIn();
 
   return (
     <div className="text-center space-y-3">
@@ -48,13 +58,21 @@ export const SignUp = ({ isSignUpSuccess, userUUID, signUp }: Props) => {
             onChange={handleChangeEmail}
           />
           <Submit full>Sign-up</Submit>
+          {isSignUpSuccess === undefined ? (
+            ''
+          ) : isSignUpSuccess === true ? (
+            <Alert type="secondary">
+              Your password is:
+              <br />
+              {userUUID}
+              <br />
+              <Button click={handleOpenSignIn}>Click here to Sign-in</Button>
+            </Alert>
+          ) : (
+            'Sign-up error: email is already registered'
+          )}
         </div>
       </form>
-      {isSignUpSuccess === undefined
-        ? ''
-        : isSignUpSuccess === true
-        ? `Sign-up success: your password is: ${userUUID}`
-        : 'Sign-up error: email is already registered'}
     </div>
   );
 };
