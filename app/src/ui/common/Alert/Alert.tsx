@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import { ReactNode } from 'react';
-import { Typography } from '../Typography/Typography';
+import { Typography, TypographyColorUI } from '../Typography/Typography';
 
 type Variant = 'secondary' | 'danger';
 
@@ -10,7 +10,7 @@ export type AlertProps = Readonly<{
   children: ReactNode;
 }>;
 
-const color = (variant: Variant) => {
+const color = (variant: Variant): TypographyColorUI => {
   switch (variant) {
     case 'secondary':
       return 'gray-dark';
@@ -18,6 +18,7 @@ const color = (variant: Variant) => {
       return 'red-dark';
   }
 };
+
 export const Alert = ({ variant, full = true, children }: AlertProps) => {
   const styles = cx('p-3 rounded', {
     'width-full': full,
