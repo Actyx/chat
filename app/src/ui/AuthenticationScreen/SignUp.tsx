@@ -58,18 +58,20 @@ export const SignUp = ({
             onChange={handleChangeEmail}
           />
           <Submit full>Sign-up</Submit>
-          {isSignUpSuccess === undefined ? (
-            ''
-          ) : isSignUpSuccess === true ? (
-            <Alert type="secondary">
-              Your password is:
-              <br />
-              {userUUID}
-              <br />
-              <Button click={handleOpenSignIn}>Click here to Sign-in</Button>
+          {isSignUpSuccess !== undefined && (
+            <Alert type={isSignUpSuccess ? 'secondary' : 'danger'}>
+              {isSignUpSuccess ? (
+                <div className="space-y-2">
+                  <div>Your password is (please keep it safe):</div>
+                  <div className="font-semibold">{userUUID}</div>
+                  <Button click={handleOpenSignIn}>
+                    Click here to Sign-in
+                  </Button>
+                </div>
+              ) : (
+                'Email is already registered'
+              )}
             </Alert>
-          ) : (
-            'Sign-up error: email is already registered'
           )}
         </div>
       </form>

@@ -12,8 +12,14 @@ const Template: Story<AlertProps> = (args) => (
   <Alert {...args}>{args.children}</Alert>
 );
 
-export const Default = Template.bind({});
-Default.args = {
+export const Secondary = Template.bind({});
+Secondary.args = {
   type: 'secondary',
   children: 'A simple secondary alert—check it out!',
+};
+
+export const Danger = Template.bind({});
+Danger.args = {
+  type: 'danger',
+  children: 'A simple danger alert—check it out!',
 };
