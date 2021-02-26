@@ -1,4 +1,5 @@
 import { TagsWithEvent } from '../../common/types';
+import { userCatalogTag, userTag } from '../tags/tags';
 import {
   SYSTEM_USER,
   UserAddedEvent,
@@ -7,13 +8,11 @@ import {
   UserCatalogFishEventType,
   UserUUID,
 } from './types';
-import { UserCatalogFish } from './user-catalog-fish';
 
-export const mkUserTagWithId = (userUUID: UserUUID) =>
-  UserCatalogFish.tags.user.withId(userUUID);
+export const mkUserTagWithId = (userUUID: UserUUID) => userTag.withId(userUUID);
 
 export const mkUserCatelogOperationsTags = (userUUID: UserUUID) =>
-  UserCatalogFish.tags.userCatalog.and(mkUserTagWithId(userUUID));
+  userCatalogTag.and(mkUserTagWithId(userUUID));
 
 export const getUserAddedEvent = (
   userUUID: UserUUID,
@@ -46,6 +45,6 @@ export const getUserProfileEditedEvent = (
       editedBy: userUUID,
     },
   };
-  const tags = UserCatalogFish.tags.userCatalog.and(mkUserTagWithId(userUUID));
+  const tags = userCatalogTag.and(mkUserTagWithId(userUUID));
   return [tags, event];
 };

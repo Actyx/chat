@@ -7,12 +7,13 @@ export type ChannelOverviewUI = Readonly<{
   name: string;
   description?: string;
   createdOn: Timestamp;
-  createdBy?: string;
+  createdBy: string;
   editedOn?: Timestamp;
   editedBy?: string;
   isArchived: boolean;
   usersAssociatedTotal: number;
   usersAssociated: ReadonlyArray<string>;
+  isSystemUser: boolean;
   isSignedInUserAssociated: boolean;
 }>;
 
@@ -61,7 +62,7 @@ export const ChannelsCatalog: FC<Props> = ({
               <br />
               {c.editedBy && (
                 <>
-                  Edited by ${c.editedBy} on ${c.editedOn}
+                  {`Edited by ${c.editedBy} on ${c.editedOn}`}
                   <br />
                 </>
               )}
@@ -80,11 +81,12 @@ export const ChannelsCatalog: FC<Props> = ({
                   Archive channel
                 </button>
               )}
-              {c.isSignedInUserAssociated ? (
+              {c.isSignedInUserAssociated && !c.isSystemUser && (
                 <button onClick={() => dissociateUserChannel(c.channelId)}>
                   Leave channel
                 </button>
-              ) : (
+              )}
+              {!c.isSignedInUserAssociated && !c.isSystemUser && (
                 <button onClick={() => associateUserChannel(c.channelId)}>
                   Join channel
                 </button>

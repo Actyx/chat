@@ -1,6 +1,6 @@
 import { Reduce, Timestamp } from '@actyx/pond';
 import { ChannelId } from '../message/types';
-import { UserUUID } from '../user-catalog-fish/types';
+import { UserCatalogFishEvent, UserUUID } from '../user-catalog-fish/types';
 import {
   getChannelProfileByChannelId,
   isUserAssociatedToChannel,
@@ -19,7 +19,7 @@ import {
 
 export const reducer: Reduce<
   ChannelCatalogFishState,
-  ChannelCatalogFishEvent
+  ChannelCatalogFishEvent | UserCatalogFishEvent
 > = (state, event, meta): ChannelCatalogFishState => {
   switch (event.type) {
     case ChannelCatalogFishEventType.ChannelAdded:
@@ -147,3 +147,5 @@ const channelDissociatedUser = (
   }
   return state;
 };
+
+// SPO

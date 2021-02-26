@@ -7,22 +7,25 @@ import {
   PublicMessageEvent,
   PublicRecipientIds,
 } from '../message/types';
-import { mainChannelFish } from './channel-fish';
 import {
   getMessageContentEdited,
   getMessageHiddenEvent,
   getPublicMessageAdded,
 } from './events';
-import { UserUUID, ANONYMOUS_USER } from '../user-catalog-fish/types';
+import { UserUUID } from '../user-catalog-fish/types';
 import { ChannelFishState, PublicMessages } from './types';
 import { v4 as uuid } from 'uuid';
+import { mkChannelFish } from './channel-fish';
+import { ChannelCatalogFish } from '../channel-catalog-fish/channel-catalog-fish';
+import { isChannelIdRegistered } from '../channel-catalog-fish/logic';
+import { isSignedInUser } from '../user-catalog-fish/logic';
 
 //#region Add message
 
 export const addMessageToChannel = (pond: Pond) => (
   channelId: ChannelId,
   userUUID: UserUUID
-) => ({
+) => async ({
   content,
   mediaIds,
   recipientIds,
@@ -30,22 +33,29 @@ export const addMessageToChannel = (pond: Pond) => (
   content: string;
   mediaIds?: MediaIds;
   recipientIds?: PublicRecipientIds;
-}>): Promise<void> => {
+}>): Promise<boolean> => {
+  let isSuccess = false;
   if (isSignedInUser(userUUID)) {
-    return pond
-      .emit(
-        ...getPublicMessageAdded({
-          messageId: uuid(),
-          createdBy: userUUID,
-          channelId,
-          content,
-          mediaIds,
-          recipientIds,
-        })
-      )
+    await pond
+      .run(ChannelCatalogFish, (fishState, enqueue) => {
+        const canAdd = isChannelIdRegistered(channelId, fishState.channels);
+        if (canAdd) {
+          enqueue(
+            ...getPublicMessageAdded({
+              messageId: uuid(),
+              createdBy: userUUID,
+              channelId,
+              content,
+              mediaIds,
+              recipientIds,
+            })
+          );
+          isSuccess = true;
+        }
+      })
       .toPromise();
   }
-  return Promise.resolve(undefined);
+  return isSuccess;
 };
 //#endregion
 
@@ -74,7 +84,7 @@ export const editMessageInChannel = (pond: Pond) => (
   if (isSignedInUser(userUUID)) {
     await pond
       .run<ChannelFishState, PublicMessageEvent>(
-        mainChannelFish,
+        mkChannelFish(channelId),
         (fishState, enqueue) => {
           const message = getMessageById(messageId, fishState.messages);
           if (message) {
@@ -109,7 +119,7 @@ export const hideMessageFromChannel = (pond: Pond) => (
   let isSuccess = false;
   await pond
     .run<ChannelFishState, PublicMessageEvent>(
-      mainChannelFish,
+      mkChannelFish(channelId),
       (fishState, enqueue) => {
         const message = getMessageById(messageId, fishState.messages);
         if (message) {
@@ -124,12 +134,5 @@ export const hideMessageFromChannel = (pond: Pond) => (
     .toPromise();
   return isSuccess;
 };
-
-//#endregion
-
-//#region Others
-
-export const isSignedInUser = (userUUID: UserUUID) =>
-  userUUID !== ANONYMOUS_USER;
 
 //#endregion

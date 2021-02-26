@@ -1,6 +1,6 @@
 import { Pond } from '@actyx/pond';
 import { FC, useContext, useEffect, useState } from 'react';
-import { mainChannelFish } from '../../business-logic/channel-fish/channel-fish';
+import { mkChannelFish } from '../../business-logic/channel-fish/channel-fish';
 import { ChannelFishState } from '../../business-logic/channel-fish/types';
 import { ChannelCatalogFish } from '../../business-logic/channel-catalog-fish/channel-catalog-fish';
 import { ChannelCatalogFishState } from '../../business-logic/channel-catalog-fish/types';
@@ -20,31 +20,30 @@ export const Debug: FC<Props> = ({ pond }) => {
   const [
     stateUserCatalogFish,
     setStateUserCatalogFish,
-  ] = useState<UserCatalogFishState>(UserCatalogFish.fish.initialState);
+  ] = useState<UserCatalogFishState>(UserCatalogFish.initialState);
 
-  const [
-    stateChannelMainFish,
-    setStateChannelMainFish,
-  ] = useState<ChannelFishState>(mainChannelFish.initialState);
+  const [stateChannelFish, setStateChannelFish] = useState<ChannelFishState>(
+    mkChannelFish(stateUI.activeChannelId).initialState
+  );
 
   const [
     stateChannelsCatalogFish,
     setChannelsCatalogFish,
-  ] = useState<ChannelCatalogFishState>(ChannelCatalogFish.fish.initialState);
+  ] = useState<ChannelCatalogFishState>(ChannelCatalogFish.initialState);
 
   useEffect(() => {
     const cancelSubUserCatalogFish = pond.observe(
-      UserCatalogFish.fish,
+      UserCatalogFish,
       setStateUserCatalogFish
     );
 
     const cancelSubscChannelFish = pond.observe(
-      mainChannelFish,
-      setStateChannelMainFish
+      mkChannelFish(stateUI.activeChannelId),
+      setStateChannelFish
     );
 
     const cancelChannelsCatalogFish = pond.observe(
-      ChannelCatalogFish.fish,
+      ChannelCatalogFish,
       setChannelsCatalogFish
     );
 
@@ -53,7 +52,7 @@ export const Debug: FC<Props> = ({ pond }) => {
       cancelSubscChannelFish();
       cancelChannelsCatalogFish();
     };
-  }, [pond]);
+  }, [pond, stateUI.activeChannelId]);
 
   return (
     <div>
@@ -65,7 +64,7 @@ export const Debug: FC<Props> = ({ pond }) => {
       <h5>UserCatalog state</h5>
       <pre>{format(stateUserCatalogFish)}</pre>
       <h5>ChannelFish state</h5>
-      <pre>{format(stateChannelMainFish)}</pre>
+      <pre>{format(stateChannelFish)}</pre>
       <h5>ChannelsCatalogFish state</h5>
       <pre>{format(stateChannelsCatalogFish)}</pre>
     </div>

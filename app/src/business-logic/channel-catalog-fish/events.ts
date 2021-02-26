@@ -1,9 +1,9 @@
 import { TagsWithEvent } from '../../common/types';
 import { mkChannelTagWithId } from '../channel-fish/events';
 import { ChannelId } from '../message/types';
+import { channelCatalogTag } from '../tags/tags';
 import { mkUserTagWithId } from '../user-catalog-fish/events';
 import { UserUUID } from '../user-catalog-fish/types';
-import { ChannelCatalogFish } from './channel-catalog-fish';
 import {
   ChannelAddedEvent,
   ChannelArchivedEvent,
@@ -15,7 +15,7 @@ import {
 } from './types';
 
 const mkChannelOperationTags = (channelId: ChannelId, userUUID: UserUUID) =>
-  ChannelCatalogFish.tags.channelCatalog.and(
+  channelCatalogTag.and(
     mkChannelTagWithId(channelId).and(mkUserTagWithId(userUUID))
   );
 

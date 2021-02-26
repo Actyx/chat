@@ -1,6 +1,6 @@
 import { Pond } from '@actyx/pond';
 import { FC, useContext, useEffect, useState } from 'react';
-import { mainChannelFish } from '../../../business-logic/channel-fish/channel-fish';
+import { mkChannelFish } from '../../../business-logic/channel-fish/channel-fish';
 import {
   editMessageInChannel,
   hideMessageFromChannel,
@@ -10,6 +10,7 @@ import { ChannelFishState } from '../../../business-logic/channel-fish/types';
 import { ChannelCatalogFish } from '../../../business-logic/channel-catalog-fish/channel-catalog-fish';
 import {
   addChannel,
+  addDefaultChannelIfDoesNotExist,
   archiveChannel,
   associateUserToChannel,
   dissociateUserChannel,
@@ -34,10 +35,11 @@ import { AddChannelDialog } from '../AddChannelDialog/AddChannelDialog';
 import { Channel } from '../Channel/Channel';
 import { MessageInput } from '../Channel/MessageInput';
 import { ChannelsCatalog } from '../ChannelsCatalog/ChannelsCatalog';
-import { EditChannelDialogContainer } from '../EditChannelDialog/EditChannelDialog';
+import { EditChannelDialog } from '../EditChannelDialog/EditChannelDialog';
 import { Sidebar } from '../Sidebar/Sidebar';
 import { TopBar } from '../TopBar';
 import {
+  getChannelName,
   getDisplayNameByUser,
   getVisiblePublicMessages,
   mapChannelsToChannelCatalogUI,
@@ -77,36 +79,39 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
   const [invalidMessage, setInvalidMessage] = useState<string | undefined>();
 
   //#region Pond and Fishes
+
   const [
     stateUserCatalogFish,
     setStateUserCatalogFish,
-  ] = useState<UserCatalogFishState>(UserCatalogFish.fish.initialState);
+  ] = useState<UserCatalogFishState>(UserCatalogFish.initialState);
 
   const [
     stateChannelMainFish,
     setStateChannelMainFish,
-  ] = useState<ChannelFishState>(mainChannelFish.initialState);
+  ] = useState<ChannelFishState>(
+    mkChannelFish(stateUI.activeChannelId).initialState
+  );
 
   const [
     stateChannelsCatalogFish,
     setStateChannelsCatalogFish,
-  ] = useState<ChannelCatalogFishState>(ChannelCatalogFish.fish.initialState);
+  ] = useState<ChannelCatalogFishState>(ChannelCatalogFish.initialState);
 
   const [pondErrorMessage, setPondErrorMessage] = useState<string>();
 
   useEffect(() => {
     const cancelSubUserCatalogFish = pond.observe(
-      UserCatalogFish.fish,
+      UserCatalogFish,
       setStateUserCatalogFish
     );
 
     const cancelSubChannelFish = pond.observe(
-      mainChannelFish,
+      mkChannelFish(stateUI.activeChannelId),
       setStateChannelMainFish
     );
 
     const cancelSubChannelsCatalogFish = pond.observe(
-      ChannelCatalogFish.fish,
+      ChannelCatalogFish,
       setStateChannelsCatalogFish
     );
 
@@ -115,7 +120,18 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
       cancelSubChannelFish();
       cancelSubChannelsCatalogFish();
     };
-  }, [pond]);
+  }, [pond, stateUI.activeChannelId]);
+
+  useEffect(() => {
+    const mainChannel = async () => {
+      try {
+        await addDefaultChannelIfDoesNotExist(pond)(stateUI.userUUID);
+      } catch (err) {
+        setPondErrorMessage(undefined);
+      }
+    };
+    mainChannel();
+  }, [pond, stateUI.userUUID]);
 
   //#endregion
 
@@ -179,7 +195,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
 
   const handleShowAddChannelDialog = () => setShowAddChannelDialog(true);
 
-  const handleHideAddChannelDialog = () => setShowAddChannelDialog(false);
+  const handleHideAddChannelDialog = () => setShowEditChannelDialog(false);
 
   const handleShowEditChannelDialog = (channelId: ChannelId) => {
     const channelProfile = getChannelProfileByChannelId(
@@ -311,6 +327,11 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
       channelId,
       stateChannelsCatalogFish.channels
     );
+
+  const channelName = getChannelName(
+    stateUI.activeChannelId,
+    stateChannelsCatalogFish.channels
+  );
   //#endregion
 
   const renderSectionCenter = () => {
@@ -319,6 +340,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
         return (
           <div>
             <Channel
+              channelName={channelName}
               messages={channelMessages}
               editMessage={handleEditMessage}
               hideMessage={handleHideMessage}
@@ -344,7 +366,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
   return (
     <div>
       {pondErrorMessage}
-      <TopBar userDisplayName={userDisplayName ?? ''} />
+      <TopBar userDisplayName={userDisplayName} />
       <div>
         <Sidebar
           channels={channelsSideBarUI}
@@ -366,7 +388,7 @@ export const ChatContainer: FC<Props> = ({ pond }) => {
         />
       )}
       {showEditChannelDialog && selectedChannel && (
-        <EditChannelDialogContainer
+        <EditChannelDialog
           currentName={selectedChannel.name}
           currentDescription={selectedChannel.description}
           editChannel={(newName, newDescription) =>

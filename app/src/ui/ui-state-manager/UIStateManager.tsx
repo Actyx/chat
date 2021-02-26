@@ -1,5 +1,5 @@
 import { FC, ReactChild, useReducer, createContext } from 'react';
-import { MAIN_CHANNEL as DEFAULT_CHANNEL } from '../../business-logic/channel-fish/channel-fish';
+import { DEFAULT_CHANNEL } from '../../business-logic/channel-fish/channel-fish';
 import { ANONYMOUS_USER } from '../../business-logic/user-catalog-fish/types';
 import { reducer } from './reducer';
 import {
@@ -17,7 +17,7 @@ const inititialState: StateUI = {
   userUUID: ANONYMOUS_USER,
   sectionRight: SectionRight.None,
   sectionCenter: SectionCenter.Channel,
-  activeChannelId: DEFAULT_CHANNEL,
+  activeChannelId: DEFAULT_CHANNEL.channelId,
 };
 
 export const StateContextUI = createContext(inititialState);

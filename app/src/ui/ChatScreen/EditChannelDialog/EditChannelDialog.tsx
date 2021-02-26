@@ -10,7 +10,7 @@ type Props = Readonly<{
   closeDialog: () => void;
 }>;
 
-export const EditChannelDialogContainer: FC<Props> = ({
+export const EditChannelDialog: FC<Props> = ({
   currentName,
   currentDescription,
   messageError,

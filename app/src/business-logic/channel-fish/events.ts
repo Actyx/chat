@@ -8,22 +8,22 @@ import {
   PublicMessageAddedEvent,
   PublicMessageAddedEventPaylod,
 } from '../message/types';
+import { channelTag, messagesCatalogTag, messageTag } from '../tags/tags';
 import { mkUserTagWithId } from '../user-catalog-fish/events';
 import { UserUUID } from '../user-catalog-fish/types';
-import { ChannelFish } from './channel-fish';
 
 const mkMessageTagWithId = (messageId: MessageId) =>
-  ChannelFish.tags.message.withId(messageId);
+  messageTag.withId(messageId);
 
 export const mkChannelTagWithId = (channelId: ChannelId) =>
-  ChannelFish.tags.channel.withId(channelId);
+  channelTag.withId(channelId);
 
 const mkMessageOperationTag = (
   messageId: MessageId,
   channelId: ChannelId,
   userUUID: UserUUID
 ) =>
-  ChannelFish.tags.messagesCatalog.and(
+  messagesCatalogTag.and(
     mkChannelTagWithId(channelId).and(
       mkMessageTagWithId(messageId).and(mkUserTagWithId(userUUID))
     )

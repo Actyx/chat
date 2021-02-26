@@ -2,37 +2,29 @@
  * The ChannelFish is responsible for displaying all messages related to a specific channel. A user is only active on one channel at one time.
  */
 
-import { Fish, FishId, Tag } from '@actyx/pond';
+import { Fish, FishId } from '@actyx/pond';
 import { ChannelFishState } from './types';
-import { PublicMessageEvent } from '../message/types';
+import { ChannelId, PublicMessageEvent } from '../message/types';
 import { reducer } from './reducer';
+import { channelTag, messagesCatalogTag } from '../tags/tags';
 
-export const MAIN_CHANNEL = 'main';
-
-const tags = {
-  messagesCatalog: Tag<PublicMessageEvent>('messages-catalog'),
-  channel: Tag<PublicMessageEvent>('channel'),
-  message: Tag<PublicMessageEvent>('message'),
-  sender: Tag<PublicMessageEvent>('sender'),
+export const DEFAULT_CHANNEL: Readonly<{
+  channelId: ChannelId;
+  name: string;
+}> = {
+  channelId: 'main',
+  name: 'Main',
 };
 
 const initialState: ChannelFishState = {
   messages: [],
 };
 
-export const initialStateCannelFish = initialState;
-
-const factoryFish = (
+export const mkChannelFish = (
   channelName: string
 ): Fish<ChannelFishState, PublicMessageEvent> => ({
   fishId: FishId.of('channel', channelName, 0),
   initialState,
   onEvent: reducer,
-  where: tags.messagesCatalog.and(tags.channel.withId(channelName)),
+  where: messagesCatalogTag.and(channelTag.withId(channelName)),
 });
-
-export const ChannelFish = {
-  tags,
-};
-
-export const mainChannelFish = factoryFish(MAIN_CHANNEL);

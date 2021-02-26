@@ -4,10 +4,19 @@ import {
   doesMessageBelongToUser,
 } from '../../../business-logic/channel-fish/logic';
 import { PublicMessages } from '../../../business-logic/channel-fish/types';
-import { isUserAssociatedToChannel } from '../../../business-logic/channel-catalog-fish/logic';
+import {
+  getChannelProfileByChannelId,
+  isUserAssociatedToChannel,
+} from '../../../business-logic/channel-catalog-fish/logic';
 import { Channels } from '../../../business-logic/channel-catalog-fish/types';
-import { PublicMessage } from '../../../business-logic/message/types';
-import { isUserUUIDRegistered } from '../../../business-logic/user-catalog-fish/logic';
+import {
+  ChannelId,
+  PublicMessage,
+} from '../../../business-logic/message/types';
+import {
+  isUserCreatedBySystem,
+  isUserUUIDRegistered,
+} from '../../../business-logic/user-catalog-fish/logic';
 import {
   Users,
   UserUUID,
@@ -64,6 +73,7 @@ export const mapChannelsToChannelCatalogUI = (
     const usersAssociated = channel.users
       .map((x: UserUUID) => getDisplayNameByUser(x, users))
       .filter(isDefined);
+    const isSystemUser = isUserCreatedBySystem(channel.profile.createdBy);
 
     return {
       ...channel.profile,
@@ -72,6 +82,7 @@ export const mapChannelsToChannelCatalogUI = (
       usersAssociatedTotal,
       usersAssociated,
       isSignedInUserAssociated,
+      isSystemUser,
     };
   });
 
@@ -98,15 +109,20 @@ export const sortAlphabeticChannelsOverview = (
 export const getDisplayNameByUser = (
   userUUID: UserUUID,
   users: Users
-): string | undefined => {
+): string => {
   const isRegister = isUserUUIDRegistered(userUUID, users);
   if (isRegister) {
     return users[userUUID].displayName;
+  } else if (isUserCreatedBySystem(userUUID)) {
+    return 'System';
   } else {
-    return undefined;
+    return '';
   }
 };
 
 export const getVisiblePublicMessages = (
   messages: PublicMessages
 ): PublicMessages => messages.filter((m) => !m.isHidden);
+
+export const getChannelName = (channelId: ChannelId, channels: Channels) =>
+  getChannelProfileByChannelId(channelId, channels)?.name ?? '';
