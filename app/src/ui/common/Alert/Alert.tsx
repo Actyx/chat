@@ -1,23 +1,35 @@
 import cx from 'classnames';
 import { ReactNode } from 'react';
+import { Typography } from '../Typography/Typography';
+
+type Variant = 'secondary' | 'danger';
 
 export type AlertProps = Readonly<{
-  type: 'secondary' | 'danger';
+  variant: Variant;
   full?: boolean;
   children: ReactNode;
 }>;
 
-export const Alert = ({ type, full = true, children }: AlertProps) => {
-  const isSecondary = type === 'secondary';
-  const isDanger = type === 'danger';
-
-  const styles = cx('p-3 rounded text-left font-sans text-base', {
+const color = (variant: Variant) => {
+  switch (variant) {
+    case 'secondary':
+      return 'gray-dark';
+    case 'danger':
+      return 'red-dark';
+  }
+};
+export const Alert = ({ variant, full = true, children }: AlertProps) => {
+  const styles = cx('p-3 rounded', {
     'width-full': full,
-    'bg-gray-100': isSecondary,
-    'text-gray-800': isSecondary,
-    'bg-red-100': isDanger,
-    'text-red-800': isDanger,
+    'bg-gray-100': variant === 'secondary',
+    'bg-red-100': variant === 'danger',
   });
 
-  return <div className={styles}>{children}</div>;
+  return (
+    <div className={styles}>
+      <Typography align="left" color={color(variant)}>
+        {children}
+      </Typography>
+    </div>
+  );
 };

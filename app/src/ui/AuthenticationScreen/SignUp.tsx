@@ -59,7 +59,7 @@ export const SignUp = ({
           />
           <Submit full>Sign-up</Submit>
           {isSignUpSuccess !== undefined && (
-            <Alert type={isSignUpSuccess ? 'secondary' : 'danger'}>
+            <Alert variant={isSignUpSuccess ? 'secondary' : 'danger'}>
               {isSignUpSuccess ? (
                 <div className="space-y-2">
                   <div>Your password is (please keep it safe):</div>
