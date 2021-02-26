@@ -12,10 +12,8 @@ export default {
 } as Meta;
 
 const Template: Story<HeadingProps> = (args) => (
-  <Heading1 {...args}>{args.children}</Heading1>
+  <Heading1 {...args} children="Heading 1" />
 );
 
 export const Default = Template.bind({});
-Default.args = {
-  children: 'Heading 1',
-};
+Default.args = {};

@@ -11,9 +11,14 @@ export default {
   },
 } as Meta;
 
-const Template: Story<SubmitProps> = (args) => <Submit {...args} />;
+const Template: Story<SubmitProps> = (args) => (
+  <Submit {...args} children="Sumbit" />
+);
 
-export const Text = Template.bind({});
-Text.args = {
-  children: 'Submit',
+export const Default = Template.bind({});
+Default.args = {};
+
+export const Full = Template.bind({});
+Full.args = {
+  full: true,
 };

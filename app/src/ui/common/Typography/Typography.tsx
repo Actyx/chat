@@ -1,23 +1,29 @@
 import { ReactNode } from 'react';
 import cx from 'classnames';
 
-type HTMLTag = 'span' | 'h1';
+type HTMLTag = 'span' | 'h1' | 'div';
 
-export type TypographyColorUI = 'black' | 'gray-dark' | 'red-dark';
+export type TypographyColorUI =
+  | 'black'
+  | 'gray-dark'
+  | 'gray-medium'
+  | 'red-dark';
 
 export type TypographyProps = Readonly<{
-  size?: 'base' | 'sm' | 'xxl';
-  htmlTag?: HTMLTag;
+  size?: 'base' | 'sm' | 'lg' | 'xxl';
+  tag?: HTMLTag;
   children: ReactNode;
   weight?: 'normal' | 'semibold' | 'bold';
   color?: TypographyColorUI;
   align?: 'initial' | 'left' | 'center' | 'right';
 }>;
 
-const render = (htmlTag: HTMLTag, style: string, children: ReactNode) => {
-  switch (htmlTag) {
+const render = (tag: HTMLTag, style: string, children: ReactNode) => {
+  switch (tag) {
     case 'span':
       return <span className={style}>{children}</span>;
+    case 'div':
+      return <div className={style}>{children}</div>;
     case 'h1':
       return <h1 className={style}>{children}</h1>;
   }
@@ -25,7 +31,7 @@ const render = (htmlTag: HTMLTag, style: string, children: ReactNode) => {
 
 export const Typography = ({
   size = 'base',
-  htmlTag = 'span',
+  tag: htmlTag = 'span',
   children,
   weight = 'normal',
   color = 'black',
@@ -35,12 +41,14 @@ export const Typography = ({
     'font-sans': true,
     'text-base': size === 'base',
     'text-sm': size === 'sm',
+    'text-lg': size === 'lg',
     'text-5xl': size === 'xxl',
     'font-normal': weight === 'normal',
     'font-semibold': weight === 'semibold',
     'font-bold': weight === 'bold',
     'text-black': color === 'black',
     'text-gray-900': color === 'gray-dark',
+    'text-gray-700': color === 'gray-medium',
     'text-red-900': color === 'red-dark',
     'text-left': align === 'left',
     'text-center': align === 'center',

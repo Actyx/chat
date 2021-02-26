@@ -9,10 +9,8 @@ export default {
 } as Meta;
 
 const Template: Story<TypographyProps> = (args) => (
-  <Typography {...args}>{args.children}</Typography>
+  <Typography {...args} children="Typography" />
 );
 
 export const Default = Template.bind({});
-Default.args = {
-  children: 'Typography',
-};
+Default.args = {};
