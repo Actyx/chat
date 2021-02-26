@@ -60,7 +60,7 @@ export const Debug = ({ pond }: Props) => {
 
   return (
     <div>
-      <button className="text-gray-200" onClick={handleShowDebug}>
+      <button className="text-gray-100" onClick={handleShowDebug}>
         debug
       </button>
       {showDebug && (
