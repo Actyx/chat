@@ -34,7 +34,7 @@ export const signUp = (pond: Pond, makerUUID: () => UserUUID) => async (
   let isSuccess = false;
   await pond
     .run<UserCatalogFishState, UserCatalogFishEvent>(
-      UserCatalogFish.fish,
+      UserCatalogFish,
       (fishState, enqueue) => {
         const canSignUp = !isUserEmailRegistered(email, fishState.emails);
         if (canSignUp) {
@@ -79,7 +79,7 @@ export const editUserProfile = (pond: Pond) => async (
   let isSuccess = false;
   if (isSignedInUser(userUUID)) {
     await pond
-      .run(UserCatalogFish.fish, (fishState, enqueue) => {
+      .run(UserCatalogFish, (fishState, enqueue) => {
         const isUserRegistered = isUserUUIDRegistered(
           userUUID,
           fishState.users

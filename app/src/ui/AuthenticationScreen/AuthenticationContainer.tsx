@@ -26,11 +26,11 @@ export const AuthenticationContainer = ({ pond }: Props) => {
   const [
     stateUserCatalogFish,
     setStateUserCatalogFish,
-  ] = useState<UserCatalogFishState>(UserCatalogFish.fish.initialState);
+  ] = useState<UserCatalogFishState>(UserCatalogFish.initialState);
 
   useEffect(() => {
     const cancelSubscription = pond.observe(
-      UserCatalogFish.fish,
+      UserCatalogFish,
       setStateUserCatalogFish
     );
     return () => cancelSubscription();

@@ -20,7 +20,7 @@ export const Debug = ({ pond }: Props) => {
   const [
     stateUserCatalogFish,
     setStateUserCatalogFish,
-  ] = useState<UserCatalogFishState>(UserCatalogFish.fish.initialState);
+  ] = useState<UserCatalogFishState>(UserCatalogFish.initialState);
 
   const [stateChannelFish, setStateChannelFish] = useState<ChannelFishState>(
     mkChannelFish(stateUI.activeChannelId).initialState
@@ -29,13 +29,13 @@ export const Debug = ({ pond }: Props) => {
   const [
     stateChannelsCatalogFish,
     setChannelsCatalogFish,
-  ] = useState<ChannelCatalogFishState>(ChannelCatalogFish.fish.initialState);
+  ] = useState<ChannelCatalogFishState>(ChannelCatalogFish.initialState);
 
   const [showDebug, setShowDebug] = useState<boolean>(false);
 
   useEffect(() => {
     const cancelSubUserCatalogFish = pond.observe(
-      UserCatalogFish.fish,
+      UserCatalogFish,
       setStateUserCatalogFish
     );
 
@@ -45,7 +45,7 @@ export const Debug = ({ pond }: Props) => {
     );
 
     const cancelChannelsCatalogFish = pond.observe(
-      ChannelCatalogFish.fish,
+      ChannelCatalogFish,
       setChannelsCatalogFish
     );
 

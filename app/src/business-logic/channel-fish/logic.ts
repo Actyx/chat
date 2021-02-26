@@ -37,7 +37,7 @@ export const addMessageToChannel = (pond: Pond) => (
   let isSuccess = false;
   if (isSignedInUser(userUUID)) {
     await pond
-      .run(ChannelCatalogFish.fish, (fishState, enqueue) => {
+      .run(ChannelCatalogFish, (fishState, enqueue) => {
         const canAdd = isChannelIdRegistered(channelId, fishState.channels);
         if (canAdd) {
           enqueue(

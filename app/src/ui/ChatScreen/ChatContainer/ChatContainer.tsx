@@ -10,6 +10,7 @@ import { ChannelFishState } from '../../../business-logic/channel-fish/types';
 import { ChannelCatalogFish } from '../../../business-logic/channel-catalog-fish/channel-catalog-fish';
 import {
   addChannel,
+  addDefaultChannelIfDoesNotExist,
   archiveChannel,
   associateUserToChannel,
   dissociateUserChannel,
@@ -82,7 +83,7 @@ export const ChatContainer = ({ pond }: Props) => {
   const [
     stateUserCatalogFish,
     setStateUserCatalogFish,
-  ] = useState<UserCatalogFishState>(UserCatalogFish.fish.initialState);
+  ] = useState<UserCatalogFishState>(UserCatalogFish.initialState);
 
   const [
     stateChannelMainFish,
@@ -94,13 +95,13 @@ export const ChatContainer = ({ pond }: Props) => {
   const [
     stateChannelsCatalogFish,
     setStateChannelsCatalogFish,
-  ] = useState<ChannelCatalogFishState>(ChannelCatalogFish.fish.initialState);
+  ] = useState<ChannelCatalogFishState>(ChannelCatalogFish.initialState);
 
   const [pondErrorMessage, setPondErrorMessage] = useState<string>();
 
   useEffect(() => {
     const cancelSubUserCatalogFish = pond.observe(
-      UserCatalogFish.fish,
+      UserCatalogFish,
       setStateUserCatalogFish
     );
 
@@ -110,7 +111,7 @@ export const ChatContainer = ({ pond }: Props) => {
     );
 
     const cancelSubChannelsCatalogFish = pond.observe(
-      ChannelCatalogFish.fish,
+      ChannelCatalogFish,
       setStateChannelsCatalogFish
     );
 
@@ -120,6 +121,17 @@ export const ChatContainer = ({ pond }: Props) => {
       cancelSubChannelsCatalogFish();
     };
   }, [pond, stateUI.activeChannelId]);
+
+  useEffect(() => {
+    const mainChannel = async () => {
+      try {
+        await addDefaultChannelIfDoesNotExist(pond)(stateUI.userUUID);
+      } catch (err) {
+        setPondErrorMessage(undefined);
+      }
+    };
+    mainChannel();
+  }, [pond, stateUI.userUUID]);
 
   //#endregion
 
