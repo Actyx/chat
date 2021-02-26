@@ -7,7 +7,7 @@ type CreateAccountProps = Readonly<{
 
 export const CreateAccount = ({ createAccount }: CreateAccountProps) => {
   return (
-    <div className="absolute top-9 right-9 text-sm text-gray-700 text-right">
+    <div className="absolute top-9 right-9">
       <Typography size="sm" tag="div" color="gray-medium" align="right">
         New to this chat?
       </Typography>
