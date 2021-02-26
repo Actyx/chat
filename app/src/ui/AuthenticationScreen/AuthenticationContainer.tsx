@@ -14,6 +14,7 @@ import { SignIn } from './SignIn';
 import { DispatchContextUI } from '../ui-state-manager/UIStateManager';
 import { addSignedInUser, goToChatScreen } from '../ui-state-manager/actions';
 import { UserCatalogFish } from '../../business-logic/user-catalog-fish/user-catalog-fish';
+import { CreateAccount } from './CreateAccount';
 
 type Props = Readonly<{
   pond: Pond;
@@ -36,6 +37,8 @@ export const AuthenticationContainer = ({ pond }: Props) => {
   }, [pond]);
 
   const [isSignUpSuccess, setIsSignUpSuccess] = useState<boolean>();
+
+  const [showSignUp, setShowSignUp] = useState<boolean>(false);
 
   const [isSignInSuccess, setIsSignInSuccess] = useState<boolean>();
 
@@ -64,19 +67,27 @@ export const AuthenticationContainer = ({ pond }: Props) => {
 
   const handleGoToChatScreen = () => dispatch(goToChatScreen());
 
+  const handleCreateAccount = () => setShowSignUp(true);
+
   return (
-    <div className="flex flex-col w-screen items-center">
+    <div className="mt-24 flex flex-col w-screen items-center">
       {pondErrorMessage}
-      <SignIn
-        isSignInSuccess={isSignInSuccess}
-        signIn={handleSignIn}
-        goToChatScreen={handleGoToChatScreen}
-      />
-      <SignUp
-        signUp={handleSignUp}
-        isSignUpSuccess={isSignUpSuccess}
-        userUUID={userUUID}
-      />
+      {showSignUp ? (
+        <SignUp
+          signUp={handleSignUp}
+          isSignUpSuccess={isSignUpSuccess}
+          userUUID={userUUID}
+        />
+      ) : (
+        <>
+          <CreateAccount createAccount={handleCreateAccount} />
+          <SignIn
+            isSignInSuccess={isSignInSuccess}
+            signIn={handleSignIn}
+            goToChatScreen={handleGoToChatScreen}
+          />
+        </>
+      )}
     </div>
   );
 };

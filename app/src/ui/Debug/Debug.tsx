@@ -31,6 +31,8 @@ export const Debug = ({ pond }: Props) => {
     setChannelsCatalogFish,
   ] = useState<ChannelCatalogFishState>(ChannelCatalogFish.fish.initialState);
 
+  const [showDebug, setShowDebug] = useState<boolean>(false);
+
   useEffect(() => {
     const cancelSubUserCatalogFish = pond.observe(
       UserCatalogFish.fish,
@@ -54,19 +56,28 @@ export const Debug = ({ pond }: Props) => {
     };
   }, [pond, stateUI.activeChannelId]);
 
+  const handleShowDebug = () => setShowDebug(!showDebug);
+
   return (
     <div>
-      <hr />
-      <h5>stateUI</h5>
-      <pre>{format(stateUI)}</pre>
-      <br />
-      <hr />
-      <h5>UserCatalog state</h5>
-      <pre>{format(stateUserCatalogFish)}</pre>
-      <h5>ChannelFish state</h5>
-      <pre>{format(stateChannelFish)}</pre>
-      <h5>ChannelsCatalogFish state</h5>
-      <pre>{format(stateChannelsCatalogFish)}</pre>
+      <button className="text-gray-200" onClick={handleShowDebug}>
+        debug
+      </button>
+      {showDebug && (
+        <div>
+          <hr />
+          <h5>stateUI</h5>
+          <pre>{format(stateUI)}</pre>
+          <br />
+          <hr />
+          <h5>UserCatalog state</h5>
+          <pre>{format(stateUserCatalogFish)}</pre>
+          <h5>ChannelFish state</h5>
+          <pre>{format(stateChannelFish)}</pre>
+          <h5>ChannelsCatalogFish state</h5>
+          <pre>{format(stateChannelsCatalogFish)}</pre>
+        </div>
+      )}
     </div>
   );
 };

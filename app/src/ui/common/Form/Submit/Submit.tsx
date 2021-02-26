@@ -7,7 +7,7 @@ export type SubmitProps = Readonly<{
 
 export const Submit = ({ children, full = false }: SubmitProps) => {
   const styles = cx(
-    'bg-pink-900 hover:bg-pink-800',
+    'bg-purple-900 hover:bg-purple-800',
     'font-sans text-white text-xl font-bold font-extrabold',
     'rounded h-11 p-2',
     {
