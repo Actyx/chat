@@ -21,3 +21,9 @@ Danger.args = {
   variant: 'danger',
   children: 'A simple danger alert—check it out!',
 };
+
+export const Success = Template.bind({});
+Success.args = {
+  variant: 'success',
+  children: 'A simple success alert—check it out!',
+};
