@@ -1,4 +1,5 @@
 import { Button } from '../common/Button/Button';
+import { Typography } from '../common/Typography/Typography';
 
 type CreateAccountProps = Readonly<{
   createAccount: () => void;
@@ -7,7 +8,9 @@ type CreateAccountProps = Readonly<{
 export const CreateAccount = ({ createAccount }: CreateAccountProps) => {
   return (
     <div className="absolute top-9 right-9 text-sm text-gray-700 text-right">
-      <div>New to this chat?</div>
+      <Typography size="sm" tag="div" color="gray-medium" align="right">
+        New to this chat?
+      </Typography>
       <Button click={createAccount}>Create an account</Button>
     </div>
   );
