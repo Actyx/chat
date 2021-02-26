@@ -7,6 +7,8 @@ import { SubHeading } from '../common/SubHeading/SubHeading';
 import { Submit } from '../common/Form/Submit/Submit';
 import { Alert } from '../common/Alert/Alert';
 import { Button } from '../common/Button/Button';
+import { SparklesIcon } from '../common/Icons/SparklesIcon';
+import { ExclamationIcon } from '../common/Icons/ExclamationIcon';
 
 type Props = Readonly<{
   isSignUpSuccess?: boolean;
@@ -59,7 +61,10 @@ export const SignUp = ({
           />
           <Submit full>Sign-up</Submit>
           {isSignUpSuccess !== undefined && (
-            <Alert variant={isSignUpSuccess ? 'secondary' : 'danger'}>
+            <Alert
+              icon={!isSignUpSuccess && ExclamationIcon}
+              variant={isSignUpSuccess ? 'secondary' : 'danger'}
+            >
               {isSignUpSuccess ? (
                 <div className="space-y-2">
                   <div>Your password is (please keep it safe):</div>

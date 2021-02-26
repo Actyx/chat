@@ -2,6 +2,7 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Alert, AlertProps } from './Alert';
+import { SparklesIcon } from '../Icons/SparklesIcon';
 
 export default {
   title: 'Common/Alert',
@@ -26,4 +27,11 @@ export const Success = Template.bind({});
 Success.args = {
   variant: 'success',
   children: 'A simple success alert—check it out!',
+};
+
+export const Icon = Template.bind({});
+Icon.args = {
+  variant: 'success',
+  children: 'A simple success alert—check it out!',
+  icon: SparklesIcon,
 };

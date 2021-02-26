@@ -7,6 +7,8 @@ import { Alert } from '../common/Alert/Alert';
 import { Heading1 } from '../common/Hedings/Heading1';
 import { SubHeading } from '../common/SubHeading/SubHeading';
 import { Button } from '../common/Button/Button';
+import { SparklesIcon } from '../common/Icons/SparklesIcon';
+import { ExclamationIcon } from '../common/Icons/ExclamationIcon';
 
 type Props = Readonly<{
   isSignInSuccess?: boolean;
@@ -44,9 +46,13 @@ export const SignIn = ({ isSignInSuccess, signIn, goToChatScreen }: Props) => {
         </div>
       </form>
       {isSignInSuccess !== undefined && (
-        <Alert variant={isSignInSuccess ? 'success' : 'danger'} full>
+        <Alert
+          icon={isSignInSuccess ? SparklesIcon : ExclamationIcon}
+          variant={isSignInSuccess ? 'success' : 'danger'}
+          full
+        >
           {isSignInSuccess === true ? (
-            <div>
+            <div className="flex space-x-2">
               <div>Sign-in success!</div>
               <Button click={handleGoToChangeScreen}>Click to enter</Button>
             </div>

@@ -7,6 +7,7 @@ type Variant = 'secondary' | 'danger' | 'success';
 export type AlertProps = Readonly<{
   variant: Variant;
   full?: boolean;
+  icon?: ReactNode;
   children: ReactNode;
 }>;
 
@@ -21,8 +22,9 @@ const color = (variant: Variant): TypographyColorUI => {
   }
 };
 
-export const Alert = ({ variant, full = true, children }: AlertProps) => {
+export const Alert = ({ variant, full = true, icon, children }: AlertProps) => {
   const styles = cx('p-3 rounded', {
+    'flex space-x-2': icon,
     'width-full': full,
     'bg-gray-100': variant === 'secondary',
     'bg-red-100': variant === 'danger',
@@ -31,7 +33,8 @@ export const Alert = ({ variant, full = true, children }: AlertProps) => {
 
   return (
     <div className={styles}>
-      <Typography align="left" color={color(variant)}>
+      {icon && icon}
+      <Typography tag="div" align="left" color={color(variant)}>
         {children}
       </Typography>
     </div>
