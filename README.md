@@ -6,7 +6,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
-In the project directory `app`, you can run the following script after using `nvm use`:
+In the project directory `app`, you can run the following scripts after using `nvm use`:
 
 ### `yarn install`
 
