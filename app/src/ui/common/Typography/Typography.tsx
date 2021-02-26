@@ -7,7 +7,8 @@ export type TypographyColorUI =
   | 'black'
   | 'gray-dark'
   | 'gray-medium'
-  | 'red-dark';
+  | 'red-dark'
+  | 'green-dark';
 
 export type TypographyProps = Readonly<{
   size?: 'base' | 'sm' | 'lg' | 'xxl';
