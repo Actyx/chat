@@ -2,6 +2,7 @@ import { ChannelId } from '../../../business-logic/message/types';
 import { HashtagIcon } from '../../common/Icons/HashtagIcon';
 import { Typography } from '../../common/Typography/Typography';
 import { ChannelsListUI } from './Sidebar';
+import { Row } from './Row';
 
 type Props = Readonly<{
   channels: ChannelsListUI;
@@ -10,20 +11,17 @@ type Props = Readonly<{
 
 export const ChannelsList = ({ channels, selectChannel }: Props) => {
   return (
-    <ul className="pl-4">
+    <>
       {channels.map((x) => (
-        <li key={x.channelId}>
-          <button
-            className="flex items-center space-x-2"
-            onClick={() => selectChannel(x.channelId)}
-          >
+        <Row key={x.channelId} onClick={() => selectChannel(x.channelId)}>
+          <div className="flex items-center pl-4 space-x-2">
             <HashtagIcon size="sx" color="gray-light" />
             <Typography tag="div" size="sm" color="gray-light">
               {x.name}
             </Typography>
-          </button>
-        </li>
+          </div>
+        </Row>
       ))}
-    </ul>
+    </>
   );
 };
