@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FormEvent, InputChangeEvent } from '../../common/ui-types';
+import { FormEventElement, InputChangeEvent } from '../utils/ui-event-types';
 
 type UserProfileDetailsProps = Readonly<{
   isEditProfileSuccess?: boolean;
@@ -17,7 +17,7 @@ export const UserProfileDetails = ({
   const handleChangeDisplayName = (e: InputChangeEvent) =>
     setDisplayName(e.target.value);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: FormEventElement) => {
     editUserProfile(displayName);
     e.preventDefault();
   };

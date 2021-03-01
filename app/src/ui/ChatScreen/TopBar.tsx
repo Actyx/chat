@@ -1,4 +1,9 @@
+import classNames from 'classnames';
 import { useContext } from 'react';
+import { mkColor } from '../common/colors/color';
+import { LogoutIcon } from '../common/Icons/LogoutIcon';
+import { Typography } from '../common/Typography/Typography';
+import { ButtonLink } from '../common/ButtonLink/ButtonLink';
 import {
   showUserProfileEditSection,
   signOutActiveUser,
@@ -16,17 +21,23 @@ export const TopBar = ({ userDisplayName }: Props) => {
 
   const handleSignOut = () => dispatch(signOutActiveUser());
 
+  const style = classNames(
+    'flex justify-end items-center',
+    'space-x-3',
+    'h-10',
+    'pl-3 pr-3',
+    mkColor('bg')('gray-medium'),
+    'border-solid border-b border-gray-600'
+  );
+
   return (
-    <div>
-      <div>
-        <strong>{userDisplayName ?? ''}</strong>{' '}
-        <button onClick={handleEditUserProfile}>
-          <strong>Edit</strong>
-        </button>
-        <button onClick={handleSignOut}>
-          <strong>Sign Out</strong>
-        </button>
-      </div>
+    <div className={style}>
+      <ButtonLink click={handleEditUserProfile}>
+        <Typography color="gray-light">{userDisplayName}</Typography>
+      </ButtonLink>
+      <ButtonLink click={handleSignOut}>
+        <LogoutIcon color="gray-light" />
+      </ButtonLink>
     </div>
   );
 };

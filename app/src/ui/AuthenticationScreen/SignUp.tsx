@@ -1,6 +1,6 @@
 import { useState, MouseEvent } from 'react';
 import { UserUUID } from '../../business-logic/user-catalog-fish/types';
-import { FormEvent, InputChangeEvent } from '../../common/ui-types';
+import { FormEventElement, InputChangeEvent } from '../utils/ui-event-types';
 import { TextField } from '../common/Form/TextField/TextField';
 import { Heading1 } from '../common/Hedings/Heading1';
 import { SubHeading } from '../common/SubHeading/SubHeading';
@@ -30,7 +30,7 @@ export const SignUp = ({
 
   const handleChangeEmail = (e: InputChangeEvent) => setEmail(e.target.value);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: FormEventElement) => {
     signUp(name, email);
     e.preventDefault();
   };

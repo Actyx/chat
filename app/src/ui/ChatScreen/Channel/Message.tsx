@@ -1,7 +1,7 @@
 import { Milliseconds } from '@actyx/pond';
 import { useState } from 'react';
 import { MessageId } from '../../../business-logic/message/types';
-import { FormEvent, InputChangeEvent } from '../../../common/ui-types';
+import { FormEventElement, InputChangeEvent } from '../../utils/ui-event-types';
 
 export type MessageUI = Readonly<{
   messageId: string;
@@ -71,7 +71,7 @@ const EditMessage = ({
   const handleChangeContent = (e: InputChangeEvent) =>
     setContent(e.target.value);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: FormEventElement) => {
     editContent(content);
     setContent('');
     e.preventDefault();

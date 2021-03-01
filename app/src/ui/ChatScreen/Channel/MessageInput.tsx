@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FormEvent, InputChangeEvent } from '../../../common/ui-types';
+import { FormEventElement, InputChangeEvent } from '../../utils/ui-event-types';
 
 type Props = Readonly<{
   addMessage: (content: string) => void;
@@ -11,7 +11,7 @@ export const MessageInput = ({ addMessage }: Props) => {
   const handleChangeContent = (e: InputChangeEvent) =>
     setMessage(e.target.value);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: FormEventElement) => {
     addMessage(message);
     setMessage('');
     e.preventDefault();

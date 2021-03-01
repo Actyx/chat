@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { UserUUID } from '../../business-logic/user-catalog-fish/types';
-import { FormEvent, InputChangeEvent } from '../../common/ui-types';
+import { FormEventElement, InputChangeEvent } from '../utils/ui-event-types';
 import { TextField } from '../common/Form/TextField/TextField';
 import { Submit } from '../common/Form/Submit/Submit';
 import { Alert } from '../common/Alert/Alert';
@@ -22,7 +22,7 @@ export const SignIn = ({ isSignInSuccess, signIn, goToChatScreen }: Props) => {
   const handleChangeUserUUID = (e: InputChangeEvent) =>
     setUserUUID(e.target.value);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: FormEventElement) => {
     signIn(userUUID);
     e.preventDefault();
   };
