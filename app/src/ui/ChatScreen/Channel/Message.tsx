@@ -1,5 +1,5 @@
 import { Milliseconds } from '@actyx/pond';
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import { MessageId } from '../../../business-logic/message/types';
 import { FormEvent, InputChangeEvent } from '../../../common/ui-types';
 
@@ -20,7 +20,7 @@ type Props = MessageUI &
     hideMessage: (messageId: MessageId) => void;
   }>;
 
-export const Message: FC<Props> = ({
+export const Message = ({
   messageId,
   createdOn,
   editedOn,
@@ -31,7 +31,7 @@ export const Message: FC<Props> = ({
   canHide,
   editMessage,
   hideMessage: hideMesage,
-}) => {
+}: Props) => {
   const handleEditMessage = (content: string) =>
     editMessage(messageId, content);
 

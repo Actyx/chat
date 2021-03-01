@@ -1,6 +1,14 @@
-import { FC, useState } from 'react';
+import React, { useState } from 'react';
 import { UserUUID } from '../../business-logic/user-catalog-fish/types';
 import { FormEvent, InputChangeEvent } from '../../common/ui-types';
+import { TextField } from '../common/Form/TextField/TextField';
+import { Submit } from '../common/Form/Submit/Submit';
+import { Alert } from '../common/Alert/Alert';
+import { Heading1 } from '../common/Hedings/Heading1';
+import { SubHeading } from '../common/SubHeading/SubHeading';
+import { Button } from '../common/Button/Button';
+import { SparklesIcon } from '../common/Icons/SparklesIcon';
+import { ExclamationIcon } from '../common/Icons/ExclamationIcon';
 
 type Props = Readonly<{
   isSignInSuccess?: boolean;
@@ -8,11 +16,7 @@ type Props = Readonly<{
   goToChatScreen: () => void;
 }>;
 
-export const SignIn: FC<Props> = ({
-  isSignInSuccess,
-  signIn,
-  goToChatScreen,
-}) => {
+export const SignIn = ({ isSignInSuccess, signIn, goToChatScreen }: Props) => {
   const [userUUID, setUserUUID] = useState<UserUUID>('');
 
   const handleChangeUserUUID = (e: InputChangeEvent) =>
@@ -26,28 +30,37 @@ export const SignIn: FC<Props> = ({
   const handleGoToChangeScreen = () => goToChatScreen();
 
   return (
-    <div>
-      <h2>Sign-in</h2>
+    <div className="text-center space-y-3">
+      <Heading1>Sign-in</Heading1>
+      <SubHeading>Enter your credentials</SubHeading>
       <form onSubmit={handleSubmit}>
-        <label>Credential:</label>
-        <input
-          type="text"
-          required
-          value={userUUID}
-          onChange={handleChangeUserUUID}
-        />
-        <br />
-        <input type="submit" value="Sign-in" />
-        <br />
-        {isSignInSuccess === undefined
-          ? ''
-          : isSignInSuccess === true
-          ? 'Sign-in success'
-          : 'Sign-in error: could not sign-in, credential not valid'}
-        {isSignInSuccess && (
-          <button onClick={handleGoToChangeScreen}>Go to chat</button>
-        )}
+        <div className="w-96 space-y-5">
+          <TextField
+            type="password"
+            required
+            value={userUUID}
+            full
+            onChange={handleChangeUserUUID}
+          />
+          <Submit full>Sign-in</Submit>
+        </div>
       </form>
+      {isSignInSuccess !== undefined && (
+        <Alert
+          icon={isSignInSuccess ? SparklesIcon : ExclamationIcon}
+          variant={isSignInSuccess ? 'success' : 'danger'}
+          full
+        >
+          {isSignInSuccess === true ? (
+            <div className="flex space-x-2">
+              <div>Sign-in success!</div>
+              <Button click={handleGoToChangeScreen}>Click to enter</Button>
+            </div>
+          ) : (
+            'Could not sign-in. The credential is not valid.'
+          )}
+        </Alert>
+      )}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { FC, useState, useContext, useEffect } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { Pond } from '@actyx/pond';
 import {
   UserCatalogFishState,
@@ -14,12 +14,13 @@ import { SignIn } from './SignIn';
 import { DispatchContextUI } from '../ui-state-manager/UIStateManager';
 import { addSignedInUser, goToChatScreen } from '../ui-state-manager/actions';
 import { UserCatalogFish } from '../../business-logic/user-catalog-fish/user-catalog-fish';
+import { CreateAccount } from './CreateAccount';
 
 type Props = Readonly<{
   pond: Pond;
 }>;
 
-export const AuthenticationContainer: FC<Props> = ({ pond }) => {
+export const AuthenticationContainer = ({ pond }: Props) => {
   const dispatch = useContext(DispatchContextUI);
 
   const [
@@ -36,6 +37,8 @@ export const AuthenticationContainer: FC<Props> = ({ pond }) => {
   }, [pond]);
 
   const [isSignUpSuccess, setIsSignUpSuccess] = useState<boolean>();
+
+  const [showSignUp, setShowSignUp] = useState<boolean>(false);
 
   const [isSignInSuccess, setIsSignInSuccess] = useState<boolean>();
 
@@ -64,19 +67,30 @@ export const AuthenticationContainer: FC<Props> = ({ pond }) => {
 
   const handleGoToChatScreen = () => dispatch(goToChatScreen());
 
+  const handleShowSignUp = () => setShowSignUp(true);
+
+  const handleShowSignIn = () => setShowSignUp(false);
+
   return (
-    <div>
+    <div className="mt-24 flex flex-col w-screen items-center">
       {pondErrorMessage}
-      <SignUp
-        signUp={handleSignUp}
-        isSignUpSuccess={isSignUpSuccess}
-        userUUID={userUUID}
-      />
-      <SignIn
-        isSignInSuccess={isSignInSuccess}
-        signIn={handleSignIn}
-        goToChatScreen={handleGoToChatScreen}
-      />
+      {showSignUp ? (
+        <SignUp
+          signUp={handleSignUp}
+          isSignUpSuccess={isSignUpSuccess}
+          userUUID={userUUID}
+          showSignIn={handleShowSignIn}
+        />
+      ) : (
+        <>
+          <CreateAccount createAccount={handleShowSignUp} />
+          <SignIn
+            isSignInSuccess={isSignInSuccess}
+            signIn={handleSignIn}
+            goToChatScreen={handleGoToChatScreen}
+          />
+        </>
+      )}
     </div>
   );
 };

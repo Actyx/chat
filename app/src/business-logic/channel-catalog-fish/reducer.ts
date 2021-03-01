@@ -147,5 +147,3 @@ const channelDissociatedUser = (
   }
   return state;
 };
-
-// SPO

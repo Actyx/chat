@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { EditChannel } from './EditChannel';
 
 type Props = Readonly<{
@@ -10,14 +9,14 @@ type Props = Readonly<{
   closeDialog: () => void;
 }>;
 
-export const EditChannelDialog: FC<Props> = ({
+export const EditChannelDialog = ({
   currentName,
   currentDescription,
   messageError,
   messageInvalid,
   editChannel,
   closeDialog,
-}) => {
+}: Props) => {
   return (
     <div>
       {messageError}

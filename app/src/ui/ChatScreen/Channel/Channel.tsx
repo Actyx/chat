@@ -1,5 +1,4 @@
 import { Milliseconds } from '@actyx/pond';
-import { FC } from 'react';
 import { MessageId } from '../../../business-logic/message/types';
 import { Message } from './Message';
 
@@ -23,12 +22,12 @@ type Props = Readonly<{
   hideMessage: (messageId: MessageId) => void;
 }>;
 
-export const Channel: FC<Props> = ({
+export const Channel = ({
   channelName,
   messages,
   editMessage,
   hideMessage,
-}) => {
+}: Props) => {
   return (
     <div>
       <h2>Channel: {channelName}</h2>

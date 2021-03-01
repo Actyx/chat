@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import { FormEvent, InputChangeEvent } from '../../../common/ui-types';
 type Props = Readonly<{
   currentName: string;
@@ -7,12 +7,12 @@ type Props = Readonly<{
   editChannel: (name: string, description: string) => void;
 }>;
 
-export const EditChannel: FC<Props> = ({
+export const EditChannel = ({
   currentName,
   currentDescription,
   messageInvalid,
   editChannel,
-}) => {
+}: Props) => {
   const [name, setName] = useState<string>(currentName);
 
   const [description, setDescription] = useState<string>(currentDescription);

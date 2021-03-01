@@ -1,4 +1,4 @@
-import { FC, ReactChild, useReducer, createContext } from 'react';
+import { ReactChild, useReducer, createContext } from 'react';
 import { DEFAULT_CHANNEL } from '../../business-logic/channel-fish/channel-fish';
 import { ANONYMOUS_USER } from '../../business-logic/user-catalog-fish/types';
 import { reducer } from './reducer';
@@ -24,7 +24,9 @@ export const StateContextUI = createContext(inititialState);
 
 export const DispatchContextUI = createContext<Dispatcher>(undefined!);
 
-export const UIStateManager: FC<{ children: ReactChild }> = ({ children }) => {
+export const UIStateManager = ({
+  children,
+}: Readonly<{ children: ReactChild }>) => {
   const [stateUI, dispatch] = useReducer(reducer, inititialState);
 
   return (

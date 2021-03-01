@@ -3,9 +3,9 @@
  * It also has the responsibility to keep the relationship of which users have joined a channel.
  */
 
+import { UserCatalogFishEvent } from '../user-catalog-fish/types';
 import { Fish, FishId } from '@actyx/pond';
 import { channelCatalogTag } from '../tags/tags';
-import { UserCatalogFishEvent } from '../user-catalog-fish/types';
 import { reducer } from './reducer';
 import { ChannelCatalogFishEvent, ChannelCatalogFishState } from './types';
 

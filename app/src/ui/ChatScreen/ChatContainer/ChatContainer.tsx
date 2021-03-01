@@ -1,5 +1,5 @@
 import { Pond } from '@actyx/pond';
-import { FC, useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { mkChannelFish } from '../../../business-logic/channel-fish/channel-fish';
 import {
   editMessageInChannel,
@@ -59,7 +59,7 @@ type Props = Readonly<{
   pond: Pond;
 }>;
 
-export const ChatContainer: FC<Props> = ({ pond }) => {
+export const ChatContainer = ({ pond }: Props) => {
   const dispatch = useContext(DispatchContextUI);
 
   const stateUI = useContext(StateContextUI);

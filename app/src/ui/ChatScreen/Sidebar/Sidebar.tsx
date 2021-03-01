@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react';
+import { useContext } from 'react';
 import { ChannelId } from '../../../business-logic/message/types';
 import {
   showChannelsCatalogSection,
@@ -17,7 +17,7 @@ type Props = Readonly<{
   showAddChannelDialog: () => void;
 }>;
 
-export const Sidebar: FC<Props> = ({ channels, showAddChannelDialog }) => {
+export const Sidebar = ({ channels, showAddChannelDialog }: Props) => {
   const dispatch = useContext(DispatchContextUI);
 
   const handleChannelsCatalog = () => dispatch(showChannelsCatalogSection());

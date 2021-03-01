@@ -1,5 +1,5 @@
 import { Pond } from '@actyx/pond';
-import { FC, useContext } from 'react';
+import { useContext } from 'react';
 import { AuthenticationContainer } from '../AuthenticationScreen/AuthenticationContainer';
 import { StateContextUI } from '../ui-state-manager/UIStateManager';
 import { Screens } from '../ui-state-manager/types';
@@ -12,7 +12,7 @@ type Props = Readonly<{
 
 const AccessNotAllowed = () => <div>Access is not allowed</div>;
 
-export const ScreenRooter: FC<Props> = ({ pond }) => {
+export const ScreenRooter = ({ pond }: Props) => {
   const stateUI = useContext(StateContextUI);
 
   const { screen, userUUID } = stateUI;
