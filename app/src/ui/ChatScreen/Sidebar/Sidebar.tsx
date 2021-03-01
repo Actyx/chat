@@ -35,7 +35,7 @@ export const Sidebar = ({ channels, showAddChannelDialog }: Props) => {
   const handleShowAddChannelDialog = () => showAddChannelDialog();
 
   return (
-    <div className="w-60 bg-gray-700">
+    <div className="w-60 h-full bg-gray-700">
       <Section>
         <Row onClick={handleChannelsCatalog}>
           <SpeakerphoneIcon size="small" color="gray-light" />
