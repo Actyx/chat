@@ -1,11 +1,11 @@
 import { MouseEvent } from 'react';
 
-export type ButtonProps = Readonly<{
+export type LinkProps = Readonly<{
   children: string;
   click: (e: MouseEvent<HTMLButtonElement>) => void;
 }>;
 
-export const Button = ({ children, click }: ButtonProps) => {
+export const Link = ({ children, click }: LinkProps) => {
   return (
     <button
       className="font-semibold no-underline text-blue-700 hover:text-blue-900 hover:underline outline-none"

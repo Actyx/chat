@@ -1,19 +1,19 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { Heading1, HeadingProps } from './Heading1';
+import { ButtonLink, ButtonLinkProps } from './ButtonLink';
 
 export default {
-  title: 'Common/Heading1',
-  component: Heading1,
+  title: 'Common/ButtonLink',
+  component: ButtonLink,
   argTypes: {
     children: { control: 'text' },
   },
 } as Meta;
 
-const Template: Story<HeadingProps> = (args) => <Heading1 {...args} />;
+const Template: Story<ButtonLinkProps> = (args) => <ButtonLink {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  children: 'Heading 1',
+  children: 'ButtonLink',
 };

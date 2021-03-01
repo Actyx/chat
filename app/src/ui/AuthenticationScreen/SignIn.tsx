@@ -6,7 +6,7 @@ import { Submit } from '../common/Form/Submit/Submit';
 import { Alert } from '../common/Alert/Alert';
 import { Heading1 } from '../common/Hedings/Heading1';
 import { SubHeading } from '../common/SubHeading/SubHeading';
-import { Button } from '../common/Button/Button';
+import { Link } from '../common/Link/Link';
 import { SparklesIcon } from '../common/Icons/SparklesIcon';
 import { ExclamationIcon } from '../common/Icons/ExclamationIcon';
 
@@ -60,7 +60,7 @@ export const SignIn = ({ isSignInSuccess, signIn, goToChatScreen }: Props) => {
           {isSignInSuccess === true ? (
             <div className="flex space-x-2">
               <div>Sign-in success!</div>
-              <Button click={handleGoToChangeScreen}>Click to enter</Button>
+              <Link click={handleGoToChangeScreen}>Click to enter</Link>
             </div>
           ) : (
             'Could not sign-in. The credential is not valid.'

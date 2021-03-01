@@ -1,4 +1,4 @@
-import { Button } from '../common/Button/Button';
+import { Link } from '../common/Link/Link';
 import { Typography } from '../common/Typography/Typography';
 
 type CreateAccountProps = Readonly<{
@@ -11,7 +11,7 @@ export const CreateAccount = ({ createAccount }: CreateAccountProps) => {
       <Typography size="sm" tag="div" color="gray-medium" align="right">
         New to this chat?
       </Typography>
-      <Button click={createAccount}>Create an account</Button>
+      <Link click={createAccount}>Create an account</Link>
     </div>
   );
 };

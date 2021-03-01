@@ -11,9 +11,9 @@ export default {
   },
 } as Meta;
 
-const Template: Story<SubHeadingProps> = (args) => (
-  <SubHeading {...args} children="SubHeading" />
-);
+const Template: Story<SubHeadingProps> = (args) => <SubHeading {...args} />;
 
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+  children: 'SubHeading',
+};
