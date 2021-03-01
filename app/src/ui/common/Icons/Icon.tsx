@@ -3,18 +3,27 @@ import { ReactNode } from 'react';
 import { ColorUI, mkColor } from '../colors/color';
 
 type IconProps = Readonly<{
-  size?: 'small';
+  size?: 'small' | 'medium';
   color?: ColorUI;
   children: ReactNode;
 }>;
 
 export const Icon = ({
-  size = 'small',
+  size = 'medium',
   color = 'gray-medium',
   children,
 }: IconProps) => {
   const isSmall = size === 'small';
-  const styles = cx({ 'h-6': isSmall, 'w-6': isSmall }, mkColor('text')(color));
+  const isMedium = size === 'medium';
+  const styles = cx(
+    {
+      'h-4': isSmall,
+      'w-4': isSmall,
+      'h-6': isMedium,
+      'w-6': isMedium,
+    },
+    mkColor('text')(color)
+  );
 
   return (
     <svg

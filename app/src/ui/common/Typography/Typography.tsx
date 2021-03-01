@@ -8,7 +8,7 @@ export type TypographyProps = Readonly<{
   size?: 'base' | 'sm' | 'lg' | 'xxl';
   tag?: HTMLTag;
   children: ReactNode;
-  weight?: 'normal' | 'semibold' | 'bold';
+  weight?: 'normal' | 'medium' | 'semibold' | 'bold';
   color?: ColorUI;
   align?: 'initial' | 'left' | 'center' | 'right';
 }>;
@@ -40,6 +40,7 @@ export const Typography = ({
       'text-lg': size === 'lg',
       'text-5xl': size === 'xxl',
       'font-normal': weight === 'normal',
+      'font-medium': weight === 'medium',
       'font-semibold': weight === 'semibold',
       'font-bold': weight === 'bold',
       'text-left': align === 'left',

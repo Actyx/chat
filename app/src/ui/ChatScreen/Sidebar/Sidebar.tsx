@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { ChannelId } from '../../../business-logic/message/types';
 import {
   showChannelsCatalogSection,
@@ -6,6 +6,9 @@ import {
 } from '../../ui-state-manager/actions';
 import { DispatchContextUI } from '../../ui-state-manager/UIStateManager';
 import { ChannelsList } from './ChannelsList';
+import { SpeakerphoneIcon } from '../../common/Icons/SpeakerphoneIcon';
+import { Typography } from '../../common/Typography/Typography';
+import { CollapsibleList } from './CollapsibleList';
 
 export type ChannelsListUI = ReadonlyArray<{
   channelId: ChannelId;
@@ -28,15 +31,20 @@ export const Sidebar = ({ channels, showAddChannelDialog }: Props) => {
   const handleShowAddChannelDialog = () => showAddChannelDialog();
 
   return (
-    <div>
-      Main navigation:
-      <ul>
+    <div className="w-60 bg-gray-700 p-3">
+      <ul className="text-white">
         <li>
-          <button onClick={handleChannelsCatalog}>Channels catalog</button>
+          <button className="flex space-x-2" onClick={handleChannelsCatalog}>
+            <div>{SpeakerphoneIcon}</div>
+            <Typography tag="div" color="gray-light">
+              Channels
+            </Typography>
+          </button>
         </li>
       </ul>
-      Channels:
-      <ChannelsList channels={channels} selectChannel={handleMain} />
+      <CollapsibleList title="Channels">
+        <ChannelsList channels={channels} selectChannel={handleMain} />
+      </CollapsibleList>
       <button onClick={handleShowAddChannelDialog}>Add a Channel</button>
     </div>
   );
