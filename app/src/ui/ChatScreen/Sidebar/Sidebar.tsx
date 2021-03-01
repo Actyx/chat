@@ -6,13 +6,12 @@ import {
 } from '../../ui-state-manager/actions';
 import { DispatchContextUI } from '../../ui-state-manager/UIStateManager';
 import { ChannelsList } from './ChannelsList';
-import { SpeakerphoneIcon } from '../../common/Icons/SpeakerphoneIcon';
 import { Typography } from '../../common/Typography/Typography';
 import { CollapsibleList } from './CollapsibleList';
 import { ChevronDownIcon } from '../../common/Icons/ChevronDownIcon';
 import { ChevronRightIcon } from '../../common/Icons/ChevronRightIcon';
-import { Row } from './Row';
 import { Section } from './Section';
+import { MainNavitation } from './MainNavigation';
 
 export type ChannelsListUI = ReadonlyArray<{
   channelId: ChannelId;
@@ -37,12 +36,7 @@ export const Sidebar = ({ channels, showAddChannelDialog }: Props) => {
   return (
     <div className="w-60 h-full bg-gray-700">
       <Section>
-        <Row onClick={handleChannelsCatalog}>
-          <SpeakerphoneIcon size="small" color="gray-light" />
-          <Typography size="sm" tag="div" color="gray-light">
-            Channels overview
-          </Typography>
-        </Row>
+        <MainNavitation channelCatalog={handleChannelsCatalog} />
       </Section>
       <Section>
         <CollapsibleList
