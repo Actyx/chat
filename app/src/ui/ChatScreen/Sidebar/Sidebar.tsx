@@ -11,7 +11,7 @@ import { CollapsibleList } from './CollapsibleList';
 import { ChevronDownIcon } from '../../common/Icons/ChevronDownIcon';
 import { ChevronRightIcon } from '../../common/Icons/ChevronRightIcon';
 import { Section } from './Section';
-import { MainNavitation } from './MainNavigation';
+import { MainNavitation as MainNavigation } from './MainNavigation';
 
 export type ChannelsListUI = ReadonlyArray<{
   channelId: ChannelId;
@@ -36,7 +36,7 @@ export const Sidebar = ({ channels, showAddChannelDialog }: Props) => {
   return (
     <div className="w-60 h-full bg-gray-700">
       <Section>
-        <MainNavitation channelCatalog={handleChannelsCatalog} />
+        <MainNavigation channelCatalog={handleChannelsCatalog} />
       </Section>
       <Section>
         <CollapsibleList
