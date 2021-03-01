@@ -34,15 +34,15 @@ export const Sidebar = ({ channels, showAddChannelDialog }: Props) => {
 
   return (
     <div className="w-60 bg-gray-700 p-3">
-      <ul className="text-white">
+      <ul className="mb-3">
         <li>
           <button
-            className="flex align-items-center space-x-2"
+            className="flex items-center space-x-2"
             onClick={handleChannelsCatalog}
           >
-            <div>{SpeakerphoneIcon}</div>
-            <Typography tag="div" color="gray-light">
-              Channels
+            <div>{<SpeakerphoneIcon size="small" color="gray-light" />}</div>
+            <Typography size="sm" tag="div" color="gray-light">
+              Channels overview
             </Typography>
           </button>
         </li>
@@ -51,7 +51,7 @@ export const Sidebar = ({ channels, showAddChannelDialog }: Props) => {
         iconOpen={<ChevronDownIcon size="small" color="gray-light" />}
         iconClose={<ChevronRightIcon size="small" color="gray-light" />}
         title={
-          <Typography tag="div" color="gray-light" weight="medium">
+          <Typography size="sm" tag="div" color="gray-light">
             Channels
           </Typography>
         }

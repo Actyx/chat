@@ -19,7 +19,7 @@ export const CollapsibleList = ({
 
   return (
     <div>
-      <div className="flex items-center space-x-1" onClick={handleOpen}>
+      <div className="flex items-center space-x-2" onClick={handleOpen}>
         <div>{isOpen ? iconOpen : iconClose}</div>
         <div>{title}</div>
       </div>

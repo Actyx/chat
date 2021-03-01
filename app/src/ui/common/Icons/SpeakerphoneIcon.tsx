@@ -1,7 +1,7 @@
-import { Icon } from './Icon';
+import { Icon, IconProps } from './Icon';
 
-export const SpeakerphoneIcon = (
-  <Icon color="gray-light">
+export const SpeakerphoneIcon = ({ color, size }: IconProps) => (
+  <Icon color={color} size={size}>
     <path
       strokeLinecap="round"
       strokeLinejoin="round"

@@ -1,7 +1,7 @@
-import { Icon, IconBaseProps } from './Icon';
+import { Icon, IconProps } from './Icon';
 
-export const HashtagIcon = ({ color, size }: IconBaseProps) => (
-  <Icon color="gray-light">
+export const HashtagIcon = ({ color, size }: IconProps) => (
+  <Icon color={color} size={size}>
     <path
       strokeLinecap="round"
       strokeLinejoin="round"
