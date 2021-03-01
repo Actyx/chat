@@ -292,7 +292,7 @@ export const ChatContainer = ({ pond }: Props) => {
     }
   };
 
-  const handleCloseUSerProfileDetails = () => dispatch(closeSectionRight());
+  const handleHideUserProfileDetails = () => dispatch(closeSectionRight());
 
   //#endregion
 
@@ -308,7 +308,7 @@ export const ChatContainer = ({ pond }: Props) => {
     stateUserCatalogFish.users
   );
 
-  const canShowUserProfileEdit =
+  const canShowUserProfileDetails =
     stateUI.sectionRight === SectionRight.UserProfileEdit;
 
   const channelsSideBarUI = sortAlphabeticChannelsSidebar(
@@ -377,10 +377,10 @@ export const ChatContainer = ({ pond }: Props) => {
         </div>
         <div className="flex-grow">{renderSectionCenter()}</div>
         <div>
-          {canShowUserProfileEdit && (
+          {canShowUserProfileDetails && (
             <UserProfileDetails
               editUserProfile={handleEditUserProfile}
-              close={handleCloseUSerProfileDetails}
+              close={handleHideUserProfileDetails}
             />
           )}
         </div>
