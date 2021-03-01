@@ -368,13 +368,11 @@ export const ChatContainer = ({ pond }: Props) => {
   return (
     <div>
       <TopBar userDisplayName={userDisplayName} />
-      <div className="flex">
-        <div>
-          <Sidebar
-            channels={channelsSideBarUI}
-            showAddChannelDialog={handleShowAddChannelDialog}
-          />
-        </div>
+      <Sidebar
+        channels={channelsSideBarUI}
+        showAddChannelDialog={handleShowAddChannelDialog}
+      />
+      <div className="flex ml-60 pt-10">
         <div className="flex-grow">{renderSectionCenter()}</div>
         <div>
           {canShowUserProfileDetails && (

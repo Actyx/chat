@@ -34,7 +34,7 @@ export const Sidebar = ({ channels, showAddChannelDialog }: Props) => {
   const handleShowAddChannelDialog = () => showAddChannelDialog();
 
   return (
-    <div className="w-60 h-full bg-gray-700">
+    <div className="fixed mt-10 w-60 h-full bg-gray-700">
       <Section>
         <MainNavigation channelCatalog={handleChannelsCatalog} />
       </Section>

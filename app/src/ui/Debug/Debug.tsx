@@ -59,7 +59,7 @@ export const Debug = ({ pond }: Props) => {
   const handleShowDebug = () => setShowDebug(!showDebug);
 
   return (
-    <div>
+    <div className="ml-60">
       <button className="text-gray-100" onClick={handleShowDebug}>
         debug
       </button>

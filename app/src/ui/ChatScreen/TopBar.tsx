@@ -22,6 +22,7 @@ export const TopBar = ({ userDisplayName }: Props) => {
   const handleSignOut = () => dispatch(signOutActiveUser());
 
   const style = classNames(
+    'fixed w-full',
     'flex justify-end items-center',
     'space-x-3',
     'h-10',
