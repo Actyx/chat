@@ -1,9 +1,10 @@
 import cx from 'classnames';
 import { ReactNode } from 'react';
+import { ColorUI, mkColor } from '../colors/color';
 
 type IconProps = Readonly<{
   size?: 'small';
-  color?: 'gray-medium' | 'red-medium';
+  color?: ColorUI;
   children: ReactNode;
 }>;
 
@@ -13,12 +14,13 @@ export const Icon = ({
   children,
 }: IconProps) => {
   const isSmall = size === 'small';
-  const styles = cx({
-    'h-6': isSmall,
-    'w-6': isSmall,
-    'text-gray-700': color === 'gray-medium',
-    'text-red-700': color === 'red-medium',
-  });
+  const styles = cx(
+    {
+      'h-6': isSmall,
+      'w-6': isSmall,
+    },
+    mkColor('text')(color)
+  );
 
   return (
     <svg

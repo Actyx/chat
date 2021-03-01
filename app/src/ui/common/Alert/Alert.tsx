@@ -1,6 +1,7 @@
 import cx from 'classnames';
 import { ReactNode } from 'react';
-import { Typography, TypographyColorUI } from '../Typography/Typography';
+import { ColorUI } from '../colors/color';
+import { Typography } from '../Typography/Typography';
 
 type Variant = 'secondary' | 'danger' | 'success';
 
@@ -11,7 +12,7 @@ export type AlertProps = Readonly<{
   children: ReactNode;
 }>;
 
-const color = (variant: Variant): TypographyColorUI => {
+const color = (variant: Variant): ColorUI => {
   switch (variant) {
     case 'secondary':
       return 'gray-dark';
