@@ -374,14 +374,12 @@ export const ChatContainer = ({ pond }: Props) => {
       />
       <div className="flex ml-60 pt-10">
         <div className="flex-grow">{renderSectionCenter()}</div>
-        <div>
-          {canShowUserProfileDetails && (
-            <UserProfileDetails
-              editUserProfile={handleEditUserProfile}
-              close={handleHideUserProfileDetails}
-            />
-          )}
-        </div>
+        {canShowUserProfileDetails && (
+          <UserProfileDetails
+            editUserProfile={handleEditUserProfile}
+            close={handleHideUserProfileDetails}
+          />
+        )}
       </div>
       {showAddChannelDialog && (
         <AddChannelDialog

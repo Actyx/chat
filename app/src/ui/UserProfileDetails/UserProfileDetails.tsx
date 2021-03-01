@@ -23,7 +23,7 @@ export const UserProfileDetails = ({
   };
 
   return (
-    <div>
+    <div className="w-96 border-solid border-l border-gray-300">
       <h2>Edit user profile </h2>
       <form onSubmit={handleSubmit}>
         <label>displayName:</label>
