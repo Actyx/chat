@@ -1,7 +1,7 @@
-import { Icon } from './Icon';
+import { Icon, IconBaseProps } from './Icon';
 
-export const ExclamationIcon = (
-  <Icon color="red-medium">
+export const ExclamationIcon = ({ color, size }: IconBaseProps) => (
+  <Icon color={color} size={size}>
     <path
       strokeLinecap="round"
       strokeLinejoin="round"

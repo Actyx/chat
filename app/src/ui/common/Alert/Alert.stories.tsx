@@ -33,5 +33,5 @@ export const Icon = Template.bind({});
 Icon.args = {
   variant: 'success',
   children: 'A simple success alert—check it out!',
-  icon: SparklesIcon,
+  icon: <SparklesIcon />,
 };

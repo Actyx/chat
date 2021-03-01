@@ -47,7 +47,13 @@ export const SignIn = ({ isSignInSuccess, signIn, goToChatScreen }: Props) => {
       </form>
       {isSignInSuccess !== undefined && (
         <Alert
-          icon={isSignInSuccess ? SparklesIcon : ExclamationIcon}
+          icon={
+            isSignInSuccess ? (
+              <SparklesIcon color="green-medium" />
+            ) : (
+              <ExclamationIcon color="red-medium" />
+            )
+          }
           variant={isSignInSuccess ? 'success' : 'danger'}
           full
         >

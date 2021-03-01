@@ -2,11 +2,12 @@ import cx from 'classnames';
 import { ReactNode } from 'react';
 import { ColorUI, mkColor } from '../colors/color';
 
-type IconProps = Readonly<{
+export type IconBaseProps = Readonly<{
   size?: 'small' | 'medium';
   color?: ColorUI;
-  children: ReactNode;
 }>;
+
+type IconProps = IconBaseProps & Readonly<{ children: ReactNode }>;
 
 export const Icon = ({
   size = 'medium',

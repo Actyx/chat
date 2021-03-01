@@ -1,7 +1,7 @@
-import { Icon } from './Icon';
+import { Icon, IconBaseProps } from './Icon';
 
-export const ChevronDownIcon = (
-  <Icon color="gray-light" size="small">
+export const ChevronDownIcon = ({ color, size }: IconBaseProps) => (
+  <Icon color={color} size={size}>
     <path
       strokeLinecap="round"
       strokeLinejoin="round"

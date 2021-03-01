@@ -8,7 +8,9 @@ import { DispatchContextUI } from '../../ui-state-manager/UIStateManager';
 import { ChannelsList } from './ChannelsList';
 import { SpeakerphoneIcon } from '../../common/Icons/SpeakerphoneIcon';
 import { Typography } from '../../common/Typography/Typography';
-import { CollapsibleList } from './CollapsibleList';
+import { CollapsibleList } from '../../common/CollapsibleList/CollapsibleList';
+import { ChevronDownIcon } from '../../common/Icons/ChevronDownIcon';
+import { ChevronRightIcon } from '../../common/Icons/ChevronRightIcon';
 
 export type ChannelsListUI = ReadonlyArray<{
   channelId: ChannelId;
@@ -42,7 +44,15 @@ export const Sidebar = ({ channels, showAddChannelDialog }: Props) => {
           </button>
         </li>
       </ul>
-      <CollapsibleList title="Channels">
+      <CollapsibleList
+        iconOpen={<ChevronDownIcon color="gray-light" />}
+        iconClose={<ChevronRightIcon color="gray-light" />}
+        title={
+          <Typography tag="div" color="gray-light" weight="medium">
+            Channels
+          </Typography>
+        }
+      >
         <ChannelsList channels={channels} selectChannel={handleMain} />
       </CollapsibleList>
       <button onClick={handleShowAddChannelDialog}>Add a Channel</button>

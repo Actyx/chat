@@ -61,7 +61,7 @@ export const SignUp = ({
           <Submit full>Sign-up</Submit>
           {isSignUpSuccess !== undefined && (
             <Alert
-              icon={!isSignUpSuccess && ExclamationIcon}
+              icon={!isSignUpSuccess && <ExclamationIcon color="red-medium" />}
               variant={isSignUpSuccess ? 'success' : 'danger'}
             >
               {isSignUpSuccess ? (
