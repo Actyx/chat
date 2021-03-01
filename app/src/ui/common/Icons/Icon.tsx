@@ -20,8 +20,8 @@ export const Icon = ({
     {
       'h-4': isSmall,
       'w-4': isSmall,
-      'h-6': isMedium,
-      'w-6': isMedium,
+      'h-5': isMedium,
+      'w-5': isMedium,
     },
     mkColor('text')(color)
   );

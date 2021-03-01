@@ -36,7 +36,10 @@ export const Sidebar = ({ channels, showAddChannelDialog }: Props) => {
     <div className="w-60 bg-gray-700 p-3">
       <ul className="text-white">
         <li>
-          <button className="flex space-x-2" onClick={handleChannelsCatalog}>
+          <button
+            className="flex align-items-center space-x-2"
+            onClick={handleChannelsCatalog}
+          >
             <div>{SpeakerphoneIcon}</div>
             <Typography tag="div" color="gray-light">
               Channels
@@ -45,8 +48,8 @@ export const Sidebar = ({ channels, showAddChannelDialog }: Props) => {
         </li>
       </ul>
       <CollapsibleList
-        iconOpen={<ChevronDownIcon color="gray-light" />}
-        iconClose={<ChevronRightIcon color="gray-light" />}
+        iconOpen={<ChevronDownIcon size="small" color="gray-light" />}
+        iconClose={<ChevronRightIcon size="small" color="gray-light" />}
         title={
           <Typography tag="div" color="gray-light" weight="medium">
             Channels
