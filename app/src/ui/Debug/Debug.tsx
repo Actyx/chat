@@ -7,6 +7,8 @@ import { ChannelCatalogFishState } from '../../business-logic/channel-catalog-fi
 import { UserCatalogFishState } from '../../business-logic/user-catalog-fish/types';
 import { UserCatalogFish } from '../../business-logic/user-catalog-fish/user-catalog-fish';
 import { StateContextUI } from '../ui-state-manager/UIStateManager';
+import { ButtonLink } from '../common/ButtonLink/ButtonLink';
+import { Typography } from '../common/Typography/Typography';
 
 type Props = Readonly<{
   pond: Pond;
@@ -60,9 +62,9 @@ export const Debug = ({ pond }: Props) => {
 
   return (
     <div className="ml-60">
-      <button className="text-gray-100" onClick={handleShowDebug}>
-        debug
-      </button>
+      <ButtonLink click={handleShowDebug}>
+        <Typography color="gray-light">debug</Typography>
+      </ButtonLink>
       {showDebug && (
         <div>
           <hr />
