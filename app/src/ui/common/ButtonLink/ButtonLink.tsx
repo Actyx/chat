@@ -1,6 +1,5 @@
 import { ReactNode } from 'react';
 import { MouseEventButton } from '../../utils/ui-event-types';
-import './button-link.css';
 
 export type ButtonLinkProps = Readonly<{
   children: ReactNode;
@@ -9,7 +8,7 @@ export type ButtonLinkProps = Readonly<{
 
 export const ButtonLink = ({ children, click }: ButtonLinkProps) => {
   return (
-    <button className="button-link" onClick={click}>
+    <button style={{ outline: 'none' }} className="button-link" onClick={click}>
       {children}
     </button>
   );
