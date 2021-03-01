@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import { FormEvent, InputChangeEvent } from '../../common/ui-types';
 
-type Props = Readonly<{
+type UserProfileDetailsProps = Readonly<{
   isEditProfileSuccess?: boolean;
   editUserProfile: (displayName: string) => void;
+  close: () => void;
 }>;
 
 export const UserProfileDetails = ({
   isEditProfileSuccess,
   editUserProfile,
-}: Props) => {
+  close,
+}: UserProfileDetailsProps) => {
   const [displayName, setDisplayName] = useState<string>('');
 
   const handleChangeDisplayName = (e: InputChangeEvent) =>
@@ -40,6 +42,7 @@ export const UserProfileDetails = ({
           ? 'success: user profile edited'
           : 'error: cannot edit user profile'}
       </form>
+      <button onClick={close}>Close</button>
     </div>
   );
 };

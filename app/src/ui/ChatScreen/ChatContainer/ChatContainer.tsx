@@ -292,6 +292,8 @@ export const ChatContainer = ({ pond }: Props) => {
     }
   };
 
+  const handleCloseUSerProfileDetails = () => dispatch(closeSectionRight());
+
   //#endregion
 
   //#region UI mapping
@@ -365,19 +367,23 @@ export const ChatContainer = ({ pond }: Props) => {
 
   return (
     <div>
-      {pondErrorMessage}
       <TopBar userDisplayName={userDisplayName} />
-      <div>
-        <Sidebar
-          channels={channelsSideBarUI}
-          showAddChannelDialog={handleShowAddChannelDialog}
-        />
-      </div>
-      {renderSectionCenter()}
-      <div>
-        {canShowUserProfileEdit && (
-          <UserProfileDetails editUserProfile={handleEditUserProfile} />
-        )}
+      <div className="flex">
+        <div>
+          <Sidebar
+            channels={channelsSideBarUI}
+            showAddChannelDialog={handleShowAddChannelDialog}
+          />
+        </div>
+        <div className="flex-grow">{renderSectionCenter()}</div>
+        <div>
+          {canShowUserProfileEdit && (
+            <UserProfileDetails
+              editUserProfile={handleEditUserProfile}
+              close={handleCloseUSerProfileDetails}
+            />
+          )}
+        </div>
       </div>
       {showAddChannelDialog && (
         <AddChannelDialog
@@ -401,6 +407,7 @@ export const ChatContainer = ({ pond }: Props) => {
           closeDialog={handleCloseEditChannelDialog}
         />
       )}
+      {pondErrorMessage}
     </div>
   );
 };
