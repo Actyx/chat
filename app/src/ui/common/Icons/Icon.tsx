@@ -14,13 +14,7 @@ export const Icon = ({
   children,
 }: IconProps) => {
   const isSmall = size === 'small';
-  const styles = cx(
-    {
-      'h-6': isSmall,
-      'w-6': isSmall,
-    },
-    mkColor('text')(color)
-  );
+  const styles = cx({ 'h-6': isSmall, 'w-6': isSmall }, mkColor('text')(color));
 
   return (
     <svg
