@@ -371,6 +371,7 @@ export const ChatContainer = ({ pond }: Props) => {
       <Sidebar
         channels={channelsSideBarUI}
         showAddChannelDialog={handleShowAddChannelDialog}
+        activeChannelId={stateUI.activeChannelId}
       />
       <div className="flex ml-60 pt-10">
         <div className="flex-grow">{renderSectionCenter()}</div>

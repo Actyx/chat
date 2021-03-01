@@ -8,7 +8,7 @@ export type ButtonLinkProps = Readonly<{
 
 export const ButtonLink = ({ children, click }: ButtonLinkProps) => {
   return (
-    <button style={{ outline: 'none' }} className="button-link" onClick={click}>
+    <button style={{ outline: 'none' }} onClick={click}>
       {children}
     </button>
   );

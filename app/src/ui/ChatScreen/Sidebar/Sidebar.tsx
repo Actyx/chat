@@ -18,12 +18,17 @@ export type ChannelsListUI = ReadonlyArray<{
   name: string;
 }>;
 
-type Props = Readonly<{
+type SidebarProps = Readonly<{
   channels: ChannelsListUI;
+  activeChannelId: ChannelId;
   showAddChannelDialog: () => void;
 }>;
 
-export const Sidebar = ({ channels, showAddChannelDialog }: Props) => {
+export const Sidebar = ({
+  channels,
+  activeChannelId,
+  showAddChannelDialog,
+}: SidebarProps) => {
   const dispatch = useContext(DispatchContextUI);
 
   const handleChannelsCatalog = () => dispatch(showChannelsCatalogSection());
@@ -48,7 +53,11 @@ export const Sidebar = ({ channels, showAddChannelDialog }: Props) => {
             </Typography>
           }
         >
-          <ChannelsList channels={channels} selectChannel={handleMain} />
+          <ChannelsList
+            channels={channels}
+            activeChannelId={activeChannelId}
+            selectChannel={handleMain}
+          />
         </CollapsibleList>
       </Section>
       <button onClick={handleShowAddChannelDialog}>Add a Channel</button>

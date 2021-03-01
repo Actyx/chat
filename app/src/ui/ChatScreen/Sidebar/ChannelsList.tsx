@@ -6,22 +6,36 @@ import { Row } from './Row';
 
 type Props = Readonly<{
   channels: ChannelsListUI;
+  activeChannelId: ChannelId;
   selectChannel: (channelId: ChannelId) => void;
 }>;
 
-export const ChannelsList = ({ channels, selectChannel }: Props) => {
+export const ChannelsList = ({
+  channels,
+  activeChannelId,
+  selectChannel,
+}: Props) => {
   return (
     <>
-      {channels.map((x) => (
-        <Row key={x.channelId} onClick={() => selectChannel(x.channelId)}>
-          <div className="flex items-center pl-4 space-x-2">
-            <HashtagIcon size="sx" color="gray-light" />
-            <Typography tag="div" size="sm" color="gray-light">
-              {x.name}
-            </Typography>
-          </div>
-        </Row>
-      ))}
+      {channels.map((x) => {
+        const isActiveChannel = x.channelId === activeChannelId;
+
+        return (
+          <Row key={x.channelId} onClick={() => selectChannel(x.channelId)}>
+            <div className="flex items-center pl-4 space-x-2">
+              <HashtagIcon size="sx" color="gray-light" />
+              <Typography
+                tag="div"
+                size="sm"
+                color={isActiveChannel ? 'white' : 'gray-light'}
+                weight={isActiveChannel ? 'semibold' : 'normal'}
+              >
+                {x.name}
+              </Typography>
+            </div>
+          </Row>
+        );
+      })}
     </>
   );
 };
