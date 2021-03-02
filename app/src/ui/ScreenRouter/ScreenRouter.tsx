@@ -31,5 +31,5 @@ export const ScreenRooter = ({ pond }: Props) => {
     }
   };
 
-  return <div>{renderScreen()}</div>;
+  return renderScreen();
 };

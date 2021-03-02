@@ -19,10 +19,10 @@ export const App = () => {
   return (
     <UIStateManager>
       {pond ? (
-        <div>
+        <>
           <ScreenRouter pond={pond} />
           <Debug pond={pond} />
-        </div>
+        </>
       ) : (
         <PondError />
       )}
