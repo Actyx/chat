@@ -25,19 +25,11 @@ import { editUserProfile } from '../../../business-logic/user-catalog-fish/logic
 import { UserCatalogFishState } from '../../../business-logic/user-catalog-fish/types';
 import { UserCatalogFish } from '../../../business-logic/user-catalog-fish/user-catalog-fish';
 import { closeSectionRight } from '../../ui-state-manager/actions';
-import { SectionCenter, SectionRight } from '../../ui-state-manager/types';
+import { SectionRight } from '../../ui-state-manager/types';
 import {
   DispatchContextUI,
   StateContextUI,
 } from '../../ui-state-manager/UIStateManager';
-import { UserProfileDetails } from '../../UserProfileDetails/UserProfileDetails';
-import { AddChannelDialog } from '../AddChannelDialog/AddChannelDialog';
-import { Channel } from '../Channel/Channel';
-import { MessageInput } from '../Channel/MessageInput';
-import { ChannelsCatalog } from '../ChannelsCatalog/ChannelsCatalog';
-import { EditChannelDialog } from '../EditChannelDialog/EditChannelDialog';
-import { Sidebar } from '../Sidebar/Sidebar';
-import { TopBar } from '../TopBar';
 import {
   getChannelNameAndDescription,
   getDisplayNameByUser,
@@ -48,7 +40,7 @@ import {
   sortAlphabeticChannelsOverview,
   sortAlphabeticChannelsSidebar,
 } from './ui-map';
-import cx from 'classnames';
+import { Chat } from './Chat';
 
 // TODO create separate modules
 const MESSAGE = {
@@ -337,91 +329,38 @@ export const ChatContainer = ({ pond }: Props) => {
   );
   //#endregion
 
-  const renderSectionCenter = () => {
-    switch (stateUI.sectionCenter) {
-      case SectionCenter.Channel:
-        return (
-          <>
-            <Channel
-              channelName={channelName}
-              channelDescription={channelDescription}
-              messages={channelMessages}
-              editMessage={handleEditMessage}
-              hideMessage={handleHideMessage}
-            />
-            <MessageInput addMessage={handleAddMessage} />
-          </>
-        );
-      case SectionCenter.ChannelsCatalog:
-        return (
-          <ChannelsCatalog
-            channels={channelsOverviewCatalog}
-            canUserManageArchiviation={canUserManageArchiviation}
-            editChannel={handleShowEditChannelDialog}
-            archiveChannel={handleArchiveChannel}
-            unarchiveChannel={handleUnarchiveChannel}
-            associateUserChannel={handleAssociateUserChannel}
-            dissociateUserChannel={handleDissociateUserChannel}
-          />
-        );
-    }
-  };
-
-  const stylesGrid: React.CSSProperties = {
-    position: 'fixed',
-    width: '100vw',
-    height: '100vh',
-    display: 'grid',
-    gridTemplateColumns: canShowUserProfileDetails
-      ? '240px auto 383px'
-      : '240px auto',
-    gridTemplateRows: '40px auto',
-  };
-  const stylesSectionCenter = cx('overflow-y-auto', {
-    'col-span-2': !canShowUserProfileDetails,
-  });
-
   return (
-    <div style={stylesGrid}>
-      <div className="col-span-3">
-        <TopBar userDisplayName={userDisplayName} />
-      </div>
-      <Sidebar
-        channels={channelsSideBarUI}
-        showAddChannelDialog={handleShowAddChannelDialog}
-        activeChannelId={stateUI.activeChannelId}
-      />
-      <div className={stylesSectionCenter}>{renderSectionCenter()}</div>
-      {canShowUserProfileDetails && (
-        <UserProfileDetails
-          userDisplayName={userDisplayName}
-          editUserProfile={handleEditUserProfile}
-          close={handleHideUserProfileDetails}
-        />
-      )}
-      {showAddChannelDialog && (
-        <AddChannelDialog
-          errorMessage={pondErrorMessage}
-          invalidMessage={invalidMessage}
-          addChannel={handleAddChannel}
-          closeDialog={handleHideAddChannelDialog}
-        />
-      )}
-      {showEditChannelDialog && selectedChannel && (
-        <EditChannelDialog
-          currentName={selectedChannel.name}
-          currentDescription={selectedChannel.description}
-          editChannel={(newName, newDescription) =>
-            handleEditChannel(
-              selectedChannel.channelId,
-              newName,
-              newDescription
-            )
-          }
-          closeDialog={handleCloseEditChannelDialog}
-        />
-      )}
-      {pondErrorMessage}
-    </div>
+    <Chat
+      sectionCenter={stateUI.sectionCenter}
+      activeChannelId={stateUI.activeChannelId}
+      userDisplayName={userDisplayName}
+      channelsSideBarUI={channelsSideBarUI}
+      channelName={channelName}
+      channelDescription={channelDescription}
+      channelMessages={channelMessages}
+      channelsOverviewCatalog={channelsOverviewCatalog}
+      selectedChannel={selectedChannel}
+      showAddChannelDialog={showAddChannelDialog}
+      showEditChannelDialog={showEditChannelDialog}
+      canShowUserProfileDetails={canShowUserProfileDetails}
+      canUserManageArchiviation={canUserManageArchiviation}
+      pondErrorMessage={pondErrorMessage}
+      invalidMessage={invalidMessage}
+      handleShowEditChannelDialog={handleShowEditChannelDialog}
+      handleShowAddChannelDialog={handleShowAddChannelDialog}
+      handleEditUserProfile={handleEditUserProfile}
+      handleAddMessage={handleAddMessage}
+      handleEditMessage={handleEditMessage}
+      handleHideMessage={handleHideMessage}
+      handleAddChannel={handleAddChannel}
+      handleCloseEditChannelDialog={handleCloseEditChannelDialog}
+      handleHideAddChannelDialog={handleHideAddChannelDialog}
+      handleArchiveChannel={handleArchiveChannel}
+      handleUnarchiveChannel={handleUnarchiveChannel}
+      handleAssociateUserChannel={handleAssociateUserChannel}
+      handleDissociateUserChannel={handleDissociateUserChannel}
+      handleHideUserProfileDetails={handleHideUserProfileDetails}
+      handleEditChannel={handleEditChannel}
+    />
   );
 };
