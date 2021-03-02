@@ -12,7 +12,7 @@ export const FlexPanel = ({ title, close, children }: FlexPanelProps) => {
   return (
     <div className="w-96 border-solid border-l border-gray-300">
       <div className="flex items-center justify-between p-4 border-b">
-        <Typography tag="div" weight="bold">
+        <Typography tag="div" weight="bold" color="gray-dark">
           {title}
         </Typography>
         <XIcon size="medium" color="gray-dark" />

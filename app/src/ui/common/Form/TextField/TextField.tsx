@@ -2,6 +2,7 @@ import cx from 'classnames';
 import { InputChangeEvent } from '../../../utils/ui-event-types';
 
 export type TextFieldProps = Readonly<{
+  id?: string;
   type?: 'text' | 'password' | 'email';
   required?: boolean;
   value?: string;
@@ -11,6 +12,7 @@ export type TextFieldProps = Readonly<{
 }>;
 
 export const TextField = ({
+  id,
   type = 'text',
   required = false,
   value,
@@ -22,6 +24,7 @@ export const TextField = ({
 
   return (
     <input
+      id={id}
       type={type}
       required={required}
       value={value}
