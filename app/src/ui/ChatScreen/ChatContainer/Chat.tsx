@@ -56,6 +56,22 @@ type ChatProps = Readonly<{
   ) => void;
 }>;
 
+const styles = (
+  isTwoColumns: boolean
+): Readonly<{ grid: React.CSSProperties; centerSection: string }> => {
+  return {
+    grid: {
+      position: 'fixed',
+      width: '100vw',
+      height: '100vh',
+      display: 'grid',
+      gridTemplateColumns: isTwoColumns ? '240px auto 383px' : '240px auto',
+      gridTemplateRows: '40px auto',
+    },
+    centerSection: cx('overflow-y-auto', { 'col-span-2': !isTwoColumns }),
+  };
+};
+
 export const Chat = ({
   activeChannelId,
   sectionCenter,
@@ -88,20 +104,6 @@ export const Chat = ({
   handleCloseEditChannelDialog,
   handleHideAddChannelDialog,
 }: ChatProps) => {
-  const stylesGrid: React.CSSProperties = {
-    position: 'fixed',
-    width: '100vw',
-    height: '100vh',
-    display: 'grid',
-    gridTemplateColumns: canShowUserProfileDetails
-      ? '240px auto 383px'
-      : '240px auto',
-    gridTemplateRows: '40px auto',
-  };
-  const stylesSectionCenter = cx('overflow-y-auto', {
-    'col-span-2': !canShowUserProfileDetails,
-  });
-
   const renderSectionCenter = () => {
     switch (sectionCenter) {
       case SectionCenter.Channel:
@@ -132,8 +134,10 @@ export const Chat = ({
     }
   };
 
+  const { grid, centerSection } = styles(canShowUserProfileDetails);
+
   return (
-    <div style={stylesGrid}>
+    <div style={grid}>
       <div className="col-span-3">
         <TopBar userDisplayName={userDisplayName} />
       </div>
@@ -142,7 +146,7 @@ export const Chat = ({
         showAddChannelDialog={handleShowAddChannelDialog}
         activeChannelId={activeChannelId}
       />
-      <div className={stylesSectionCenter}>{renderSectionCenter()}</div>
+      <div className={centerSection}>{renderSectionCenter()}</div>
       {canShowUserProfileDetails && (
         <UserProfileDetails
           userDisplayName={userDisplayName}
