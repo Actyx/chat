@@ -31,7 +31,7 @@ export const Channel = ({
   hideMessage,
 }: Props) => {
   return (
-    <div>
+    <div className="h-full overflow-y-auto">
       <h2>
         {channelName} {channelDescription}
       </h2>

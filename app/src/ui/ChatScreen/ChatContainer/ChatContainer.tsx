@@ -366,24 +366,36 @@ export const ChatContainer = ({ pond }: Props) => {
     }
   };
 
+  const gridStyles: React.CSSProperties = {
+    position: 'fixed',
+    width: '100vw',
+    height: '100vh',
+    display: 'grid',
+    gridTemplateColumns: canShowUserProfileDetails
+      ? '240px auto'
+      : '240px auto 383px',
+    gridTemplateRows: '40px auto',
+  };
+  const spanit = canShowUserProfileDetails ? '' : 'col-span-2';
+
   return (
-    <div>
-      <TopBar userDisplayName={userDisplayName} />
+    <div style={gridStyles}>
+      <div className="col-span-3">
+        <TopBar userDisplayName={userDisplayName} />
+      </div>
       <Sidebar
         channels={channelsSideBarUI}
         showAddChannelDialog={handleShowAddChannelDialog}
         activeChannelId={stateUI.activeChannelId}
       />
-      <div className="flex ml-60 pt-10">
-        <div className="flex-grow">{renderSectionCenter()}</div>
-        {canShowUserProfileDetails && (
-          <UserProfileDetails
-            userDisplayName={userDisplayName}
-            editUserProfile={handleEditUserProfile}
-            close={handleHideUserProfileDetails}
-          />
-        )}
-      </div>
+      <div className={spanit}>{renderSectionCenter()}</div>
+      {canShowUserProfileDetails && (
+        <UserProfileDetails
+          userDisplayName={userDisplayName}
+          editUserProfile={handleEditUserProfile}
+          close={handleHideUserProfileDetails}
+        />
+      )}
       {showAddChannelDialog && (
         <AddChannelDialog
           errorMessage={pondErrorMessage}
