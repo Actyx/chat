@@ -19,15 +19,16 @@ export const ChannelsList = ({
     <>
       {channels.map((x) => {
         const isActiveChannel = x.channelId === activeChannelId;
+        const color = isActiveChannel ? 'white' : 'gray-light';
 
         return (
           <Row key={x.channelId} onClick={() => selectChannel(x.channelId)}>
             <div className="flex items-center pl-4 space-x-2">
-              <HashtagIcon size="sx" color="gray-light" />
+              <HashtagIcon size="small" color={color} />
               <Typography
                 tag="div"
-                size="sm"
-                color={isActiveChannel ? 'white' : 'gray-light'}
+                size="base"
+                color={color}
                 weight={isActiveChannel ? 'semibold' : 'normal'}
               >
                 {x.name}

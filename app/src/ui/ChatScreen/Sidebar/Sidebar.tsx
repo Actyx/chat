@@ -48,7 +48,7 @@ export const Sidebar = ({
           iconOpen={<ChevronDownIcon size="small" color="gray-light" />}
           iconClose={<ChevronRightIcon size="small" color="gray-light" />}
           title={
-            <Typography size="sm" tag="div" color="gray-light">
+            <Typography size="base" tag="div" color="gray-light">
               Channels
             </Typography>
           }

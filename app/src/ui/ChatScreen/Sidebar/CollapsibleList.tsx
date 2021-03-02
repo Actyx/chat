@@ -20,7 +20,7 @@ export const CollapsibleList = ({
   return (
     <div>
       <div
-        className="flex items-center space-x-2 pl-2 pr-2 cursor-pointer"
+        className="flex items-center h-7 space-x-2 pl-2 pr-2 cursor-pointer"
         onClick={handleOpen}
       >
         <div>{isOpen ? iconOpen : iconClose}</div>

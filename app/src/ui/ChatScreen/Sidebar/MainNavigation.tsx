@@ -10,8 +10,8 @@ export const MainNavitation = ({
 }: MainNavitationProps) => {
   return (
     <Row onClick={catalogChannels}>
-      <SpeakerphoneIcon size="small" color="gray-light" />
-      <Typography size="sm" tag="div" color="gray-light">
+      <SpeakerphoneIcon size="medium" color="gray-light" />
+      <Typography size="base" tag="div" color="gray-light">
         Channels overview
       </Typography>
     </Row>
