@@ -124,5 +124,13 @@ export const getVisiblePublicMessages = (
   messages: PublicMessages
 ): PublicMessages => messages.filter((m) => !m.isHidden);
 
-export const getChannelName = (channelId: ChannelId, channels: Channels) =>
-  getChannelProfileByChannelId(channelId, channels)?.name ?? '';
+export const getChannelNameAndDescription = (
+  channelId: ChannelId,
+  channels: Channels
+): Readonly<{ channelName: string; channelDescription: string }> => {
+  const profile = getChannelProfileByChannelId(channelId, channels);
+  return {
+    channelName: profile?.name ?? '',
+    channelDescription: profile?.description ?? '',
+  };
+};
