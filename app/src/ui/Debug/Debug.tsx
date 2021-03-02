@@ -61,25 +61,27 @@ export const Debug = ({ pond }: Props) => {
   const handleShowDebug = () => setShowDebug(!showDebug);
 
   return (
-    <div className="ml-60">
-      <ButtonLink click={handleShowDebug}>
-        <Typography color="gray-light">debug</Typography>
-      </ButtonLink>
+    <div className="fixed bottom-1 right-1">
       {showDebug && (
-        <div>
-          <hr />
+        <div
+          style={{ width: '75vw', height: '50vh', overflow: 'scroll' }}
+          className="fixed bottom-1 left-1 bg-gray-100 p-2"
+        >
           <h5>stateUI</h5>
           <pre>{format(stateUI)}</pre>
           <br />
           <hr />
-          <h5>UserCatalog state</h5>
+          <h5>UserCatalog</h5>
           <pre>{format(stateUserCatalogFish)}</pre>
-          <h5>ChannelFish state</h5>
+          <h5>ChannelFish</h5>
           <pre>{format(stateChannelFish)}</pre>
           <h5>ChannelsCatalogFish state</h5>
           <pre>{format(stateChannelsCatalogFish)}</pre>
         </div>
       )}
+      <ButtonLink click={handleShowDebug}>
+        <Typography color="gray-light">debug</Typography>
+      </ButtonLink>
     </div>
   );
 };
