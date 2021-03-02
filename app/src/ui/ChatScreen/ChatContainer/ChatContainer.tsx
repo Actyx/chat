@@ -39,7 +39,7 @@ import { EditChannelDialog } from '../EditChannelDialog/EditChannelDialog';
 import { Sidebar } from '../Sidebar/Sidebar';
 import { TopBar } from '../TopBar';
 import {
-  getChannelName,
+  getChannelNameAndDescription,
   getDisplayNameByUser,
   getVisiblePublicMessages,
   mapChannelsToChannelCatalogUI,
@@ -330,7 +330,7 @@ export const ChatContainer = ({ pond }: Props) => {
       stateChannelsCatalogFish.channels
     );
 
-  const channelName = getChannelName(
+  const { channelName, channelDescription } = getChannelNameAndDescription(
     stateUI.activeChannelId,
     stateChannelsCatalogFish.channels
   );
@@ -343,6 +343,7 @@ export const ChatContainer = ({ pond }: Props) => {
           <div>
             <Channel
               channelName={channelName}
+              channelDescription={channelDescription}
               messages={channelMessages}
               editMessage={handleEditMessage}
               hideMessage={handleHideMessage}
