@@ -340,7 +340,7 @@ export const ChatContainer = ({ pond }: Props) => {
     switch (stateUI.sectionCenter) {
       case SectionCenter.Channel:
         return (
-          <div>
+          <>
             <Channel
               channelName={channelName}
               channelDescription={channelDescription}
@@ -349,7 +349,7 @@ export const ChatContainer = ({ pond }: Props) => {
               hideMessage={handleHideMessage}
             />
             <MessageInput addMessage={handleAddMessage} />
-          </div>
+          </>
         );
       case SectionCenter.ChannelsCatalog:
         return (
@@ -376,18 +376,22 @@ export const ChatContainer = ({ pond }: Props) => {
       : '240px auto 383px',
     gridTemplateRows: '40px auto',
   };
-  const spanit = canShowUserProfileDetails ? '' : 'col-span-2';
+  const spanit = canShowUserProfileDetails
+    ? 'overflow-y-auto'
+    : 'overflow-y-auto col-span-2';
 
   return (
     <div style={gridStyles}>
       <div className="col-span-3">
         <TopBar userDisplayName={userDisplayName} />
       </div>
-      <Sidebar
-        channels={channelsSideBarUI}
-        showAddChannelDialog={handleShowAddChannelDialog}
-        activeChannelId={stateUI.activeChannelId}
-      />
+      <div>
+        <Sidebar
+          channels={channelsSideBarUI}
+          showAddChannelDialog={handleShowAddChannelDialog}
+          activeChannelId={stateUI.activeChannelId}
+        />
+      </div>
       <div className={spanit}>{renderSectionCenter()}</div>
       {canShowUserProfileDetails && (
         <UserProfileDetails
