@@ -1,5 +1,8 @@
 import { useState } from 'react';
+import { FlexPanel } from '../common/FlexPanel/FlexPanel';
 import { FormEventElement, InputChangeEvent } from '../utils/ui-event-types';
+import { TextField } from '../common/Form/TextField/TextField';
+import { Submit } from '../common/Form/Submit/Submit';
 
 type UserProfileDetailsProps = Readonly<{
   isEditProfileSuccess?: boolean;
@@ -23,18 +26,19 @@ export const UserProfileDetails = ({
   };
 
   return (
-    <div className="w-96 border-solid border-l border-gray-300">
-      <h2>Edit user profile </h2>
+    <FlexPanel title="Edit User's Profile" close={close}>
       <form onSubmit={handleSubmit}>
         <label>displayName:</label>
-        <input
+        <TextField
           type="text"
           required
           value={displayName}
+          full
           onChange={handleChangeDisplayName}
         />
-        <br />
-        <input type="submit" value="Edit display name" />
+        <Submit size="small" color="green-medium">
+          Save changes
+        </Submit>
         <br />
         {isEditProfileSuccess === undefined
           ? ''
@@ -42,7 +46,6 @@ export const UserProfileDetails = ({
           ? 'success: user profile edited'
           : 'error: cannot edit user profile'}
       </form>
-      <button onClick={close}>Close</button>
-    </div>
+    </FlexPanel>
   );
 };

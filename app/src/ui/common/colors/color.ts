@@ -11,7 +11,10 @@ export type ColorUI =
   | 'red-dark'
   | 'green-light'
   | 'green-medium'
-  | 'green-dark';
+  | 'green-dark'
+  | 'purple-light'
+  | 'purple-medium'
+  | 'purple-dark';
 
 export const mkColor = (type: 'text' | 'bg') => (color: ColorUI): string => {
   const styled = {
@@ -30,6 +33,10 @@ export const mkColor = (type: 'text' | 'bg') => (color: ColorUI): string => {
       'text-green-100': color === 'green-light',
       'text-green-700': color === 'green-medium',
       'text-green-900': color === 'green-dark',
+
+      'text-purple-100': color === 'purple-light',
+      'text-purple-700': color === 'purple-medium',
+      'text-purple-900': color === 'purple-dark',
     },
     bg: {
       'bg-white': color === 'white',
@@ -46,6 +53,10 @@ export const mkColor = (type: 'text' | 'bg') => (color: ColorUI): string => {
       'bg-green-100': color === 'green-light',
       'bg-green-700': color === 'green-medium',
       'bg-green-900': color === 'green-dark',
+
+      'bg-purple-100': color === 'purple-light',
+      'bg-purple-700': color === 'purple-medium',
+      'bg-purple-900': color === 'purple-dark',
     },
   };
   return cx(styled[type]);
