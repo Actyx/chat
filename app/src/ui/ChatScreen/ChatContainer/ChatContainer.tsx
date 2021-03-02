@@ -367,7 +367,7 @@ export const ChatContainer = ({ pond }: Props) => {
     }
   };
 
-  const gridStyles: React.CSSProperties = {
+  const stylesGrid: React.CSSProperties = {
     position: 'fixed',
     width: '100vw',
     height: '100vh',
@@ -382,17 +382,15 @@ export const ChatContainer = ({ pond }: Props) => {
   });
 
   return (
-    <div style={gridStyles}>
+    <div style={stylesGrid}>
       <div className="col-span-3">
         <TopBar userDisplayName={userDisplayName} />
       </div>
-      <div>
-        <Sidebar
-          channels={channelsSideBarUI}
-          showAddChannelDialog={handleShowAddChannelDialog}
-          activeChannelId={stateUI.activeChannelId}
-        />
-      </div>
+      <Sidebar
+        channels={channelsSideBarUI}
+        showAddChannelDialog={handleShowAddChannelDialog}
+        activeChannelId={stateUI.activeChannelId}
+      />
       <div className={stylesSectionCenter}>{renderSectionCenter()}</div>
       {canShowUserProfileDetails && (
         <UserProfileDetails
