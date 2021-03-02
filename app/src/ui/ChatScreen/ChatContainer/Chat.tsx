@@ -56,19 +56,15 @@ type ChatProps = Readonly<{
   ) => void;
 }>;
 
-const styles = (
+const getStyles = (
   isTwoColumns: boolean
-): Readonly<{ grid: React.CSSProperties; centerSection: string }> => {
+): Readonly<{ grid: React.CSSProperties; mainContent: string }> => {
   return {
     grid: {
-      position: 'fixed',
-      width: '100vw',
-      height: '100vh',
-      display: 'grid',
       gridTemplateColumns: isTwoColumns ? '240px auto 383px' : '240px auto',
       gridTemplateRows: '40px auto',
     },
-    centerSection: cx('overflow-y-auto', { 'col-span-2': !isTwoColumns }),
+    mainContent: cx('overflow-y-auto', { 'col-span-2': !isTwoColumns }),
   };
 };
 
@@ -134,10 +130,12 @@ export const Chat = ({
     }
   };
 
-  const { grid, centerSection } = styles(canShowUserProfileDetails);
+  const { grid, mainContent: centerSection } = getStyles(
+    canShowUserProfileDetails
+  );
 
   return (
-    <div style={grid}>
+    <div style={grid} className="fixed grid w-screen h-screen">
       <div className="col-span-3">
         <TopBar userDisplayName={userDisplayName} />
       </div>
