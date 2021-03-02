@@ -373,8 +373,8 @@ export const ChatContainer = ({ pond }: Props) => {
     height: '100vh',
     display: 'grid',
     gridTemplateColumns: canShowUserProfileDetails
-      ? '240px auto'
-      : '240px auto 383px',
+      ? '240px auto 383px'
+      : '240px auto',
     gridTemplateRows: '40px auto',
   };
   const stylesSectionCenter = cx('overflow-y-auto', {
