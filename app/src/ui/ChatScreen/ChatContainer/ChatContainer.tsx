@@ -48,6 +48,7 @@ import {
   sortAlphabeticChannelsOverview,
   sortAlphabeticChannelsSidebar,
 } from './ui-map';
+import cx from 'classnames';
 
 // TODO create separate modules
 const MESSAGE = {
@@ -376,9 +377,9 @@ export const ChatContainer = ({ pond }: Props) => {
       : '240px auto 383px',
     gridTemplateRows: '40px auto',
   };
-  const spanit = canShowUserProfileDetails
-    ? 'overflow-y-auto'
-    : 'overflow-y-auto col-span-2';
+  const stylesSectionCenter = cx('overflow-y-auto', {
+    'col-span-2': !canShowUserProfileDetails,
+  });
 
   return (
     <div style={gridStyles}>
@@ -392,7 +393,7 @@ export const ChatContainer = ({ pond }: Props) => {
           activeChannelId={stateUI.activeChannelId}
         />
       </div>
-      <div className={spanit}>{renderSectionCenter()}</div>
+      <div className={stylesSectionCenter}>{renderSectionCenter()}</div>
       {canShowUserProfileDetails && (
         <UserProfileDetails
           userDisplayName={userDisplayName}
