@@ -17,6 +17,7 @@ export type MessagesUI = ReadonlyArray<MessageUI>;
 
 type Props = Readonly<{
   channelName: string;
+  channelDescription: string;
   messages: ReadonlyArray<MessageUI>;
   editMessage: (messageId: MessageId, content: string) => void;
   hideMessage: (messageId: MessageId) => void;
@@ -24,13 +25,16 @@ type Props = Readonly<{
 
 export const Channel = ({
   channelName,
+  channelDescription,
   messages,
   editMessage,
   hideMessage,
 }: Props) => {
   return (
     <div>
-      <h2>Channel: {channelName}</h2>
+      <h2>
+        {channelName} {channelDescription}
+      </h2>
       {messages.map((m: MessageUI) => (
         <Message
           key={m.messageId}
