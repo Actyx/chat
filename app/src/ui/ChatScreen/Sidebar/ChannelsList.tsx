@@ -24,7 +24,7 @@ export const ChannelsList = ({
         return (
           <Row key={x.channelId} onClick={() => selectChannel(x.channelId)}>
             <div className="flex items-center pl-4 space-x-2">
-              <HashtagIcon size="small" color={color} />
+              <HashtagIcon size="sm" color={color} />
               <Typography
                 tag="div"
                 size="base"

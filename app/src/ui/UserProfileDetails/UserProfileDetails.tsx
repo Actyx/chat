@@ -49,10 +49,10 @@ export const UserProfileDetails = ({
           </Typography>
         </div>
         <div className="flex space-x-3">
-          <Submit variant="button" size="small" color="white" click={close}>
+          <Submit variant="button" size="sm" color="white" click={close}>
             Cancel
           </Submit>
-          <Submit size="small" color="green">
+          <Submit size="sm" color="green">
             Save changes
           </Submit>
         </div>

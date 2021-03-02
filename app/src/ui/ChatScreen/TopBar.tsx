@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useContext } from 'react';
-import { mkColor } from '../common/colors/color';
+import { mkColor } from '../utils/ui-colors';
 import { LogoutIcon } from '../common/Icons/LogoutIcon';
 import { Typography } from '../common/Typography/Typography';
 import { ButtonLink } from '../common/ButtonLink/ButtonLink';

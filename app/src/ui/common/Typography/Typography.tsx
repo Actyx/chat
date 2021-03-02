@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import cx from 'classnames';
-import { ColorUI, mkColor } from '../colors/color';
+import { ColorUI, mkColor } from '../../utils/ui-colors';
 
 type HTMLTag = 'span' | 'h1' | 'div';
 

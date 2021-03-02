@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import { ReactNode } from 'react';
-import { ColorUI } from '../colors/color';
+import { ColorUI } from '../../utils/ui-colors';
 import { Typography } from '../Typography/Typography';
 
 type Variant = 'secondary' | 'danger' | 'success';

@@ -2,7 +2,7 @@ import cx from 'classnames';
 
 type BaseProps = Readonly<{
   color?: 'purple' | 'green' | 'white';
-  size?: 'big' | 'small';
+  size?: 'base' | 'sm';
   full?: boolean;
   children: string;
   click?: () => void;
@@ -24,7 +24,7 @@ export type SubmitProps = VariantSubmit | VariantButton;
 export const Submit = ({
   variant = 'submit',
   color = 'purple',
-  size = 'big',
+  size = 'base',
   full = false,
   children,
   click,
@@ -32,8 +32,8 @@ export const Submit = ({
   const isWhite = color === 'white';
   const isGreen = color === 'green';
   const isPurple = color === 'purple';
-  const isBig = size === 'big';
-  const isSmall = size === 'small';
+  const isBig = size === 'base';
+  const isSmall = size === 'sm';
 
   const styles = cx(
     'rounded',

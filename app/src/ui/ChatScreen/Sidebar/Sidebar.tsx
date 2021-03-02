@@ -45,8 +45,8 @@ export const Sidebar = ({
       </Section>
       <Section>
         <CollapsibleList
-          iconOpen={<ChevronDownIcon size="small" color="gray-light" />}
-          iconClose={<ChevronRightIcon size="small" color="gray-light" />}
+          iconOpen={<ChevronDownIcon size="xs" color="gray-light" />}
+          iconClose={<ChevronRightIcon size="xs" color="gray-light" />}
           title={
             <Typography size="base" tag="div" color="gray-light">
               Channels

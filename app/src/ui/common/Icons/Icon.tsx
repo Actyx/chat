@@ -1,22 +1,22 @@
 import cx from 'classnames';
 import { ReactNode } from 'react';
-import { ColorUI, mkColor } from '../colors/color';
+import { ColorUI, mkColor } from '../../utils/ui-colors';
 
 export type IconProps = Readonly<{
-  size?: 'sx' | 'small' | 'medium';
+  size?: 'xs' | 'sm' | 'base';
   color?: ColorUI;
 }>;
 
 type Props = IconProps & Readonly<{ children: ReactNode }>;
 
 export const Icon = ({
-  size = 'medium',
+  size = 'base',
   color = 'gray-medium',
   children,
 }: Props) => {
-  const isSx = size === 'sx';
-  const isSmall = size === 'small';
-  const isMedium = size === 'medium';
+  const isSx = size === 'xs';
+  const isSmall = size === 'sm';
+  const isMedium = size === 'base';
   const styles = cx(
     {
       'h-3': isSx,
