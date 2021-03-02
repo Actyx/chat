@@ -1,0 +1,9 @@
+.chat-grid-col-2 {
+    grid-template-columns: 15rem auto;
+    grid-template-rows: 2.5rem auto;
+}
+
+.chat-grid-col-3 {
+    grid-template-columns: 15rem auto 24rem;
+    grid-template-rows: 2.5rem auto;
+}

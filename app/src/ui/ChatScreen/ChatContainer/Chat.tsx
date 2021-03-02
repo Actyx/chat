@@ -14,6 +14,7 @@ import { MessageInput } from '../Channel/MessageInput';
 import { ChannelId, MessageId } from '../../../business-logic/message/types';
 import { EditChannelDialog } from '../EditChannelDialog/EditChannelDialog';
 import { AddChannelDialog } from '../AddChannelDialog/AddChannelDialog';
+import './chat.css';
 
 type ChatProps = Readonly<{
   sectionCenter: SectionCenter;
@@ -55,23 +56,6 @@ type ChatProps = Readonly<{
     newDescription: string
   ) => void;
 }>;
-
-const getStyles = (
-  isTwoColumns: boolean
-): Readonly<{ grid: React.CSSProperties; content: string }> => {
-  const leftCol = '15rem';
-  const rightCol = '24rem';
-  const topRow = '2.5rem';
-  return {
-    grid: {
-      gridTemplateColumns: isTwoColumns
-        ? `${leftCol} auto ${rightCol}`
-        : `${leftCol} auto`,
-      gridTemplateRows: `${topRow} auto`,
-    },
-    content: cx('overflow-y-auto', { 'col-span-2': !isTwoColumns }),
-  };
-};
 
 export const Chat = ({
   activeChannelId,
@@ -135,10 +119,13 @@ export const Chat = ({
     }
   };
 
-  const { grid, content } = getStyles(canShowUserProfileDetails);
-
+  const gridLayout = cx(
+    'fixed grid w-screen h-screen',
+    canShowUserProfileDetails ? 'chat-grid-col-3' : 'chat-grid-col-2'
+  );
+  const contentLayout = canShowUserProfileDetails ? 'col-span-1' : 'col-span-2';
   return (
-    <div style={grid} className="fixed grid w-screen h-screen">
+    <div className={gridLayout}>
       <div className="col-span-3">
         <TopBar userDisplayName={userDisplayName} />
       </div>
@@ -149,7 +136,7 @@ export const Chat = ({
           activeChannelId={activeChannelId}
         />
       </div>
-      <div className={content}>{renderSectionCenter()}</div>
+      <div className={contentLayout}>{renderSectionCenter()}</div>
       {canShowUserProfileDetails && (
         <div className="col-span-1">
           <UserProfileDetails
