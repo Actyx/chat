@@ -46,8 +46,11 @@ export const UserProfileDetails = ({
             However you’d like people to refer to you.
           </Typography>
         </div>
-        <div>
-          <Submit size="small" color="green-medium">
+        <div className="flex space-x-4">
+          <Submit size="small" color="white">
+            Cancel
+          </Submit>
+          <Submit size="small" color="green">
             Save changes
           </Submit>
         </div>
