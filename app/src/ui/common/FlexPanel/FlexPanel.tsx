@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { XIcon } from '../Icons/XIcon';
 import { Typography } from '../Typography/Typography';
+import { ButtonLink } from '../../common/ButtonLink/ButtonLink';
 
 type FlexPanelProps = Readonly<{
   title: string;
@@ -15,7 +16,9 @@ export const FlexPanel = ({ title, close, children }: FlexPanelProps) => {
         <Typography tag="div" weight="bold" color="gray-dark">
           {title}
         </Typography>
-        <XIcon size="medium" color="gray-dark" />
+        <ButtonLink click={close}>
+          <XIcon size="medium" color="gray-dark" />
+        </ButtonLink>
       </div>
       <div className="p-4">{children}</div>
     </div>

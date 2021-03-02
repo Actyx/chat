@@ -1,17 +1,33 @@
 import cx from 'classnames';
 
-export type SubmitProps = Readonly<{
+type BaseProps = Readonly<{
   color?: 'purple' | 'green' | 'white';
   size?: 'big' | 'small';
   full?: boolean;
   children: string;
+  click?: () => void;
 }>;
 
+type VariantSubmit = BaseProps &
+  Readonly<{
+    variant?: 'submit';
+  }>;
+
+type VariantButton = BaseProps &
+  Readonly<{
+    variant: 'button';
+    click: () => void;
+  }>;
+
+export type SubmitProps = VariantSubmit | VariantButton;
+
 export const Submit = ({
+  variant = 'submit',
   color = 'purple',
   size = 'big',
   full = false,
   children,
+  click,
 }: SubmitProps) => {
   const isWhite = color === 'white';
   const isGreen = color === 'green';
@@ -39,7 +55,7 @@ export const Submit = ({
     { 'pl-3 pr-3': isSmall }
   );
   return (
-    <button type="submit" className={styles}>
+    <button type={variant} className={styles} onClick={click}>
       {children}
     </button>
   );

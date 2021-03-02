@@ -31,7 +31,7 @@ export const UserProfileDetails = ({
 
   return (
     <FlexPanel title="Edit User's Profile" close={close}>
-      <form className="space-y-7" onSubmit={handleSubmit}>
+      <form className="space-y-6" onSubmit={handleSubmit}>
         <div className="space-y-2">
           <Label htmlFor={FIELD_DISPLAY_NAME_ID}>Display Name</Label>
           <TextField
@@ -46,8 +46,8 @@ export const UserProfileDetails = ({
             However you’d like people to refer to you.
           </Typography>
         </div>
-        <div className="flex space-x-4">
-          <Submit size="small" color="white">
+        <div className="flex space-x-3">
+          <Submit variant="button" size="small" color="white" click={close}>
             Cancel
           </Submit>
           <Submit size="small" color="green">
