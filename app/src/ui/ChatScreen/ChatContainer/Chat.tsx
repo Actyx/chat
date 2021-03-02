@@ -59,15 +59,15 @@ type ChatProps = Readonly<{
 const getStyles = (
   isTwoColumns: boolean
 ): Readonly<{ grid: React.CSSProperties; mainContent: string }> => {
-  const left = '240px';
-  const right = '383px';
-  const top = '40px';
+  const leftColumn = '15rem';
+  const rightColumn = '23.938rem';
+  const topRow = '2.5rem';
   return {
     grid: {
       gridTemplateColumns: isTwoColumns
-        ? `${left} auto ${right}`
-        : `${left} auto`,
-      gridTemplateRows: `${top} auto`,
+        ? `${leftColumn} auto ${rightColumn}`
+        : `${leftColumn} auto`,
+      gridTemplateRows: `${topRow} auto`,
     },
     mainContent: cx('overflow-y-auto', { 'col-span-2': !isTwoColumns }),
   };
