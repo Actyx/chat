@@ -58,18 +58,18 @@ type ChatProps = Readonly<{
 
 const getStyles = (
   isTwoColumns: boolean
-): Readonly<{ grid: React.CSSProperties; mainContent: string }> => {
-  const leftColumn = '15rem';
-  const rightColumn = '23.938rem';
+): Readonly<{ grid: React.CSSProperties; content: string }> => {
+  const leftCol = '15rem';
+  const rightCol = '24rem';
   const topRow = '2.5rem';
   return {
     grid: {
       gridTemplateColumns: isTwoColumns
-        ? `${leftColumn} auto ${rightColumn}`
-        : `${leftColumn} auto`,
+        ? `${leftCol} auto ${rightCol}`
+        : `${leftCol} auto`,
       gridTemplateRows: `${topRow} auto`,
     },
-    mainContent: cx('overflow-y-auto', { 'col-span-2': !isTwoColumns }),
+    content: cx('overflow-y-auto', { 'col-span-2': !isTwoColumns }),
   };
 };
 
@@ -135,27 +135,29 @@ export const Chat = ({
     }
   };
 
-  const { grid, mainContent: centerSection } = getStyles(
-    canShowUserProfileDetails
-  );
+  const { grid, content } = getStyles(canShowUserProfileDetails);
 
   return (
     <div style={grid} className="fixed grid w-screen h-screen">
       <div className="col-span-3">
         <TopBar userDisplayName={userDisplayName} />
       </div>
-      <Sidebar
-        channels={channelsSideBarUI}
-        showAddChannelDialog={handleShowAddChannelDialog}
-        activeChannelId={activeChannelId}
-      />
-      <div className={centerSection}>{renderSectionCenter()}</div>
-      {canShowUserProfileDetails && (
-        <UserProfileDetails
-          userDisplayName={userDisplayName}
-          editUserProfile={handleEditUserProfile}
-          close={handleHideUserProfileDetails}
+      <div className="col-span-1">
+        <Sidebar
+          channels={channelsSideBarUI}
+          showAddChannelDialog={handleShowAddChannelDialog}
+          activeChannelId={activeChannelId}
         />
+      </div>
+      <div className={content}>{renderSectionCenter()}</div>
+      {canShowUserProfileDetails && (
+        <div className="col-span-1">
+          <UserProfileDetails
+            userDisplayName={userDisplayName}
+            editUserProfile={handleEditUserProfile}
+            close={handleHideUserProfileDetails}
+          />
+        </div>
       )}
       {showAddChannelDialog && (
         <AddChannelDialog

@@ -39,7 +39,7 @@ export const Sidebar = ({
   const handleShowAddChannelDialog = () => showAddChannelDialog();
 
   return (
-    <div className="w-60 h-full bg-gray-700">
+    <div className="w-full h-full bg-gray-700">
       <Section>
         <MainNavigation channelCatalog={handleChannelsCatalog} />
       </Section>
