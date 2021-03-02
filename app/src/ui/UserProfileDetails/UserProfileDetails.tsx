@@ -9,17 +9,19 @@ import { Typography } from '../common/Typography/Typography';
 const FIELD_DISPLAY_NAME_ID = 'user-profile-details-display-name';
 
 type UserProfileDetailsProps = Readonly<{
+  userDisplayName: string;
   isEditProfileSuccess?: boolean;
   editUserProfile: (displayName: string) => void;
   close: () => void;
 }>;
 
 export const UserProfileDetails = ({
+  userDisplayName,
   isEditProfileSuccess,
   editUserProfile,
   close,
 }: UserProfileDetailsProps) => {
-  const [displayName, setDisplayName] = useState<string>('');
+  const [displayName, setDisplayName] = useState<string>(userDisplayName);
 
   const handleChangeDisplayName = (e: InputChangeEvent) =>
     setDisplayName(e.target.value);

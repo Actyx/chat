@@ -377,6 +377,7 @@ export const ChatContainer = ({ pond }: Props) => {
         <div className="flex-grow">{renderSectionCenter()}</div>
         {canShowUserProfileDetails && (
           <UserProfileDetails
+            userDisplayName={userDisplayName}
             editUserProfile={handleEditUserProfile}
             close={handleHideUserProfileDetails}
           />
