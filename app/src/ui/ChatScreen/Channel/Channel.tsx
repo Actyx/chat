@@ -46,11 +46,8 @@ export const Channel = ({
   addMessage,
 }: Props) => {
   return (
-    <div className="w-full" style={{ overflow: 'scroll', height: '100%' }}>
-      <div
-        data-test="content-channel"
-        style={{ display: 'flex', flexDirection: 'column', height: '100%' }}
-      >
+    <div className="w-full overflow-y-auto	h-full">
+      <div className="flex flex-col h-full">
         <div
           style={{
             height: '57px',
