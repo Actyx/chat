@@ -13,6 +13,7 @@ import { ChevronRightIcon } from '../../common/Icons/ChevronRightIcon';
 import { Section } from './Section';
 import { MainNavitation as MainNavigation } from './MainNavigation';
 import './sidebar.css';
+import { Header } from './Header';
 
 export type ChannelsListUI = ReadonlyArray<{
   channelId: ChannelId;
@@ -43,11 +44,7 @@ export const Sidebar = ({
 
   return (
     <div className="w-60 h-full bg-gray-700 sidebar">
-      <div className="flex items-center p-4 border-solid border-b border-gray-600 h-16">
-        <Typography size="base" color="white" weight="semibold">
-          {appName}
-        </Typography>
-      </div>
+      <Header appName={appName} />
       <Section>
         <MainNavigation channelCatalog={handleChannelsCatalog} />
       </Section>
