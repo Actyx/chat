@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { SectionCenter } from '../../ui-state-manager/types';
 import { ChannelsListUI, Sidebar } from '../Sidebar/Sidebar';
 import { TopBar } from '../TopBar';
@@ -54,6 +54,10 @@ type ChatProps = Readonly<{
     newDescription: string
   ) => void;
 }>;
+
+const MainContent = ({ children }: Readonly<{ children: ReactNode }>) => {
+  return <div className="fixed w-full flex chat-content">{children}</div>;
+};
 
 export const Chat = ({
   activeChannelId,
@@ -118,7 +122,7 @@ export const Chat = ({
   return (
     <div>
       <TopBar userDisplayName={userDisplayName} />
-      <div className="fixed w-full flex chat-content">
+      <MainContent>
         <Sidebar
           channels={channelsSideBarUI}
           showAddChannelDialog={handleShowAddChannelDialog}
@@ -126,15 +130,13 @@ export const Chat = ({
         />
         {renderSectionCenter()}
         {canShowUserProfileDetails && (
-          <div>
-            <UserProfileDetails
-              userDisplayName={userDisplayName}
-              editUserProfile={handleEditUserProfile}
-              close={handleHideUserProfileDetails}
-            />
-          </div>
+          <UserProfileDetails
+            userDisplayName={userDisplayName}
+            editUserProfile={handleEditUserProfile}
+            close={handleHideUserProfileDetails}
+          />
         )}
-      </div>
+      </MainContent>
 
       {showAddChannelDialog && (
         <AddChannelDialog
