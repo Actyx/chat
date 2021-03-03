@@ -27,7 +27,7 @@ export const MessageInput = ({ addMessage }: Props) => {
         <div className="flex space-x-2">
           <textarea
             rows={2}
-            className="rounded w-11/12"
+            className="rounded w-11/12 resize-none"
             value={message}
             onChange={handleChangeContent}
           />
