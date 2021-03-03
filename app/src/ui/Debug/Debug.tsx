@@ -7,7 +7,6 @@ import { ChannelCatalogFishState } from '../../business-logic/channel-catalog-fi
 import { UserCatalogFishState } from '../../business-logic/user-catalog-fish/types';
 import { UserCatalogFish } from '../../business-logic/user-catalog-fish/user-catalog-fish';
 import { StateContextUI } from '../ui-state-manager/UIStateManager';
-import { Typography } from '../common/Typography/Typography';
 
 type Props = Readonly<{
   pond: Pond;

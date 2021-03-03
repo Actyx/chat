@@ -41,6 +41,11 @@ export const Sidebar = ({
 
   return (
     <div className="w-60 h-full bg-gray-700 sidebar">
+      <div className="flex items-center p-4 border-solid border-b border-gray-600 h-16">
+        <Typography size="base" color="white" weight="semibold">
+          actyx
+        </Typography>
+      </div>
       <Section>
         <MainNavigation channelCatalog={handleChannelsCatalog} />
       </Section>
