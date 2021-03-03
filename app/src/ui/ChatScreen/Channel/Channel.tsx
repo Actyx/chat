@@ -1,5 +1,7 @@
 import { Milliseconds } from '@actyx/pond';
+import React, { ReactNode } from 'react';
 import { MessageId } from '../../../business-logic/message/types';
+import { Typography } from '../../common/Typography/Typography';
 import { Message } from './Message';
 
 type MessageUI = Readonly<{
@@ -23,6 +25,12 @@ type Props = Readonly<{
   hideMessage: (messageId: MessageId) => void;
 }>;
 
+const Header = ({ children }: Readonly<{ children: ReactNode }>) => (
+  <div className="flex items-center justify-between p-4 border-b">
+    {children}
+  </div>
+);
+
 export const Channel = ({
   channelName,
   channelDescription,
@@ -32,24 +40,28 @@ export const Channel = ({
 }: Props) => {
   return (
     <div>
-      <h2>
-        {channelName} {channelDescription}
-      </h2>
-      {messages.map((m: MessageUI) => (
-        <Message
-          key={m.messageId}
-          messageId={m.messageId}
-          createdOn={m.createdOn}
-          editedOn={m.editedOn}
-          senderDisplayName={m.senderDisplayName}
-          isHidden={m.isHidden}
-          content={m.content}
-          canEdit={m.canEdit}
-          canHide={m.canHide}
-          editMessage={editMessage}
-          hideMessage={hideMessage}
-        />
-      ))}
+      <Header>
+        <Typography tag="div" weight="bold" color="gray-dark">
+          {channelName} x {channelDescription}
+        </Typography>
+      </Header>
+      <div>
+        {messages.map((m: MessageUI) => (
+          <Message
+            key={m.messageId}
+            messageId={m.messageId}
+            createdOn={m.createdOn}
+            editedOn={m.editedOn}
+            senderDisplayName={m.senderDisplayName}
+            isHidden={m.isHidden}
+            content={m.content}
+            canEdit={m.canEdit}
+            canHide={m.canHide}
+            editMessage={editMessage}
+            hideMessage={hideMessage}
+          />
+        ))}
+      </div>
     </div>
   );
 };
