@@ -2,16 +2,40 @@ import { ReactNode } from 'react';
 import { MouseEventButton } from '../../utils/ui-event-types';
 import cx from 'classnames';
 
-export type ButtonLinkProps = Readonly<{
+export type ButtonLinkBase = Readonly<{
+  type: 'button' | 'submit';
   children: ReactNode;
   full?: boolean;
-  click: (e: MouseEventButton) => void;
+  click?: (e: MouseEventButton) => void;
 }>;
 
-export const ButtonLink = ({ children, full, click }: ButtonLinkProps) => {
+type ButtonLinkButton = ButtonLinkBase &
+  Readonly<{
+    type: 'button';
+    click: (e: MouseEventButton) => void;
+  }>;
+
+type ButtonLinkSumbit = ButtonLinkBase &
+  Readonly<{
+    type: 'submit';
+  }>;
+
+export type ButtonLinkProps = ButtonLinkButton | ButtonLinkSumbit;
+
+export const ButtonLink = ({
+  type,
+  children,
+  full,
+  click,
+}: ButtonLinkProps) => {
   const styles = cx({ 'w-full': full });
   return (
-    <button style={{ outline: 'none' }} className={styles} onClick={click}>
+    <button
+      type={type}
+      style={{ outline: 'none' }}
+      className={styles}
+      onClick={click}
+    >
       {children}
     </button>
   );

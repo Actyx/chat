@@ -79,7 +79,7 @@ export const Debug = ({ pond }: Props) => {
           <pre>{format(stateChannelsCatalogFish)}</pre>
         </div>
       )}
-      <ButtonLink click={handleShowDebug}>
+      <ButtonLink type="button" click={handleShowDebug}>
         <Typography color="gray-light">debug</Typography>
       </ButtonLink>
     </div>

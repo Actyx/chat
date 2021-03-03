@@ -33,10 +33,10 @@ export const TopBar = ({ userDisplayName }: Props) => {
 
   return (
     <div className={style}>
-      <ButtonLink click={handleEditUserProfile}>
+      <ButtonLink type="button" click={handleEditUserProfile}>
         <Typography color="gray-light">{userDisplayName}</Typography>
       </ButtonLink>
-      <ButtonLink click={handleSignOut}>
+      <ButtonLink type="button" click={handleSignOut}>
         <LogoutIcon color="gray-light" />
       </ButtonLink>
     </div>

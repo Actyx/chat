@@ -24,7 +24,7 @@ export const FlexPanel = ({ title, close, children }: FlexPanelProps) => {
         <Typography tag="div" weight="bold" color="gray-dark">
           {title}
         </Typography>
-        <ButtonLink click={close}>
+        <ButtonLink type="button" click={close}>
           <XIcon size="base" color="gray-dark" />
         </ButtonLink>
       </Header>

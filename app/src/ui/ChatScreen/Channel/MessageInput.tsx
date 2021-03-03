@@ -1,5 +1,10 @@
-import { useState } from 'react';
-import { FormEventElement, InputChangeEvent } from '../../utils/ui-event-types';
+import React, { useState } from 'react';
+import { ButtonLink } from '../../common/ButtonLink/ButtonLink';
+import { PaperAirplane } from '../../common/Icons/PaperAirplane';
+import {
+  FormEventElement,
+  TextAreaChangeEvent,
+} from '../../utils/ui-event-types';
 
 type Props = Readonly<{
   addMessage: (content: string) => void;
@@ -8,7 +13,7 @@ type Props = Readonly<{
 export const MessageInput = ({ addMessage }: Props) => {
   const [message, setMessage] = useState<string>('');
 
-  const handleChangeContent = (e: InputChangeEvent) =>
+  const handleChangeContent = (e: TextAreaChangeEvent) =>
     setMessage(e.target.value);
 
   const handleSubmit = (e: FormEventElement) => {
@@ -18,10 +23,17 @@ export const MessageInput = ({ addMessage }: Props) => {
   };
 
   return (
-    <div className="h-24">
+    <div className="h-24 p-4 w-full">
       <form onSubmit={handleSubmit}>
-        <input type="text" value={message} onChange={handleChangeContent} />
-        <input type="submit" value="Send message" />
+        <textarea
+          rows={2}
+          className="rounded w-11/12"
+          value={message}
+          onChange={handleChangeContent}
+        />
+        <ButtonLink type="submit">
+          <PaperAirplane />
+        </ButtonLink>
       </form>
     </div>
   );
