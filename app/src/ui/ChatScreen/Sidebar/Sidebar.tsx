@@ -16,6 +16,7 @@ import './sidebar.css';
 import { Header } from './Header';
 import { UserUUID } from '../../../business-logic/user-catalog-fish/types';
 import { UsersList } from './UsersList';
+import { Body } from './Body';
 
 export type UsersListUI = ReadonlyArray<{
   userUUID: UserUUID;
@@ -54,40 +55,42 @@ export const Sidebar = ({
   return (
     <div className="w-60 h-full bg-gray-700 sidebar">
       <Header appName={appName} />
-      <Section>
-        <MainNavigation channelCatalog={handleChannelsCatalog} />
-      </Section>
-      <Section>
-        <CollapsibleList
-          iconOpen={<ChevronDownIcon size="xs" color="gray-light" />}
-          iconClose={<ChevronRightIcon size="xs" color="gray-light" />}
-          title={
-            <Typography size="base" tag="div" color="gray-light">
-              Channels
-            </Typography>
-          }
-        >
-          <ChannelsList
-            channels={channels}
-            activeChannelId={activeChannelId}
-            selectChannel={handleMain}
-          />
-        </CollapsibleList>
-      </Section>
-      <Section>
-        <CollapsibleList
-          iconOpen={<ChevronDownIcon size="xs" color="gray-light" />}
-          iconClose={<ChevronRightIcon size="xs" color="gray-light" />}
-          title={
-            <Typography size="base" tag="div" color="gray-light">
-              Users
-            </Typography>
-          }
-        >
-          <UsersList users={users} selectUser={() => ({})} />
-        </CollapsibleList>
-      </Section>
-      <button onClick={handleShowAddChannelDialog}>Add a Channel</button>
+      <Body>
+        <Section>
+          <MainNavigation channelCatalog={handleChannelsCatalog} />
+        </Section>
+        <Section>
+          <CollapsibleList
+            iconOpen={<ChevronDownIcon size="xs" color="gray-light" />}
+            iconClose={<ChevronRightIcon size="xs" color="gray-light" />}
+            title={
+              <Typography size="base" tag="div" color="gray-light">
+                Channels
+              </Typography>
+            }
+          >
+            <ChannelsList
+              channels={channels}
+              activeChannelId={activeChannelId}
+              selectChannel={handleMain}
+            />
+          </CollapsibleList>
+        </Section>
+        <Section>
+          <CollapsibleList
+            iconOpen={<ChevronDownIcon size="xs" color="gray-light" />}
+            iconClose={<ChevronRightIcon size="xs" color="gray-light" />}
+            title={
+              <Typography size="base" tag="div" color="gray-light">
+                Users
+              </Typography>
+            }
+          >
+            <UsersList users={users} selectUser={() => ({})} />
+          </CollapsibleList>
+          <button onClick={handleShowAddChannelDialog}>Add a Channel</button>
+        </Section>
+      </Body>
     </div>
   );
 };
