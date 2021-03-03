@@ -12,6 +12,7 @@ import { ChevronDownIcon } from '../../common/Icons/ChevronDownIcon';
 import { ChevronRightIcon } from '../../common/Icons/ChevronRightIcon';
 import { Section } from './Section';
 import { MainNavitation as MainNavigation } from './MainNavigation';
+import './sidebar.css';
 
 export type ChannelsListUI = ReadonlyArray<{
   channelId: ChannelId;
@@ -39,7 +40,7 @@ export const Sidebar = ({
   const handleShowAddChannelDialog = () => showAddChannelDialog();
 
   return (
-    <div className="w-full h-full bg-gray-700">
+    <div className="w-60 h-full bg-gray-700 sidebar">
       <Section>
         <MainNavigation channelCatalog={handleChannelsCatalog} />
       </Section>

@@ -12,6 +12,7 @@ import { MessageUI } from '../Channel/Message';
 import { ChannelId, MessageId } from '../../../business-logic/message/types';
 import { EditChannelDialog } from '../EditChannelDialog/EditChannelDialog';
 import { AddChannelDialog } from '../AddChannelDialog/AddChannelDialog';
+import './chat.css';
 
 type ChatProps = Readonly<{
   sectionCenter: SectionCenter;
@@ -118,36 +119,13 @@ export const Chat = ({
 
   return (
     <div>
-      <div
-        data-test="header"
-        style={{
-          position: 'fixed',
-          width: '100%',
-          top: 0,
-          left: 0,
-          height: '2.5rem',
-        }}
-      >
-        <TopBar userDisplayName={userDisplayName} />
-      </div>
-      <div
-        data-test="body"
-        style={{
-          position: 'fixed',
-          top: '2.5rem',
-          left: 0,
-          height: 'calc(100% - 2.5rem)',
-          width: '100%',
-          display: 'flex',
-        }}
-      >
-        <div style={{ minWidth: '15rem' }}>
-          <Sidebar
-            channels={channelsSideBarUI}
-            showAddChannelDialog={handleShowAddChannelDialog}
-            activeChannelId={activeChannelId}
-          />
-        </div>
+      <TopBar userDisplayName={userDisplayName} />
+      <div className="fixed w-full flex chat-content">
+        <Sidebar
+          channels={channelsSideBarUI}
+          showAddChannelDialog={handleShowAddChannelDialog}
+          activeChannelId={activeChannelId}
+        />
         <div style={{ width: '100%' }}>{renderSectionCenter()}</div>
         {canShowUserProfileDetails && (
           <div>
