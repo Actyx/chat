@@ -9,17 +9,25 @@ type FlexPanelProps = Readonly<{
   children: ReactNode;
 }>;
 
+const Header = ({ children }: Readonly<{ children: ReactNode }>) => {
+  return (
+    <div className="flex items-center justify-between p-4 border-b h-14">
+      {children}
+    </div>
+  );
+};
+
 export const FlexPanel = ({ title, close, children }: FlexPanelProps) => {
   return (
     <div className="h-full border-solid border-l border-gray-300">
-      <div className="flex items-center justify-between p-4 border-b">
+      <Header>
         <Typography tag="div" weight="bold" color="gray-dark">
           {title}
         </Typography>
         <ButtonLink click={close}>
           <XIcon size="base" color="gray-dark" />
         </ButtonLink>
-      </div>
+      </Header>
       <div className="p-4">{children}</div>
     </div>
   );

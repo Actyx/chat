@@ -28,7 +28,7 @@ type Props = Readonly<{
 }>;
 
 const Header = ({ children }: Readonly<{ children: ReactNode }>) => (
-  <div className="flex items-center justify-between p-4 border-b">
+  <div className="flex items-center justify-between p-4 border-b h-14">
     {children}
   </div>
 );
@@ -48,17 +48,11 @@ export const Channel = ({
   return (
     <div className="w-full overflow-y-auto	h-full">
       <div className="flex flex-col h-full">
-        <div
-          style={{
-            height: '57px',
-          }}
-        >
-          <Header>
-            <Typography tag="div" weight="bold" color="gray-dark">
-              {channelName} x {channelDescription}
-            </Typography>
-          </Header>
-        </div>
+        <Header>
+          <Typography tag="div" weight="bold" color="gray-dark">
+            {channelName} x {channelDescription}
+          </Typography>
+        </Header>
         <div
           style={{
             overflow: 'scroll',
