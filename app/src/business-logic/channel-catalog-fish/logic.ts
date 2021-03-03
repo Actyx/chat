@@ -26,6 +26,9 @@ export const isChannelIdRegistered = (
   channels: Channels
 ): boolean => channelId in channels;
 
+export const isChannelIdSystemDefault = (channelId: ChannelId) =>
+  channelId === DEFAULT_CHANNEL.channelId;
+
 export const getChannelUsersByChannelId = (
   channelId: ChannelId,
   channels: Channels

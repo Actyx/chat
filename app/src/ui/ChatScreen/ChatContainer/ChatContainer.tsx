@@ -332,7 +332,8 @@ export const ChatContainer = ({ pond }: Props) => {
 
   const totalUsers = getTotalUsers(
     stateUI.activeChannelId,
-    stateChannelsCatalogFish.channels
+    stateChannelsCatalogFish.channels,
+    stateUserCatalogFish.users
   );
   //#endregion
 
