@@ -46,17 +46,14 @@ export const Channel = ({
   addMessage,
 }: Props) => {
   return (
-    <div
-      data-test="channel"
-      style={{ backgroundColor: 'yellow', overflow: 'scroll', height: '100%' }}
-    >
+    <div data-test="channel" style={{ overflow: 'scroll', height: '100%' }}>
       <div
         data-test="content-channel"
         style={{ display: 'flex', flexDirection: 'column', height: '100%' }}
       >
         <div
           style={{
-            height: '100px',
+            height: '57px',
           }}
         >
           <Header>
@@ -68,7 +65,7 @@ export const Channel = ({
         <div
           style={{
             overflow: 'scroll',
-            height: 'calc(100% - 200px)',
+            height: 'calc(100% - 57px - 85px)',
           }}
         >
           <Body>
@@ -91,7 +88,7 @@ export const Channel = ({
         </div>
         <div
           style={{
-            height: '100px',
+            height: '85px',
           }}
         >
           <MessageInput addMessage={addMessage} />
