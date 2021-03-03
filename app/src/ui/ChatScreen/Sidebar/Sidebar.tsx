@@ -14,6 +14,13 @@ import { Section } from './Section';
 import { MainNavitation as MainNavigation } from './MainNavigation';
 import './sidebar.css';
 import { Header } from './Header';
+import { UserUUID } from '../../../business-logic/user-catalog-fish/types';
+import { UsersList } from './UsersList';
+
+export type UsersListUI = ReadonlyArray<{
+  userUUID: UserUUID;
+  name: string;
+}>;
 
 export type ChannelsListUI = ReadonlyArray<{
   channelId: ChannelId;
@@ -23,6 +30,7 @@ export type ChannelsListUI = ReadonlyArray<{
 type SidebarProps = Readonly<{
   appName: string;
   channels: ChannelsListUI;
+  users: UsersListUI;
   activeChannelId: ChannelId;
   showAddChannelDialog: () => void;
 }>;
@@ -30,6 +38,7 @@ type SidebarProps = Readonly<{
 export const Sidebar = ({
   appName,
   channels,
+  users,
   activeChannelId,
   showAddChannelDialog,
 }: SidebarProps) => {
@@ -63,6 +72,19 @@ export const Sidebar = ({
             activeChannelId={activeChannelId}
             selectChannel={handleMain}
           />
+        </CollapsibleList>
+      </Section>
+      <Section>
+        <CollapsibleList
+          iconOpen={<ChevronDownIcon size="xs" color="gray-light" />}
+          iconClose={<ChevronRightIcon size="xs" color="gray-light" />}
+          title={
+            <Typography size="base" tag="div" color="gray-light">
+              Users
+            </Typography>
+          }
+        >
+          <UsersList users={users} selectUser={() => ({})} />
         </CollapsibleList>
       </Section>
       <button onClick={handleShowAddChannelDialog}>Add a Channel</button>

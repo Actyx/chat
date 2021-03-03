@@ -38,8 +38,10 @@ import {
   mapChannelsToChannelCatalogUI,
   mapChannelsToSidebarUI,
   mapPublicMessagesToChannelUI,
+  mapUsersToSidebarUI,
   sortAlphabeticChannelsOverview,
   sortAlphabeticChannelsSidebar,
+  sortAlphabeticUsersSidebar,
 } from './ui-map';
 import { Chat } from './Chat';
 import pkg from '../../../../package.json';
@@ -310,6 +312,10 @@ export const ChatContainer = ({ pond }: Props) => {
     mapChannelsToSidebarUI(stateChannelsCatalogFish.channels)
   );
 
+  const usersSideBarUI = sortAlphabeticUsersSidebar(
+    mapUsersToSidebarUI(stateUserCatalogFish.users)
+  );
+
   const channelsOverviewCatalog = sortAlphabeticChannelsOverview(
     mapChannelsToChannelCatalogUI(
       stateChannelsCatalogFish.channels,
@@ -345,6 +351,7 @@ export const ChatContainer = ({ pond }: Props) => {
       activeChannelId={stateUI.activeChannelId}
       userDisplayName={userDisplayName}
       channelsSideBarUI={channelsSideBarUI}
+      usersSideBarUI={usersSideBarUI}
       channelName={channelName}
       channelDescription={channelDescription}
       channelMessages={channelMessages}

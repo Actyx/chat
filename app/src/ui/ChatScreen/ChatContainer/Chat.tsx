@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { SectionCenter } from '../../ui-state-manager/types';
-import { ChannelsListUI, Sidebar } from '../Sidebar/Sidebar';
+import { ChannelsListUI, Sidebar, UsersListUI } from '../Sidebar/Sidebar';
 import { TopBar } from '../TopBar';
 import { UserProfileDetails } from '../../UserProfileDetails/UserProfileDetails';
 import { Channel } from '../Channel/Channel';
@@ -21,6 +21,7 @@ type ChatProps = Readonly<{
   activeChannelId: ChannelId;
   userDisplayName: string;
   channelsSideBarUI: ChannelsListUI;
+  usersSideBarUI: UsersListUI;
   channelName: string;
   channelDescription: string;
   channelMessages: ReadonlyArray<MessageUI>;
@@ -68,6 +69,7 @@ export const Chat = ({
   sectionCenter,
   userDisplayName,
   channelsSideBarUI,
+  usersSideBarUI,
   canShowUserProfileDetails,
   handleShowAddChannelDialog,
   handleAddMessage,
@@ -131,6 +133,7 @@ export const Chat = ({
         <Sidebar
           appName={appName}
           channels={channelsSideBarUI}
+          users={usersSideBarUI}
           showAddChannelDialog={handleShowAddChannelDialog}
           activeChannelId={activeChannelId}
         />

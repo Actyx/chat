@@ -28,7 +28,7 @@ import { genericSorter, localeComparator } from '../../../common/sorts';
 import { isDefined } from '../../../common/filters';
 import { MessagesUI } from '../Channel/Channel';
 import { ChannelsOverviewUI } from '../ChannelsCatalog/ChannelsCatalog';
-import { ChannelsListUI } from '../Sidebar/Sidebar';
+import { ChannelsListUI, UsersListUI } from '../Sidebar/Sidebar';
 
 export const mapPublicMessagesToChannelUI = (
   messages: PublicMessages,
@@ -52,10 +52,17 @@ export const mapPublicMessagesToChannelUI = (
   });
 
 export const mapChannelsToSidebarUI = (channels: Channels): ChannelsListUI =>
-  Object.values(channels).map((x) => ({
-    channelId: x.profile.channelId,
-    name: x.profile.name,
+  Object.values(channels).map((c) => ({
+    channelId: c.profile.channelId,
+    name: c.profile.name,
   }));
+
+export const mapUsersToSidebarUI = (users: Users): UsersListUI => {
+  return Object.values(users).map((u) => ({
+    userUUID: u.userUUID,
+    name: u.displayName,
+  }));
+};
 
 export const mapChannelsToChannelCatalogUI = (
   channels: Channels,
@@ -93,6 +100,12 @@ export const sortAlphabeticChannelsSidebar = (
   channels: ChannelsListUI
 ): ChannelsListUI =>
   channels
+    .map((x) => x)
+    .sort((a, b) =>
+      genericSorter(localeComparator, { isDescending: false })(a.name, b.name)
+    );
+export const sortAlphabeticUsersSidebar = (users: UsersListUI): UsersListUI =>
+  users
     .map((x) => x)
     .sort((a, b) =>
       genericSorter(localeComparator, { isDescending: false })(a.name, b.name)
