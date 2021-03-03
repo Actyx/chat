@@ -32,7 +32,7 @@ export const MessageInput = ({
           <textarea
             rows={2}
             placeholder={`Message #${channelName}`}
-            className="rounded w-11/12 resize-none"
+            className="rounded w-full resize-none"
             value={message}
             onChange={handleChangeContent}
           />
