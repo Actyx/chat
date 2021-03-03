@@ -1,7 +1,7 @@
 import { Icon, IconProps } from './Icon';
 
-export const LogoutIcon = ({ color, size }: IconProps) => (
-  <Icon color={color} size={size}>
+export const LogoutIcon = ({ color, size, fill }: IconProps) => (
+  <Icon color={color} size={size} fill={fill}>
     <path
       strokeLinecap="round"
       strokeLinejoin="round"

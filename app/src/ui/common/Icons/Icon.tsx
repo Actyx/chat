@@ -3,6 +3,7 @@ import { ReactNode } from 'react';
 import { ColorUI, mkColor } from '../../utils/ui-colors';
 
 export type IconProps = Readonly<{
+  fill?: boolean;
   size?: 'xs' | 'sm' | 'base';
   color?: ColorUI;
 }>;
@@ -10,6 +11,7 @@ export type IconProps = Readonly<{
 type Props = IconProps & Readonly<{ children: ReactNode }>;
 
 export const Icon = ({
+  fill = false,
   size = 'base',
   color = 'gray-medium',
   children,
@@ -25,6 +27,7 @@ export const Icon = ({
       'w-4': isSmall,
       'h-5': isMedium,
       'w-5': isMedium,
+      'fill-current': fill,
     },
     mkColor('text')(color)
   );

@@ -32,7 +32,9 @@ export const MessageInput = ({ addMessage }: Props) => {
           onChange={handleChangeContent}
         />
         <ButtonLink type="submit">
-          <PaperAirplane />
+          <div className="flex items-center justify-center bg-green-700 hover:bg-green-600 w-8 h-8 rounded transform rotate-90">
+            <PaperAirplane color="white" fill={true} />
+          </div>
         </ButtonLink>
       </form>
     </div>
