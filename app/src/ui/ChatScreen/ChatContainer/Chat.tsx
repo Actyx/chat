@@ -148,9 +148,7 @@ export const Chat = ({
             activeChannelId={activeChannelId}
           />
         </div>
-        <div style={{ width: '100%', overflow: 'scroll' }}>
-          {renderSectionCenter()}
-        </div>
+        <div style={{ width: '100%' }}>{renderSectionCenter()}</div>
         {canShowUserProfileDetails && (
           <div>
             <UserProfileDetails
