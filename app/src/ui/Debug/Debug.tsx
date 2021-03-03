@@ -7,7 +7,6 @@ import { ChannelCatalogFishState } from '../../business-logic/channel-catalog-fi
 import { UserCatalogFishState } from '../../business-logic/user-catalog-fish/types';
 import { UserCatalogFish } from '../../business-logic/user-catalog-fish/user-catalog-fish';
 import { StateContextUI } from '../ui-state-manager/UIStateManager';
-import { ButtonLink } from '../common/ButtonLink/ButtonLink';
 import { Typography } from '../common/Typography/Typography';
 
 type Props = Readonly<{
@@ -61,7 +60,7 @@ export const Debug = ({ pond }: Props) => {
   const handleShowDebug = () => setShowDebug(!showDebug);
 
   return (
-    <div className="fixed bottom-1 right-1">
+    <div className="fixed top-0 left-0">
       {showDebug && (
         <div
           style={{ width: '75vw', height: '50vh', overflow: 'scroll' }}
@@ -79,9 +78,7 @@ export const Debug = ({ pond }: Props) => {
           <pre>{format(stateChannelsCatalogFish)}</pre>
         </div>
       )}
-      <ButtonLink type="button" click={handleShowDebug}>
-        <Typography color="gray-light">debug</Typography>
-      </ButtonLink>
+      <div className="w-5 h-5 cursor-help" onClick={handleShowDebug} />
     </div>
   );
 };
