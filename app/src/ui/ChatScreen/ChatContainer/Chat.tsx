@@ -2,7 +2,6 @@ import React from 'react';
 import { SectionCenter } from '../../ui-state-manager/types';
 import { ChannelsListUI, Sidebar } from '../Sidebar/Sidebar';
 import { TopBar } from '../TopBar';
-import cx from 'classnames';
 import { UserProfileDetails } from '../../UserProfileDetails/UserProfileDetails';
 import { Channel } from '../Channel/Channel';
 import {
@@ -13,7 +12,6 @@ import { MessageUI } from '../Channel/Message';
 import { ChannelId, MessageId } from '../../../business-logic/message/types';
 import { EditChannelDialog } from '../EditChannelDialog/EditChannelDialog';
 import { AddChannelDialog } from '../AddChannelDialog/AddChannelDialog';
-import './chat.css';
 
 type ChatProps = Readonly<{
   sectionCenter: SectionCenter;
@@ -118,33 +116,50 @@ export const Chat = ({
     }
   };
 
-  const gridLayout = cx(
-    'fixed grid w-screen h-screen',
-    canShowUserProfileDetails ? 'chat-grid-col-3' : 'chat-grid-col-2'
-  );
-  const contentLayout = canShowUserProfileDetails ? 'col-span-1' : 'col-span-2';
   return (
-    <div className={gridLayout}>
-      <div className="col-span-3">
+    <div>
+      <div
+        data-test="header"
+        style={{
+          position: 'fixed',
+          width: '100%',
+          top: 0,
+          left: 0,
+          height: '2.5rem',
+        }}
+      >
         <TopBar userDisplayName={userDisplayName} />
       </div>
-      <div className="col-span-1">
-        <Sidebar
-          channels={channelsSideBarUI}
-          showAddChannelDialog={handleShowAddChannelDialog}
-          activeChannelId={activeChannelId}
-        />
-      </div>
-      <div className={contentLayout}>{renderSectionCenter()}</div>
-      {canShowUserProfileDetails && (
-        <div className="col-span-1">
-          <UserProfileDetails
-            userDisplayName={userDisplayName}
-            editUserProfile={handleEditUserProfile}
-            close={handleHideUserProfileDetails}
+      <div
+        data-test="body"
+        style={{
+          position: 'fixed',
+          top: '2.5rem',
+          left: 0,
+          height: 'calc(100% - 2.5rem)',
+          width: '100%',
+          display: 'flex',
+        }}
+      >
+        <div style={{ minWidth: '15rem' }}>
+          <Sidebar
+            channels={channelsSideBarUI}
+            showAddChannelDialog={handleShowAddChannelDialog}
+            activeChannelId={activeChannelId}
           />
         </div>
-      )}
+        <div style={{ width: '100%' }}>{renderSectionCenter()}</div>
+        {canShowUserProfileDetails && (
+          <div>
+            <UserProfileDetails
+              userDisplayName={userDisplayName}
+              editUserProfile={handleEditUserProfile}
+              close={handleHideUserProfileDetails}
+            />
+          </div>
+        )}
+      </div>
+
       {showAddChannelDialog && (
         <AddChannelDialog
           errorMessage={pondErrorMessage}

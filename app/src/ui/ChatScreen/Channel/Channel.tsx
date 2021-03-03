@@ -46,30 +46,36 @@ export const Channel = ({
   addMessage,
 }: Props) => {
   return (
-    <div>
-      <Header>
-        <Typography tag="div" weight="bold" color="gray-dark">
-          {channelName} x {channelDescription}
-        </Typography>
-      </Header>
-      <Body>
-        {messages.map((m: MessageUI) => (
-          <Message
-            key={m.messageId}
-            messageId={m.messageId}
-            createdOn={m.createdOn}
-            editedOn={m.editedOn}
-            senderDisplayName={m.senderDisplayName}
-            isHidden={m.isHidden}
-            content={m.content}
-            canEdit={m.canEdit}
-            canHide={m.canHide}
-            editMessage={editMessage}
-            hideMessage={hideMessage}
-          />
-        ))}
-      </Body>
-      <MessageInput addMessage={addMessage} />
+    <div data-test="channel" style={{}}>
+      <div style={{}}>
+        <Header>
+          <Typography tag="div" weight="bold" color="gray-dark">
+            {channelName} x {channelDescription}
+          </Typography>
+        </Header>
+      </div>
+      <div style={{}}>
+        <Body>
+          {messages.map((m: MessageUI) => (
+            <Message
+              key={m.messageId}
+              messageId={m.messageId}
+              createdOn={m.createdOn}
+              editedOn={m.editedOn}
+              senderDisplayName={m.senderDisplayName}
+              isHidden={m.isHidden}
+              content={m.content}
+              canEdit={m.canEdit}
+              canHide={m.canHide}
+              editMessage={editMessage}
+              hideMessage={hideMessage}
+            />
+          ))}
+        </Body>
+      </div>
+      <div style={{}}>
+        <MessageInput addMessage={addMessage} />
+      </div>
     </div>
   );
 };
