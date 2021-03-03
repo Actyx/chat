@@ -18,7 +18,7 @@ export const MessageInput = ({ addMessage }: Props) => {
   };
 
   return (
-    <div>
+    <div className="h-24">
       <form onSubmit={handleSubmit}>
         <input type="text" value={message} onChange={handleChangeContent} />
         <input type="submit" value="Send message" />
