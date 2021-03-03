@@ -42,6 +42,7 @@ import {
   sortAlphabeticChannelsSidebar,
 } from './ui-map';
 import { Chat } from './Chat';
+import pkg from '../../../../package.json';
 
 // TODO create separate modules
 const MESSAGE = {
@@ -337,6 +338,7 @@ export const ChatContainer = ({ pond }: Props) => {
 
   return (
     <Chat
+      appName={pkg.chat.appName}
       totalUsers={totalUsers}
       sectionCenter={stateUI.sectionCenter}
       activeChannelId={stateUI.activeChannelId}

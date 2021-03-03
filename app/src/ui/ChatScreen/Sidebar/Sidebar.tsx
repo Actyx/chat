@@ -20,12 +20,14 @@ export type ChannelsListUI = ReadonlyArray<{
 }>;
 
 type SidebarProps = Readonly<{
+  appName: string;
   channels: ChannelsListUI;
   activeChannelId: ChannelId;
   showAddChannelDialog: () => void;
 }>;
 
 export const Sidebar = ({
+  appName,
   channels,
   activeChannelId,
   showAddChannelDialog,
@@ -43,7 +45,7 @@ export const Sidebar = ({
     <div className="w-60 h-full bg-gray-700 sidebar">
       <div className="flex items-center p-4 border-solid border-b border-gray-600 h-16">
         <Typography size="base" color="white" weight="semibold">
-          actyx
+          {appName}
         </Typography>
       </div>
       <Section>

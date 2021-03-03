@@ -15,6 +15,7 @@ import { AddChannelDialog } from '../AddChannelDialog/AddChannelDialog';
 import './chat.css';
 
 type ChatProps = Readonly<{
+  appName: string;
   totalUsers: number;
   sectionCenter: SectionCenter;
   activeChannelId: ChannelId;
@@ -61,6 +62,7 @@ const MainContent = ({ children }: Readonly<{ children: ReactNode }>) => {
 };
 
 export const Chat = ({
+  appName,
   totalUsers,
   activeChannelId,
   sectionCenter,
@@ -127,6 +129,7 @@ export const Chat = ({
       <TopBar userDisplayName={userDisplayName} />
       <MainContent>
         <Sidebar
+          appName={appName}
           channels={channelsSideBarUI}
           showAddChannelDialog={handleShowAddChannelDialog}
           activeChannelId={activeChannelId}
