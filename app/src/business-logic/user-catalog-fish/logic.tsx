@@ -22,6 +22,8 @@ export const isUserCreatedBySystem = (userUUID: UserUUID): boolean =>
 export const isSignedInUser = (userUUID: UserUUID) =>
   userUUID !== ANONYMOUS_USER;
 
+export const getTotalUsers = (users: Users) => Object.values(users).length;
+
 //#endregion
 
 //#region Sign-up
