@@ -3,6 +3,7 @@ import React, { ReactNode } from 'react';
 import { MessageId } from '../../../business-logic/message/types';
 import { Typography } from '../../common/Typography/Typography';
 import { Message } from './Message';
+import { MessageInput } from './MessageInput';
 
 type MessageUI = Readonly<{
   messageId: string;
@@ -23,6 +24,7 @@ type Props = Readonly<{
   messages: ReadonlyArray<MessageUI>;
   editMessage: (messageId: MessageId, content: string) => void;
   hideMessage: (messageId: MessageId) => void;
+  addMessage: (content: string) => void;
 }>;
 
 const Header = ({ children }: Readonly<{ children: ReactNode }>) => (
@@ -41,6 +43,7 @@ export const Channel = ({
   messages,
   editMessage,
   hideMessage,
+  addMessage,
 }: Props) => {
   return (
     <div>
@@ -66,6 +69,7 @@ export const Channel = ({
           />
         ))}
       </Body>
+      <MessageInput addMessage={addMessage} />
     </div>
   );
 };

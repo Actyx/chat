@@ -10,7 +10,6 @@ import {
   ChannelsOverviewUI,
 } from '../ChannelsCatalog/ChannelsCatalog';
 import { MessageUI } from '../Channel/Message';
-import { MessageInput } from '../Channel/MessageInput';
 import { ChannelId, MessageId } from '../../../business-logic/message/types';
 import { EditChannelDialog } from '../EditChannelDialog/EditChannelDialog';
 import { AddChannelDialog } from '../AddChannelDialog/AddChannelDialog';
@@ -100,8 +99,8 @@ export const Chat = ({
               messages={channelMessages}
               editMessage={handleEditMessage}
               hideMessage={handleHideMessage}
+              addMessage={handleAddMessage}
             />
-            <MessageInput addMessage={handleAddMessage} />
           </>
         );
       case SectionCenter.ChannelsCatalog:
