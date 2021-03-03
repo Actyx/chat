@@ -38,7 +38,7 @@ export const ChannelsCatalog = ({
   dissociateUserChannel,
 }: Props) => {
   return (
-    <div>
+    <div className="w-full">
       <h2>Channels Catalog</h2>
       <div>
         {channels.map((c) => {

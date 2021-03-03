@@ -91,16 +91,14 @@ export const Chat = ({
     switch (sectionCenter) {
       case SectionCenter.Channel:
         return (
-          <>
-            <Channel
-              channelName={channelName}
-              channelDescription={channelDescription}
-              messages={channelMessages}
-              editMessage={handleEditMessage}
-              hideMessage={handleHideMessage}
-              addMessage={handleAddMessage}
-            />
-          </>
+          <Channel
+            channelName={channelName}
+            channelDescription={channelDescription}
+            messages={channelMessages}
+            editMessage={handleEditMessage}
+            hideMessage={handleHideMessage}
+            addMessage={handleAddMessage}
+          />
         );
       case SectionCenter.ChannelsCatalog:
         return (
@@ -126,7 +124,7 @@ export const Chat = ({
           showAddChannelDialog={handleShowAddChannelDialog}
           activeChannelId={activeChannelId}
         />
-        <div style={{ width: '100%' }}>{renderSectionCenter()}</div>
+        {renderSectionCenter()}
         {canShowUserProfileDetails && (
           <div>
             <UserProfileDetails
