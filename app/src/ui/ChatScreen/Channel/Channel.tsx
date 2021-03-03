@@ -4,6 +4,7 @@ import { MessageId } from '../../../business-logic/message/types';
 import { Typography } from '../../common/Typography/Typography';
 import { Message } from './Message';
 import { MessageInput } from './MessageInput';
+import './channel.css';
 
 type MessageUI = Readonly<{
   messageId: string;
@@ -53,12 +54,7 @@ export const Channel = ({
             {channelName} x {channelDescription}
           </Typography>
         </Header>
-        <div
-          style={{
-            overflow: 'scroll',
-            height: 'calc(100% - 57px - 85px)',
-          }}
-        >
+        <div className="overflow-y-auto channel-content-body">
           <Body>
             {messages.map((m: MessageUI) => (
               <Message
