@@ -104,6 +104,7 @@ export const sortAlphabeticChannelsSidebar = (
     .sort((a, b) =>
       genericSorter(localeComparator, { isDescending: false })(a.name, b.name)
     );
+
 export const sortAlphabeticUsersSidebar = (users: UsersListUI): UsersListUI =>
   users
     .map((x) => x)
