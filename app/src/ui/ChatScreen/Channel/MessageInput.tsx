@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { ButtonLink } from '../../common/ButtonLink/ButtonLink';
-import { PaperAirplane } from '../../common/Icons/PaperAirplane';
 import {
   FormEventElement,
   TextAreaChangeEvent,
