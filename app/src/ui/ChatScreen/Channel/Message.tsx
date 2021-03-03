@@ -41,22 +41,25 @@ export const Message = ({
 
   return (
     <div className="p-4 hover:bg-gray-50">
-      {editedOn && (
-        <div>
-          <i>EDITED</i>
-        </div>
-      )}
-      <div className="flex space-x-3">
+      <div className="flex space-x-3 items-center">
         <Typography tag="div" weight="bold">
           {senderDisplayName}
         </Typography>
-        <Typography tag="div">
+        <Typography tag="div" size="sm" color="gray-medium">
           <DateTime timestamp={editedOn ?? createdOn} />
         </Typography>
       </div>
-      <div>
-        <Typography color="gray-dark">{content}</Typography>
-      </div>
+      <Typography tag="div" color="gray-dark">
+        <p className="leading-relaxed">
+          {content}
+          {editedOn && (
+            <Typography size="sm" color="gray-light">
+              {' '}
+              (edited)
+            </Typography>
+          )}
+        </p>
+      </Typography>
       <div>
         {canEdit && <EditMessage editContent={handleEditMessage} />}
         {canHide && <button onClick={handleHideMessage}>Hide</button>}
