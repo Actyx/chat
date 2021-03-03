@@ -6,6 +6,7 @@ import {
 import { PublicMessages } from '../../../business-logic/channel-fish/types';
 import {
   getChannelProfileByChannelId,
+  getChannelUsersByChannelId,
   isUserAssociatedToChannel,
 } from '../../../business-logic/channel-catalog-fish/logic';
 import { Channels } from '../../../business-logic/channel-catalog-fish/types';
@@ -134,3 +135,8 @@ export const getChannelNameAndDescription = (
     channelDescription: profile?.description ?? '',
   };
 };
+
+export const getTotalUsers = (
+  channelId: ChannelId,
+  channels: Channels
+): number => getChannelUsersByChannelId(channelId, channels)?.length ?? 0;

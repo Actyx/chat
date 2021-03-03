@@ -1,21 +1,14 @@
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import { XIcon } from '../Icons/XIcon';
 import { Typography } from '../Typography/Typography';
 import { ButtonLink } from '../../common/ButtonLink/ButtonLink';
+import { Header } from './Header';
 
 type FlexPanelProps = Readonly<{
   title: string;
   close: () => void;
   children: ReactNode;
 }>;
-
-const Header = ({ children }: Readonly<{ children: ReactNode }>) => {
-  return (
-    <div className="flex items-center justify-between p-4 border-b h-14">
-      {children}
-    </div>
-  );
-};
 
 export const FlexPanel = ({ title, close, children }: FlexPanelProps) => {
   return (

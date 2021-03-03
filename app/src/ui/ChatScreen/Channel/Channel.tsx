@@ -5,6 +5,7 @@ import { Typography } from '../../common/Typography/Typography';
 import { Message } from './Message';
 import { MessageInput } from './MessageInput';
 import './channel.css';
+import { Header } from '../../common/FlexPanel/Header';
 
 type MessageUI = Readonly<{
   messageId: string;
@@ -23,16 +24,11 @@ type Props = Readonly<{
   channelName: string;
   channelDescription: string;
   messages: ReadonlyArray<MessageUI>;
+  totalUsers: number;
   editMessage: (messageId: MessageId, content: string) => void;
   hideMessage: (messageId: MessageId) => void;
   addMessage: (content: string) => void;
 }>;
-
-const Header = ({ children }: Readonly<{ children: ReactNode }>) => (
-  <div className="flex items-center justify-between p-4 border-b h-14">
-    {children}
-  </div>
-);
 
 const Body = ({ children }: Readonly<{ children: ReactNode }>) => (
   <div className="overflow-y-auto channel-content-body">{children}</div>
@@ -42,6 +38,7 @@ export const Channel = ({
   channelName,
   channelDescription,
   messages,
+  totalUsers,
   editMessage,
   hideMessage,
   addMessage,
@@ -50,8 +47,16 @@ export const Channel = ({
     <div className="w-full overflow-y-auto	h-full">
       <div className="flex flex-col h-full">
         <Header>
-          <Typography tag="div" weight="bold" color="gray-dark">
-            {channelName} x {channelDescription}
+          <div>
+            <Typography tag="div" weight="bold" color="gray-dark">
+              #{channelName}
+            </Typography>
+            <Typography tag="div" size="sm" color="gray-medium">
+              {channelDescription}
+            </Typography>
+          </div>
+          <Typography tag="div" size="sm" color="gray-medium">
+            {totalUsers} {`user${totalUsers !== 1 ? 's' : ''}`}
           </Typography>
         </Header>
         <Body>
@@ -71,7 +76,7 @@ export const Channel = ({
             />
           ))}
         </Body>
-        <MessageInput addMessage={addMessage} />
+        <MessageInput channelName={channelName} addMessage={addMessage} />
       </div>
     </div>
   );

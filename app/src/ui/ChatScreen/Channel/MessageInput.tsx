@@ -5,11 +5,15 @@ import {
   TextAreaChangeEvent,
 } from '../../utils/ui-event-types';
 
-type Props = Readonly<{
+type MessageInputProps = Readonly<{
+  channelName: string;
   addMessage: (content: string) => void;
 }>;
 
-export const MessageInput = ({ addMessage }: Props) => {
+export const MessageInput = ({
+  channelName,
+  addMessage,
+}: MessageInputProps) => {
   const [message, setMessage] = useState<string>('');
 
   const handleChangeContent = (e: TextAreaChangeEvent) =>
@@ -27,6 +31,7 @@ export const MessageInput = ({ addMessage }: Props) => {
         <div className="flex space-x-2">
           <textarea
             rows={2}
+            placeholder={`Message #${channelName}`}
             className="rounded w-11/12 resize-none"
             value={message}
             onChange={handleChangeContent}

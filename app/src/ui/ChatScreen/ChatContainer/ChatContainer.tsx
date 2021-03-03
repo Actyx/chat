@@ -33,6 +33,7 @@ import {
 import {
   getChannelNameAndDescription,
   getDisplayNameByUser,
+  getTotalUsers,
   getVisiblePublicMessages,
   mapChannelsToChannelCatalogUI,
   mapChannelsToSidebarUI,
@@ -327,10 +328,16 @@ export const ChatContainer = ({ pond }: Props) => {
     stateUI.activeChannelId,
     stateChannelsCatalogFish.channels
   );
+
+  const totalUsers = getTotalUsers(
+    stateUI.activeChannelId,
+    stateChannelsCatalogFish.channels
+  );
   //#endregion
 
   return (
     <Chat
+      totalUsers={totalUsers}
       sectionCenter={stateUI.sectionCenter}
       activeChannelId={stateUI.activeChannelId}
       userDisplayName={userDisplayName}

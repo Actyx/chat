@@ -11,7 +11,12 @@ import {
 } from './events';
 import { v4 as uuid } from 'uuid';
 import { ChannelId } from '../message/types';
-import { ChannelProfile, Channels, ChannelCatalogFishState } from './types';
+import {
+  ChannelProfile,
+  Channels,
+  ChannelCatalogFishState,
+  Users,
+} from './types';
 import { ChannelCatalogFish } from './channel-catalog-fish';
 import { isSignedInUser } from '../user-catalog-fish/logic';
 import { DEFAULT_CHANNEL } from '../channel-fish/channel-fish';
@@ -20,6 +25,11 @@ export const isChannelIdRegistered = (
   channelId: ChannelId,
   channels: Channels
 ): boolean => channelId in channels;
+
+export const getChannelUsersByChannelId = (
+  channelId: ChannelId,
+  channels: Channels
+): Users | undefined => channels[channelId]?.users;
 
 export const doesChannelNameExist = (
   name: string,
