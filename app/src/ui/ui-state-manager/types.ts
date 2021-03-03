@@ -24,7 +24,7 @@ export enum SectionRight {
 
 export enum SectionCenter {
   Channel = 'Channel',
-  ChannelsCatalog = ' ChannelsCatalog',
+  ChannelsCatalog = 'ChannelsCatalog',
 }
 
 export type StateUI = Readonly<{

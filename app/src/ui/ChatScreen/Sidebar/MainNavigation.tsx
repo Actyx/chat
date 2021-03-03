@@ -1,17 +1,28 @@
 import { Row } from './Row';
 import { Typography } from '../../common/Typography/Typography';
 import { SpeakerphoneIcon } from '../../common/Icons/SpeakerphoneIcon';
+import { useContext } from 'react';
+import { StateContextUI } from '../../ui-state-manager/UIStateManager';
+import { SectionCenter } from '../../ui-state-manager/types';
 
-type MainNavitationProps = Readonly<{
+type MainNavigationProps = Readonly<{
   channelCatalog: () => void;
 }>;
-export const MainNavitation = ({
+
+export const MainNavigation = ({
   channelCatalog: catalogChannels,
-}: MainNavitationProps) => {
+}: MainNavigationProps) => {
+  const stateUI = useContext(StateContextUI);
+
+  const color =
+    stateUI.sectionCenter === SectionCenter.ChannelsCatalog
+      ? 'white'
+      : 'gray-light';
+
   return (
     <Row onClick={catalogChannels}>
-      <SpeakerphoneIcon size="base" color="gray-light" />
-      <Typography size="base" tag="div" color="gray-light">
+      <SpeakerphoneIcon size="base" color={color} />
+      <Typography size="base" tag="div" color={color}>
         Channels overview
       </Typography>
     </Row>
