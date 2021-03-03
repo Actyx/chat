@@ -1,6 +1,8 @@
 import { Milliseconds } from '@actyx/pond';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { MessageId } from '../../../business-logic/message/types';
+import { Typography } from '../../common/Typography/Typography';
+import { DateTime } from '../../DateTime/DateTime';
 import { FormEventElement, InputChangeEvent } from '../../utils/ui-event-types';
 
 export type MessageUI = Readonly<{
@@ -38,25 +40,27 @@ export const Message = ({
   const handleHideMessage = () => hideMesage(messageId);
 
   return (
-    <div>
+    <div className="p-4 hover:bg-gray-50">
       {editedOn && (
         <div>
           <i>EDITED</i>
         </div>
       )}
-      messageId: {messageId}
-      <br />
-      timestamp: {editedOn ?? createdOn}
-      <br />
-      senderDisplayName: {senderDisplayName}
-      <br />
-      isHidden: {isHidden ? 'true' : 'false'}
-      <br />
-      content: {content}
-      <br />
-      {canEdit && <EditMessage editContent={handleEditMessage} />}
-      {canHide && <button onClick={handleHideMessage}>Hide</button>}
-      <hr />
+      <div className="flex space-x-3">
+        <Typography tag="div" weight="bold">
+          {senderDisplayName}
+        </Typography>
+        <Typography tag="div">
+          <DateTime timestamp={editedOn ?? createdOn} />
+        </Typography>
+      </div>
+      <div>
+        <Typography color="gray-dark">{content}</Typography>
+      </div>
+      <div>
+        {canEdit && <EditMessage editContent={handleEditMessage} />}
+        {canHide && <button onClick={handleHideMessage}>Hide</button>}
+      </div>
     </div>
   );
 };

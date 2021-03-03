@@ -31,6 +31,10 @@ const Header = ({ children }: Readonly<{ children: ReactNode }>) => (
   </div>
 );
 
+const Body = ({ children }: Readonly<{ children: ReactNode }>) => (
+  <div>{children}</div>
+);
+
 export const Channel = ({
   channelName,
   channelDescription,
@@ -45,7 +49,7 @@ export const Channel = ({
           {channelName} x {channelDescription}
         </Typography>
       </Header>
-      <div>
+      <Body>
         {messages.map((m: MessageUI) => (
           <Message
             key={m.messageId}
@@ -61,7 +65,7 @@ export const Channel = ({
             hideMessage={hideMessage}
           />
         ))}
-      </div>
+      </Body>
     </div>
   );
 };
