@@ -6,6 +6,8 @@ import { Message } from './Message';
 import { MessageInput } from './MessageInput';
 import './channel.css';
 import { Header } from '../../common/FlexPanel/Header';
+import { UsersIcon } from '../../common/Icons/UsersIcon';
+import { UserIcon } from '../../common/Icons/UserIcon';
 
 type MessageUI = Readonly<{
   messageId: string;
@@ -55,9 +57,16 @@ export const Channel = ({
               {channelDescription}
             </Typography>
           </div>
-          <Typography tag="div" size="sm" color="gray-medium">
-            {totalUsers} {`user${totalUsers !== 1 ? 's' : ''}`}
-          </Typography>
+          <div className="flex space-x-2">
+            <Typography tag="div" size="sm" color="gray-medium">
+              {totalUsers}{' '}
+            </Typography>
+            {totalUsers !== 1 ? (
+              <UsersIcon color="gray-medium" />
+            ) : (
+              <UserIcon color="gray-medium" />
+            )}
+          </div>
         </Header>
         <Body>
           {messages.map((m: MessageUI) => (
