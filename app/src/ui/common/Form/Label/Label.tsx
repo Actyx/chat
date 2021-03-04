@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { Typography } from '../../Typography/Typography';
 
-type LabelProps = Readonly<{
+export type LabelProps = Readonly<{
   children: ReactNode;
   htmlFor?: string;
 }>;

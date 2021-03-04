@@ -4,7 +4,7 @@ import { Typography } from '../Typography/Typography';
 import { ButtonLink } from '../../common/ButtonLink/ButtonLink';
 import { Header } from './Header';
 
-type FlexPanelProps = Readonly<{
+export type FlexPanelProps = Readonly<{
   title: string;
   close: () => void;
   children: ReactNode;
