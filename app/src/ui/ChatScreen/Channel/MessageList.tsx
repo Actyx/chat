@@ -19,16 +19,25 @@ export const MessageList = ({
 }: MessageListProps) => {
   const stateUI = useContext(StateContextUI);
 
+  let lastMessage: MessageUI | undefined;
+  let isLastMessageFromUser = false;
+  const hasMessages = messages.length > 0;
+  if (hasMessages) {
+    lastMessage = messages[messages.length - 1];
+    isLastMessageFromUser = lastMessage.createdBy === stateUI.userUUID;
+  }
+
   useEffect(() => {
-    const hasMessages = messages.length > 0;
-    if (hasMessages) {
-      const lastMessage = messages[messages.length - 1];
-      const isLastMessageFromUser = lastMessage.createdBy === stateUI.userUUID;
-      if (isLastMessageFromUser) {
-        scrollListTo('end');
-      }
+    if (isLastMessageFromUser) {
+      console.log('lastMessage from user');
+      scrollListTo('end');
     }
-  }, [messages, stateUI.userUUID]);
+  }, [lastMessage, isLastMessageFromUser]);
+
+  useEffect(() => {
+    console.log('activityChannelid');
+    scrollListTo('end');
+  }, [stateUI.activeChannelId]);
 
   return (
     <>
@@ -48,7 +57,7 @@ export const MessageList = ({
           hideMessage={hideMessage}
         />
       ))}
-      <div data-messagelist-list="end" />
+      <div className="w-4 h-4 bg-red-400" data-messagelist-list="end" />
     </>
   );
 };
