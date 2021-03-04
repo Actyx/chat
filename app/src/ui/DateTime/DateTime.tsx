@@ -1,6 +1,6 @@
 import { Milliseconds } from '@actyx/pond';
 
-type DateTimeProps = Readonly<{
+export type DateTimeProps = Readonly<{
   timestamp: Milliseconds;
 }>;
 
