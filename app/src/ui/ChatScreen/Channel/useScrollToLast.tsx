@@ -2,7 +2,18 @@ import { useEffect, useState } from 'react';
 import { UserUUID } from '../../../business-logic/user-catalog-fish/types';
 import { MessageUI } from './Message';
 
-export const useScrollToLast = (
+/**
+ * Scroll completely down the messages list for a channel so a user can see the latest message. Rules:
+ * 1. If a signed-in user enters for the first time a channel => scroll to the latest message
+ * 2. If a signed-in user enter a message in a channel => scroll to the latest message
+ * 3. If a non-signed-in user add a message to the same channel of the sign-in user => do not scroll to the latest message,
+ * so we prevent a scroll for example when a sign-in user is reading an old message in the channel
+ * @param userUUID Current signed-in user
+ * @param messages Messages displayed in the channel
+ * @param markerElm Target DOM element which we want to show to the currently sign-in user, this element is placed statically
+ * after the last message in the channel
+ */
+export const useScrollIntoViewMessage = (
   userUUID: UserUUID,
   messages: ReadonlyArray<MessageUI>,
   markerElm: Element | null
