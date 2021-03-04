@@ -62,8 +62,8 @@ export const Debug = ({ pond }: Props) => {
     <div className="fixed top-0 left-0">
       {showDebug && (
         <div
-          style={{ width: '75vw', height: '50vh', overflow: 'scroll' }}
-          className="fixed bottom-1 left-1 bg-gray-100 p-2"
+          style={{ width: '75vw', height: '50vh' }}
+          className="fixed bottom-1 left-1 bg-gray-100 p-2 overflow-scroll opacity-90"
         >
           <h5>stateUI</h5>
           <pre>{format(stateUI)}</pre>
