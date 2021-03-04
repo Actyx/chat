@@ -52,11 +52,11 @@ const MESSAGE = {
   confirmHideMessage: 'Are you sure to hide this message?',
 };
 
-type Props = Readonly<{
+type ChatContainerProps = Readonly<{
   pond: Pond;
 }>;
 
-export const ChatContainer = ({ pond }: Props) => {
+export const ChatContainer = ({ pond }: ChatContainerProps) => {
   const dispatch = useContext(DispatchContextUI);
 
   const stateUI = useContext(StateContextUI);

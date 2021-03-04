@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { FormEventElement, InputChangeEvent } from '../../utils/ui-event-types';
-type Props = Readonly<{
+
+type EditChannelProps = Readonly<{
   currentName: string;
   currentDescription: string;
   messageInvalid?: string;
@@ -12,7 +13,7 @@ export const EditChannel = ({
   currentDescription,
   messageInvalid,
   editChannel,
-}: Props) => {
+}: EditChannelProps) => {
   const [name, setName] = useState<string>(currentName);
 
   const [description, setDescription] = useState<string>(currentDescription);

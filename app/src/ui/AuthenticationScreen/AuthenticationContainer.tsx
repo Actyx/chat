@@ -16,11 +16,13 @@ import { addSignedInUser, goToChatScreen } from '../ui-state-manager/actions';
 import { UserCatalogFish } from '../../business-logic/user-catalog-fish/user-catalog-fish';
 import { CreateAccount } from './CreateAccount';
 
-type Props = Readonly<{
+type AuthenticationContainerProps = Readonly<{
   pond: Pond;
 }>;
 
-export const AuthenticationContainer = ({ pond }: Props) => {
+export const AuthenticationContainer = ({
+  pond,
+}: AuthenticationContainerProps) => {
   const dispatch = useContext(DispatchContextUI);
 
   const [

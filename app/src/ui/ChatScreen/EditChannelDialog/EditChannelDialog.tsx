@@ -1,6 +1,6 @@
 import { EditChannel } from './EditChannel';
 
-type Props = Readonly<{
+type EditChannelDialogProps = Readonly<{
   currentName: string;
   currentDescription: string;
   messageError?: string;
@@ -16,7 +16,7 @@ export const EditChannelDialog = ({
   messageInvalid,
   editChannel,
   closeDialog,
-}: Props) => {
+}: EditChannelDialogProps) => {
   return (
     <div>
       {messageError}

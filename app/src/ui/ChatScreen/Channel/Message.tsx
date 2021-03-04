@@ -18,7 +18,7 @@ export type MessageUI = Readonly<{
   canHide: boolean;
 }>;
 
-type Props = MessageUI &
+type MessageProps = MessageUI &
   Readonly<{
     editMessage: (messageId: MessageId, content: string) => void;
     hideMessage: (messageId: MessageId) => void;
@@ -35,7 +35,7 @@ export const Message = ({
   canHide,
   editMessage,
   hideMessage: hideMesage,
-}: Props) => {
+}: MessageProps) => {
   const handleEditMessage = (content: string) =>
     editMessage(messageId, content);
 

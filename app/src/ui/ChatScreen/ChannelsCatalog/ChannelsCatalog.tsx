@@ -18,7 +18,7 @@ export type ChannelOverviewUI = Readonly<{
 
 export type ChannelsOverviewUI = ReadonlyArray<ChannelOverviewUI>;
 
-type Props = Readonly<{
+type ChannelsCatalogProps = Readonly<{
   channels: ChannelsOverviewUI;
   editChannel: (channelId: ChannelId) => void;
   canUserManageArchiviation: (channelId: ChannelId) => boolean;
@@ -36,7 +36,7 @@ export const ChannelsCatalog = ({
   unarchiveChannel,
   associateUserChannel,
   dissociateUserChannel,
-}: Props) => {
+}: ChannelsCatalogProps) => {
   return (
     <div className="w-full">
       <h2>Channels Catalog</h2>

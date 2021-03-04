@@ -9,7 +9,7 @@ import { Alert } from '../common/Alert/Alert';
 import { Link } from '../common/Link/Link';
 import { ExclamationIcon } from '../common/Icons/ExclamationIcon';
 
-type Props = Readonly<{
+type SignUpProps = Readonly<{
   isSignUpSuccess?: boolean;
   userUUID?: UserUUID;
   signUp: (displayName: string, email: string) => void;
@@ -21,7 +21,7 @@ export const SignUp = ({
   userUUID,
   signUp,
   showSignIn,
-}: Props) => {
+}: SignUpProps) => {
   const [name, setName] = useState('');
 
   const [email, setEmail] = useState('');

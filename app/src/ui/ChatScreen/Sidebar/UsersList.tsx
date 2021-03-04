@@ -5,12 +5,12 @@ import { UserUUID } from '../../../business-logic/user-catalog-fish/types';
 import { UserIcon } from '../../common/Icons/UserIcon';
 import React from 'react';
 
-type Props = Readonly<{
+type UsersListProps = Readonly<{
   users: UsersListUI;
   selectUser: (userUUID: UserUUID) => void;
 }>;
 
-export const UsersList = ({ users, selectUser }: Props) => {
+export const UsersList = ({ users, selectUser }: UsersListProps) => {
   return (
     <>
       {users.map((x) => {

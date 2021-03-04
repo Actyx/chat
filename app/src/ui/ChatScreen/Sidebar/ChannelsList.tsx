@@ -4,7 +4,7 @@ import { Typography } from '../../common/Typography/Typography';
 import { ChannelsListUI } from './Sidebar';
 import { Row } from './Row';
 
-type Props = Readonly<{
+type ChannelsListProps = Readonly<{
   channels: ChannelsListUI;
   activeChannelId: ChannelId;
   selectChannel: (channelId: ChannelId) => void;
@@ -14,7 +14,7 @@ export const ChannelsList = ({
   channels,
   activeChannelId,
   selectChannel,
-}: Props) => {
+}: ChannelsListProps) => {
   return (
     <>
       {channels.map((x) => {

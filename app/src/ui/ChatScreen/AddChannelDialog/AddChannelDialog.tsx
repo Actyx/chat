@@ -1,6 +1,6 @@
 import { AddChannel } from './AddChannel';
 
-type Props = Readonly<{
+type AddChannelDialogProps = Readonly<{
   errorMessage?: string;
   invalidMessage?: string;
   addChannel: (name: string, description: string) => void;
@@ -12,7 +12,7 @@ export const AddChannelDialog = ({
   invalidMessage,
   addChannel,
   closeDialog,
-}: Props) => {
+}: AddChannelDialogProps) => {
   return (
     <div>
       {errorMessage}

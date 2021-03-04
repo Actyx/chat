@@ -12,7 +12,7 @@ import { StateContextUI } from '../../ui-state-manager/UIStateManager';
 
 export type MessagesUI = ReadonlyArray<MessageUI>;
 
-type Props = Readonly<{
+type ChannelProps = Readonly<{
   channelName: string;
   channelDescription: string;
   messages: ReadonlyArray<MessageUI>;
@@ -34,7 +34,7 @@ export const Channel = ({
   editMessage,
   hideMessage,
   addMessage,
-}: Props) => {
+}: ChannelProps) => {
   const stateUI = useContext(StateContextUI);
   return (
     <div className="w-full overflow-y-auto	h-full">

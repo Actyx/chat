@@ -17,7 +17,6 @@ import { Header } from './Header';
 import { UserUUID } from '../../../business-logic/user-catalog-fish/types';
 import { UsersList } from './UsersList';
 import { Body } from './Body';
-import { SectionCenter } from '../../ui-state-manager/types';
 
 export type UsersListUI = ReadonlyArray<{
   userUUID: UserUUID;

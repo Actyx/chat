@@ -6,13 +6,13 @@ import { Screens } from '../ui-state-manager/types';
 import { ChatContainer } from '../ChatScreen/ChatContainer/ChatContainer';
 import { isSignedInUser } from '../../business-logic/user-catalog-fish/logic';
 
-type Props = Readonly<{
+type ScreenRooterProps = Readonly<{
   pond: Pond;
 }>;
 
 const AccessNotAllowed = () => <div>Access is not allowed</div>;
 
-export const ScreenRooter = ({ pond }: Props) => {
+export const ScreenRooter = ({ pond }: ScreenRooterProps) => {
   const stateUI = useContext(StateContextUI);
 
   const { screen, userUUID } = stateUI;

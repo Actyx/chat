@@ -8,13 +8,13 @@ import { UserCatalogFishState } from '../../business-logic/user-catalog-fish/typ
 import { UserCatalogFish } from '../../business-logic/user-catalog-fish/user-catalog-fish';
 import { StateContextUI } from '../ui-state-manager/UIStateManager';
 
-type Props = Readonly<{
+type DebugProps = Readonly<{
   pond: Pond;
 }>;
 
 const format = (value: any) => JSON.stringify(value, undefined, 4);
 
-export const Debug = ({ pond }: Props) => {
+export const Debug = ({ pond }: DebugProps) => {
   const stateUI = useContext(StateContextUI);
 
   const [

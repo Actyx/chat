@@ -10,13 +10,17 @@ import { Link } from '../common/Link/Link';
 import { SparklesIcon } from '../common/Icons/SparklesIcon';
 import { ExclamationIcon } from '../common/Icons/ExclamationIcon';
 
-type Props = Readonly<{
+type SignInProps = Readonly<{
   isSignInSuccess?: boolean;
   signIn: (userUUID: UserUUID) => void;
   goToChatScreen: () => void;
 }>;
 
-export const SignIn = ({ isSignInSuccess, signIn, goToChatScreen }: Props) => {
+export const SignIn = ({
+  isSignInSuccess,
+  signIn,
+  goToChatScreen,
+}: SignInProps) => {
   const [userUUID, setUserUUID] = useState<UserUUID>('');
 
   const handleChangeUserUUID = (e: InputChangeEvent) =>

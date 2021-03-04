@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { FormEventElement, InputChangeEvent } from '../../utils/ui-event-types';
 
-type Props = Readonly<{
+type AddChannelProps = Readonly<{
   invalidMessage?: string;
   addChannel: (name: string, description: string) => void;
 }>;
 
-export const AddChannel = ({ invalidMessage, addChannel }: Props) => {
+export const AddChannel = ({ invalidMessage, addChannel }: AddChannelProps) => {
   const [name, setName] = useState<string>('');
 
   const [description, setDescription] = useState<string>('');
