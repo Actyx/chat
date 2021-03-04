@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { MessageId } from '../../../business-logic/message/types';
 import { StateContextUI } from '../../ui-state-manager/UIStateManager';
 import { scrollDomIntoView } from '../../utils/ui-dom';
@@ -32,12 +32,16 @@ export const MessageList = ({
       console.log('lastMessage from user');
       scrollListTo('end');
     }
-  }, [lastMessage, isLastMessageFromUser]);
+  }, [messages.length, isLastMessageFromUser]);
 
+  const [isFirstRun, setIsFirstRun] = useState(true);
   useEffect(() => {
-    console.log('activityChannelid');
-    scrollListTo('end');
-  }, [stateUI.activeChannelId]);
+    if (isFirstRun) {
+      console.log('scroll first time');
+      scrollListTo('end');
+      setIsFirstRun(false);
+    }
+  }, [isFirstRun]);
 
   return (
     <>

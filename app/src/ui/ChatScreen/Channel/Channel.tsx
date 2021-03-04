@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useContext } from 'react';
 import { MessageId } from '../../../business-logic/message/types';
 import { Typography } from '../../common/Typography/Typography';
 import { MessageInput } from './MessageInput';
@@ -8,6 +8,7 @@ import { UsersIcon } from '../../common/Icons/UsersIcon';
 import { UserIcon } from '../../common/Icons/UserIcon';
 import { MessageList } from './MessageList';
 import { MessageUI } from './Message';
+import { StateContextUI } from '../../ui-state-manager/UIStateManager';
 
 export type MessagesUI = ReadonlyArray<MessageUI>;
 
@@ -34,6 +35,7 @@ export const Channel = ({
   hideMessage,
   addMessage,
 }: Props) => {
+  const stateUI = useContext(StateContextUI);
   return (
     <div className="w-full overflow-y-auto	h-full">
       <div className="flex flex-col h-full">
@@ -59,6 +61,7 @@ export const Channel = ({
         </Header>
         <Body>
           <MessageList
+            key={stateUI.activeChannelId}
             messages={messages}
             editMessage={editMessage}
             hideMessage={hideMessage}
