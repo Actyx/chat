@@ -10,6 +10,8 @@ type MessageListProps = Readonly<{
   hideMessage: (messageId: MessageId) => void;
 }>;
 
+const scrollListTo = scrollDomIntoView('data-messagelist-list');
+
 export const MessageList = ({
   messages,
   editMessage,
@@ -23,7 +25,7 @@ export const MessageList = ({
       const lastMessage = messages[messages.length - 1];
       const isLastMessageFromUser = lastMessage.createdBy === stateUI.userUUID;
       if (isLastMessageFromUser) {
-        scrollDomIntoView('data-messagelist-list')('end');
+        scrollListTo('end');
       }
     }
   }, [messages, stateUI.userUUID]);
