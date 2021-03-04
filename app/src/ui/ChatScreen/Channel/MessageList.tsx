@@ -1,7 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { MessageId } from '../../../business-logic/message/types';
 import { StateContextUI } from '../../ui-state-manager/UIStateManager';
-import { scrollDomIntoView } from '../../utils/ui-dom';
 import { Message, MessageUI } from './Message';
 
 type MessageListProps = Readonly<{
@@ -9,8 +8,6 @@ type MessageListProps = Readonly<{
   editMessage: (messageId: MessageId, content: string) => void;
   hideMessage: (messageId: MessageId) => void;
 }>;
-
-const scrollListTo = scrollDomIntoView('data-messagelist-list');
 
 export const MessageList = ({
   messages,
@@ -20,6 +17,8 @@ export const MessageList = ({
   const stateUI = useContext(StateContextUI);
 
   const [isFirstRun, setIsFirstRun] = useState(true);
+
+  const markerElm = useRef<HTMLDivElement>(null);
 
   let lastMessage: MessageUI | undefined;
   let wasLastMessageCreatedByUser = false;
@@ -33,10 +32,11 @@ export const MessageList = ({
   useEffect(() => {
     if (hasMessages) {
       if (isFirstRun) {
-        scrollListTo('end');
+        console.log('now scroll');
+        markerElm.current?.scrollIntoView();
         setIsFirstRun(false);
       } else if (wasLastMessageCreatedByUser) {
-        scrollListTo('end');
+        markerElm.current?.scrollIntoView();
       }
     }
   }, [messagesLen, isFirstRun, hasMessages, wasLastMessageCreatedByUser]);
@@ -59,7 +59,7 @@ export const MessageList = ({
           hideMessage={hideMessage}
         />
       ))}
-      <div className="w-4 h-4 bg-red-400" data-messagelist-list="end" />
+      <div ref={markerElm} />
     </>
   );
 };
