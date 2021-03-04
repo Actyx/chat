@@ -38,6 +38,7 @@ export const Submit = ({
   const styles = cx(
     'rounded',
     'font-sans',
+    'leading-4',
     { 'w-full': full },
     { 'bg-purple-900 hover:bg-purple-800': isPurple },
     { 'bg-green-700 hover:bg-green-600': isGreen },
