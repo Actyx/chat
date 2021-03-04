@@ -13,7 +13,7 @@ import { MessageUI } from './Message';
  * @param markerElm Target DOM element which we use as a target for a scrollIntoView() operation, this element is placed
  * after the last message in the channel
  */
-export const useScrollIntoViewMessage = (
+export const useScrollIntoViewLatestMessage = (
   userUUID: UserUUID,
   messages: ReadonlyArray<MessageUI>,
   markerElm: Element | null

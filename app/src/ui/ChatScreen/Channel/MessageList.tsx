@@ -2,7 +2,7 @@ import React, { useContext, useRef } from 'react';
 import { MessageId } from '../../../business-logic/message/types';
 import { StateContextUI } from '../../ui-state-manager/UIStateManager';
 import { Message, MessageUI } from './Message';
-import { useScrollIntoViewMessage } from './useScrollToLast';
+import { useScrollIntoViewLatestMessage } from './useScrollIntoViewLatestMessage';
 
 type MessageListProps = Readonly<{
   messages: ReadonlyArray<MessageUI>;
@@ -19,7 +19,7 @@ export const MessageList = ({
 
   const markerElm = useRef<HTMLDivElement>(null);
 
-  useScrollIntoViewMessage(stateUI.userUUID, messages, markerElm.current);
+  useScrollIntoViewLatestMessage(stateUI.userUUID, messages, markerElm.current);
 
   return (
     <>
