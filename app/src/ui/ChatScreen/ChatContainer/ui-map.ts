@@ -42,6 +42,7 @@ export const mapPublicMessagesToChannelUI = (
     return {
       messageId: m.messageId,
       createdOn: Timestamp.toMilliseconds(m.createdOn),
+      createdBy: m.createdBy,
       editedOn: m.editedOn && Timestamp.toMilliseconds(m.editedOn),
       senderDisplayName,
       isHidden: m.isHidden,

@@ -1,4 +1,3 @@
-import { Milliseconds } from '@actyx/pond';
 import React, { ReactNode } from 'react';
 import { MessageId } from '../../../business-logic/message/types';
 import { Typography } from '../../common/Typography/Typography';
@@ -8,17 +7,7 @@ import { Header } from '../../common/FlexPanel/Header';
 import { UsersIcon } from '../../common/Icons/UsersIcon';
 import { UserIcon } from '../../common/Icons/UserIcon';
 import { MessageList } from './MessageList';
-
-type MessageUI = Readonly<{
-  messageId: string;
-  createdOn: Milliseconds;
-  editedOn?: Milliseconds;
-  senderDisplayName: string;
-  isHidden: boolean;
-  content: string;
-  canEdit: boolean;
-  canHide: boolean;
-}>;
+import { MessageUI } from './Message';
 
 export type MessagesUI = ReadonlyArray<MessageUI>;
 

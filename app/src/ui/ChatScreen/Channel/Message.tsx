@@ -1,12 +1,14 @@
 import { Milliseconds } from '@actyx/pond';
 import React, { useState } from 'react';
 import { MessageId } from '../../../business-logic/message/types';
+import { UserUUID } from '../../../business-logic/user-catalog-fish/types';
 import { Typography } from '../../common/Typography/Typography';
 import { DateTime } from '../../DateTime/DateTime';
 import { FormEventElement, InputChangeEvent } from '../../utils/ui-event-types';
 
 export type MessageUI = Readonly<{
   messageId: string;
+  createdBy: UserUUID;
   createdOn: Milliseconds;
   editedOn?: Milliseconds;
   senderDisplayName: string;
