@@ -10,7 +10,7 @@ import { MessageUI } from './Message';
  * so we prevent a scroll for example when a sign-in user is reading an old message in the channel
  * @param userUUID Current signed-in user
  * @param messages Messages displayed in the channel
- * @param markerElm Target DOM element which we want to show to the currently sign-in user, this element is placed statically
+ * @param markerElm Target DOM element which we use as a target for a scrollIntoView() operation, this element is placed
  * after the last message in the channel
  */
 export const useScrollIntoViewMessage = (
