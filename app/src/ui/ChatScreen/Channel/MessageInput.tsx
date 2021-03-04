@@ -1,3 +1,4 @@
+import cx from 'classnames';
 import React, { useState } from 'react';
 import { ButtonLink } from '../../common/ButtonLink/ButtonLink';
 import {
@@ -16,14 +17,31 @@ export const MessageInput = ({
 }: MessageInputProps) => {
   const [message, setMessage] = useState<string>('');
 
-  const handleChangeContent = (e: TextAreaChangeEvent) =>
+  const isMessageEmpty = message.length === 0;
+
+  const handleChangeContent = (e: TextAreaChangeEvent) => {
     setMessage(e.target.value);
+  };
 
   const handleSubmit = (e: FormEventElement) => {
     addMessage(message);
     setMessage('');
     e.preventDefault();
   };
+
+  const stylesButton = cx(
+    'flex items-center justify-center',
+    'w-8 h-8 rounded',
+    'transform rotate-90',
+    {
+      'bg-gray-50': isMessageEmpty,
+      'bg-green-700 hover:bg-green-600': !isMessageEmpty,
+    }
+  );
+  const stylesIcon = cx('h-5 w-5', {
+    'text-gray-300': isMessageEmpty,
+    'text-white': !isMessageEmpty,
+  });
 
   return (
     <div className="h-24 p-4 w-full">
@@ -38,9 +56,9 @@ export const MessageInput = ({
           />
           <div className="flex self-end">
             <ButtonLink type="submit">
-              <div className="flex items-center justify-center bg-green-700 hover:bg-green-600 w-8 h-8 rounded transform rotate-90">
+              <div className={stylesButton}>
                 <svg
-                  className="h-5 w-5 text-white"
+                  className={stylesIcon}
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
                   fill="currentColor"

@@ -21,7 +21,9 @@ export const SignIn = ({
   signIn,
   goToChatScreen,
 }: SignInProps) => {
-  const [userUUID, setUserUUID] = useState<UserUUID>('');
+  const [userUUID, setUserUUID] = useState<UserUUID>(
+    'b5e1dee8-7db4-463f-b0f1-111824adb0dd'
+  );
 
   const handleChangeUserUUID = (e: InputChangeEvent) =>
     setUserUUID(e.target.value);
