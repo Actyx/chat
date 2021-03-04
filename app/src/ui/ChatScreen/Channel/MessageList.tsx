@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { MessageId } from '../../../business-logic/message/types';
 import { StateContextUI } from '../../ui-state-manager/UIStateManager';
 import { scrollDomIntoView } from '../../utils/ui-dom';
@@ -19,29 +19,26 @@ export const MessageList = ({
 }: MessageListProps) => {
   const stateUI = useContext(StateContextUI);
 
+  const [isFirstRun, setIsFirstRun] = useState(true);
+
   let lastMessage: MessageUI | undefined;
-  let isLastMessageFromUser = false;
+  let wasLastMessageCreatedByUser = false;
   const hasMessages = messages.length > 0;
   if (hasMessages) {
     lastMessage = messages[messages.length - 1];
-    isLastMessageFromUser = lastMessage.createdBy === stateUI.userUUID;
+    wasLastMessageCreatedByUser = lastMessage.createdBy === stateUI.userUUID;
   }
 
   useEffect(() => {
-    if (isLastMessageFromUser) {
-      console.log('lastMessage from user');
-      scrollListTo('end');
-    }
-  }, [messages.length, isLastMessageFromUser]);
-
-  const [isFirstRun, setIsFirstRun] = useState(true);
-  useEffect(() => {
     if (isFirstRun) {
-      console.log('scroll first time');
       scrollListTo('end');
       setIsFirstRun(false);
     }
-  }, [isFirstRun]);
+    if (wasLastMessageCreatedByUser) {
+      console.log('lastMessage from user');
+      scrollListTo('end');
+    }
+  }, [messages.length, wasLastMessageCreatedByUser, isFirstRun]);
 
   return (
     <>
