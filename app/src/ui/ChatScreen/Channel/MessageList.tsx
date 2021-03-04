@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useRef } from 'react';
 import { MessageId } from '../../../business-logic/message/types';
 import { StateContextUI } from '../../ui-state-manager/UIStateManager';
 import { Message, MessageUI } from './Message';
+import { useScrollToLast } from './useScrollToLast';
 
 type MessageListProps = Readonly<{
   messages: ReadonlyArray<MessageUI>;
@@ -16,30 +17,9 @@ export const MessageList = ({
 }: MessageListProps) => {
   const stateUI = useContext(StateContextUI);
 
-  const [isFirstRun, setIsFirstRun] = useState(true);
-
   const markerElm = useRef<HTMLDivElement>(null);
 
-  let lastMessage: MessageUI | undefined;
-  let wasLastMessageCreatedByUser = false;
-  const messagesLen = messages.length;
-  const hasMessages = messagesLen > 0;
-  if (hasMessages) {
-    lastMessage = messages[messagesLen - 1];
-    wasLastMessageCreatedByUser = lastMessage.createdBy === stateUI.userUUID;
-  }
-
-  useEffect(() => {
-    if (hasMessages) {
-      if (isFirstRun) {
-        console.log('now scroll');
-        markerElm.current?.scrollIntoView();
-        setIsFirstRun(false);
-      } else if (wasLastMessageCreatedByUser) {
-        markerElm.current?.scrollIntoView();
-      }
-    }
-  }, [messagesLen, isFirstRun, hasMessages, wasLastMessageCreatedByUser]);
+  useScrollToLast(stateUI.userUUID, messages, markerElm.current);
 
   return (
     <>
