@@ -30,7 +30,13 @@ export const MessageList = ({
   }
 
   useEffect(() => {
+    console.log('run');
+    if (messages.length === 0) {
+      console.log('do nothing');
+      return;
+    }
     if (isFirstRun) {
+      console.log('scroll first time');
       scrollListTo('end');
       setIsFirstRun(false);
     }
