@@ -23,21 +23,23 @@ export const MessageList = ({
 
   let lastMessage: MessageUI | undefined;
   let wasLastMessageCreatedByUser = false;
-  const hasMessages = messages.length > 0;
+  const messagesLen = messages.length;
+  const hasMessages = messagesLen > 0;
   if (hasMessages) {
-    lastMessage = messages[messages.length - 1];
+    lastMessage = messages[messagesLen - 1];
     wasLastMessageCreatedByUser = lastMessage.createdBy === stateUI.userUUID;
   }
 
   useEffect(() => {
-    if (isFirstRun && hasMessages) {
-      scrollListTo('end');
-      setIsFirstRun(false);
+    if (hasMessages) {
+      if (isFirstRun) {
+        scrollListTo('end');
+        setIsFirstRun(false);
+      } else if (wasLastMessageCreatedByUser) {
+        scrollListTo('end');
+      }
     }
-    if (wasLastMessageCreatedByUser) {
-      scrollListTo('end');
-    }
-  }, [messages.length, isFirstRun, hasMessages, wasLastMessageCreatedByUser]);
+  }, [messagesLen, isFirstRun, hasMessages, wasLastMessageCreatedByUser]);
 
   return (
     <>
