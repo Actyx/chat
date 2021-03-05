@@ -33,7 +33,7 @@ type ChannelsCatalogProps = Readonly<{
 }>;
 
 const Body = ({ children }: Readonly<{ children: ReactNode }>) => (
-  <div className="overflow-y-auto channel-content-body">{children}</div>
+  <div className="overflow-y-auto">{children}</div>
 );
 
 export const ChannelsCatalog = ({
