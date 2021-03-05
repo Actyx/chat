@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { mkColor } from '../../utils/ui-colors';
 import { LogoutIcon } from '../../common/Icons/LogoutIcon';
 import { Typography } from '../../common/Typography/Typography';
-import { ButtonLink } from '../../common/ButtonLink/ButtonLink';
+import { ButtonLink } from '../../common/ButtonArea/ButtonArea';
 import {
   showUserProfileEditSection,
   signOutActiveUser,

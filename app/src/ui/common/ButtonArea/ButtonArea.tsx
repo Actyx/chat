@@ -2,32 +2,32 @@ import { ReactNode } from 'react';
 import { MouseEventButton } from '../../utils/ui-event-types';
 import cx from 'classnames';
 
-export type ButtonLinkBase = Readonly<{
+export type ButtonAreaBase = Readonly<{
   type: 'button' | 'submit';
   children: ReactNode;
   full?: boolean;
   click?: (e: MouseEventButton) => void;
 }>;
 
-type ButtonLinkButton = ButtonLinkBase &
+type ButtonAreaButton = ButtonAreaBase &
   Readonly<{
     type: 'button';
     click: (e: MouseEventButton) => void;
   }>;
 
-type ButtonLinkSumbit = ButtonLinkBase &
+type ButtonAreaSumbit = ButtonAreaBase &
   Readonly<{
     type: 'submit';
   }>;
 
-export type ButtonLinkProps = ButtonLinkButton | ButtonLinkSumbit;
+export type ButtonAreaProps = ButtonAreaButton | ButtonAreaSumbit;
 
 export const ButtonLink = ({
   type,
   children,
   full,
   click,
-}: ButtonLinkProps) => {
+}: ButtonAreaProps) => {
   const styles = cx('focus:outline-none focus-visible:ring', {
     'w-full': full,
   });

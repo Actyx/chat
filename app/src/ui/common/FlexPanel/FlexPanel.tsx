@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { XIcon } from '../Icons/XIcon';
 import { Typography } from '../Typography/Typography';
-import { ButtonLink } from '../../common/ButtonLink/ButtonLink';
+import { ButtonLink } from '../ButtonArea/ButtonArea';
 import { Header } from './Header';
 
 export type FlexPanelProps = Readonly<{

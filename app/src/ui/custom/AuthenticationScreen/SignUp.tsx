@@ -6,7 +6,7 @@ import { Heading1 } from '../../common/Hedings/Heading1';
 import { SubHeading } from '../../common/SubHeading/SubHeading';
 import { Button } from '../../common/Button/Button';
 import { Alert } from '../../common/Alert/Alert';
-import { Link } from '../../common/Link/Link';
+import { ButtonTextLink } from '../../common/ButtonTextLink/ButtonTextLink';
 import { ExclamationIcon } from '../../common/Icons/ExclamationIcon';
 
 type SignUpProps = Readonly<{
@@ -68,7 +68,9 @@ export const SignUp = ({
                 <div className="space-y-2">
                   <div>Your password is (please keep it safe):</div>
                   <div className="font-semibold">{userUUID}</div>
-                  <Link click={handleOpenSignIn}>Click here to Sign-in</Link>
+                  <ButtonTextLink click={handleOpenSignIn}>
+                    Click here to Sign-in
+                  </ButtonTextLink>
                 </div>
               ) : (
                 'Email is already registered'

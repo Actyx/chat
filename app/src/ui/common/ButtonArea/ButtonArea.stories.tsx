@@ -1,17 +1,17 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { ButtonLink, ButtonLinkProps } from './ButtonLink';
+import { ButtonLink, ButtonAreaProps } from './ButtonArea';
 
 export default {
-  title: 'Common/ButtonLink',
+  title: 'Common/ButtonArea',
   component: ButtonLink,
   argTypes: {
     children: { control: 'text' },
   },
 } as Meta;
 
-const Template: Story<ButtonLinkProps> = (args) => (
+const Template: Story<ButtonAreaProps> = (args) => (
   <ButtonLink {...args}>ButtonLink</ButtonLink>
 );
 

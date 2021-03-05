@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import React, { useState } from 'react';
-import { ButtonLink } from '../../../common/ButtonLink/ButtonLink';
+import { ButtonLink } from '../../../common/ButtonArea/ButtonArea';
 import {
   FormEventElement,
   TextAreaChangeEvent,

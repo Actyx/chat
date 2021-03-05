@@ -1,5 +1,5 @@
 import React from 'react';
-import { ButtonLink } from '../../../common/ButtonLink/ButtonLink';
+import { ButtonLink } from '../../../common/ButtonArea/ButtonArea';
 import { PencilAltIcon } from '../../../common/Icons/PencilAlt';
 import { TrashIcon } from '../../../common/Icons/TrashIcon';
 

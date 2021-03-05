@@ -6,7 +6,7 @@ import { Button } from '../../common/Button/Button';
 import { Alert } from '../../common/Alert/Alert';
 import { Heading1 } from '../../common/Hedings/Heading1';
 import { SubHeading } from '../../common/SubHeading/SubHeading';
-import { Link } from '../../common/Link/Link';
+import { ButtonTextLink } from '../../common/ButtonTextLink/ButtonTextLink';
 import { SparklesIcon } from '../../common/Icons/SparklesIcon';
 import { ExclamationIcon } from '../../common/Icons/ExclamationIcon';
 
@@ -66,7 +66,9 @@ export const SignIn = ({
           {isSignInSuccess === true ? (
             <div className="flex space-x-2">
               <div>Sign-in success!</div>
-              <Link click={handleGoToChangeScreen}>Click to enter</Link>
+              <ButtonTextLink click={handleGoToChangeScreen}>
+                Click to enter
+              </ButtonTextLink>
             </div>
           ) : (
             'Could not sign-in. The credential is not valid.'

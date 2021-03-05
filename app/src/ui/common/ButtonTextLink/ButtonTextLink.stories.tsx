@@ -1,17 +1,19 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { Link, LinkProps } from './Link';
+import { ButtonTextLink, ButtonTextLinkProps } from './ButtonTextLink';
 
 export default {
-  title: 'Common/Link',
-  component: Link,
+  title: 'Common/ButtonTextLink',
+  component: ButtonTextLink,
   argTypes: {
     children: { control: 'text' },
   },
 } as Meta;
 
-const Template: Story<LinkProps> = (args) => <Link {...args} />;
+const Template: Story<ButtonTextLinkProps> = (args) => (
+  <ButtonTextLink {...args} />
+);
 
 export const Default = Template.bind({});
 Default.args = {

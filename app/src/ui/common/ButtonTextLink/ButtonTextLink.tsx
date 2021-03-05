@@ -1,12 +1,12 @@
 import { MouseEvent } from 'react';
 import { Typography } from '../Typography/Typography';
 
-export type LinkProps = Readonly<{
+export type ButtonTextLinkProps = Readonly<{
   children: string;
   click: (e: MouseEvent<HTMLButtonElement>) => void;
 }>;
 
-export const Link = ({ children, click }: LinkProps) => {
+export const ButtonTextLink = ({ children, click }: ButtonTextLinkProps) => {
   return (
     <button
       className="no-underline hover:underline focus:outline-none focus:ring hover:text-blue-900"

@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { ButtonLink } from '../../../common/ButtonLink/ButtonLink';
+import { ButtonLink } from '../../../common/ButtonArea/ButtonArea';
 
 export type RowProps = Readonly<{
   children: ReactNode;
