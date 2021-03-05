@@ -86,10 +86,10 @@ export const mapChannelsToChannelCatalogUI = (
       .filter(isDefined);
     const isSystemUser = isUserCreatedBySystem(channel.profile.createdBy);
 
-    const createdOn = Timestamp.fromMilliseconds(channel.profile.createdOn);
+    const createdOn = Timestamp.toMilliseconds(channel.profile.createdOn);
     const editedOn =
       channel.profile.editedOn &&
-      Timestamp.fromMilliseconds(channel.profile.editedOn);
+      Timestamp.toMilliseconds(channel.profile.editedOn);
 
     return {
       ...channel.profile,

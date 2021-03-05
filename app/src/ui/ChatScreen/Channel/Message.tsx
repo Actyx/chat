@@ -39,6 +39,7 @@ export const Message = ({
   hideMessage: hideMesage,
 }: MessageProps) => {
   const [isCursorHover, setIsCursorHover] = useState<boolean>(false);
+
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
 
   const handleEditMessage = (content: string) => {
