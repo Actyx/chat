@@ -28,15 +28,10 @@ export const ButtonLink = ({
   full,
   click,
 }: ButtonLinkProps) => {
-  const styles = cx({ 'w-full': full });
+  const styles = cx('focus:outline-none', { 'w-full': full });
 
   return (
-    <button
-      type={type}
-      style={{ outline: 'none' }}
-      className={styles}
-      onClick={click}
-    >
+    <button type={type} className={styles} onClick={click}>
       {children}
     </button>
   );
