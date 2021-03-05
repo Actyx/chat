@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { Submit } from '../../common/Form/Submit/Submit';
 import {
   FormEventElement,
   TextAreaChangeEvent,
@@ -7,11 +8,13 @@ import {
 export type MessageEditProps = Readonly<{
   currentContent: string;
   editContent: (content: string) => void;
+  close: () => void;
 }>;
 
 export const MessageEdit = ({
   currentContent,
   editContent,
+  close,
 }: MessageEditProps) => {
   const [content, setContent] = useState<string>(currentContent);
 
@@ -34,7 +37,14 @@ export const MessageEdit = ({
         value={content}
         onChange={handleChangeContent}
       />
-      <input type="submit" value="Save changes" />
+      <div className="flex space-x-3">
+        <Submit variant="button" size="sm" color="white" click={close}>
+          Cancel
+        </Submit>
+        <Submit size="sm" color="green">
+          Save changes
+        </Submit>
+      </div>
     </form>
   );
 };

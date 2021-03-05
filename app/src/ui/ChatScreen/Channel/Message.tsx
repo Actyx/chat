@@ -41,14 +41,16 @@ export const Message = ({
   const [isCursorHover, setIsCursorHover] = useState<boolean>(false);
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
 
-  const handleEditMessage = (content: string) =>
+  const handleEditMessage = (content: string) => {
     editMessage(messageId, content);
+    setIsEditMode(false);
+  };
 
   const handleHideMessage = () => hideMesage(messageId);
 
-  const handleEditMode = () => {
-    setIsEditMode(true);
-  };
+  const handleEditMode = () => setIsEditMode(true);
+
+  const handleCloseEditMode = () => setIsEditMode(false);
 
   const handleMouseEnter = () => setIsCursorHover(true);
   const handleMouseLeave = () => setIsCursorHover(false);
@@ -78,7 +80,7 @@ export const Message = ({
       <Typography tag="div" color="gray-dark">
         <p className="leading-relaxed">
           {!isEditMode && content}
-          {editedOn && (
+          {!isEditMode && editedOn && (
             <Typography size="sm" color="gray-light">
               {' '}
               (edited)
@@ -91,6 +93,7 @@ export const Message = ({
           <MessageEdit
             currentContent={content}
             editContent={handleEditMessage}
+            close={handleCloseEditMode}
           />
         )}
       </div>
