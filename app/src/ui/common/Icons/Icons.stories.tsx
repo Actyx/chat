@@ -10,6 +10,8 @@ import { SpeakerphoneIcon } from './SpeakerphoneIcon';
 import { UserIcon } from './UserIcon';
 import { UsersIcon } from './UsersIcon';
 import { XIcon } from './XIcon';
+import { TrashIcon } from './TrashIcon';
+import { PencilAltIcon } from './PencilAlt';
 
 type X = Readonly<{}>;
 
@@ -37,6 +39,10 @@ const TestComponent = () => {
         <UsersIcon />
         XIcon
         <XIcon />
+        TrashIcon
+        <TrashIcon />
+        PencilAltIcon
+        <PencilAltIcon />
         base
         <SparklesIcon size="base" />
         sm
