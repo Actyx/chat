@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Pond } from '@actyx/pond';
 import { UIStateManager } from './ui/ui-state-manager/UIStateManager';
-import { ScreenRooter as ScreenRouter } from './ui/ScreenRouter/ScreenRouter';
-import { PondError } from './ui/PondError/PondError';
-import { Debug } from './ui/Debug/Debug';
+import { ScreenRooter as ScreenRouter } from './ui/custom/ScreenRouter/ScreenRouter';
+import { PondError } from './ui/custom/PondError/PondError';
+import { Debug } from './ui/custom/Debug/Debug';
 
 export const App = () => {
   const [pond, setPond] = useState<Pond>();
