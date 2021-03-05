@@ -1,4 +1,8 @@
 import { ChannelId } from '../../../business-logic/message/types';
+import { Submit } from '../../common/Form/Submit/Submit';
+import { CheckIcon } from '../../common/Icons/CheckIcon';
+import { Typography } from '../../common/Typography/Typography';
+import { DateTime } from '../../DateTime/DateTime';
 import { ChannelOverviewUI } from './ChannelsCatalog';
 
 type ChannelDetailsProps = Readonly<{
@@ -36,49 +40,91 @@ export const ChannelOverview = ({
   const canUserManageArchive = canUserManageArchiviation(channelId);
 
   return (
-    <div key={channelId}>
-      {name}
-      {isArchived && ' (ARCHIVED)'}
-      <br />
-      {description && (
-        <>
-          {description} <br />
-        </>
-      )}
-      {usersAssociatedTotal} members {`(${usersAssociated.join(', ')})`}
-      <br />
-      {`Created by: ${createdBy} on ${createdOn}`}
-      <br />
-      {editedBy && (
-        <>
-          {`Edited by ${editedBy} on ${editedOn}`}
-          <br />
-        </>
-      )}
-      {isSignedInUserAssociated && <strong>Joined</strong>}
-      <br />
-      <button onClick={() => editChannel(channelId)}>Edit channel</button>
-      {canUserManageArchive && isArchived && (
-        <button onClick={() => unarchiveChannel(channelId)}>
-          Unarchive channel
-        </button>
-      )}
-      {canUserManageArchive && !isArchived && (
-        <button onClick={() => archiveChannel(channelId)}>
-          Archive channel
-        </button>
-      )}
-      {isSignedInUserAssociated && !isSystemUser && (
-        <button onClick={() => dissociateUserChannel(channelId)}>
-          Leave channel
-        </button>
-      )}
-      {!isSignedInUserAssociated && !isSystemUser && (
-        <button onClick={() => associateUserChannel(channelId)}>
-          Join channel
-        </button>
-      )}
-      <hr />
+    <div className="p-4 space-y-4">
+      <div>
+        <div>
+          <div className="flex space-x-2">
+            <Typography tag="div" weight="bold" color="gray-dark">
+              #{name}
+            </Typography>
+            {isArchived && (
+              <Typography tag="div" color="gray-medium">
+                (archived)
+              </Typography>
+            )}
+          </div>
+          {description && (
+            <Typography tag="div" color="gray-medium">
+              {description}
+            </Typography>
+          )}
+          <Typography tag="div" color="gray-medium">
+            {usersAssociatedTotal} members {`(${usersAssociated.join(', ')})`}
+          </Typography>
+          <Typography tag="div" color="gray-medium">
+            {`Created by: ${createdBy} on `} <DateTime timestamp={createdOn} />
+          </Typography>
+          {editedBy && (
+            <Typography tag="div" color="gray-medium">
+              {`Last edited by ${editedBy} on ${editedOn}`}
+              <br />
+            </Typography>
+          )}
+          {isSignedInUserAssociated && (
+            <div className="flex space-x-1 items-center">
+              <CheckIcon color="green-medium" />
+              <Typography tag="div" color="green-medium" weight="semibold">
+                Joined
+              </Typography>
+            </div>
+          )}
+        </div>
+      </div>
+      <div className="space-x-3">
+        <Submit
+          variant="button"
+          color="white"
+          click={() => editChannel(channelId)}
+        >
+          Edit
+        </Submit>
+        {canUserManageArchive && isArchived && (
+          <Submit
+            variant="button"
+            color="white"
+            click={() => unarchiveChannel(channelId)}
+          >
+            Unarchive
+          </Submit>
+        )}
+        {canUserManageArchive && !isArchived && (
+          <Submit
+            variant="button"
+            color="white"
+            click={() => archiveChannel(channelId)}
+          >
+            Archive
+          </Submit>
+        )}
+        {isSignedInUserAssociated && !isSystemUser && (
+          <Submit
+            variant="button"
+            color="white"
+            click={() => dissociateUserChannel(channelId)}
+          >
+            Leave
+          </Submit>
+        )}
+        {!isSignedInUserAssociated && !isSystemUser && (
+          <Submit
+            variant="button"
+            color="green"
+            click={() => associateUserChannel(channelId)}
+          >
+            Join channel
+          </Submit>
+        )}
+      </div>
     </div>
   );
 };

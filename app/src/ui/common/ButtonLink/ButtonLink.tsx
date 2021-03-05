@@ -29,6 +29,7 @@ export const ButtonLink = ({
   click,
 }: ButtonLinkProps) => {
   const styles = cx({ 'w-full': full });
+
   return (
     <button
       type={type}
