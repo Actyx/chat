@@ -9,7 +9,6 @@ import { UserIcon } from '../../common/Icons/UserIcon';
 import { MessageList } from './MessageList';
 import { MessageUI } from './Message';
 import { StateContextUI } from '../../ui-state-manager/UIStateManager';
-import { CentralSection } from '../../common/CentralSection/CentralSection';
 
 export type MessagesUI = ReadonlyArray<MessageUI>;
 
@@ -38,42 +37,38 @@ export const Channel = ({
 }: ChannelProps) => {
   const stateUI = useContext(StateContextUI);
   return (
-    <div>
-      <CentralSection
-        header={
-          <Header>
-            <div>
-              <Typography tag="div" weight="bold" color="gray-dark">
-                #{channelName}
-              </Typography>
-              <Typography tag="div" size="sm" color="gray-medium">
-                {channelDescription}
-              </Typography>
-            </div>
-            <div className="flex space-x-2">
-              <Typography tag="div" size="sm" color="gray-medium">
-                {totalUsers}{' '}
-              </Typography>
-              {totalUsers !== 1 ? (
-                <UsersIcon color="gray-medium" />
-              ) : (
-                <UserIcon color="gray-medium" />
-              )}
-            </div>
-          </Header>
-        }
-        body={
-          <Body>
-            <MessageList
-              key={stateUI.activeChannelId}
-              messages={messages}
-              editMessage={editMessage}
-              hideMessage={hideMessage}
-            />
-          </Body>
-        }
-      />
-      <MessageInput channelName={channelName} addMessage={addMessage} />
+    <div className="w-full overflow-y-auto	h-full">
+      <div className="flex flex-col h-full">
+        <Header>
+          <div>
+            <Typography tag="div" weight="bold" color="gray-dark">
+              #{channelName}
+            </Typography>
+            <Typography tag="div" size="sm" color="gray-medium">
+              {channelDescription}
+            </Typography>
+          </div>
+          <div className="flex space-x-2">
+            <Typography tag="div" size="sm" color="gray-medium">
+              {totalUsers}{' '}
+            </Typography>
+            {totalUsers !== 1 ? (
+              <UsersIcon color="gray-medium" />
+            ) : (
+              <UserIcon color="gray-medium" />
+            )}
+          </div>
+        </Header>
+        <Body>
+          <MessageList
+            key={stateUI.activeChannelId}
+            messages={messages}
+            editMessage={editMessage}
+            hideMessage={hideMessage}
+          />
+        </Body>
+        <MessageInput channelName={channelName} addMessage={addMessage} />
+      </div>
     </div>
   );
 };
