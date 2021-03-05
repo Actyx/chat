@@ -1,5 +1,8 @@
 import { useState } from 'react';
-import { FormEventElement, InputChangeEvent } from '../../utils/ui-event-types';
+import {
+  FormEventElement,
+  TextAreaChangeEvent,
+} from '../../utils/ui-event-types';
 
 export type MessageEditProps = Readonly<{
   currentContent: string;
@@ -7,13 +10,12 @@ export type MessageEditProps = Readonly<{
 }>;
 
 export const MessageEdit = ({
+  currentContent,
   editContent,
-}: Readonly<{
-  editContent: (content: string) => void;
-}>) => {
-  const [content, setContent] = useState<string>('');
+}: MessageEditProps) => {
+  const [content, setContent] = useState<string>(currentContent);
 
-  const handleChangeContent = (e: InputChangeEvent) =>
+  const handleChangeContent = (e: TextAreaChangeEvent) =>
     setContent(e.target.value);
 
   const handleSubmit = (e: FormEventElement) => {
@@ -24,8 +26,10 @@ export const MessageEdit = ({
 
   return (
     <form onSubmit={handleSubmit}>
-      <input
-        type="text"
+      <textarea
+        rows={2}
+        placeholder="Edit message"
+        className="rounded w-full resize-none"
         required
         value={content}
         onChange={handleChangeContent}

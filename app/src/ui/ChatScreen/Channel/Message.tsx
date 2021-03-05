@@ -6,6 +6,7 @@ import { Typography } from '../../common/Typography/Typography';
 import { DateTime } from '../../DateTime/DateTime';
 import { MessageActions } from './MessageActions';
 import { MessageEdit } from './MessageEdit';
+import cx from 'classnames';
 
 export type MessageUI = Readonly<{
   messageId: string;
@@ -38,7 +39,7 @@ export const Message = ({
   hideMessage: hideMesage,
 }: MessageProps) => {
   const [isCursorHover, setIsCursorHover] = useState<boolean>(false);
-  const [showEditMode, setShowEditMode] = useState<boolean>(false);
+  const [isEditMode, setIsEditMode] = useState<boolean>(false);
 
   const handleEditMessage = (content: string) =>
     editMessage(messageId, content);
@@ -46,17 +47,23 @@ export const Message = ({
   const handleHideMessage = () => hideMesage(messageId);
 
   const handleEditMode = () => {
-    setShowEditMode(true);
+    setIsEditMode(true);
   };
 
   const handleMouseEnter = () => setIsCursorHover(true);
   const handleMouseLeave = () => setIsCursorHover(false);
 
-  const showActions = isCursorHover && (canEdit || canHide);
+  const showMessageActions = isCursorHover && (canEdit || canHide);
+
+  const stylesMessage = cx('relative p-4', {
+    'bg-yellow-100': isEditMode,
+    'hover:bg-gray-50': !isEditMode,
+    'bg-white': !isEditMode,
+  });
 
   return (
     <div
-      className="relative p-4 hover:bg-gray-50"
+      className={stylesMessage}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -70,7 +77,7 @@ export const Message = ({
       </div>
       <Typography tag="div" color="gray-dark">
         <p className="leading-relaxed">
-          {content}
+          {!isEditMode && content}
           {editedOn && (
             <Typography size="sm" color="gray-light">
               {' '}
@@ -80,9 +87,14 @@ export const Message = ({
         </p>
       </Typography>
       <div>
-        {showEditMode && <MessageEdit editContent={handleEditMessage} />}
+        {isEditMode && (
+          <MessageEdit
+            currentContent={content}
+            editContent={handleEditMessage}
+          />
+        )}
       </div>
-      {showActions && (
+      {showMessageActions && (
         <MessageActions
           canEdit={canEdit}
           canHide={canHide}
