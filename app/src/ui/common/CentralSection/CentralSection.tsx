@@ -3,9 +3,10 @@ import React, { ReactNode } from 'react';
 type CentralSectionProps = Readonly<{
   header: ReactNode;
   body: ReactNode;
+  extra?: ReactNode;
 }>;
 
-export const Body = ({ children }: Readonly<{ children: ReactNode }>) => (
+const Body = ({ children }: Readonly<{ children: ReactNode }>) => (
   <div className="overflow-y-auto">{children}</div>
 );
 
@@ -17,12 +18,17 @@ export const Header = ({ children }: Readonly<{ children: ReactNode }>) => {
   );
 };
 
-export const CentralSection = ({ header, body }: CentralSectionProps) => {
+export const CentralSection = ({
+  header,
+  body,
+  extra,
+}: CentralSectionProps) => {
   return (
     <div className="w-full overflow-y-auto	h-full">
       <div className="flex flex-col h-full">
         <Header>{header}</Header>
         <Body>{body}</Body>
+        {extra}
       </div>
     </div>
   );

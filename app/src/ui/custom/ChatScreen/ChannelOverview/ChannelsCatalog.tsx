@@ -2,7 +2,6 @@ import { Timestamp } from '@actyx/pond';
 import React from 'react';
 import { ChannelId } from '../../../../business-logic/message/types';
 import {
-  Body,
   CentralSection,
   Header,
 } from '../../../common/CentralSection/CentralSection';
@@ -54,22 +53,18 @@ export const ChannelsCatalog = ({
           </Typography>
         </Header>
       }
-      body={
-        <Body>
-          {channels.map((c) => (
-            <ChannelOverview
-              key={c.channelId}
-              channelOverview={c}
-              editChannel={editChannel}
-              canUserManageArchiviation={canUserManageArchiviation}
-              archiveChannel={archiveChannel}
-              unarchiveChannel={unarchiveChannel}
-              associateUserChannel={associateUserChannel}
-              dissociateUserChannel={dissociateUserChannel}
-            />
-          ))}
-        </Body>
-      }
+      body={channels.map((c) => (
+        <ChannelOverview
+          key={c.channelId}
+          channelOverview={c}
+          editChannel={editChannel}
+          canUserManageArchiviation={canUserManageArchiviation}
+          archiveChannel={archiveChannel}
+          unarchiveChannel={unarchiveChannel}
+          associateUserChannel={associateUserChannel}
+          dissociateUserChannel={dissociateUserChannel}
+        />
+      ))}
     />
   );
 };

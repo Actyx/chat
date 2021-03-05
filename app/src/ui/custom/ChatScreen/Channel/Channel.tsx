@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext } from 'react';
+import React, { useContext } from 'react';
 import { MessageId } from '../../../../business-logic/message/types';
 import { Typography } from '../../../common/Typography/Typography';
 import { MessageInput } from './MessageInput';
@@ -8,7 +8,7 @@ import { UserIcon } from '../../../common/Icons/UserIcon';
 import { MessageList } from './MessageList';
 import { MessageUI } from './Message';
 import { StateContextUI } from '../../../ui-state-manager/UIStateManager';
-import { Header } from '../../../common/CentralSection/CentralSection';
+import { CentralSection } from '../../../common/CentralSection/CentralSection';
 
 export type MessagesUI = ReadonlyArray<MessageUI>;
 
@@ -22,10 +22,6 @@ type ChannelProps = Readonly<{
   addMessage: (content: string) => void;
 }>;
 
-const Body = ({ children }: Readonly<{ children: ReactNode }>) => (
-  <div className="overflow-y-auto channel-content-body">{children}</div>
-);
-
 export const Channel = ({
   channelName,
   channelDescription,
@@ -37,9 +33,9 @@ export const Channel = ({
 }: ChannelProps) => {
   const stateUI = useContext(StateContextUI);
   return (
-    <div className="w-full overflow-y-auto	h-full">
-      <div className="flex flex-col h-full">
-        <Header>
+    <CentralSection
+      header={
+        <>
           <div>
             <Typography tag="div" weight="bold" color="gray-dark">
               #{channelName}
@@ -58,17 +54,17 @@ export const Channel = ({
               <UserIcon color="gray-medium" />
             )}
           </div>
-        </Header>
-        <Body>
-          <MessageList
-            key={stateUI.activeChannelId}
-            messages={messages}
-            editMessage={editMessage}
-            hideMessage={hideMessage}
-          />
-        </Body>
-        <MessageInput channelName={channelName} addMessage={addMessage} />
-      </div>
-    </div>
+        </>
+      }
+      body={
+        <MessageList
+          key={stateUI.activeChannelId}
+          messages={messages}
+          editMessage={editMessage}
+          hideMessage={hideMessage}
+        />
+      }
+      extra={<MessageInput channelName={channelName} addMessage={addMessage} />}
+    />
   );
 };
