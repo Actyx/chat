@@ -64,7 +64,9 @@ export const Channel = ({
           hideMessage={hideMessage}
         />
       }
-      extra={<MessageInput channelName={channelName} addMessage={addMessage} />}
+      footer={
+        <MessageInput channelName={channelName} addMessage={addMessage} />
+      }
     />
   );
 };
