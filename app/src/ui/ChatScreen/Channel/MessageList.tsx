@@ -10,6 +10,8 @@ type MessageListProps = Readonly<{
   hideMessage: (messageId: MessageId) => void;
 }>;
 
+const Spacer = () => <div className="w-4 h-4" />;
+
 export const MessageList = ({
   messages,
   editMessage,
@@ -23,6 +25,7 @@ export const MessageList = ({
 
   return (
     <>
+      <Spacer />
       {messages.map((m: MessageUI) => (
         <Message
           key={m.messageId}
