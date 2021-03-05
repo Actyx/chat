@@ -7,7 +7,7 @@ import { Channel } from '../Channel/Channel';
 import {
   ChannelsCatalog,
   ChannelsOverviewUI,
-} from '../ChannelsCatalog/ChannelsCatalog';
+} from '../ChannelOverview/ChannelsCatalog';
 import { MessageUI } from '../Channel/Message';
 import { ChannelId, MessageId } from '../../../business-logic/message/types';
 import { EditChannelDialog } from '../EditChannelDialog/EditChannelDialog';
