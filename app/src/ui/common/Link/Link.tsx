@@ -1,4 +1,5 @@
 import { MouseEvent } from 'react';
+import { Typography } from '../Typography/Typography';
 
 export type LinkProps = Readonly<{
   children: string;
@@ -8,10 +9,12 @@ export type LinkProps = Readonly<{
 export const Link = ({ children, click }: LinkProps) => {
   return (
     <button
-      className="font-semibold no-underline text-blue-700 hover:text-blue-900 hover:underline focus:outline-none focus:ring"
+      className="no-underline hover:underline focus:outline-none focus:ring hover:text-blue-900"
       onClick={click}
     >
-      {children}
+      <Typography color="blue-medium" weight="semibold">
+        {children}
+      </Typography>
     </button>
   );
 };
