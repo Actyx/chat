@@ -39,7 +39,7 @@ export const MessageEdit = ({
           onChange={handleChangeContent}
         />
         <div className="flex space-x-3">
-          <Button variant="button" size="sm" color="white" click={close}>
+          <Button type="button" size="sm" color="white" click={close}>
             Cancel
           </Button>
           <Button size="sm" color="green">

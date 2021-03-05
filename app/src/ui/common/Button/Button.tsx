@@ -10,19 +10,19 @@ type BaseProps = Readonly<{
 
 type VariantSubmit = BaseProps &
   Readonly<{
-    variant?: 'submit';
+    type?: 'submit';
   }>;
 
 type VariantButton = BaseProps &
   Readonly<{
-    variant: 'button';
+    type: 'button';
     click: () => void;
   }>;
 
 export type ButtonProps = VariantSubmit | VariantButton;
 
 export const Button = ({
-  variant = 'submit',
+  type = 'submit',
   color = 'purple',
   size = 'base',
   full = false,
@@ -57,7 +57,7 @@ export const Button = ({
     { 'pl-3 pr-3': isSmall }
   );
   return (
-    <button type={variant} className={styles} onClick={click}>
+    <button type={type} className={styles} onClick={click}>
       {children}
     </button>
   );

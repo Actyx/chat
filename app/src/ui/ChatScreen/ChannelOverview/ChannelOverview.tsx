@@ -101,7 +101,7 @@ export const ChannelOverview = ({
       {isCursorHover && (
         <div className="flex pr-4 pb-4 pl-4 items-center space-x-3">
           <Button
-            variant="button"
+            type="button"
             color="white"
             click={() => editChannel(channelId)}
           >
@@ -109,7 +109,7 @@ export const ChannelOverview = ({
           </Button>
           {canUserManageArchive && isArchived && (
             <Button
-              variant="button"
+              type="button"
               color="white"
               click={() => unarchiveChannel(channelId)}
             >
@@ -118,7 +118,7 @@ export const ChannelOverview = ({
           )}
           {canUserManageArchive && !isArchived && (
             <Button
-              variant="button"
+              type="button"
               color="white"
               click={() => archiveChannel(channelId)}
             >
@@ -127,7 +127,7 @@ export const ChannelOverview = ({
           )}
           {isSignedInUserAssociated && !isSystemUser && (
             <Button
-              variant="button"
+              type="button"
               color="white"
               click={() => dissociateUserChannel(channelId)}
             >
@@ -136,7 +136,7 @@ export const ChannelOverview = ({
           )}
           {!isSignedInUserAssociated && !isSystemUser && (
             <Button
-              variant="button"
+              type="button"
               color="green"
               click={() => associateUserChannel(channelId)}
             >
