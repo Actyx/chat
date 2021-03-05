@@ -347,8 +347,6 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
     <Chat
       appName={pkg.chat.appName}
       totalUsers={totalUsers}
-      sectionCenter={stateUI.sectionCenter}
-      activeChannelId={stateUI.activeChannelId}
       userDisplayName={userDisplayName}
       channelsSideBarUI={channelsSideBarUI}
       usersSideBarUI={usersSideBarUI}

@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useContext } from 'react';
 import { SectionCenter } from '../../../ui-state-manager/types';
 import { ChannelsListUI, Sidebar, UsersListUI } from '../Sidebar/Sidebar';
 import { TopBar } from '../TopBar';
@@ -13,12 +13,11 @@ import { ChannelId, MessageId } from '../../../../business-logic/message/types';
 import { EditChannelDialog } from '../EditChannelDialog/EditChannelDialog';
 import { AddChannelDialog } from '../AddChannelDialog/AddChannelDialog';
 import './chat.css';
+import { StateContextUI } from '../../../ui-state-manager/UIStateManager';
 
 type ChatProps = Readonly<{
   appName: string;
   totalUsers: number;
-  sectionCenter: SectionCenter;
-  activeChannelId: ChannelId;
   userDisplayName: string;
   channelsSideBarUI: ChannelsListUI;
   usersSideBarUI: UsersListUI;
@@ -65,8 +64,6 @@ const MainContent = ({ children }: Readonly<{ children: ReactNode }>) => {
 export const Chat = ({
   appName,
   totalUsers,
-  activeChannelId,
-  sectionCenter,
   userDisplayName,
   channelsSideBarUI,
   usersSideBarUI,
@@ -97,8 +94,10 @@ export const Chat = ({
   handleCloseEditChannelDialog,
   handleHideAddChannelDialog,
 }: ChatProps) => {
+  const stateUI = useContext(StateContextUI);
+
   const renderSectionCenter = () => {
-    switch (sectionCenter) {
+    switch (stateUI.sectionCenter) {
       case SectionCenter.Channel:
         return (
           <Channel
@@ -135,7 +134,6 @@ export const Chat = ({
           channels={channelsSideBarUI}
           users={usersSideBarUI}
           showAddChannelDialog={handleShowAddChannelDialog}
-          activeChannelId={activeChannelId}
         />
         {renderSectionCenter()}
         {canShowUserProfileDetails && (

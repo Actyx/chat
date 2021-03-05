@@ -32,7 +32,6 @@ type SidebarProps = Readonly<{
   appName: string;
   channels: ChannelsListUI;
   users: UsersListUI;
-  activeChannelId: ChannelId;
   showAddChannelDialog: () => void;
 }>;
 
@@ -40,7 +39,6 @@ export const Sidebar = ({
   appName,
   channels,
   users,
-  activeChannelId,
   showAddChannelDialog,
 }: SidebarProps) => {
   const dispatch = useContext(DispatchContextUI);
@@ -69,11 +67,7 @@ export const Sidebar = ({
               </Typography>
             }
           >
-            <ChannelsList
-              channels={channels}
-              activeChannelId={activeChannelId}
-              selectChannel={handleMain}
-            />
+            <ChannelsList channels={channels} selectChannel={handleMain} />
           </CollapsibleList>
         </Section>
         <Section>

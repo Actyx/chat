@@ -3,22 +3,24 @@ import { HashtagIcon } from '../../../common/Icons/HashtagIcon';
 import { Typography } from '../../../common/Typography/Typography';
 import { ChannelsListUI } from './Sidebar';
 import { Row } from './Row';
+import { useContext } from 'react';
+import { StateContextUI } from '../../../ui-state-manager/UIStateManager';
 
 type ChannelsListProps = Readonly<{
   channels: ChannelsListUI;
-  activeChannelId: ChannelId;
   selectChannel: (channelId: ChannelId) => void;
 }>;
 
 export const ChannelsList = ({
   channels,
-  activeChannelId,
   selectChannel,
 }: ChannelsListProps) => {
+  const stateUI = useContext(StateContextUI);
+
   return (
     <>
       {channels.map((x) => {
-        const isActiveChannel = x.channelId === activeChannelId;
+        const isActiveChannel = x.channelId === stateUI.activeChannelId;
         const color = isActiveChannel ? 'white' : 'gray-light';
 
         return (
