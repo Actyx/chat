@@ -1,37 +1,38 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-
-import { Button, ButtonProps } from './Button';
+import { StorybookButton, StorybookButtonProps } from './StorybookButton';
 
 export default {
-  title: 'Example/Button',
-  component: Button,
+  title: 'Example/StorybookButton',
+  component: StorybookButton,
   argTypes: {
     backgroundColor: { control: 'color' },
   },
 } as Meta;
 
-const Template: Story<ButtonProps> = (args) => <Button {...args} />;
+const Template: Story<StorybookButtonProps> = (args) => (
+  <StorybookButton {...args} />
+);
 
 export const Primary = Template.bind({});
 Primary.args = {
   primary: true,
-  label: 'Button',
+  label: 'SampleButton',
 };
 
 export const Secondary = Template.bind({});
 Secondary.args = {
-  label: 'Button',
+  label: 'SampleButton',
 };
 
 export const Large = Template.bind({});
 Large.args = {
   size: 'large',
-  label: 'Button',
+  label: 'SampleButton',
 };
 
 export const Small = Template.bind({});
 Small.args = {
   size: 'small',
-  label: 'Button',
+  label: 'SampleButton',
 };

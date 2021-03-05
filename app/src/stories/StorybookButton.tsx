@@ -1,6 +1,7 @@
 import React from 'react';
-import './button.css';
-export interface ButtonProps {
+import './storybook-button.css';
+
+export interface StorybookButtonProps {
   primary?: boolean;
   backgroundColor?: string;
   size?: 'small' | 'medium' | 'large';
@@ -8,7 +9,7 @@ export interface ButtonProps {
   onClick?: () => void;
 }
 
-export const Button: React.FC<ButtonProps> = ({
+export const StorybookButton: React.FC<StorybookButtonProps> = ({
   primary = false,
   size = 'medium',
   backgroundColor,
