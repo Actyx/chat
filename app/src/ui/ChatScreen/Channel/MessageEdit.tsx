@@ -29,21 +29,23 @@ export const MessageEdit = ({
 
   return (
     <form onSubmit={handleSubmit}>
-      <textarea
-        rows={2}
-        placeholder="Edit message"
-        className="rounded w-full resize-none"
-        required
-        value={content}
-        onChange={handleChangeContent}
-      />
-      <div className="flex space-x-3">
-        <Submit variant="button" size="sm" color="white" click={close}>
-          Cancel
-        </Submit>
-        <Submit size="sm" color="green">
-          Save changes
-        </Submit>
+      <div className="space-y-1">
+        <textarea
+          rows={2}
+          placeholder="Edit message"
+          className="rounded w-full resize-none"
+          required
+          value={content}
+          onChange={handleChangeContent}
+        />
+        <div className="flex space-x-3">
+          <Submit variant="button" size="sm" color="white" click={close}>
+            Cancel
+          </Submit>
+          <Submit size="sm" color="green">
+            Save changes
+          </Submit>
+        </div>
       </div>
     </form>
   );

@@ -73,9 +73,11 @@ export const Message = ({
         <Typography tag="div" weight="bold">
           {senderDisplayName}
         </Typography>
-        <Typography tag="div" size="sm" color="gray-medium">
-          <DateTime timestamp={editedOn ?? createdOn} />
-        </Typography>
+        {!isEditMode && (
+          <Typography tag="div" size="sm" color="gray-medium">
+            <DateTime timestamp={editedOn ?? createdOn} />
+          </Typography>
+        )}
       </div>
       <Typography tag="div" color="gray-dark">
         <p className="leading-relaxed">
