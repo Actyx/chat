@@ -4,7 +4,7 @@ import { FormEventElement, InputChangeEvent } from '../utils/ui-event-types';
 import { TextField } from '../common/TextField/TextField';
 import { Heading1 } from '../common/Hedings/Heading1';
 import { SubHeading } from '../common/SubHeading/SubHeading';
-import { Button } from '../common/Submit/Button';
+import { Button } from '../common/Button/Button';
 import { Alert } from '../common/Alert/Alert';
 import { Link } from '../common/Link/Link';
 import { ExclamationIcon } from '../common/Icons/ExclamationIcon';

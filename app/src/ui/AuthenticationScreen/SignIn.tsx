@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { UserUUID } from '../../business-logic/user-catalog-fish/types';
 import { FormEventElement, InputChangeEvent } from '../utils/ui-event-types';
 import { TextField } from '../common/TextField/TextField';
-import { Button } from '../common/Submit/Button';
+import { Button } from '../common/Button/Button';
 import { Alert } from '../common/Alert/Alert';
 import { Heading1 } from '../common/Hedings/Heading1';
 import { SubHeading } from '../common/SubHeading/SubHeading';

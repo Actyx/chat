@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from '../../common/Submit/Button';
+import { Button } from '../../common/Button/Button';
 import {
   FormEventElement,
   TextAreaChangeEvent,

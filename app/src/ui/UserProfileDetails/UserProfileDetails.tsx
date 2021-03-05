@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { FlexPanel } from '../common/FlexPanel/FlexPanel';
 import { FormEventElement, InputChangeEvent } from '../utils/ui-event-types';
 import { TextField } from '../common/TextField/TextField';
-import { Button } from '../common/Submit/Button';
+import { Button } from '../common/Button/Button';
 import { Label } from '../common/Label/Label';
 import { Typography } from '../common/Typography/Typography';
 

@@ -36,6 +36,7 @@ export const Button = ({
   const isSmall = size === 'sm';
 
   const styles = cx(
+    'focus:outline-none focus:ring',
     'rounded',
     'font-sans',
     'leading-4',
