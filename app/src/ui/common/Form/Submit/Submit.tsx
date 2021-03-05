@@ -42,7 +42,7 @@ export const Submit = ({
     { 'w-full': full },
     { 'bg-purple-900 hover:bg-purple-800': isPurple },
     { 'bg-green-700 hover:bg-green-600': isGreen },
-    { 'bg-white': isWhite },
+    { 'bg-white hover:bg-gray-50': isWhite },
     { 'border border-gray-400': isWhite },
     { 'font-semibold': !isWhite },
     { 'font-normal': isWhite },
