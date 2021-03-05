@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { UserUUID } from '../../business-logic/user-catalog-fish/types';
 import { FormEventElement, InputChangeEvent } from '../utils/ui-event-types';
-import { TextField } from '../common/Form/TextField/TextField';
-import { Submit } from '../common/Form/Submit/Submit';
+import { TextField } from '../common/TextField/TextField';
+import { Submit } from '../common/Submit/Submit';
 import { Alert } from '../common/Alert/Alert';
 import { Heading1 } from '../common/Hedings/Heading1';
 import { SubHeading } from '../common/SubHeading/SubHeading';

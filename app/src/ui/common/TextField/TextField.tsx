@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import { InputChangeEvent } from '../../../utils/ui-event-types';
+import { InputChangeEvent } from '../../utils/ui-event-types';
 
 export type TextFieldProps = Readonly<{
   id?: string;

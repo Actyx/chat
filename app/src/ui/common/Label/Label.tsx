@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { Typography } from '../../Typography/Typography';
+import { Typography } from '../Typography/Typography';
 
 export type LabelProps = Readonly<{
   children: ReactNode;

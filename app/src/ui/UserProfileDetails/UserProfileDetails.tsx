@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { FlexPanel } from '../common/FlexPanel/FlexPanel';
 import { FormEventElement, InputChangeEvent } from '../utils/ui-event-types';
-import { TextField } from '../common/Form/TextField/TextField';
-import { Submit } from '../common/Form/Submit/Submit';
-import { Label } from '../common/Form/Label/Label';
+import { TextField } from '../common/TextField/TextField';
+import { Submit } from '../common/Submit/Submit';
+import { Label } from '../common/Label/Label';
 import { Typography } from '../common/Typography/Typography';
 
 const FIELD_DISPLAY_NAME_ID = 'user-profile-details-display-name';

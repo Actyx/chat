@@ -1,7 +1,7 @@
 import cx from 'classnames';
 import { useState } from 'react';
 import { ChannelId } from '../../../business-logic/message/types';
-import { Submit } from '../../common/Form/Submit/Submit';
+import { Submit } from '../../common/Submit/Submit';
 import { CheckIcon } from '../../common/Icons/CheckIcon';
 import { Typography } from '../../common/Typography/Typography';
 import { DateTime } from '../../DateTime/DateTime';
