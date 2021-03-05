@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { MessageId } from '../../../../business-logic/message/types';
 import { Typography } from '../../../common/Typography/Typography';
 import { MessageInput } from './MessageInput';
-import './channel.css';
 import { UsersIcon } from '../../../common/Icons/UsersIcon';
 import { UserIcon } from '../../../common/Icons/UserIcon';
 import { MessageList } from './MessageList';

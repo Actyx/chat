@@ -5,6 +5,7 @@ import { ChannelsListUI } from './Sidebar';
 import { Row } from './Row';
 import { useContext } from 'react';
 import { StateContextUI } from '../../../ui-state-manager/UIStateManager';
+import { SectionCenter } from '../../../ui-state-manager/types';
 
 type ChannelsListProps = Readonly<{
   channels: ChannelsListUI;
@@ -20,7 +21,15 @@ export const ChannelsList = ({
   return (
     <>
       {channels.map((x) => {
-        const isActiveChannel = x.channelId === stateUI.activeChannelId;
+        const isSectionCenterChannel =
+          stateUI.sectionCenter === SectionCenter.Channel;
+        const doesCurrentChannelInListMatchSelectedChannel =
+          x.channelId === stateUI.activeChannelId;
+
+        const isActiveChannel =
+          isSectionCenterChannel &&
+          doesCurrentChannelInListMatchSelectedChannel;
+
         const color = isActiveChannel ? 'white' : 'gray-light';
 
         return (
