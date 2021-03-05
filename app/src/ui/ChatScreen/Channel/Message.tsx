@@ -5,6 +5,7 @@ import { UserUUID } from '../../../business-logic/user-catalog-fish/types';
 import { Typography } from '../../common/Typography/Typography';
 import { DateTime } from '../../DateTime/DateTime';
 import { FormEventElement, InputChangeEvent } from '../../utils/ui-event-types';
+import { MessageActions } from './MessageActions';
 
 export type MessageUI = Readonly<{
   messageId: string;
@@ -36,13 +37,29 @@ export const Message = ({
   editMessage,
   hideMessage: hideMesage,
 }: MessageProps) => {
+  const [isCursorHover, setIsCursorHover] = useState<boolean>(false);
+  const [showEditMode, setShowEditMode] = useState<boolean>(false);
+
   const handleEditMessage = (content: string) =>
     editMessage(messageId, content);
 
   const handleHideMessage = () => hideMesage(messageId);
 
+  const handleEditMode = () => {
+    setShowEditMode(true);
+  };
+
+  const handleMouseEnter = () => setIsCursorHover(true);
+  const handleMouseLeave = () => setIsCursorHover(false);
+
+  const showActions = isCursorHover && (canEdit || canHide);
+
   return (
-    <div className="p-4 hover:bg-gray-50">
+    <div
+      className="relative p-4 hover:bg-gray-50"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <div className="flex space-x-3 items-center">
         <Typography tag="div" weight="bold">
           {senderDisplayName}
@@ -63,9 +80,16 @@ export const Message = ({
         </p>
       </Typography>
       <div>
-        {canEdit && <EditMessage editContent={handleEditMessage} />}
-        {canHide && <button onClick={handleHideMessage}>Hide</button>}
+        {showEditMode && <EditMessage editContent={handleEditMessage} />}
       </div>
+      {showActions && (
+        <MessageActions
+          canEdit={canEdit}
+          canHide={canHide}
+          edit={handleEditMode}
+          hide={handleHideMessage}
+        />
+      )}
     </div>
   );
 };
