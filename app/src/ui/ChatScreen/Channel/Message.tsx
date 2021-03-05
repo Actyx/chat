@@ -4,8 +4,8 @@ import { MessageId } from '../../../business-logic/message/types';
 import { UserUUID } from '../../../business-logic/user-catalog-fish/types';
 import { Typography } from '../../common/Typography/Typography';
 import { DateTime } from '../../DateTime/DateTime';
-import { FormEventElement, InputChangeEvent } from '../../utils/ui-event-types';
 import { MessageActions } from './MessageActions';
+import { MessageEdit } from './MessageEdit';
 
 export type MessageUI = Readonly<{
   messageId: string;
@@ -80,7 +80,7 @@ export const Message = ({
         </p>
       </Typography>
       <div>
-        {showEditMode && <EditMessage editContent={handleEditMessage} />}
+        {showEditMode && <MessageEdit editContent={handleEditMessage} />}
       </div>
       {showActions && (
         <MessageActions
@@ -91,35 +91,5 @@ export const Message = ({
         />
       )}
     </div>
-  );
-};
-
-const EditMessage = ({
-  editContent,
-}: Readonly<{
-  editContent: (content: string) => void;
-}>) => {
-  const [content, setContent] = useState<string>('');
-
-  const handleChangeContent = (e: InputChangeEvent) =>
-    setContent(e.target.value);
-
-  const handleSubmit = (e: FormEventElement) => {
-    editContent(content);
-    setContent('');
-    e.preventDefault();
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <label>Edit:</label>
-      <input
-        type="text"
-        required
-        value={content}
-        onChange={handleChangeContent}
-      />
-      <input type="submit" value="Edit message" />
-    </form>
   );
 };
