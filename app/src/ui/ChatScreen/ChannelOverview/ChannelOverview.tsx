@@ -44,9 +44,10 @@ export const ChannelOverview = ({
   const [isCursorHover, setIsCursorHover] = useState<boolean>(false);
 
   const handleMouseEnter = () => setIsCursorHover(true);
+
   const handleMouseLeave = () => setIsCursorHover(false);
 
-  const stylesChannelOverview = cx('p-4 space-y-4 border-b', {
+  const stylesChannelOverview = cx('flex space-y-4 border-b', {
     'hover:bg-gray-50': isCursorHover,
     'bg-white': !isCursorHover,
   });
@@ -57,7 +58,7 @@ export const ChannelOverview = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div>
+      <div className="p-4 flex-grow">
         <div>
           <div className="flex space-x-2">
             <Typography tag="div" weight="bold" color="gray-dark">
@@ -98,7 +99,7 @@ export const ChannelOverview = ({
         </div>
       </div>
       {isCursorHover && (
-        <div className="space-x-3">
+        <div className="flex pr-4 pb-4 pl-4 items-center space-x-3">
           <Submit
             variant="button"
             color="white"
