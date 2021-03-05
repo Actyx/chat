@@ -28,7 +28,9 @@ export const ButtonLink = ({
   full,
   click,
 }: ButtonLinkProps) => {
-  const styles = cx('focus:outline-none', { 'w-full': full });
+  const styles = cx('focus:outline-none focus-visible:ring', {
+    'w-full': full,
+  });
 
   return (
     <button type={type} className={styles} onClick={click}>
