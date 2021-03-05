@@ -3,12 +3,12 @@ import { MessageId } from '../../../../business-logic/message/types';
 import { Typography } from '../../../common/Typography/Typography';
 import { MessageInput } from './MessageInput';
 import './channel.css';
-import { Header } from '../../../common/FlexPanel/Header';
 import { UsersIcon } from '../../../common/Icons/UsersIcon';
 import { UserIcon } from '../../../common/Icons/UserIcon';
 import { MessageList } from './MessageList';
 import { MessageUI } from './Message';
 import { StateContextUI } from '../../../ui-state-manager/UIStateManager';
+import { Header } from '../../../common/CentralSection/CentralSection';
 
 export type MessagesUI = ReadonlyArray<MessageUI>;
 

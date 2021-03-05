@@ -1,5 +1,8 @@
 import { useState } from 'react';
-import { FormEventElement, InputChangeEvent } from '../../../utils/ui-event-types';
+import {
+  FormEventElement,
+  InputChangeEvent,
+} from '../../../utils/ui-event-types';
 
 type EditChannelProps = Readonly<{
   currentName: string;

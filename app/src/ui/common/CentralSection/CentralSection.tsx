@@ -1,14 +1,21 @@
 import React, { ReactNode } from 'react';
-import { Header } from '../FlexPanel/Header';
 
 type CentralSectionProps = Readonly<{
   header: ReactNode;
   body: ReactNode;
 }>;
 
-const Body = ({ children }: Readonly<{ children: ReactNode }>) => (
-  <div className="overflow-y-auto channel-content-body">{children}</div>
+export const Body = ({ children }: Readonly<{ children: ReactNode }>) => (
+  <div className="overflow-y-auto">{children}</div>
 );
+
+export const Header = ({ children }: Readonly<{ children: ReactNode }>) => {
+  return (
+    <div className="flex items-center justify-between p-4 border-b h-16">
+      {children}
+    </div>
+  );
+};
 
 export const CentralSection = ({ header, body }: CentralSectionProps) => {
   return (

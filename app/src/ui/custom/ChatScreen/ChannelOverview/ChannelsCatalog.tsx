@@ -1,7 +1,11 @@
 import { Timestamp } from '@actyx/pond';
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { ChannelId } from '../../../../business-logic/message/types';
-import { Header } from '../../../common/FlexPanel/Header';
+import {
+  Body,
+  CentralSection,
+  Header,
+} from '../../../common/CentralSection/CentralSection';
 import { Typography } from '../../../common/Typography/Typography';
 import { ChannelOverview } from './ChannelOverview';
 
@@ -32,10 +36,6 @@ type ChannelsCatalogProps = Readonly<{
   dissociateUserChannel: (channelId: ChannelId) => void;
 }>;
 
-const Body = ({ children }: Readonly<{ children: ReactNode }>) => (
-  <div className="overflow-y-auto">{children}</div>
-);
-
 export const ChannelsCatalog = ({
   channels,
   editChannel,
@@ -46,13 +46,15 @@ export const ChannelsCatalog = ({
   dissociateUserChannel,
 }: ChannelsCatalogProps) => {
   return (
-    <div className="w-full overflow-y-auto	h-full">
-      <div className="flex flex-col h-full">
+    <CentralSection
+      header={
         <Header>
           <Typography tag="div" weight="bold" color="gray-dark">
             Channels overview
           </Typography>
         </Header>
+      }
+      body={
         <Body>
           {channels.map((c) => (
             <ChannelOverview
@@ -67,7 +69,7 @@ export const ChannelsCatalog = ({
             />
           ))}
         </Body>
-      </div>
-    </div>
+      }
+    />
   );
 };
