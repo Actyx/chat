@@ -53,10 +53,17 @@ export const mapPublicMessagesToChannelUI = (
   });
 
 export const mapChannelsToSidebarUI = (channels: Channels): ChannelsListUI =>
-  Object.values(channels).map((c) => ({
-    channelId: c.profile.channelId,
-    name: c.profile.name,
-  }));
+  Object.values(channels).reduce((acc, val) => {
+    return !val.profile.isArchived
+      ? [
+          ...acc,
+          {
+            channelId: val.profile.channelId,
+            name: val.profile.name,
+          },
+        ]
+      : acc;
+  }, [] as ChannelsListUI);
 
 export const mapUsersToSidebarUI = (users: Users): UsersListUI => {
   return Object.values(users).map((u) => ({
