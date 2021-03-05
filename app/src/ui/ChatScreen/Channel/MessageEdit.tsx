@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Submit } from '../../common/Submit/Submit';
+import { Button } from '../../common/Submit/Button';
 import {
   FormEventElement,
   TextAreaChangeEvent,
@@ -39,12 +39,12 @@ export const MessageEdit = ({
           onChange={handleChangeContent}
         />
         <div className="flex space-x-3">
-          <Submit variant="button" size="sm" color="white" click={close}>
+          <Button variant="button" size="sm" color="white" click={close}>
             Cancel
-          </Submit>
-          <Submit size="sm" color="green">
+          </Button>
+          <Button size="sm" color="green">
             Save changes
-          </Submit>
+          </Button>
         </div>
       </div>
     </form>

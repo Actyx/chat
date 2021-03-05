@@ -1,7 +1,7 @@
 import cx from 'classnames';
 import { useState } from 'react';
 import { ChannelId } from '../../../business-logic/message/types';
-import { Submit } from '../../common/Submit/Submit';
+import { Button } from '../../common/Submit/Button';
 import { CheckIcon } from '../../common/Icons/CheckIcon';
 import { Typography } from '../../common/Typography/Typography';
 import { DateTime } from '../../DateTime/DateTime';
@@ -100,48 +100,48 @@ export const ChannelOverview = ({
       </div>
       {isCursorHover && (
         <div className="flex pr-4 pb-4 pl-4 items-center space-x-3">
-          <Submit
+          <Button
             variant="button"
             color="white"
             click={() => editChannel(channelId)}
           >
             Edit
-          </Submit>
+          </Button>
           {canUserManageArchive && isArchived && (
-            <Submit
+            <Button
               variant="button"
               color="white"
               click={() => unarchiveChannel(channelId)}
             >
               Unarchive
-            </Submit>
+            </Button>
           )}
           {canUserManageArchive && !isArchived && (
-            <Submit
+            <Button
               variant="button"
               color="white"
               click={() => archiveChannel(channelId)}
             >
               Archive
-            </Submit>
+            </Button>
           )}
           {isSignedInUserAssociated && !isSystemUser && (
-            <Submit
+            <Button
               variant="button"
               color="white"
               click={() => dissociateUserChannel(channelId)}
             >
               Leave
-            </Submit>
+            </Button>
           )}
           {!isSignedInUserAssociated && !isSystemUser && (
-            <Submit
+            <Button
               variant="button"
               color="green"
               click={() => associateUserChannel(channelId)}
             >
               Join channel
-            </Submit>
+            </Button>
           )}
         </div>
       )}

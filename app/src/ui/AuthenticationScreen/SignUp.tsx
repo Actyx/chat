@@ -4,7 +4,7 @@ import { FormEventElement, InputChangeEvent } from '../utils/ui-event-types';
 import { TextField } from '../common/TextField/TextField';
 import { Heading1 } from '../common/Hedings/Heading1';
 import { SubHeading } from '../common/SubHeading/SubHeading';
-import { Submit } from '../common/Submit/Submit';
+import { Button } from '../common/Submit/Button';
 import { Alert } from '../common/Alert/Alert';
 import { Link } from '../common/Link/Link';
 import { ExclamationIcon } from '../common/Icons/ExclamationIcon';
@@ -58,7 +58,7 @@ export const SignUp = ({
             full
             onChange={handleChangeEmail}
           />
-          <Submit full>Sign-up</Submit>
+          <Button full>Sign-up</Button>
           {isSignUpSuccess !== undefined && (
             <Alert
               icon={!isSignUpSuccess && <ExclamationIcon color="red-medium" />}

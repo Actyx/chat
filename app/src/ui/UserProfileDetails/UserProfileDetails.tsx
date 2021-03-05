@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { FlexPanel } from '../common/FlexPanel/FlexPanel';
 import { FormEventElement, InputChangeEvent } from '../utils/ui-event-types';
 import { TextField } from '../common/TextField/TextField';
-import { Submit } from '../common/Submit/Submit';
+import { Button } from '../common/Submit/Button';
 import { Label } from '../common/Label/Label';
 import { Typography } from '../common/Typography/Typography';
 
@@ -49,12 +49,12 @@ export const UserProfileDetails = ({
           </Typography>
         </div>
         <div className="flex space-x-3">
-          <Submit variant="button" size="sm" color="white" click={close}>
+          <Button variant="button" size="sm" color="white" click={close}>
             Cancel
-          </Submit>
-          <Submit size="sm" color="green">
+          </Button>
+          <Button size="sm" color="green">
             Save changes
-          </Submit>
+          </Button>
         </div>
       </form>
       {isEditProfileSuccess === undefined

@@ -19,16 +19,16 @@ type VariantButton = BaseProps &
     click: () => void;
   }>;
 
-export type SubmitProps = VariantSubmit | VariantButton;
+export type ButtonProps = VariantSubmit | VariantButton;
 
-export const Submit = ({
+export const Button = ({
   variant = 'submit',
   color = 'purple',
   size = 'base',
   full = false,
   children,
   click,
-}: SubmitProps) => {
+}: ButtonProps) => {
   const isWhite = color === 'white';
   const isGreen = color === 'green';
   const isPurple = color === 'purple';
