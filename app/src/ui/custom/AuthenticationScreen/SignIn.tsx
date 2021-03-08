@@ -46,7 +46,7 @@ export const SignIn = ({
             required
             value={userUUID}
             full
-            onChange={handleChangeUserUUID}
+            change={handleChangeUserUUID}
           />
           <Button full>Sign-in</Button>
         </div>

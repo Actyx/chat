@@ -42,7 +42,7 @@ export const UserProfileDetails = ({
             required
             value={displayName}
             full
-            onChange={handleChangeDisplayName}
+            change={handleChangeDisplayName}
           />
           <Typography size="sm" color="gray-medium">
             However you’d like people to refer to you.

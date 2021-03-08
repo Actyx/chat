@@ -8,7 +8,7 @@ export type TextFieldProps = Readonly<{
   value?: string;
   placeholder?: string;
   full?: boolean;
-  onChange: (e: InputChangeEvent) => void;
+  change: (e: InputChangeEvent) => void;
 }>;
 
 export const TextField = ({
@@ -18,7 +18,7 @@ export const TextField = ({
   value,
   placeholder,
   full = false,
-  onChange,
+  change,
 }: TextFieldProps) => {
   const styles = cx('rounded', { 'w-full': full });
 
@@ -30,7 +30,7 @@ export const TextField = ({
       value={value}
       placeholder={placeholder}
       className={styles}
-      onChange={onChange}
+      onChange={change}
     />
   );
 };

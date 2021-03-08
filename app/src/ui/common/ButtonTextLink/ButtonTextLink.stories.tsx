@@ -8,6 +8,7 @@ export default {
   component: ButtonTextLink,
   argTypes: {
     children: { control: 'text' },
+    click: { action: 'click' },
   },
 } as Meta;
 

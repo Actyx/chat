@@ -14,7 +14,7 @@ const Template: Story<LabelProps> = (args) => (
     <Label {...args} htmlFor="test">
       Label
     </Label>
-    <TextField id="test" value="TextField" onChange={() => ({})} />
+    <TextField id="test" value="TextField" change={() => ({})} />
   </form>
 );
 

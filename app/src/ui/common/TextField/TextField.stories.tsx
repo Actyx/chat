@@ -4,8 +4,11 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import { TextField, TextFieldProps } from './TextField';
 
 export default {
-  title: 'Common/Form/TextField',
+  title: 'Common/TextField',
   component: TextField,
+  argTypes: {
+    change: { action: 'change' },
+  },
 } as Meta;
 
 const Template: Story<TextFieldProps> = (args) => <TextField {...args} />;

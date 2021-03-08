@@ -8,6 +8,7 @@ export default {
   component: ButtonArea,
   argTypes: {
     children: { control: 'text' },
+    click: { action: 'click' },
   },
 } as Meta;
 

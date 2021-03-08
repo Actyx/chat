@@ -10,6 +10,9 @@ import { mkLoremIpsum } from '../../utils/ui-content';
 export default {
   title: 'Common/Dialog',
   component: Dialog,
+  argTypes: {
+    close: { action: 'close' },
+  },
 } as Meta;
 
 const Template: Story<DialogProps> = (args) => <Dialog {...args} />;

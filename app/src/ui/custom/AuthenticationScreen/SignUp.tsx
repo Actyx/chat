@@ -48,7 +48,7 @@ export const SignUp = ({
             placeholder="Name"
             value={name}
             full
-            onChange={handleChangeName}
+            change={handleChangeName}
           />
           <TextField
             type="email"
@@ -56,7 +56,7 @@ export const SignUp = ({
             placeholder="name@work-email.com"
             value={email}
             full
-            onChange={handleChangeEmail}
+            change={handleChangeEmail}
           />
           <Button full>Sign-up</Button>
           {isSignUpSuccess !== undefined && (

@@ -14,7 +14,7 @@ export const Header = ({ title, close }: HeaderProps) => {
       <Typography size="xxl2" weight="bold" color="gray-dark">
         {title}
       </Typography>
-      <div className="flex justify-between items-center w-8 h-8 hover:bg-gray-100 rounded">
+      <div className="flex justify-center	items-center w-10 h-10 hover:bg-gray-100 rounded">
         <ButtonArea type="button" click={close}>
           <XIcon />
         </ButtonArea>

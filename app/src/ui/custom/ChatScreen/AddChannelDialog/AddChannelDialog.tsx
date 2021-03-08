@@ -63,7 +63,7 @@ export const AddChannelDialog = ({
                   full
                   value={name}
                   placeholder="e.g. plan-budget"
-                  onChange={handleChangeName}
+                  change={handleChangeName}
                 />
               </div>
               <div className="space-y-2">
@@ -76,7 +76,7 @@ export const AddChannelDialog = ({
                   type="text"
                   full
                   value={description}
-                  onChange={handleChangeDescription}
+                  change={handleChangeDescription}
                 />
                 <Typography size="sm" color="gray-medium">
                   What’s this channel about?
