@@ -44,6 +44,7 @@ type ChatProps = Readonly<{
   handleAddChannel: (name: string, description: string) => void;
   handleCloseEditChannelDialog: () => void;
   handleHideAddChannelDialog: () => void;
+  handleHideEditChannelDialog: () => void;
   handleShowEditChannelDialog: (channelId: ChannelId) => void;
   handleArchiveChannel: (channelId: ChannelId) => void;
   handleUnarchiveChannel: (channelId: ChannelId) => void;
@@ -95,6 +96,7 @@ export const Chat = ({
   handleAddChannel,
   handleCloseEditChannelDialog,
   handleHideAddChannelDialog,
+  handleHideEditChannelDialog,
   handleShowAddChannel,
   handleHideDialog,
 }: ChatProps) => {
@@ -176,6 +178,7 @@ export const Chat = ({
         <EditChannelDialog
           currentName={selectedChannel.name}
           currentDescription={selectedChannel.description}
+          closeDialog={handleHideEditChannelDialog}
           editChannel={(newName, newDescription) =>
             handleEditChannel(
               selectedChannel.channelId,
@@ -183,7 +186,6 @@ export const Chat = ({
               newDescription
             )
           }
-          closeDialog={handleCloseEditChannelDialog}
         />
       )}
       {renderDialog()}

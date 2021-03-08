@@ -37,17 +37,17 @@ export const AddChannelDialog = ({
   const handleChangeDescription = (e: InputChangeEvent) =>
     setDescription(e.target.value);
 
-  const handleSubmit = () => {
+  const handleAddChannel = () => {
     addChannel(name, description);
     dispatch(hideDialog());
   };
+
   return (
     <Dialog
       close={closeDialog}
       header={<Header title="Create a channel" close={closeDialog} />}
       body={
         <Body>
-          {errorMessage}
           <div className="space-y-6">
             <Typography color="gray-medium">
               Channels are where your team communicates. They’re best when
@@ -83,11 +83,12 @@ export const AddChannelDialog = ({
                 </Typography>
               </div>
             </form>
+            {errorMessage}
             {invalidMessage}
           </div>
         </Body>
       }
-      footer={<Footer textConfirm="Create" confirm={handleSubmit} />}
+      footer={<Footer textConfirm="Create" confirm={handleAddChannel} />}
     ></Dialog>
   );
 };

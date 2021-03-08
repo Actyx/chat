@@ -198,6 +198,8 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
 
   const handleHideAddChannelDialog = () => setShowEditChannelDialog(false);
 
+  const handleHideEditChannelDialog = () => setShowEditChannelDialog(false);
+
   const handleShowEditChannelDialog = (channelId: ChannelId) => {
     const channelProfile = getChannelProfileByChannelId(
       channelId,
@@ -378,6 +380,7 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
       handleAddChannel={handleAddChannel}
       handleCloseEditChannelDialog={handleCloseEditChannelDialog}
       handleHideAddChannelDialog={handleHideAddChannelDialog}
+      handleHideEditChannelDialog={handleHideEditChannelDialog}
       handleArchiveChannel={handleArchiveChannel}
       handleUnarchiveChannel={handleUnarchiveChannel}
       handleAssociateUserChannel={handleAssociateUserChannel}

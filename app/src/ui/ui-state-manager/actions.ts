@@ -12,6 +12,7 @@ import {
   ShowChannelSection,
   ShowAddChannelDialog,
   HideDialog,
+  ShowEditChannelDialog,
 } from './types';
 
 export const goToAutheticationScreen = (): GoToAuthenticationScreen => ({
@@ -60,8 +61,13 @@ export const signOutActiveUser = (): SignOutActiveUser => ({
   type: ActionType.SignOutActiveUser,
 });
 
+// FIXME peraphs use a more generic fn;
 export const showAddChannelDialog = (): ShowAddChannelDialog => ({
   type: ActionType.ShowAddChannelDialog,
+});
+
+export const showEditChannelDialog = (): ShowEditChannelDialog => ({
+  type: ActionType.ShowEditChannelDialog,
 });
 
 export const hideDialog = (): HideDialog => ({

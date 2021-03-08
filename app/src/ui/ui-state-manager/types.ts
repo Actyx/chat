@@ -15,6 +15,7 @@ export enum Screens {
 export enum Dialogs {
   None = 'None',
   AddChannel = 'AddChannel',
+  EditChannel = 'EditChannel',
 }
 
 export enum SectionRight {
@@ -49,6 +50,7 @@ export enum ActionType {
   ShowChannelsCatalogSection = 'ShowChannelsCatalogSection',
   ShowChannelSection = 'ShowChannelSection',
   ShowAddChannelDialog = 'ShowAddChannelDialog',
+  ShowEditChannelDialog = 'ShowEditChannelDialog',
   HideDialog = 'HideDialog',
 }
 
@@ -91,6 +93,10 @@ export type SignOutActiveUser = Readonly<{
 
 export type ShowAddChannelDialog = Readonly<{
   type: ActionType.ShowAddChannelDialog;
+}>;
+
+export type ShowEditChannelDialog = Readonly<{
+  type: ActionType.ShowEditChannelDialog;
 }>;
 
 export type HideDialog = Readonly<{
