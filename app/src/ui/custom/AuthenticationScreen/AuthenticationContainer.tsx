@@ -18,6 +18,7 @@ import {
 } from '../../ui-state-manager/actions';
 import { UserCatalogFish } from '../../../business-logic/user-catalog-fish/user-catalog-fish';
 import { CreateAccount } from './CreateAccount';
+import { ErrorBoundary } from '../../common/ErrorBoundary/ErrorBoundary';
 
 type AuthenticationContainerProps = Readonly<{
   pond: Pond;
@@ -80,21 +81,23 @@ export const AuthenticationContainer = ({
     <div className="mt-24 flex flex-col w-screen items-center">
       {pondErrorMessage}
       {showSignUp ? (
-        <SignUp
-          signUp={handleSignUp}
-          isSignUpSuccess={isSignUpSuccess}
-          userUUID={userUUID}
-          showSignIn={handleShowSignIn}
-        />
+        <ErrorBoundary>
+          <SignUp
+            signUp={handleSignUp}
+            isSignUpSuccess={isSignUpSuccess}
+            userUUID={userUUID}
+            showSignIn={handleShowSignIn}
+          />
+        </ErrorBoundary>
       ) : (
-        <>
+        <ErrorBoundary>
           <CreateAccount createAccount={handleShowSignUp} />
           <SignIn
             isSignInSuccess={isSignInSuccess}
             signIn={handleSignIn}
             goToChatScreen={handleGoToChatScreen}
           />
-        </>
+        </ErrorBoundary>
       )}
     </div>
   );
