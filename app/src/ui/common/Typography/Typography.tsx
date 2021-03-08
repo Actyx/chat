@@ -5,7 +5,7 @@ import { ColorUI, mkColor } from '../../utils/ui-colors';
 type HTMLTag = 'span' | 'h1' | 'div';
 
 export type TypographyProps = Readonly<{
-  size?: 'base' | 'sm' | 'lg' | 'xxl';
+  size?: 'base' | 'sm' | 'lg' | 'xxl' | 'xxl2';
   tag?: HTMLTag;
   children: ReactNode;
   weight?: 'normal' | 'medium' | 'semibold' | 'bold';
@@ -38,6 +38,7 @@ export const Typography = ({
       'text-base': size === 'base',
       'text-sm': size === 'sm',
       'text-lg': size === 'lg',
+      'text-2xl': size === 'xxl2',
       'text-5xl': size === 'xxl',
       'font-normal': weight === 'normal',
       'font-medium': weight === 'medium',

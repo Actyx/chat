@@ -1,10 +1,11 @@
 import cx from 'classnames';
+import { ReactNode } from 'react';
 
 type BaseProps = Readonly<{
   color?: 'purple' | 'green' | 'white';
   size?: 'base' | 'sm';
   full?: boolean;
-  children: string;
+  children: ReactNode;
   click?: () => void;
 }>;
 

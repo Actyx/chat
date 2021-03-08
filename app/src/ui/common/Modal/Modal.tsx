@@ -6,6 +6,6 @@ export type ModalProps = Readonly<{
 
 export const Modal = ({ children }: ModalProps) => {
   return (
-    <div className="w-screen h-screen bg-black opacity-60">{children}</div>
+    <div className="w-screen h-screen bg-black bg-opacity-60">{children}</div>
   );
 };

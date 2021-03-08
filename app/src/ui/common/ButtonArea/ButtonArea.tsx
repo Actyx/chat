@@ -22,7 +22,7 @@ type ButtonAreaSumbit = ButtonAreaBase &
 
 export type ButtonAreaProps = ButtonAreaButton | ButtonAreaSumbit;
 
-export const ButtonLink = ({
+export const ButtonArea = ({
   type,
   children,
   full,

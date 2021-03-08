@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { mkColor } from '../../utils/ui-colors';
 import { LogoutIcon } from '../../common/Icons/LogoutIcon';
 import { Typography } from '../../common/Typography/Typography';
-import { ButtonLink } from '../../common/ButtonArea/ButtonArea';
+import { ButtonArea } from '../../common/ButtonArea/ButtonArea';
 import {
   showUserProfileEditSection,
   signOutActiveUser,
@@ -33,12 +33,12 @@ export const TopBar = ({ userDisplayName }: Props) => {
 
   return (
     <div className={style}>
-      <ButtonLink type="button" click={handleEditUserProfile}>
+      <ButtonArea type="button" click={handleEditUserProfile}>
         <Typography color="gray-light">{userDisplayName}</Typography>
-      </ButtonLink>
-      <ButtonLink type="button" click={handleSignOut}>
+      </ButtonArea>
+      <ButtonArea type="button" click={handleSignOut}>
         <LogoutIcon color="gray-light" />
-      </ButtonLink>
+      </ButtonArea>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { XIcon } from '../Icons/XIcon';
 import { Typography } from '../Typography/Typography';
-import { ButtonLink } from '../ButtonArea/ButtonArea';
+import { ButtonArea } from '../ButtonArea/ButtonArea';
 import { Header } from '../CentralSection/CentralSection';
 
 export type FlexPanelProps = Readonly<{
@@ -17,9 +17,9 @@ export const FlexPanel = ({ title, close, children }: FlexPanelProps) => {
         <Typography tag="div" weight="bold" color="gray-dark">
           {title}
         </Typography>
-        <ButtonLink type="button" click={close}>
+        <ButtonArea type="button" click={close}>
           <XIcon size="base" color="gray-dark" />
-        </ButtonLink>
+        </ButtonArea>
       </Header>
       <div className="p-4">{children}</div>
     </div>

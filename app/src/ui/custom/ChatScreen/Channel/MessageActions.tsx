@@ -1,5 +1,5 @@
 import React from 'react';
-import { ButtonLink } from '../../../common/ButtonArea/ButtonArea';
+import { ButtonArea } from '../../../common/ButtonArea/ButtonArea';
 import { PencilAltIcon } from '../../../common/Icons/PencilAlt';
 import { TrashIcon } from '../../../common/Icons/TrashIcon';
 
@@ -19,14 +19,14 @@ export const MessageActions = ({
   return (
     <div className="absolute -top-5 right-4 p-3 flex space-x-3 rounded bg-white shadow">
       {canEdit && (
-        <ButtonLink type="button" click={edit}>
+        <ButtonArea type="button" click={edit}>
           <PencilAltIcon />
-        </ButtonLink>
+        </ButtonArea>
       )}
       {canHide && (
-        <ButtonLink type="button" click={hide}>
+        <ButtonArea type="button" click={hide}>
           <TrashIcon />
-        </ButtonLink>
+        </ButtonArea>
       )}
     </div>
   );
