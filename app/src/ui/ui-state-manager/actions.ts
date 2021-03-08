@@ -10,6 +10,8 @@ import {
   GoToChatScreen,
   ShowChannelsCatalogSection,
   ShowChannelSection,
+  ShowAddChannelDialog,
+  HideDialog,
 } from './types';
 
 export const goToAutheticationScreen = (): GoToAuthenticationScreen => ({
@@ -56,4 +58,12 @@ export const closeSectionRight = (): EditSectionRight => ({
 
 export const signOutActiveUser = (): SignOutActiveUser => ({
   type: ActionType.SignOutActiveUser,
+});
+
+export const showAddChannelDialog = (): ShowAddChannelDialog => ({
+  type: ActionType.ShowAddChannelDialog,
+});
+
+export const hideDialog = (): HideDialog => ({
+  type: ActionType.HideDialog,
 });

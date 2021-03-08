@@ -1,5 +1,5 @@
 import React, { ReactNode, useContext } from 'react';
-import { SectionCenter } from '../../../ui-state-manager/types';
+import { Dialogs, SectionCenter } from '../../../ui-state-manager/types';
 import { ChannelsListUI, Sidebar, UsersListUI } from '../Sidebar/Sidebar';
 import { TopBar } from '../TopBar';
 import { UserProfileDetails } from '../../UserProfileDetails/UserProfileDetails';
@@ -55,6 +55,7 @@ type ChatProps = Readonly<{
     newName: string,
     newDescription: string
   ) => void;
+  handleShowAddChannel: () => void;
 }>;
 
 const MainContent = ({ children }: Readonly<{ children: ReactNode }>) => {
@@ -93,8 +94,18 @@ export const Chat = ({
   handleAddChannel,
   handleCloseEditChannelDialog,
   handleHideAddChannelDialog,
+  handleShowAddChannel,
 }: ChatProps) => {
   const stateUI = useContext(StateContextUI);
+
+  const renderDialog = () => {
+    switch (stateUI.dialog) {
+      case Dialogs.AddChannel:
+        return <div>ADD NEW CHANNEL DIALOG HERE</div>;
+      case Dialogs.None:
+        return undefined;
+    }
+  };
 
   const renderSectionCenter = () => {
     switch (stateUI.sectionCenter) {
@@ -120,6 +131,7 @@ export const Chat = ({
             unarchiveChannel={handleUnarchiveChannel}
             associateUserChannel={handleAssociateUserChannel}
             dissociateUserChannel={handleDissociateUserChannel}
+            showAddChannel={handleShowAddChannel}
           />
         );
     }
@@ -167,6 +179,7 @@ export const Chat = ({
           closeDialog={handleCloseEditChannelDialog}
         />
       )}
+      {renderDialog()}
       {pondErrorMessage}
     </div>
   );

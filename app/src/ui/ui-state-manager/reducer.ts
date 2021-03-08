@@ -1,6 +1,13 @@
 import { DEFAULT_CHANNEL } from '../../business-logic/channel-fish/channel-fish';
 import { ANONYMOUS_USER } from '../../business-logic/user-catalog-fish/types';
-import { Action, ActionType, Screens, SectionCenter, StateUI } from './types';
+import {
+  Action,
+  ActionType,
+  Dialogs,
+  Screens,
+  SectionCenter,
+  StateUI,
+} from './types';
 
 export const reducer = (state: StateUI, action: Action): StateUI => {
   switch (action.type) {
@@ -42,6 +49,16 @@ export const reducer = (state: StateUI, action: Action): StateUI => {
         userUUID: ANONYMOUS_USER,
         activeChannelId: DEFAULT_CHANNEL.channelId,
         screen: Screens.Authentication,
+      };
+    case ActionType.ShowAddChannelDialog:
+      return {
+        ...state,
+        dialog: Dialogs.AddChannel,
+      };
+    case ActionType.HideDialog:
+      return {
+        ...state,
+        dialog: Dialogs.None,
       };
     default:
       return state;

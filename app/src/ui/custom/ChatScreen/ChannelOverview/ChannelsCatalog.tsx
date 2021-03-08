@@ -1,6 +1,7 @@
 import { Timestamp } from '@actyx/pond';
 import React from 'react';
 import { ChannelId } from '../../../../business-logic/message/types';
+import { Button } from '../../../common/Button/Button';
 import {
   CentralSection,
   Header,
@@ -33,6 +34,7 @@ type ChannelsCatalogProps = Readonly<{
   unarchiveChannel: (channelId: ChannelId) => void;
   associateUserChannel: (channelId: ChannelId) => void;
   dissociateUserChannel: (channelId: ChannelId) => void;
+  showAddChannel: () => void;
 }>;
 
 export const ChannelsCatalog = ({
@@ -43,15 +45,21 @@ export const ChannelsCatalog = ({
   unarchiveChannel,
   associateUserChannel,
   dissociateUserChannel,
+  showAddChannel,
 }: ChannelsCatalogProps) => {
   return (
     <CentralSection
       header={
-        <Header>
-          <Typography tag="div" weight="bold" color="gray-dark">
-            Channels overview
-          </Typography>
-        </Header>
+        <>
+          <Header>
+            <Typography tag="div" weight="bold" color="gray-dark">
+              Channels overview
+            </Typography>
+          </Header>
+          <Button type="button" color="white" click={showAddChannel}>
+            Create Channel
+          </Button>
+        </>
       }
       body={channels.map((c) => (
         <ChannelOverview

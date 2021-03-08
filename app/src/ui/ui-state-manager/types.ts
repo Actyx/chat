@@ -48,6 +48,8 @@ export enum ActionType {
   SignOutActiveUser = 'SignOutActiveUser',
   ShowChannelsCatalogSection = 'ShowChannelsCatalogSection',
   ShowChannelSection = 'ShowChannelSection',
+  ShowAddChannelDialog = 'ShowAddChannelDialog',
+  HideDialog = 'HideDialog',
 }
 
 export type GoToAuthenticationScreen = Readonly<{
@@ -87,6 +89,14 @@ export type SignOutActiveUser = Readonly<{
   type: ActionType.SignOutActiveUser;
 }>;
 
+export type ShowAddChannelDialog = Readonly<{
+  type: ActionType.ShowAddChannelDialog;
+}>;
+
+export type HideDialog = Readonly<{
+  type: ActionType.HideDialog;
+}>;
+
 export type Action =
   | GoToAuthenticationScreen
   | GoToChatScreen
@@ -94,7 +104,9 @@ export type Action =
   | ShowChannelSection
   | AddSignedInUser
   | EditSectionRight
-  | SignOutActiveUser;
+  | SignOutActiveUser
+  | ShowAddChannelDialog
+  | HideDialog;
 
 export type Dispatcher = Dispatch<Action>;
 
