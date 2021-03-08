@@ -20,7 +20,7 @@ export const TextField = ({
   full = false,
   change,
 }: TextFieldProps) => {
-  const styles = cx('rounded', 'focus:outline-none focus:ring', {
+  const styles = cx('rounded', 'focus:outline-none', {
     'w-full': full,
   });
 
