@@ -1,11 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Dialog } from '../../../common/Dialog/Dialog';
 import { Header } from '../../../common/Dialog/Header';
 import { Body } from '../../../common/Dialog/Body';
 import { InputChangeEvent } from '../../../utils/ui-event-types';
 import { Footer } from '../../../common/Dialog/Footer';
-import { DispatchContextUI } from '../../../ui-state-manager/UIStateManager';
-import { hideDialog } from '../../../ui-state-manager/actions';
 import { Label } from '../../../common/Label/Label';
 import { TextField } from '../../../common/TextField/TextField';
 import { Typography } from '../../../common/Typography/Typography';
@@ -22,13 +20,10 @@ const FIELD_NAME = 'add-channel-dialog-textfield-name';
 const FIELD_DESCRIPTION = 'add-channel-dialog-textfield-description';
 
 export const AddChannelDialog = ({
-  errorMessage,
   invalidMessage,
   addChannel,
   closeDialog,
 }: AddChannelDialogProps) => {
-  const dispatch = useContext(DispatchContextUI);
-
   const [name, setName] = useState<string>('');
 
   const [description, setDescription] = useState<string>('');
@@ -40,7 +35,6 @@ export const AddChannelDialog = ({
 
   const handleAddChannel = () => {
     addChannel(name, description);
-    dispatch(hideDialog());
   };
 
   return (
@@ -83,9 +77,8 @@ export const AddChannelDialog = ({
                   What’s this channel about?
                 </Typography>
               </div>
-              {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
               {invalidMessage && (
-                <Alert variant="danger">{invalidMessage}</Alert>
+                <Alert variant="warning">{invalidMessage}</Alert>
               )}
             </form>
           </div>

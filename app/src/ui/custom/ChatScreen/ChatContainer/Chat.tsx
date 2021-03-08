@@ -7,7 +7,7 @@ import { Channel } from '../Channel/Channel';
 import {
   ChannelsCatalog,
   ChannelsOverviewUI,
-} from '../ChannelOverview/ChannelsCatalog';
+} from '../ChannelsCatalog/ChannelsCatalog';
 import { MessageUI } from '../Channel/Message';
 import { ChannelId, MessageId } from '../../../../business-logic/message/types';
 import { EditChannelDialog } from '../EditChannelDialog/EditChannelDialog';
@@ -15,7 +15,7 @@ import { AddChannelDialog } from '../AddChannelDialog/AddChannelDialog';
 import './chat.css';
 import { StateContextUI } from '../../../ui-state-manager/UIStateManager';
 import { ErrorBoundary } from '../../../common/ErrorBoundary/ErrorBoundary';
-import { ErrorPond } from '../../ErrorPond/ErrorPond';
+import { PondErrorMessage } from '../../PondErrorMessage/PondErrorMessage';
 
 type ChatProps = Readonly<{
   appName: string;
@@ -27,8 +27,6 @@ type ChatProps = Readonly<{
   channelDescription: string;
   channelMessages: ReadonlyArray<MessageUI>;
   channelsOverviewCatalog: ChannelsOverviewUI;
-  showAddChannelDialog: boolean;
-  showEditChannelDialog: boolean;
   selectedChannel?: Readonly<{
     channelId: ChannelId;
     name: string;
@@ -39,15 +37,12 @@ type ChatProps = Readonly<{
   pondErrorMessage?: string;
   invalidMessage?: string;
   handleShowAddChannelDialog: () => void;
+  handleShowEditChannelDialog: (channelId: ChannelId) => void;
   handleEditUserProfile: (displayName: string) => void;
   handleAddMessage: (content: string) => void;
   handleEditMessage: (messageId: MessageId, content: string) => void;
   handleHideMessage: (messageId: MessageId) => void;
   handleAddChannel: (name: string, description: string) => void;
-  handleCloseEditChannelDialog: () => void;
-  handleHideAddChannelDialog: () => void;
-  handleHideEditChannelDialog: () => void;
-  handleShowEditChannelDialog: (channelId: ChannelId) => void;
   handleArchiveChannel: (channelId: ChannelId) => void;
   handleUnarchiveChannel: (channelId: ChannelId) => void;
   handleAssociateUserChannel: (channelId: ChannelId) => void;
@@ -58,7 +53,6 @@ type ChatProps = Readonly<{
     newName: string,
     newDescription: string
   ) => void;
-  handleShowAddChannel: () => void;
   handleHideDialog: () => void;
 }>;
 
@@ -73,7 +67,6 @@ export const Chat = ({
   channelsSideBarUI,
   usersSideBarUI,
   canShowUserProfileDetails,
-  handleShowAddChannelDialog,
   handleAddMessage,
   handleEditUserProfile,
   handleEditMessage,
@@ -89,18 +82,13 @@ export const Chat = ({
   handleAssociateUserChannel,
   handleDissociateUserChannel,
   handleHideUserProfileDetails,
-  showAddChannelDialog,
-  showEditChannelDialog,
   selectedChannel,
   pondErrorMessage,
   handleEditChannel,
   invalidMessage,
   handleAddChannel,
-  handleCloseEditChannelDialog,
-  handleHideAddChannelDialog,
-  handleHideEditChannelDialog,
-  handleShowAddChannel,
   handleHideDialog,
+  handleShowAddChannelDialog,
 }: ChatProps) => {
   const stateUI = useContext(StateContextUI);
 
@@ -109,10 +97,27 @@ export const Chat = ({
       case Dialogs.AddChannel:
         return (
           <AddChannelDialog
+            invalidMessage={invalidMessage}
             closeDialog={handleHideDialog}
             addChannel={handleAddChannel}
           />
         );
+      case Dialogs.EditChannel:
+        return selectedChannel ? (
+          <EditChannelDialog
+            invalidMessage={invalidMessage}
+            currentName={selectedChannel.name}
+            currentDescription={selectedChannel.description}
+            closeDialog={handleHideDialog}
+            editChannel={(newName, newDescription) =>
+              handleEditChannel(
+                selectedChannel.channelId,
+                newName,
+                newDescription
+              )
+            }
+          />
+        ) : undefined;
       case Dialogs.None:
         return undefined;
     }
@@ -142,7 +147,7 @@ export const Chat = ({
             unarchiveChannel={handleUnarchiveChannel}
             associateUserChannel={handleAssociateUserChannel}
             dissociateUserChannel={handleDissociateUserChannel}
-            showAddChannel={handleShowAddChannel}
+            showAddChannel={handleShowAddChannelDialog}
           />
         );
     }
@@ -157,7 +162,6 @@ export const Chat = ({
             appName={appName}
             channels={channelsSideBarUI}
             users={usersSideBarUI}
-            showAddChannelDialog={handleShowAddChannelDialog}
           />
         </ErrorBoundary>
         <ErrorBoundary>{renderSectionCenter()}</ErrorBoundary>
@@ -171,31 +175,10 @@ export const Chat = ({
           )}
         </ErrorBoundary>
       </MainContent>
-
-      {showAddChannelDialog && (
-        <AddChannelDialog
-          errorMessage={pondErrorMessage}
-          invalidMessage={invalidMessage}
-          addChannel={handleAddChannel}
-          closeDialog={handleHideAddChannelDialog}
-        />
-      )}
-      {showEditChannelDialog && selectedChannel && (
-        <EditChannelDialog
-          currentName={selectedChannel.name}
-          currentDescription={selectedChannel.description}
-          closeDialog={handleHideEditChannelDialog}
-          editChannel={(newName, newDescription) =>
-            handleEditChannel(
-              selectedChannel.channelId,
-              newName,
-              newDescription
-            )
-          }
-        />
-      )}
       {renderDialog()}
-      {pondErrorMessage && <ErrorPond errorMessage={pondErrorMessage} />}
+      {pondErrorMessage && (
+        <PondErrorMessage variant="danger" message={pondErrorMessage} />
+      )}
     </div>
   );
 };

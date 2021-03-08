@@ -19,7 +19,7 @@ import {
 import { UserCatalogFish } from '../../../business-logic/user-catalog-fish/user-catalog-fish';
 import { CreateAccount } from './CreateAccount';
 import { ErrorBoundary } from '../../common/ErrorBoundary/ErrorBoundary';
-import { ErrorPond } from '../ErrorPond/ErrorPond';
+import { PondErrorMessage } from '../PondErrorMessage/PondErrorMessage';
 
 type AuthenticationContainerProps = Readonly<{
   pond: Pond;
@@ -99,7 +99,9 @@ export const AuthenticationContainer = ({
           />
         </ErrorBoundary>
       )}
-      {pondErrorMessage && <ErrorPond errorMessage={pondErrorMessage} />}
+      {pondErrorMessage && (
+        <PondErrorMessage variant="danger" message={pondErrorMessage} />
+      )}
     </div>
   );
 };

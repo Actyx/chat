@@ -55,6 +55,11 @@ export const reducer = (state: StateUI, action: Action): StateUI => {
         ...state,
         dialog: Dialogs.AddChannel,
       };
+    case ActionType.ShowEditChannelDialog:
+      return {
+        ...state,
+        dialog: Dialogs.EditChannel,
+      };
     case ActionType.HideDialog:
       return {
         ...state,

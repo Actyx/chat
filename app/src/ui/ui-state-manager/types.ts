@@ -112,6 +112,7 @@ export type Action =
   | EditSectionRight
   | SignOutActiveUser
   | ShowAddChannelDialog
+  | ShowEditChannelDialog
   | HideDialog;
 
 export type Dispatcher = Dispatch<Action>;

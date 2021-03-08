@@ -1,19 +1,17 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
+import { Alert } from '../../../common/Alert/Alert';
 import { Body } from '../../../common/Dialog/Body';
 import { Dialog } from '../../../common/Dialog/Dialog';
 import { Footer } from '../../../common/Dialog/Footer';
 import { Header } from '../../../common/Dialog/Header';
 import { Label } from '../../../common/Label/Label';
 import { TextField } from '../../../common/TextField/TextField';
-import { hideDialog } from '../../../ui-state-manager/actions';
-import { DispatchContextUI } from '../../../ui-state-manager/UIStateManager';
 import { InputChangeEvent } from '../../../utils/ui-event-types';
 
 type EditChannelDialogProps = Readonly<{
   currentName: string;
   currentDescription: string;
-  messageError?: string;
-  messageInvalid?: string;
+  invalidMessage?: string;
   editChannel: (name: string, description: string) => void;
   closeDialog: () => void;
 }>;
@@ -24,13 +22,10 @@ const FIELD_DESCRIPTION = 'edit-channel-dialog-textfield-description';
 export const EditChannelDialog = ({
   currentName,
   currentDescription,
-  messageError,
-  messageInvalid,
+  invalidMessage,
   editChannel,
   closeDialog,
 }: EditChannelDialogProps) => {
-  const dispatch = useContext(DispatchContextUI);
-
   const [name, setName] = useState<string>(currentName);
 
   const [description, setDescription] = useState<string>(currentDescription);
@@ -42,7 +37,6 @@ export const EditChannelDialog = ({
 
   const handleEditChannel = () => {
     editChannel(name, description);
-    dispatch(hideDialog());
   };
 
   return (
@@ -71,9 +65,10 @@ export const EditChannelDialog = ({
                   change={handleChangeDescription}
                 />
               </div>
+              {invalidMessage && (
+                <Alert variant="warning">{invalidMessage}</Alert>
+              )}
             </form>
-            {messageError}
-            {messageInvalid}
           </div>
         </Body>
       }

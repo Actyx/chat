@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { ColorUI } from '../../utils/ui-colors';
 import { Typography } from '../Typography/Typography';
 
-type Variant = 'secondary' | 'danger' | 'success';
+type Variant = 'secondary' | 'danger' | 'warning' | 'success';
 
 export type AlertProps = Readonly<{
   variant: Variant;
@@ -20,6 +20,8 @@ const color = (variant: Variant): ColorUI => {
       return 'red-dark';
     case 'success':
       return 'green-dark';
+    case 'warning':
+      return 'yellow-dark';
   }
 };
 
@@ -30,6 +32,7 @@ export const Alert = ({ variant, full = true, icon, children }: AlertProps) => {
     'bg-gray-100': variant === 'secondary',
     'bg-red-100': variant === 'danger',
     'bg-green-100': variant === 'success',
+    'bg-yellow-100': variant === 'warning',
   });
 
   return (

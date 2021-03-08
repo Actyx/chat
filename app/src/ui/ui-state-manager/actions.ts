@@ -70,6 +70,9 @@ export const showEditChannelDialog = (): ShowEditChannelDialog => ({
   type: ActionType.ShowEditChannelDialog,
 });
 
-export const hideDialog = (): HideDialog => ({
-  type: ActionType.HideDialog,
-});
+export const hideDialog = (): HideDialog => {
+  console.log('HIDE DIALGO');
+  return {
+    type: ActionType.HideDialog,
+  };
+};

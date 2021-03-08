@@ -3,7 +3,7 @@ import { Pond } from '@actyx/pond';
 import { UIStateManager } from './ui/ui-state-manager/UIStateManager';
 import { ScreenRooter as ScreenRouter } from './ui/custom/ScreenRouter/ScreenRouter';
 import { Debug } from './ui/custom/Debug/Debug';
-import { ErrorPond } from './ui/custom/ErrorPond/ErrorPond';
+import { PondErrorMessage } from './ui/custom/PondErrorMessage/PondErrorMessage';
 import { CircularProgress } from './ui/common/CircularProgress/CircularProgress';
 
 export const App = () => {
@@ -34,7 +34,9 @@ export const App = () => {
         ) : (
           <CircularProgress />
         )}
-        {pondErrorMessage && <ErrorPond errorMessage={pondErrorMessage} />}
+        {pondErrorMessage && (
+          <PondErrorMessage variant="danger" message={pondErrorMessage} />
+        )}
       </>
     </UIStateManager>
   );

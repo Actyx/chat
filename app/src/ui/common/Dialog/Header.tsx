@@ -14,11 +14,11 @@ export const Header = ({ title, close }: HeaderProps) => {
       <Typography size="xxl2" weight="bold" color="gray-dark">
         {title}
       </Typography>
-      <div className="flex justify-center	items-center w-10 h-10 hover:bg-gray-100 rounded">
-        <ButtonArea type="button" click={close}>
+      <ButtonArea type="button" click={close}>
+        <div className="flex justify-center	items-center w-10 h-10 hover:bg-gray-100 rounded">
           <XIcon />
-        </ButtonArea>
-      </div>
+        </div>
+      </ButtonArea>
     </div>
   );
 };

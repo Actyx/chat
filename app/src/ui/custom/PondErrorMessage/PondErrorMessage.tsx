@@ -3,19 +3,20 @@ import { Alert } from '../../common/Alert/Alert';
 import { Modal } from '../../common/Modal/Modal';
 import { Typography } from '../../common/Typography/Typography';
 
-type ErrorPondProps = Readonly<{
-  errorMessage: string;
+type AlertMessageProps = Readonly<{
+  variant: 'warning' | 'danger';
+  message: string;
 }>;
 
-export const ErrorPond = ({ errorMessage }: ErrorPondProps) => {
+export const PondErrorMessage = ({ variant, message }: AlertMessageProps) => {
   return (
     <Modal>
-      <Alert variant="danger">
+      <Alert variant={variant}>
         <div className="space-x-2">
           <Typography weight="bold" color="red-dark">
-            Error:
+            {variant === 'warning' ? 'Warning:' : 'Error:'}
           </Typography>
-          <Typography>{errorMessage}</Typography>
+          <Typography>{message}</Typography>
         </div>
       </Alert>
     </Modal>

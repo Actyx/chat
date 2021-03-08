@@ -27,8 +27,9 @@ import { UserCatalogFish } from '../../../../business-logic/user-catalog-fish/us
 import {
   closeSectionRight,
   hideDialog,
+  showEditChannelDialog,
 } from '../../../ui-state-manager/actions';
-import { showAddChannelDialog as showChannelDialog } from '../../../ui-state-manager/actions';
+import { showAddChannelDialog } from '../../../ui-state-manager/actions';
 import { SectionRight } from '../../../ui-state-manager/types';
 import {
   DispatchContextUI,
@@ -64,14 +65,6 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
   const dispatch = useContext(DispatchContextUI);
 
   const stateUI = useContext(StateContextUI);
-
-  const [showAddChannelDialog, setShowAddChannelDialog] = useState<boolean>(
-    false
-  );
-
-  const [showEditChannelDialog, setShowEditChannelDialog] = useState<boolean>(
-    false
-  );
 
   const [selectedChannel, setSelectedChannel] = useState<
     Readonly<{ channelId: ChannelId; name: string; description: string }>
@@ -194,11 +187,9 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
     }
   };
 
-  const handleShowAddChannelDialog = () => setShowAddChannelDialog(true);
-
-  const handleHideAddChannelDialog = () => setShowEditChannelDialog(false);
-
-  const handleHideEditChannelDialog = () => setShowEditChannelDialog(false);
+  const handleHideDialog = () => {
+    dispatch(hideDialog());
+  };
 
   const handleShowEditChannelDialog = (channelId: ChannelId) => {
     const channelProfile = getChannelProfileByChannelId(
@@ -211,11 +202,9 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
         name: channelProfile.name,
         description: channelProfile.description ?? '',
       });
-      setShowEditChannelDialog(true);
+      dispatch(showEditChannelDialog());
     }
   };
-
-  const handleCloseEditChannelDialog = () => setShowEditChannelDialog(false);
 
   const handleAddChannel = async (name: string, description: string) => {
     try {
@@ -225,13 +214,14 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
       );
       if (isSuccess) {
         setPondErrorMessage(undefined);
-        setInvalidMessage(undefined);
-        handleHideAddChannelDialog();
+        // setInvalidMessage(undefined);
+        dispatch(hideDialog());
+        // handleHideDialog();
       } else {
         setInvalidMessage(MESSAGE.invalidName);
       }
     } catch (err) {
-      setInvalidMessage(undefined);
+      // setInvalidMessage(undefined);
       setPondErrorMessage(err);
     }
   };
@@ -248,13 +238,14 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
       );
       if (isSuccess) {
         setPondErrorMessage(undefined);
-        setInvalidMessage(undefined);
-        handleHideAddChannelDialog();
+        dispatch(hideDialog());
+        // setInvalidMessage(undefined);
+        // handleHideDialog();
       } else {
         setInvalidMessage(MESSAGE.invalidName);
       }
     } catch (err) {
-      setInvalidMessage(undefined);
+      // setInvalidMessage(undefined);
       setPondErrorMessage(err);
     }
   };
@@ -297,9 +288,9 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
 
   const handleHideUserProfileDetails = () => dispatch(closeSectionRight());
 
-  const handleShowAddChannel = () => dispatch(showChannelDialog());
-
-  const handleHideDialog = () => dispatch(hideDialog());
+  const handleShowAddChannelDialog = () => {
+    dispatch(showAddChannelDialog());
+  };
 
   //#endregion
 
@@ -355,40 +346,45 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
 
   return (
     <Chat
-      appName={pkg.chat.appName}
-      totalUsers={totalUsers}
       userDisplayName={userDisplayName}
+      //
+      appName={pkg.chat.appName}
       channelsSideBarUI={channelsSideBarUI}
       usersSideBarUI={usersSideBarUI}
+      //
+      totalUsers={totalUsers}
       channelName={channelName}
       channelDescription={channelDescription}
       channelMessages={channelMessages}
+      //
       channelsOverviewCatalog={channelsOverviewCatalog}
-      selectedChannel={selectedChannel}
-      showAddChannelDialog={showAddChannelDialog}
-      showEditChannelDialog={showEditChannelDialog}
-      canShowUserProfileDetails={canShowUserProfileDetails}
       canUserManageArchiviation={canUserManageArchiviation}
+      //
+      selectedChannel={selectedChannel}
+      //
       pondErrorMessage={pondErrorMessage}
       invalidMessage={invalidMessage}
-      handleShowEditChannelDialog={handleShowEditChannelDialog}
+      //
       handleShowAddChannelDialog={handleShowAddChannelDialog}
-      handleEditUserProfile={handleEditUserProfile}
+      handleAddChannel={handleAddChannel}
+      //
+      handleShowEditChannelDialog={handleShowEditChannelDialog}
+      handleEditChannel={handleEditChannel}
+      //
+      handleHideDialog={handleHideDialog}
+      //
+      //
       handleAddMessage={handleAddMessage}
       handleEditMessage={handleEditMessage}
       handleHideMessage={handleHideMessage}
-      handleAddChannel={handleAddChannel}
-      handleCloseEditChannelDialog={handleCloseEditChannelDialog}
-      handleHideAddChannelDialog={handleHideAddChannelDialog}
-      handleHideEditChannelDialog={handleHideEditChannelDialog}
       handleArchiveChannel={handleArchiveChannel}
       handleUnarchiveChannel={handleUnarchiveChannel}
       handleAssociateUserChannel={handleAssociateUserChannel}
       handleDissociateUserChannel={handleDissociateUserChannel}
+      //
+      canShowUserProfileDetails={canShowUserProfileDetails}
       handleHideUserProfileDetails={handleHideUserProfileDetails}
-      handleEditChannel={handleEditChannel}
-      handleShowAddChannel={handleShowAddChannel}
-      handleHideDialog={handleHideDialog}
+      handleEditUserProfile={handleEditUserProfile}
     />
   );
 };

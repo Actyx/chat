@@ -27,7 +27,7 @@ import {
 import { genericSorter, localeComparator } from '../../../../common/sorts';
 import { isDefined } from '../../../../common/filters';
 import { MessagesUI } from '../Channel/Channel';
-import { ChannelsOverviewUI } from '../ChannelOverview/ChannelsCatalog';
+import { ChannelsOverviewUI } from '../ChannelsCatalog/ChannelsCatalog';
 import { ChannelsListUI, UsersListUI } from '../Sidebar/Sidebar';
 
 export const mapPublicMessagesToChannelUI = (

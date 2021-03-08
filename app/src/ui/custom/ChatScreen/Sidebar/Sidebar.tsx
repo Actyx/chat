@@ -32,23 +32,15 @@ type SidebarProps = Readonly<{
   appName: string;
   channels: ChannelsListUI;
   users: UsersListUI;
-  showAddChannelDialog: () => void;
 }>;
 
-export const Sidebar = ({
-  appName,
-  channels,
-  users,
-  showAddChannelDialog,
-}: SidebarProps) => {
+export const Sidebar = ({ appName, channels, users }: SidebarProps) => {
   const dispatch = useContext(DispatchContextUI);
 
   const handleChannelsCatalog = () => dispatch(showChannelsCatalogSection());
 
   const handleMain = (channelId: ChannelId) =>
     dispatch(showChannelSection(channelId));
-
-  const handleShowAddChannelDialog = () => showAddChannelDialog();
 
   return (
     <div className="w-60 h-full bg-gray-700 sidebar">
@@ -82,7 +74,6 @@ export const Sidebar = ({
           >
             <UsersList users={users} selectUser={() => ({})} />
           </CollapsibleList>
-          <button onClick={handleShowAddChannelDialog}>Add a Channel</button>
         </Section>
       </Body>
     </div>

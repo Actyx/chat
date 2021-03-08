@@ -17,7 +17,10 @@ export type ColorUI =
   | 'purple-dark'
   | 'blue-light'
   | 'blue-medium'
-  | 'blue-dark';
+  | 'blue-dark'
+  | 'yellow-light'
+  | 'yellow-medium'
+  | 'yellow-dark';
 
 export const mkColor = (type: 'text' | 'bg') => (color: ColorUI): string => {
   const styled = {
@@ -44,6 +47,10 @@ export const mkColor = (type: 'text' | 'bg') => (color: ColorUI): string => {
       'text-blue-100': color === 'blue-light',
       'text-blue-700': color === 'blue-medium',
       'text-blue-900': color === 'blue-dark',
+
+      'text-yellow-100': color === 'yellow-light',
+      'text-yellow-700': color === 'yellow-medium',
+      'text-yellow-900': color === 'yellow-dark',
     },
     bg: {
       'bg-white': color === 'white',
@@ -68,6 +75,10 @@ export const mkColor = (type: 'text' | 'bg') => (color: ColorUI): string => {
       'bg-blue-100': color === 'blue-light',
       'bg-blue-700': color === 'blue-medium',
       'bg-blue-900': color === 'blue-dark',
+
+      'yellow-blue-100': color === 'yellow-light',
+      'yellow-blue-700': color === 'yellow-medium',
+      'yellow-blue-900': color === 'yellow-dark',
     },
   };
   return cx(styled[type]);
