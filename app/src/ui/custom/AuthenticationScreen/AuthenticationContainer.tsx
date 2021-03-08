@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Pond } from '@actyx/pond';
 import {
   UserCatalogFishState,
@@ -19,6 +19,7 @@ import {
 import { UserCatalogFish } from '../../../business-logic/user-catalog-fish/user-catalog-fish';
 import { CreateAccount } from './CreateAccount';
 import { ErrorBoundary } from '../../common/ErrorBoundary/ErrorBoundary';
+import { ErrorPond } from '../ErrorPond/ErrorPond';
 
 type AuthenticationContainerProps = Readonly<{
   pond: Pond;
@@ -79,7 +80,6 @@ export const AuthenticationContainer = ({
 
   return (
     <div className="mt-24 flex flex-col w-screen items-center">
-      {pondErrorMessage}
       {showSignUp ? (
         <ErrorBoundary>
           <SignUp
@@ -99,6 +99,7 @@ export const AuthenticationContainer = ({
           />
         </ErrorBoundary>
       )}
+      {pondErrorMessage && <ErrorPond errorMessage={pondErrorMessage} />}
     </div>
   );
 };

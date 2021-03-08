@@ -15,6 +15,7 @@ import { AddChannelDialog } from '../AddChannelDialog/AddChannelDialog';
 import './chat.css';
 import { StateContextUI } from '../../../ui-state-manager/UIStateManager';
 import { ErrorBoundary } from '../../../common/ErrorBoundary/ErrorBoundary';
+import { ErrorPond } from '../../ErrorPond/ErrorPond';
 
 type ChatProps = Readonly<{
   appName: string;
@@ -194,7 +195,7 @@ export const Chat = ({
         />
       )}
       {renderDialog()}
-      {pondErrorMessage}
+      {pondErrorMessage && <ErrorPond errorMessage={pondErrorMessage} />}
     </div>
   );
 };
