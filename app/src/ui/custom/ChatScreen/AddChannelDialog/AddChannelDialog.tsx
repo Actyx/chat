@@ -9,6 +9,7 @@ import { hideDialog } from '../../../ui-state-manager/actions';
 import { Label } from '../../../common/Label/Label';
 import { TextField } from '../../../common/TextField/TextField';
 import { Typography } from '../../../common/Typography/Typography';
+import { Alert } from '../../../common/Alert/Alert';
 
 type AddChannelDialogProps = Readonly<{
   errorMessage?: string;
@@ -82,9 +83,11 @@ export const AddChannelDialog = ({
                   What’s this channel about?
                 </Typography>
               </div>
+              {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
+              {invalidMessage && (
+                <Alert variant="danger">{invalidMessage}</Alert>
+              )}
             </form>
-            {errorMessage}
-            {invalidMessage}
           </div>
         </Body>
       }
