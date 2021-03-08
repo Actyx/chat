@@ -5,6 +5,7 @@ import { TextField } from '../../common/TextField/TextField';
 import { Button } from '../../common/Button/Button';
 import { Label } from '../../common/Label/Label';
 import { Typography } from '../../common/Typography/Typography';
+import { Alert } from '../../common/Alert/Alert';
 
 const FIELD_DISPLAY_NAME_ID = 'user-profile-details-display-name';
 
@@ -56,12 +57,10 @@ export const UserProfileDetails = ({
             Save changes
           </Button>
         </div>
+        {isEditProfileSuccess === false && (
+          <Alert variant="danger">Sorry cannot edit User's profile</Alert>
+        )}
       </form>
-      {isEditProfileSuccess === undefined
-        ? ''
-        : isEditProfileSuccess === true
-        ? 'success: user profile edited'
-        : 'error: cannot edit user profile'}
     </FlexPanel>
   );
 };
