@@ -1,6 +1,12 @@
-export const PondError = () => {
+import { Typography } from '../Typography/Typography';
+
+export type CircularProgressProps = Readonly<{ text?: string }>;
+
+export const CircularProgress = ({
+  text = 'Loading...',
+}: CircularProgressProps) => {
   return (
-    <div className="flex w-screen h-screen items-center justify-center">
+    <div className="flex w-screen h-screen animate-pulse items-center justify-center space-x-3">
       <svg
         className="animate-spin"
         width="38"
@@ -16,6 +22,9 @@ export const PondError = () => {
           </g>
         </g>
       </svg>
+      <Typography tag="div" color="gray-medium">
+        {text}
+      </Typography>
     </div>
   );
 };
