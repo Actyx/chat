@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Pond } from '@actyx/pond';
 import { UIStateManager } from './ui/ui-state-manager/UIStateManager';
 import { ScreenRooter as ScreenRouter } from './ui/custom/ScreenRouter/ScreenRouter';
-import { PondError } from './ui/custom/PondError/PondError';
+import { PondError } from './ui/common/CircularProgress/CircularProgress';
 import { Debug } from './ui/custom/Debug/Debug';
 
 export const App = () => {
