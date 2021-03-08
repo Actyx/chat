@@ -6,9 +6,10 @@ export type DialogProps = Readonly<{
   header: ReactNode;
   body: ReactNode;
   footer: ReactNode;
+  close: () => void;
 }>;
 
-export const Dialog = ({ header, body, footer }: DialogProps) => {
+export const Dialog = ({ header, body, footer, close }: DialogProps) => {
   return (
     <Modal>
       <div className="w-screen h-screen flex items-center	justify-center">

@@ -24,7 +24,10 @@ import { ChannelId, MessageId } from '../../../../business-logic/message/types';
 import { editUserProfile } from '../../../../business-logic/user-catalog-fish/logic';
 import { UserCatalogFishState } from '../../../../business-logic/user-catalog-fish/types';
 import { UserCatalogFish } from '../../../../business-logic/user-catalog-fish/user-catalog-fish';
-import { closeSectionRight } from '../../../ui-state-manager/actions';
+import {
+  closeSectionRight,
+  hideDialog,
+} from '../../../ui-state-manager/actions';
 import { showAddChannelDialog as showChannelDialog } from '../../../ui-state-manager/actions';
 import { SectionRight } from '../../../ui-state-manager/types';
 import {
@@ -294,6 +297,8 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
 
   const handleShowAddChannel = () => dispatch(showChannelDialog());
 
+  const handleHideDialog = () => dispatch(hideDialog());
+
   //#endregion
 
   //#region UI mapping
@@ -380,6 +385,7 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
       handleHideUserProfileDetails={handleHideUserProfileDetails}
       handleEditChannel={handleEditChannel}
       handleShowAddChannel={handleShowAddChannel}
+      handleHideDialog={handleHideDialog}
     />
   );
 };

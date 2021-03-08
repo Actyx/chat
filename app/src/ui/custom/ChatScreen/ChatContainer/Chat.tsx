@@ -56,6 +56,7 @@ type ChatProps = Readonly<{
     newDescription: string
   ) => void;
   handleShowAddChannel: () => void;
+  handleHideDialog: () => void;
 }>;
 
 const MainContent = ({ children }: Readonly<{ children: ReactNode }>) => {
@@ -95,13 +96,19 @@ export const Chat = ({
   handleCloseEditChannelDialog,
   handleHideAddChannelDialog,
   handleShowAddChannel,
+  handleHideDialog,
 }: ChatProps) => {
   const stateUI = useContext(StateContextUI);
 
   const renderDialog = () => {
     switch (stateUI.dialog) {
       case Dialogs.AddChannel:
-        return <div>ADD NEW CHANNEL DIALOG HERE</div>;
+        return (
+          <AddChannelDialog
+            closeDialog={handleHideDialog}
+            addChannel={handleAddChannel}
+          />
+        );
       case Dialogs.None:
         return undefined;
     }
