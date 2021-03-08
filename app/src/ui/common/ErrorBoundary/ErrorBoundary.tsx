@@ -1,17 +1,18 @@
 import React, { ReactNode, ErrorInfo } from 'react';
 
-interface Props {
+export type ErrorBoundaryProps = Readonly<{
   children: ReactNode;
-}
+  testError?: boolean;
+}>;
 
-interface State {
+type State = Readonly<{
   hasError: boolean;
-}
+}>;
 
-export class ErrorBoundary extends React.Component<Props, State> {
-  constructor(props: Props) {
+export class ErrorBoundary extends React.Component<ErrorBoundaryProps, State> {
+  constructor(props: ErrorBoundaryProps) {
     super(props);
-    this.state = { hasError: false };
+    this.state = { hasError: Boolean(props.testError) };
   }
 
   static getDerivedStateFromError(error: Error) {
@@ -24,8 +25,12 @@ export class ErrorBoundary extends React.Component<Props, State> {
 
   render() {
     if (this.state.hasError) {
-      // You can render any custom fallback UI
-      return <h1>Something went wrong.</h1>;
+      return (
+        <div className="flex space-x-2 p-1 bg-white rounded">
+          <div>😔</div>
+          <div>Something went wrong.</div>
+        </div>
+      );
     }
 
     return this.props.children;
