@@ -14,6 +14,7 @@ import { EditChannelDialog } from '../EditChannelDialog/EditChannelDialog';
 import { AddChannelDialog } from '../AddChannelDialog/AddChannelDialog';
 import './chat.css';
 import { StateContextUI } from '../../../ui-state-manager/UIStateManager';
+import { ErrorBoundary } from '../../../common/ErrorBoundary/ErrorBoundary';
 
 type ChatProps = Readonly<{
   appName: string;
@@ -150,20 +151,24 @@ export const Chat = ({
     <div>
       <TopBar userDisplayName={userDisplayName} />
       <MainContent>
-        <Sidebar
-          appName={appName}
-          channels={channelsSideBarUI}
-          users={usersSideBarUI}
-          showAddChannelDialog={handleShowAddChannelDialog}
-        />
-        {renderSectionCenter()}
-        {canShowUserProfileDetails && (
-          <UserProfileDetails
-            userDisplayName={userDisplayName}
-            editUserProfile={handleEditUserProfile}
-            close={handleHideUserProfileDetails}
+        <ErrorBoundary>
+          <Sidebar
+            appName={appName}
+            channels={channelsSideBarUI}
+            users={usersSideBarUI}
+            showAddChannelDialog={handleShowAddChannelDialog}
           />
-        )}
+        </ErrorBoundary>
+        <ErrorBoundary>{renderSectionCenter()}</ErrorBoundary>
+        <ErrorBoundary>
+          {canShowUserProfileDetails && (
+            <UserProfileDetails
+              userDisplayName={userDisplayName}
+              editUserProfile={handleEditUserProfile}
+              close={handleHideUserProfileDetails}
+            />
+          )}
+        </ErrorBoundary>
       </MainContent>
 
       {showAddChannelDialog && (
