@@ -13,18 +13,15 @@ export const PondErrorMessage = ({
   message,
 }: PondErrorMessageProps) => {
   return (
-    <>
-      <Modal />
-      <div className="fixed top-0 left-0 w-full p-4">
-        <Alert variant={variant}>
-          <div className="space-x-2">
-            <Typography weight="bold" color="red-dark">
-              {variant === 'warning' ? 'Warning:' : 'Error:'}
-            </Typography>
-            <Typography>{message}</Typography>
-          </div>
-        </Alert>
-      </div>
-    </>
+    <div className="fixed top-0 left-0 w-full p-4">
+      <Alert variant={variant}>
+        <div className="space-x-2">
+          <Typography weight="bold" color="red-dark">
+            {variant === 'warning' ? 'Warning:' : 'Error:'}
+          </Typography>
+          <Typography>{message}</Typography>
+        </div>
+      </Alert>
+    </div>
   );
 };
