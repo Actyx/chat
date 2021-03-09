@@ -185,10 +185,7 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
     }
   };
 
-  const handleHideDialog = () => {
-    debugger;
-    dispatch(hideDialog());
-  };
+  const handleHideDialog = () => dispatch(hideDialog());
 
   const handleShowEditChannelDialog = (channelId: ChannelId) => {
     const channelProfile = getChannelProfileByChannelId(

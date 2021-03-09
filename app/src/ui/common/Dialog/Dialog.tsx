@@ -10,13 +10,13 @@ export type DialogProps = Readonly<{
   close: () => void;
 }>;
 
-export const Dialog = ({ header, body, footer, close }: DialogProps) => {
+export const Dialog = ({ header, body, footer }: DialogProps) => {
   const handleClick = (e: MouseEventDiv) => {
     e.stopPropagation();
   };
 
   return (
-    <Modal close={close}>
+    <Modal>
       <div className="w-screen h-screen flex items-center	justify-center">
         <div
           className="dialog flex flex-col rounded-lg bg-white"
