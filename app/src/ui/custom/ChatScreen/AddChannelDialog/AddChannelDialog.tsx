@@ -36,7 +36,12 @@ export const AddChannelDialog = ({
 
   const [description, setDescription] = useState<string>('');
 
-  const handleChangeName = (e: InputChangeEvent) => setName(e.target.value);
+  const handleChangeName = (e: InputChangeEvent) => {
+    if (invalidMessage) {
+      setInvalidMessage(undefined);
+    }
+    setName(e.target.value);
+  };
 
   const handleChangeDescription = (e: InputChangeEvent) =>
     setDescription(e.target.value);

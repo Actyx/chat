@@ -1,6 +1,5 @@
 import React from 'react';
 import { Alert } from '../../common/Alert/Alert';
-import { Modal } from '../../common/Modal/Modal';
 import { Typography } from '../../common/Typography/Typography';
 
 export type PondErrorMessageProps = Readonly<{
