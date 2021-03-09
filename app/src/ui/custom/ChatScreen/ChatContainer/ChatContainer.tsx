@@ -126,20 +126,8 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
 
   //#region UI handlers
 
-  const handleEditUserProfile = async (displayName: string) => {
-    try {
-      const isUserProfileEdited = await editUserProfile(pond)(
-        stateUI.userUUID,
-        displayName
-      );
-      if (isUserProfileEdited === true) {
-        dispatch(closeSectionRight());
-      }
-      setPondErrorMessage(undefined);
-    } catch (err) {
-      setPondErrorMessage(err);
-    }
-  };
+  const handleEditUserProfile = async (displayName: string): Promise<boolean> =>
+    editUserProfile(pond)(stateUI.userUUID, displayName);
 
   const handleAddMessage = async (content: string) => {
     try {

@@ -37,7 +37,7 @@ type ChatProps = Readonly<{
   pondErrorMessage?: string;
   handleShowAddChannelDialog: () => void;
   handleShowEditChannelDialog: (channelId: ChannelId) => void;
-  handleEditUserProfile: (displayName: string) => void;
+  handleEditUserProfile: (displayName: string) => Promise<boolean>;
   handleAddMessage: (content: string) => void;
   handleEditMessage: (messageId: MessageId, content: string) => void;
   handleHideMessage: (messageId: MessageId) => void;

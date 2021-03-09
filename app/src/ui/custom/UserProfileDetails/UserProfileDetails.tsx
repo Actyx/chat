@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { FlexPanel } from '../../common/FlexPanel/FlexPanel';
 import { FormEventElement, InputChangeEvent } from '../../utils/ui-event-types';
 import { TextField } from '../../common/TextField/TextField';
@@ -6,30 +6,48 @@ import { Button } from '../../common/Button/Button';
 import { Label } from '../../common/Label/Label';
 import { Typography } from '../../common/Typography/Typography';
 import { Alert } from '../../common/Alert/Alert';
+import { closeSectionRight } from '../../ui-state-manager/actions';
+import { DispatchContextUI } from '../../ui-state-manager/UIStateManager';
+import { PondErrorMessage } from '../PondErrorMessage/PondErrorMessage';
 
 const FIELD_DISPLAY_NAME_ID = 'user-profile-details-display-name';
 
 type UserProfileDetailsProps = Readonly<{
   userDisplayName: string;
-  isEditProfileSuccess?: boolean;
-  editUserProfile: (displayName: string) => void;
+  editUserProfile: (displayName: string) => Promise<boolean>;
   close: () => void;
 }>;
 
+const CANNOT_EDIT = "Sorry cannot edit User's profile";
+
 export const UserProfileDetails = ({
   userDisplayName,
-  isEditProfileSuccess,
   editUserProfile,
   close,
 }: UserProfileDetailsProps) => {
+  const dispatch = useContext(DispatchContextUI);
+
+  const [invalidMessage, setInvalidMessage] = useState<string>();
+
+  const [pondErrorMessage, setPondErrorMessage] = useState<string>();
+
   const [displayName, setDisplayName] = useState<string>(userDisplayName);
 
   const handleChangeDisplayName = (e: InputChangeEvent) =>
     setDisplayName(e.target.value);
 
-  const handleSubmit = (e: FormEventElement) => {
-    editUserProfile(displayName);
+  const handleSubmit = async (e: FormEventElement) => {
     e.preventDefault();
+    try {
+      const isUserProfileEdited = await editUserProfile(displayName);
+      if (isUserProfileEdited === true) {
+        dispatch(closeSectionRight());
+      } else {
+        setInvalidMessage(CANNOT_EDIT);
+      }
+    } catch (err) {
+      setPondErrorMessage(err);
+    }
   };
 
   return (
@@ -57,8 +75,9 @@ export const UserProfileDetails = ({
             Save changes
           </Button>
         </div>
-        {isEditProfileSuccess === false && (
-          <Alert variant="danger">Sorry cannot edit User's profile</Alert>
+        {invalidMessage && <Alert variant="danger">{invalidMessage}</Alert>}
+        {pondErrorMessage && (
+          <PondErrorMessage variant="danger" message={pondErrorMessage} />
         )}
       </form>
     </FlexPanel>
