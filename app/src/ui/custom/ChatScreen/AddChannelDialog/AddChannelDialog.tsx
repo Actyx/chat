@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { Dialog } from '../../../common/Dialog/Dialog';
 import { Header } from '../../../common/Dialog/Header';
 import { Body } from '../../../common/Dialog/Body';
-import { InputChangeEvent } from '../../../utils/ui-event-types';
+import {
+  InputChangeEvent,
+  InputClickEvent,
+} from '../../../utils/ui-event-types';
 import { Footer } from '../../../common/Dialog/Footer';
 import { Label } from '../../../common/Label/Label';
 import { TextField } from '../../../common/TextField/TextField';
@@ -51,6 +54,10 @@ export const AddChannelDialog = ({
     }
   };
 
+  const handleClick = (e: InputClickEvent) => {
+    e.stopPropagation();
+  };
+
   return (
     <Dialog
       close={closeDialog}
@@ -73,6 +80,7 @@ export const AddChannelDialog = ({
                   value={name}
                   placeholder="e.g. plan-budget"
                   change={handleChangeName}
+                  click={handleClick}
                 />
               </div>
               <div className="space-y-2">
@@ -86,6 +94,7 @@ export const AddChannelDialog = ({
                   full
                   value={description}
                   change={handleChangeDescription}
+                  click={handleClick}
                 />
                 <Typography size="sm" color="gray-medium">
                   What’s this channel about?

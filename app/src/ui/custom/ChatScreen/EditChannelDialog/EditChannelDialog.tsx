@@ -6,7 +6,10 @@ import { Footer } from '../../../common/Dialog/Footer';
 import { Header } from '../../../common/Dialog/Header';
 import { Label } from '../../../common/Label/Label';
 import { TextField } from '../../../common/TextField/TextField';
-import { InputChangeEvent } from '../../../utils/ui-event-types';
+import {
+  InputChangeEvent,
+  InputClickEvent,
+} from '../../../utils/ui-event-types';
 import { PondErrorMessage } from '../../PondErrorMessage/PondErrorMessage';
 
 type EditChannelDialogProps = Readonly<{
@@ -40,6 +43,10 @@ export const EditChannelDialog = ({
   const handleChangeDescription = (e: InputChangeEvent) =>
     setDescription(e.target.value);
 
+  const handleClick = (e: InputClickEvent) => {
+    e.stopPropagation();
+  };
+
   const handleEditChannel = async () => {
     try {
       const isSuccess = await editChannel(name, description);
@@ -68,6 +75,7 @@ export const EditChannelDialog = ({
                   value={name}
                   full
                   change={handleChangeName}
+                  click={handleClick}
                 />
               </div>
               <div className="space-y-2">
@@ -77,6 +85,7 @@ export const EditChannelDialog = ({
                   value={description}
                   full
                   change={handleChangeDescription}
+                  click={handleClick}
                 />
               </div>
               {invalidMessage && (

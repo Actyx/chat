@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import { InputChangeEvent } from '../../utils/ui-event-types';
+import { InputChangeEvent, InputClickEvent } from '../../utils/ui-event-types';
 
 export type TextFieldProps = Readonly<{
   id?: string;
@@ -9,6 +9,7 @@ export type TextFieldProps = Readonly<{
   placeholder?: string;
   full?: boolean;
   change: (e: InputChangeEvent) => void;
+  click?: (e: InputClickEvent) => void;
 }>;
 
 export const TextField = ({
@@ -19,6 +20,7 @@ export const TextField = ({
   placeholder,
   full = false,
   change,
+  click,
 }: TextFieldProps) => {
   const styles = cx('rounded', 'focus:outline-none', {
     'w-full': full,
@@ -33,6 +35,7 @@ export const TextField = ({
       placeholder={placeholder}
       className={styles}
       onChange={change}
+      onClick={click}
     />
   );
 };
