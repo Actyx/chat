@@ -5,7 +5,6 @@ import { Body } from '../../../common/Dialog/Body';
 import {
   FormEventElement,
   InputChangeEvent,
-  InputClickEvent,
 } from '../../../utils/ui-event-types';
 import { Footer } from '../../../common/Dialog/Footer';
 import { Label } from '../../../common/Label/Label';
@@ -55,10 +54,6 @@ export const AddChannelDialog = ({
     }
   };
 
-  const handleClick = (e: InputClickEvent) => {
-    e.stopPropagation();
-  };
-
   const handleSumbit = (e: FormEventElement) => {
     e.preventDefault();
     e.stopPropagation();
@@ -87,7 +82,6 @@ export const AddChannelDialog = ({
                   value={name}
                   placeholder="e.g. plan-budget"
                   change={handleChangeName}
-                  click={handleClick}
                 />
               </div>
               <div className="space-y-2">
@@ -101,7 +95,6 @@ export const AddChannelDialog = ({
                   full
                   value={description}
                   change={handleChangeDescription}
-                  click={handleClick}
                 />
                 <Typography size="sm" color="gray-medium">
                   What’s this channel about?

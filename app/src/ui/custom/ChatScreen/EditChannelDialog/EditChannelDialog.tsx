@@ -9,7 +9,6 @@ import { TextField } from '../../../common/TextField/TextField';
 import {
   FormEventElement,
   InputChangeEvent,
-  InputClickEvent,
 } from '../../../utils/ui-event-types';
 import { PondErrorMessage } from '../../PondErrorMessage/PondErrorMessage';
 
@@ -43,10 +42,6 @@ export const EditChannelDialog = ({
 
   const handleChangeDescription = (e: InputChangeEvent) =>
     setDescription(e.target.value);
-
-  const handleClick = (e: InputClickEvent) => {
-    e.stopPropagation();
-  };
 
   const handleEditChannel = async () => {
     try {
@@ -82,7 +77,6 @@ export const EditChannelDialog = ({
                   value={name}
                   full
                   change={handleChangeName}
-                  click={handleClick}
                 />
               </div>
               <div className="space-y-2">
@@ -92,7 +86,6 @@ export const EditChannelDialog = ({
                   value={description}
                   full
                   change={handleChangeDescription}
-                  click={handleClick}
                 />
               </div>
               {invalidMessage && (
