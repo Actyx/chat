@@ -11,7 +11,6 @@ import { Label } from '../../../common/Label/Label';
 import { TextField } from '../../../common/TextField/TextField';
 import { Typography } from '../../../common/Typography/Typography';
 import { Alert } from '../../../common/Alert/Alert';
-import { PondErrorMessage } from '../../PondErrorMessage/PondErrorMessage';
 
 type AddChannelDialogProps = Readonly<{
   errorMessage?: string;
@@ -109,7 +108,7 @@ export const AddChannelDialog = ({
                 <Alert variant="warning">{invalidMessage}</Alert>
               )}
               {pondErrorMessage && (
-                <PondErrorMessage variant="danger" message={pondErrorMessage} />
+                <Alert variant="danger">{pondErrorMessage}</Alert>
               )}
             </div>
           </Body>

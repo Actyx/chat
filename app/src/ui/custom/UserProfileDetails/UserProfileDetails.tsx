@@ -8,7 +8,6 @@ import { Typography } from '../../common/Typography/Typography';
 import { Alert } from '../../common/Alert/Alert';
 import { closeSectionRight } from '../../ui-state-manager/actions';
 import { DispatchContextUI } from '../../ui-state-manager/UIStateManager';
-import { PondErrorMessage } from '../PondErrorMessage/PondErrorMessage';
 
 type UserProfileDetailsProps = Readonly<{
   userDisplayName: string;
@@ -75,9 +74,7 @@ export const UserProfileDetails = ({
           </Button>
         </div>
         {invalidMessage && <Alert variant="danger">{invalidMessage}</Alert>}
-        {pondErrorMessage && (
-          <PondErrorMessage variant="danger" message={pondErrorMessage} />
-        )}
+        {pondErrorMessage && <Alert variant="danger">{pondErrorMessage}</Alert>}
       </form>
     </FlexPanel>
   );

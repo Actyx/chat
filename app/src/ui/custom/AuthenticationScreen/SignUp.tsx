@@ -8,7 +8,6 @@ import { Button } from '../../common/Button/Button';
 import { Alert } from '../../common/Alert/Alert';
 import { ButtonTextLink } from '../../common/ButtonTextLink/ButtonTextLink';
 import { ExclamationIcon } from '../../common/Icons/ExclamationIcon';
-import { PondErrorMessage } from '../PondErrorMessage/PondErrorMessage';
 
 type SignUpProps = Readonly<{
   signUp: (displayName: string, email: string) => Promise<UserUUID | undefined>;
@@ -84,10 +83,10 @@ export const SignUp = ({ signUp, showSignIn }: SignUpProps) => {
               )}
             </Alert>
           )}
+          {pondErrorMessage && (
+            <Alert variant="danger">{pondErrorMessage}</Alert>
+          )}
         </div>
-        {pondErrorMessage && (
-          <PondErrorMessage variant="danger" message={pondErrorMessage} />
-        )}
       </form>
     </div>
   );

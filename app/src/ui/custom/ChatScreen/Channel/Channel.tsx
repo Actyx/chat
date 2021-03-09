@@ -8,7 +8,7 @@ import { MessageList } from './MessageList';
 import { MessageUI } from './Message';
 import { StateContextUI } from '../../../ui-state-manager/UIStateManager';
 import { CentralSection } from '../../../common/CentralSection/CentralSection';
-import { PondErrorMessage } from '../../PondErrorMessage/PondErrorMessage';
+import { Alert } from '../../../common/Alert/Alert';
 
 export type MessagesUI = ReadonlyArray<MessageUI>;
 
@@ -98,13 +98,15 @@ export const Channel = ({
       }
       footer={
         <>
+          {pondErrorMessage && (
+            <div className="p-4">
+              <Alert variant="danger">{pondErrorMessage}</Alert>
+            </div>
+          )}
           <MessageInput
             channelName={channelName}
             addMessage={handleAddMessage}
           />
-          {pondErrorMessage && (
-            <PondErrorMessage variant="danger" message={pondErrorMessage} />
-          )}
         </>
       }
     />

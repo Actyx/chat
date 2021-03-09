@@ -3,8 +3,8 @@ import { Pond } from '@actyx/pond';
 import { UIStateManager } from './ui/ui-state-manager/UIStateManager';
 import { ScreenRooter as ScreenRouter } from './ui/custom/ScreenRouter/ScreenRouter';
 import { Debug } from './ui/custom/Debug/Debug';
-import { PondErrorMessage } from './ui/custom/PondErrorMessage/PondErrorMessage';
 import { CircularProgress } from './ui/common/CircularProgress/CircularProgress';
+import { Alert } from './ui/common/Alert/Alert';
 
 export const App = () => {
   const [pond, setPond] = useState<Pond>();
@@ -35,7 +35,9 @@ export const App = () => {
           <CircularProgress />
         )}
         {pondErrorMessage && (
-          <PondErrorMessage variant="danger" message={pondErrorMessage} />
+          <div className="fixed top-0 left-0 w-full">
+            <Alert variant="danger">{pondErrorMessage}</Alert>
+          </div>
         )}
       </>
     </UIStateManager>

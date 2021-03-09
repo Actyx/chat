@@ -10,7 +10,6 @@ import {
   FormEventElement,
   InputChangeEvent,
 } from '../../../utils/ui-event-types';
-import { PondErrorMessage } from '../../PondErrorMessage/PondErrorMessage';
 
 type EditChannelDialogProps = Readonly<{
   currentName: string;
@@ -97,7 +96,7 @@ export const EditChannelDialog = ({
                 <Alert variant="warning">{invalidMessage}</Alert>
               )}
               {pondErrorMessage && (
-                <PondErrorMessage variant="danger" message={pondErrorMessage} />
+                <Alert variant="danger">{pondErrorMessage}</Alert>
               )}
             </div>
           </Body>

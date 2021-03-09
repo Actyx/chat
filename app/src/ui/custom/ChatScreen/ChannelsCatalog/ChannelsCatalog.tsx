@@ -1,6 +1,7 @@
 import { Timestamp } from '@actyx/pond';
 import React, { useState } from 'react';
 import { ChannelId } from '../../../../business-logic/message/types';
+import { Alert } from '../../../common/Alert/Alert';
 import { Button } from '../../../common/Button/Button';
 import { CentralSection } from '../../../common/CentralSection/CentralSection';
 import { SpeakerphoneIcon } from '../../../common/Icons/SpeakerphoneIcon';
@@ -59,7 +60,7 @@ export const ChannelsCatalog = ({
     try {
       await unarchiveChannel(channelId);
     } catch (err) {
-      setPondErrorMessage(pondErrorMessage);
+      setPondErrorMessage(err);
     }
   };
 
@@ -106,6 +107,13 @@ export const ChannelsCatalog = ({
           dissociateUserChannel={handleDissociateUserChannel}
         />
       ))}
+      footer={
+        pondErrorMessage && (
+          <div className="pr-4 bottom-0 w-full">
+            <Alert variant="danger">{pondErrorMessage}</Alert>
+          </div>
+        )
+      }
     />
   );
 };
