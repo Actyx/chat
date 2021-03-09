@@ -216,22 +216,8 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
     channelId: ChannelId,
     newName: string,
     newDescription: string
-  ) => {
-    try {
-      const isSuccess = await editChannel(pond)(stateUI.userUUID, channelId)(
-        newName,
-        newDescription
-      );
-      if (isSuccess) {
-        setPondErrorMessage(undefined);
-        dispatch(hideDialog());
-      } else {
-        setInvalidMessage(MESSAGE.invalidName);
-      }
-    } catch (err) {
-      setPondErrorMessage(err);
-    }
-  };
+  ): Promise<boolean> =>
+    editChannel(pond)(stateUI.userUUID, channelId)(newName, newDescription);
 
   const handleArchiveChannel = async (channelId: ChannelId) => {
     try {

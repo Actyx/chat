@@ -7,25 +7,30 @@ import { Header } from '../../../common/Dialog/Header';
 import { Label } from '../../../common/Label/Label';
 import { TextField } from '../../../common/TextField/TextField';
 import { InputChangeEvent } from '../../../utils/ui-event-types';
+import { PondErrorMessage } from '../../PondErrorMessage/PondErrorMessage';
 
 type EditChannelDialogProps = Readonly<{
   currentName: string;
   currentDescription: string;
-  invalidMessage?: string;
-  editChannel: (name: string, description: string) => void;
+  editChannel: (name: string, description: string) => Promise<boolean>;
   closeDialog: () => void;
 }>;
 
 const FIELD_NAME = 'edit-channel-dialog-textfield-name';
 const FIELD_DESCRIPTION = 'edit-channel-dialog-textfield-description';
 
+const INVALID_NAME = 'That name is already taken by a channel';
+
 export const EditChannelDialog = ({
   currentName,
   currentDescription,
-  invalidMessage,
   editChannel,
   closeDialog,
 }: EditChannelDialogProps) => {
+  const [invalidMessage, setInvalidMessage] = useState<string>();
+
+  const [pondErrorMessage, setPondErrorMessage] = useState<string>();
+
   const [name, setName] = useState<string>(currentName);
 
   const [description, setDescription] = useState<string>(currentDescription);
@@ -35,7 +40,18 @@ export const EditChannelDialog = ({
   const handleChangeDescription = (e: InputChangeEvent) =>
     setDescription(e.target.value);
 
-  const handleEditChannel = () => editChannel(name, description);
+  const handleEditChannel = async () => {
+    try {
+      const isSuccess = await editChannel(name, description);
+      if (isSuccess) {
+        closeDialog();
+      } else {
+        setInvalidMessage(INVALID_NAME);
+      }
+    } catch (err) {
+      setPondErrorMessage(err);
+    }
+  };
 
   return (
     <Dialog
@@ -65,6 +81,9 @@ export const EditChannelDialog = ({
               </div>
               {invalidMessage && (
                 <Alert variant="warning">{invalidMessage}</Alert>
+              )}
+              {pondErrorMessage && (
+                <PondErrorMessage variant="danger" message={pondErrorMessage} />
               )}
             </form>
           </div>

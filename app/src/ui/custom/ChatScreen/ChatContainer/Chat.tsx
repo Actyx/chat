@@ -52,7 +52,7 @@ type ChatProps = Readonly<{
     channelId: ChannelId,
     newName: string,
     newDescription: string
-  ) => void;
+  ) => Promise<boolean>;
   handleHideDialog: () => void;
 }>;
 
@@ -104,7 +104,6 @@ export const Chat = ({
       case Dialogs.EditChannel:
         return selectedChannel ? (
           <EditChannelDialog
-            invalidMessage={invalidMessage}
             currentName={selectedChannel.name}
             currentDescription={selectedChannel.description}
             closeDialog={handleHideDialog}

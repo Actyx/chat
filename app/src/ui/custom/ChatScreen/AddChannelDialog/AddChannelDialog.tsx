@@ -25,10 +25,11 @@ export const AddChannelDialog = ({
   addChannel,
   closeDialog,
 }: AddChannelDialogProps) => {
-  const [name, setName] = useState<string>('');
-
   const [invalidMessage, setInvalidMessage] = useState<string>();
+
   const [pondErrorMessage, setPondErrorMessage] = useState<string>();
+
+  const [name, setName] = useState<string>('');
 
   const [description, setDescription] = useState<string>('');
 
