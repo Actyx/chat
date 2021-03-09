@@ -42,7 +42,7 @@ type ChatProps = Readonly<{
   handleAddMessage: (content: string) => void;
   handleEditMessage: (messageId: MessageId, content: string) => void;
   handleHideMessage: (messageId: MessageId) => void;
-  handleAddChannel: (name: string, description: string) => void;
+  handleAddChannel: (name: string, description: string) => Promise<boolean>;
   handleArchiveChannel: (channelId: ChannelId) => void;
   handleUnarchiveChannel: (channelId: ChannelId) => void;
   handleAssociateUserChannel: (channelId: ChannelId) => void;
@@ -97,7 +97,6 @@ export const Chat = ({
       case Dialogs.AddChannel:
         return (
           <AddChannelDialog
-            invalidMessage={invalidMessage}
             closeDialog={handleHideDialog}
             addChannel={handleAddChannel}
           />

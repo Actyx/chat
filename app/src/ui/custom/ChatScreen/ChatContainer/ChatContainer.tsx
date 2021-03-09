@@ -207,22 +207,10 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
     }
   };
 
-  const handleAddChannel = async (name: string, description: string) => {
-    try {
-      const isSuccess = await addChannel(pond)(stateUI.userUUID)(
-        name,
-        description
-      );
-      if (isSuccess) {
-        setPondErrorMessage(undefined);
-        dispatch(hideDialog());
-      } else {
-        setInvalidMessage(MESSAGE.invalidName);
-      }
-    } catch (err) {
-      setPondErrorMessage(err);
-    }
-  };
+  const handleAddChannel = (
+    name: string,
+    description: string
+  ): Promise<boolean> => addChannel(pond)(stateUI.userUUID)(name, description);
 
   const handleEditChannel = async (
     channelId: ChannelId,
