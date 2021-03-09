@@ -76,10 +76,14 @@ export const ChannelOverview = ({
             </Typography>
           )}
           <Typography tag="div" color="gray-medium">
-            {`${usersAssociatedTotal} member${
-              usersAssociatedTotal > 1 ? 's' : ''
-            }`}{' '}
-            {usersAssociated.length > 0 && ` (${usersAssociated.join(', ')})`}
+            {isSystemUser
+              ? 'All Users as members'
+              : `${usersAssociatedTotal} member${
+                  usersAssociatedTotal > 1 ? 's' : ''
+                }`}{' '}
+            {usersAssociated.length > 0 && isSystemUser
+              ? ''
+              : `(${usersAssociated.join(', ')})`}
           </Typography>
           <Typography tag="div" color="gray-medium">
             {`Created by: ${createdBy} on `} <DateTime timestamp={createdOn} />
