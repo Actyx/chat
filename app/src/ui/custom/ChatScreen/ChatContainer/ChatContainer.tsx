@@ -248,44 +248,33 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
 
   return (
     <Chat
-      userDisplayName={userDisplayName}
-      //
       appName={pkg.chat.appName}
+      userDisplayName={userDisplayName}
       channelsSideBarUI={channelsSideBarUI}
       usersSideBarUI={usersSideBarUI}
-      //
       totalUsers={totalUsers}
       channelName={channelName}
       channelDescription={channelDescription}
       channelMessages={channelMessages}
-      //
       channelsOverviewCatalog={channelsOverviewCatalog}
-      canUserManageArchiviation={canUserManageArchiviation}
-      //
       selectedChannel={selectedChannel}
-      //
       pondErrorMessage={pondErrorMessage}
-      //
+      canUserManageArchiviation={canUserManageArchiviation}
+      canShowUserProfileDetails={canShowUserProfileDetails}
       handleShowAddChannelDialog={handleShowAddChannelDialog}
-      handleAddChannel={handleAddChannel}
-      //
       handleShowEditChannelDialog={handleShowEditChannelDialog}
-      handleEditChannel={handleEditChannel}
-      //
-      handleHideDialog={handleHideDialog}
-      //
-      //
+      handleEditUserProfile={handleEditUserProfile}
       handleAddMessage={handleAddMessage}
       handleEditMessage={handleEditMessage}
       handleHideMessage={handleHideMessage}
+      handleAddChannel={handleAddChannel}
+      handleEditChannel={handleEditChannel}
       handleArchiveChannel={handleArchiveChannel}
       handleUnarchiveChannel={handleUnarchiveChannel}
       handleAssociateUserChannel={handleAssociateUserChannel}
       handleDissociateUserChannel={handleDissociateUserChannel}
-      //
-      canShowUserProfileDetails={canShowUserProfileDetails}
       handleHideUserProfileDetails={handleHideUserProfileDetails}
-      handleEditUserProfile={handleEditUserProfile}
+      handleHideDialog={handleHideDialog}
     />
   );
 };

@@ -19,10 +19,10 @@ import { PondErrorMessage } from '../../PondErrorMessage/PondErrorMessage';
 
 type ChatProps = Readonly<{
   appName: string;
-  totalUsers: number;
   userDisplayName: string;
   channelsSideBarUI: ChannelsListUI;
   usersSideBarUI: UsersListUI;
+  totalUsers: number;
   channelName: string;
   channelDescription: string;
   channelMessages: ReadonlyArray<MessageUI>;
@@ -32,9 +32,9 @@ type ChatProps = Readonly<{
     name: string;
     description: string;
   }>;
-  canShowUserProfileDetails: boolean;
-  canUserManageArchiviation: (channelId: ChannelId) => boolean;
   pondErrorMessage?: string;
+  canUserManageArchiviation: (channelId: ChannelId) => boolean;
+  canShowUserProfileDetails: boolean;
   handleShowAddChannelDialog: () => void;
   handleShowEditChannelDialog: (channelId: ChannelId) => void;
   handleEditUserProfile: (displayName: string) => Promise<boolean>;
@@ -42,16 +42,16 @@ type ChatProps = Readonly<{
   handleEditMessage: (messageId: MessageId, content: string) => void;
   handleHideMessage: (messageId: MessageId) => void;
   handleAddChannel: (name: string, description: string) => Promise<boolean>;
-  handleArchiveChannel: (channelId: ChannelId) => Promise<boolean>;
-  handleUnarchiveChannel: (channelId: ChannelId) => Promise<boolean>;
-  handleAssociateUserChannel: (channelId: ChannelId) => void;
-  handleDissociateUserChannel: (channelId: ChannelId) => void;
-  handleHideUserProfileDetails: () => void;
   handleEditChannel: (
     channelId: ChannelId,
     newName: string,
     newDescription: string
   ) => Promise<boolean>;
+  handleArchiveChannel: (channelId: ChannelId) => Promise<boolean>;
+  handleUnarchiveChannel: (channelId: ChannelId) => Promise<boolean>;
+  handleAssociateUserChannel: (channelId: ChannelId) => void;
+  handleDissociateUserChannel: (channelId: ChannelId) => void;
+  handleHideUserProfileDetails: () => void;
   handleHideDialog: () => void;
 }>;
 
