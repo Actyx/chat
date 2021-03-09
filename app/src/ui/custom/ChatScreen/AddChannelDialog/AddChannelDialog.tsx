@@ -3,6 +3,7 @@ import { Dialog } from '../../../common/Dialog/Dialog';
 import { Header } from '../../../common/Dialog/Header';
 import { Body } from '../../../common/Dialog/Body';
 import {
+  FormEventElement,
   InputChangeEvent,
   InputClickEvent,
 } from '../../../utils/ui-event-types';
@@ -58,18 +59,23 @@ export const AddChannelDialog = ({
     e.stopPropagation();
   };
 
+  const handleSumbit = (e: FormEventElement) => {
+    e.preventDefault();
+    handleAddChannel();
+  };
+
   return (
-    <Dialog
-      close={closeDialog}
-      header={<Header title="Create a channel" close={closeDialog} />}
-      body={
-        <Body>
-          <div className="space-y-6">
-            <Typography color="gray-medium">
-              Channels are where your team communicates. They’re best when
-              organized around a topic — #marketing, for example.
-            </Typography>
-            <form className="space-y-4">
+    <form onSubmit={handleSumbit}>
+      <Dialog
+        close={closeDialog}
+        header={<Header title="Create a channel" close={closeDialog} />}
+        body={
+          <Body>
+            <div className="space-y-6">
+              <Typography color="gray-medium">
+                Channels are where your team communicates. They’re best when
+                organized around a topic — #marketing, for example.
+              </Typography>
               <div className="space-y-2">
                 <Label htmlFor={FIELD_NAME}>Name</Label>
                 <TextField
@@ -106,11 +112,11 @@ export const AddChannelDialog = ({
               {pondErrorMessage && (
                 <PondErrorMessage variant="danger" message={pondErrorMessage} />
               )}
-            </form>
-          </div>
-        </Body>
-      }
-      footer={<Footer textConfirm="Create" confirm={handleAddChannel} />}
-    ></Dialog>
+            </div>
+          </Body>
+        }
+        footer={<Footer textConfirm="Create" confirm={handleAddChannel} />}
+      ></Dialog>
+    </form>
   );
 };

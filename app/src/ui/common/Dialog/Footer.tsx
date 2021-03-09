@@ -9,9 +9,7 @@ type FooterProps = Readonly<{
 export const Footer = ({ textConfirm, confirm }: FooterProps) => {
   return (
     <div className="flex flex-end items-center justify-end h-full pt-5 pb-5 pl-7 pr-7 space-x-3">
-      <Button type="button" color="green" click={confirm}>
-        {textConfirm}
-      </Button>
+      <Button color="green">{textConfirm}</Button>
     </div>
   );
 };
