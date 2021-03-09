@@ -22,7 +22,7 @@ type ChannelProps = Readonly<{
   addMessage: (content: string) => void;
 }>;
 
-const CONFIRM_HIDE_MESSAGE = 'Are you sure to hide this message?';
+const CONFIRM_HIDE_MESSAGE = 'Are you sure to delete this message?';
 
 export const Channel = ({
   channelName,

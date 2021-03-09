@@ -25,6 +25,9 @@ export type ChannelOverviewUI = Readonly<{
 
 export type ChannelsOverviewUI = ReadonlyArray<ChannelOverviewUI>;
 
+const CONFIRM_ARCHIVE_CHANNEL =
+  "Are you sure to archive this channel? The channel won't be accessible anymore to its members.";
+
 type ChannelsCatalogProps = Readonly<{
   channels: ChannelsOverviewUI;
   editChannel: (channelId: ChannelId) => void;
@@ -49,10 +52,13 @@ export const ChannelsCatalog = ({
   const [pondErrorMessage, setPondErrorMessage] = useState<string>();
 
   const handleArchiveChannel = async (channelId: ChannelId) => {
-    try {
-      await archiveChannel(channelId);
-    } catch (err) {
-      setPondErrorMessage(err);
+    const hasUserConfirmed = window.confirm(CONFIRM_ARCHIVE_CHANNEL);
+    if (hasUserConfirmed) {
+      try {
+        await archiveChannel(channelId);
+      } catch (err) {
+        setPondErrorMessage(err);
+      }
     }
   };
 
