@@ -6,6 +6,7 @@ import {
   CentralSection,
   Header,
 } from '../../../common/CentralSection/CentralSection';
+import { SpeakerphoneIcon } from '../../../common/Icons/SpeakerphoneIcon';
 import { Typography } from '../../../common/Typography/Typography';
 import { ChannelOverview } from './ChannelOverview';
 
@@ -51,11 +52,12 @@ export const ChannelsCatalog = ({
     <CentralSection
       header={
         <>
-          <Header>
+          <div className="flex space-x-1 items-center">
+            <SpeakerphoneIcon size="base" color="gray-dark" />
             <Typography tag="div" weight="bold" color="gray-dark">
               Channels overview
             </Typography>
-          </Header>
+          </div>
           <Button type="button" color="white" click={showAddChannel}>
             Create Channel
           </Button>
