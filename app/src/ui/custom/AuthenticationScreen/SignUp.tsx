@@ -1,4 +1,4 @@
-import { useState, MouseEvent } from 'react';
+import React, { useState, MouseEvent } from 'react';
 import { UserUUID } from '../../../business-logic/user-catalog-fish/types';
 import { FormEventElement, InputChangeEvent } from '../../utils/ui-event-types';
 import { TextField } from '../../common/TextField/TextField';
@@ -8,31 +8,38 @@ import { Button } from '../../common/Button/Button';
 import { Alert } from '../../common/Alert/Alert';
 import { ButtonTextLink } from '../../common/ButtonTextLink/ButtonTextLink';
 import { ExclamationIcon } from '../../common/Icons/ExclamationIcon';
+import { PondErrorMessage } from '../PondErrorMessage/PondErrorMessage';
 
 type SignUpProps = Readonly<{
-  isSignUpSuccess?: boolean;
-  userUUID?: UserUUID;
-  signUp: (displayName: string, email: string) => void;
+  signUp: (displayName: string, email: string) => Promise<UserUUID | undefined>;
   showSignIn: () => void;
 }>;
 
-export const SignUp = ({
-  isSignUpSuccess,
-  userUUID,
-  signUp,
-  showSignIn,
-}: SignUpProps) => {
+export const SignUp = ({ signUp, showSignIn }: SignUpProps) => {
+  const [isSignUpSuccess, setIsSignUpSuccess] = useState<boolean>();
+
+  const [userUUID, setUserUUID] = useState<UserUUID>();
+
   const [name, setName] = useState('');
 
   const [email, setEmail] = useState('');
+
+  const [pondErrorMessage, setPondErrorMessage] = useState<string>();
 
   const handleChangeName = (e: InputChangeEvent) => setName(e.target.value);
 
   const handleChangeEmail = (e: InputChangeEvent) => setEmail(e.target.value);
 
-  const handleSubmit = (e: FormEventElement) => {
-    signUp(name, email);
+  const handleSubmit = async (e: FormEventElement) => {
     e.preventDefault();
+    e.stopPropagation();
+    try {
+      const newUserUUID = await signUp(name, email);
+      setIsSignUpSuccess(newUserUUID ? true : false);
+      setUserUUID(newUserUUID);
+    } catch (err) {
+      setPondErrorMessage(err);
+    }
   };
 
   const handleOpenSignIn = (e: MouseEvent<HTMLButtonElement>) => showSignIn();
@@ -78,6 +85,9 @@ export const SignUp = ({
             </Alert>
           )}
         </div>
+        {pondErrorMessage && (
+          <PondErrorMessage variant="danger" message={pondErrorMessage} />
+        )}
       </form>
     </div>
   );

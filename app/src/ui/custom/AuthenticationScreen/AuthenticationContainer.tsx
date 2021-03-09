@@ -19,7 +19,6 @@ import {
 import { UserCatalogFish } from '../../../business-logic/user-catalog-fish/user-catalog-fish';
 import { CreateAccount } from './CreateAccount';
 import { ErrorBoundary } from '../../common/ErrorBoundary/ErrorBoundary';
-import { PondErrorMessage } from '../PondErrorMessage/PondErrorMessage';
 
 type AuthenticationContainerProps = Readonly<{
   pond: Pond;
@@ -43,26 +42,12 @@ export const AuthenticationContainer = ({
     return () => cancelSubscription();
   }, [pond]);
 
-  const [isSignUpSuccess, setIsSignUpSuccess] = useState<boolean>();
-
   const [showSignUp, setShowSignUp] = useState<boolean>(false);
 
   const [isSignInSuccess, setIsSignInSuccess] = useState<boolean>();
 
-  const [userUUID, setUserUUID] = useState<UserUUID>();
-
-  const [pondErrorMessage, setPondErrorMessage] = useState<string>();
-
-  const handleSignUp = async (displayName: string, email: string) => {
-    try {
-      const newUserUUID = await signUp(pond, mkUserUUID)(displayName, email);
-      setIsSignUpSuccess(newUserUUID ? true : false);
-      setUserUUID(newUserUUID);
-      setPondErrorMessage(undefined);
-    } catch (err) {
-      setPondErrorMessage(`Sorry an error occurred, please try later: ${err}`);
-    }
-  };
+  const handleSignUp = async (displayName: string, email: string) =>
+    signUp(pond, mkUserUUID)(displayName, email);
 
   const handleSignIn = (userUUID: UserUUID) => {
     const isUserSignedIn = signIn(userUUID, stateUserCatalogFish.users);
@@ -82,12 +67,7 @@ export const AuthenticationContainer = ({
     <div className="mt-24 flex flex-col w-screen items-center">
       {showSignUp ? (
         <ErrorBoundary>
-          <SignUp
-            signUp={handleSignUp}
-            isSignUpSuccess={isSignUpSuccess}
-            userUUID={userUUID}
-            showSignIn={handleShowSignIn}
-          />
+          <SignUp signUp={handleSignUp} showSignIn={handleShowSignIn} />
         </ErrorBoundary>
       ) : (
         <ErrorBoundary>
@@ -98,9 +78,6 @@ export const AuthenticationContainer = ({
             goToChatScreen={handleGoToChatScreen}
           />
         </ErrorBoundary>
-      )}
-      {pondErrorMessage && (
-        <PondErrorMessage variant="danger" message={pondErrorMessage} />
       )}
     </div>
   );
