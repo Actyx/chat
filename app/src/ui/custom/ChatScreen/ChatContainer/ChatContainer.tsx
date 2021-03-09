@@ -51,8 +51,6 @@ import {
 import { Chat } from './Chat';
 import pkg from '../../../../../package.json';
 
-const CONFIRM_HIDE_MESSAGE = 'Are you sure to hide this message?';
-
 type ChatContainerProps = Readonly<{
   pond: Pond;
 }>;
@@ -126,49 +124,24 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
 
   //#region UI handlers
 
-  const handleEditUserProfile = async (displayName: string): Promise<boolean> =>
+  const handleEditUserProfile = (displayName: string): Promise<boolean> =>
     editUserProfile(pond)(stateUI.userUUID, displayName);
 
-  const handleAddMessage = async (content: string) => {
-    try {
-      await addMessageToChannel(pond)(
-        stateUI.activeChannelId,
-        stateUI.userUUID
-      )({
-        content,
-      });
-      setPondErrorMessage(undefined);
-    } catch (err) {
-      setPondErrorMessage(err);
-    }
-  };
+  const handleAddMessage = (content: string): Promise<boolean> =>
+    addMessageToChannel(pond)(stateUI.activeChannelId, stateUI.userUUID)({
+      content,
+    });
 
-  const handleEditMessage = async (messageId: MessageId, content: string) => {
-    try {
-      await editMessageInChannel(pond)(
-        stateUI.activeChannelId,
-        stateUI.userUUID
-      )(messageId, content);
-      setPondErrorMessage(undefined);
-    } catch (err) {
-      setPondErrorMessage(err);
-    }
-  };
+  const handleEditMessage = (messageId: MessageId, content: string) =>
+    editMessageInChannel(pond)(stateUI.activeChannelId, stateUI.userUUID)(
+      messageId,
+      content
+    );
 
-  const handleHideMessage = async (messageId: MessageId) => {
-    const hasUserConfirmed = window.confirm(CONFIRM_HIDE_MESSAGE);
-    if (hasUserConfirmed) {
-      try {
-        await hideMessageFromChannel(pond)(
-          stateUI.activeChannelId,
-          stateUI.userUUID
-        )(messageId);
-        setPondErrorMessage(undefined);
-      } catch (err) {
-        setPondErrorMessage(err);
-      }
-    }
-  };
+  const handleHideMessage = (messageId: MessageId) =>
+    hideMessageFromChannel(pond)(stateUI.activeChannelId, stateUI.userUUID)(
+      messageId
+    );
 
   const handleHideDialog = () => dispatch(hideDialog());
 

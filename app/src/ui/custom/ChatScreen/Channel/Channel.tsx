@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { MessageId } from '../../../../business-logic/message/types';
 import { Typography } from '../../../common/Typography/Typography';
 import { MessageInput } from './MessageInput';
@@ -8,6 +8,7 @@ import { MessageList } from './MessageList';
 import { MessageUI } from './Message';
 import { StateContextUI } from '../../../ui-state-manager/UIStateManager';
 import { CentralSection } from '../../../common/CentralSection/CentralSection';
+import { PondErrorMessage } from '../../PondErrorMessage/PondErrorMessage';
 
 export type MessagesUI = ReadonlyArray<MessageUI>;
 
@@ -21,6 +22,8 @@ type ChannelProps = Readonly<{
   addMessage: (content: string) => void;
 }>;
 
+const CONFIRM_HIDE_MESSAGE = 'Are you sure to hide this message?';
+
 export const Channel = ({
   channelName,
   channelDescription,
@@ -31,6 +34,36 @@ export const Channel = ({
   addMessage,
 }: ChannelProps) => {
   const stateUI = useContext(StateContextUI);
+
+  const [pondErrorMessage, setPondErrorMessage] = useState<string>();
+
+  const handleAddMessage = async (content: string) => {
+    try {
+      await addMessage(content);
+    } catch (err) {
+      setPondErrorMessage(err);
+    }
+  };
+
+  const handleEditMessage = async (messageId: MessageId, content: string) => {
+    try {
+      await editMessage(messageId, content);
+    } catch (err) {
+      setPondErrorMessage(err);
+    }
+  };
+
+  const handleHideMessage = async (messageId: MessageId) => {
+    const hasUserConfirmed = window.confirm(CONFIRM_HIDE_MESSAGE);
+    if (hasUserConfirmed) {
+      try {
+        await hideMessage(messageId);
+      } catch (err) {
+        setPondErrorMessage(err);
+      }
+    }
+  };
+
   return (
     <CentralSection
       header={
@@ -59,12 +92,20 @@ export const Channel = ({
         <MessageList
           key={stateUI.activeChannelId}
           messages={messages}
-          editMessage={editMessage}
-          hideMessage={hideMessage}
+          editMessage={handleEditMessage}
+          hideMessage={handleHideMessage}
         />
       }
       footer={
-        <MessageInput channelName={channelName} addMessage={addMessage} />
+        <>
+          <MessageInput
+            channelName={channelName}
+            addMessage={handleAddMessage}
+          />
+          {pondErrorMessage && (
+            <PondErrorMessage variant="danger" message={pondErrorMessage} />
+          )}
+        </>
       }
     />
   );

@@ -2,10 +2,7 @@ import { Timestamp } from '@actyx/pond';
 import React from 'react';
 import { ChannelId } from '../../../../business-logic/message/types';
 import { Button } from '../../../common/Button/Button';
-import {
-  CentralSection,
-  Header,
-} from '../../../common/CentralSection/CentralSection';
+import { CentralSection } from '../../../common/CentralSection/CentralSection';
 import { SpeakerphoneIcon } from '../../../common/Icons/SpeakerphoneIcon';
 import { Typography } from '../../../common/Typography/Typography';
 import { ChannelOverview } from './ChannelOverview';
