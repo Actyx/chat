@@ -1,4 +1,4 @@
-import cx from 'classnames';
+import cn from 'classnames';
 import { InputChangeEvent, InputClickEvent } from '../../utils/ui-event-types';
 
 export type TextFieldProps = Readonly<{
@@ -22,7 +22,7 @@ export const TextField = ({
   change,
   click,
 }: TextFieldProps) => {
-  const styles = cx('rounded', 'focus:outline-none', {
+  const styles = cn('rounded', 'focus:outline-none', {
     'w-full': full,
   });
 

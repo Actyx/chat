@@ -1,4 +1,4 @@
-import cx from 'classnames';
+import cn from 'classnames';
 
 export type ColorUI =
   | 'white'
@@ -81,5 +81,5 @@ export const mkColor = (type: 'text' | 'bg') => (color: ColorUI): string => {
       'yellow-blue-900': color === 'yellow-dark',
     },
   };
-  return cx(styled[type]);
+  return cn(styled[type]);
 };

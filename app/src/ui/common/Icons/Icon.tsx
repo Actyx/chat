@@ -1,4 +1,4 @@
-import cx from 'classnames';
+import cn from 'classnames';
 import { ReactNode } from 'react';
 import { ColorUI, mkColor } from '../../utils/ui-colors';
 
@@ -19,7 +19,7 @@ export const Icon = ({
   const isSx = size === 'xs';
   const isSmall = size === 'sm';
   const isMedium = size === 'base';
-  const styles = cx(
+  const styles = cn(
     {
       'h-3': isSx,
       'w-3': isSx,

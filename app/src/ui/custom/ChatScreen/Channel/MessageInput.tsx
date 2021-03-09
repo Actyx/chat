@@ -1,4 +1,4 @@
-import cx from 'classnames';
+import cn from 'classnames';
 import React, { useState } from 'react';
 import { ButtonArea } from '../../../common/ButtonArea/ButtonArea';
 import {
@@ -29,7 +29,7 @@ export const MessageInput = ({
     e.preventDefault();
   };
 
-  const stylesButton = cx(
+  const stylesButton = cn(
     'flex items-center justify-center',
     'w-8 h-8 rounded',
     'transform rotate-90',
@@ -38,7 +38,7 @@ export const MessageInput = ({
       'bg-green-700 hover:bg-green-600': !isMessageEmpty,
     }
   );
-  const stylesIcon = cx('h-5 w-5', {
+  const stylesIcon = cn('h-5 w-5', {
     'text-gray-300': isMessageEmpty,
     'text-white': !isMessageEmpty,
   });

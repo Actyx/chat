@@ -1,4 +1,4 @@
-import cx from 'classnames';
+import cn from 'classnames';
 import { ReactNode } from 'react';
 import { ColorUI } from '../../utils/ui-colors';
 import { Typography } from '../Typography/Typography';
@@ -26,7 +26,7 @@ const color = (variant: Variant): ColorUI => {
 };
 
 export const Alert = ({ variant, full = true, icon, children }: AlertProps) => {
-  const styles = cx('p-3 rounded', {
+  const styles = cn('p-3 rounded', {
     'flex space-x-2': icon,
     'width-full': full,
     'bg-gray-100': variant === 'secondary',

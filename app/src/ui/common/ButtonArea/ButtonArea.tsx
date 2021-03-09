@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { MouseEventButton } from '../../utils/ui-event-types';
-import cx from 'classnames';
+import cn from 'classnames';
 
 export type ButtonAreaBase = Readonly<{
   type: 'button' | 'submit';
@@ -28,7 +28,7 @@ export const ButtonArea = ({
   full,
   click,
 }: ButtonAreaProps) => {
-  const styles = cx('focus:outline-none focus-visible:ring', {
+  const styles = cn('focus:outline-none focus-visible:ring', {
     'w-full': full,
   });
 

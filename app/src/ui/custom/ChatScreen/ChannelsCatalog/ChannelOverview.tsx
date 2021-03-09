@@ -1,4 +1,4 @@
-import cx from 'classnames';
+import cn from 'classnames';
 import { useState } from 'react';
 import { ChannelId } from '../../../../business-logic/message/types';
 import { Button } from '../../../common/Button/Button';
@@ -47,7 +47,7 @@ export const ChannelOverview = ({
 
   const handleMouseLeave = () => setIsCursorHover(false);
 
-  const stylesChannelOverview = cx('flex space-y-4 border-b', {
+  const stylesChannelOverview = cn('flex space-y-4 border-b', {
     'hover:bg-gray-50': isCursorHover,
     'bg-white': !isCursorHover,
   });

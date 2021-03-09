@@ -1,4 +1,4 @@
-import cx from 'classnames';
+import cn from 'classnames';
 import { ReactNode } from 'react';
 
 type BaseProps = Readonly<{
@@ -36,7 +36,7 @@ export const Button = ({
   const isBig = size === 'base';
   const isSmall = size === 'sm';
 
-  const styles = cx(
+  const styles = cn(
     'focus:outline-none focus:ring',
     'rounded',
     'font-sans',

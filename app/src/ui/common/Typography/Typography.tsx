@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import cx from 'classnames';
+import cn from 'classnames';
 import { ColorUI, mkColor } from '../../utils/ui-colors';
 
 type HTMLTag = 'span' | 'h1' | 'div';
@@ -32,7 +32,7 @@ export const Typography = ({
   color = 'black',
   align = 'initial',
 }: TypographyProps) => {
-  const styles = cx(
+  const styles = cn(
     {
       'font-sans': true,
       'text-base': size === 'base',

@@ -6,7 +6,7 @@ import { Typography } from '../../../common/Typography/Typography';
 import { DateTime } from '../../../common/DateTime/DateTime';
 import { MessageActions } from './MessageActions';
 import { MessageEdit } from './MessageEdit';
-import cx from 'classnames';
+import cn from 'classnames';
 
 export type MessageUI = Readonly<{
   messageId: string;
@@ -58,7 +58,7 @@ export const Message = ({
 
   const showMessageActions = isCursorHover && (canEdit || canHide);
 
-  const stylesMessage = cx('relative p-4', {
+  const stylesMessage = cn('relative p-4', {
     'bg-yellow-100': isEditMode,
     'hover:bg-gray-50': !isEditMode,
     'bg-white': !isEditMode,
