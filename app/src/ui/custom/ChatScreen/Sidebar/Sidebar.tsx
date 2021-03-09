@@ -39,7 +39,7 @@ export const Sidebar = ({ appName, channels, users }: SidebarProps) => {
 
   const handleChannelsCatalog = () => dispatch(showChannelsCatalogSection());
 
-  const handleMain = (channelId: ChannelId) =>
+  const handleSelectChannel = (channelId: ChannelId) =>
     dispatch(showChannelSection(channelId));
 
   return (
@@ -59,7 +59,10 @@ export const Sidebar = ({ appName, channels, users }: SidebarProps) => {
               </Typography>
             }
           >
-            <ChannelsList channels={channels} selectChannel={handleMain} />
+            <ChannelsList
+              channels={channels}
+              selectChannel={handleSelectChannel}
+            />
           </CollapsibleList>
         </Section>
         <Section>

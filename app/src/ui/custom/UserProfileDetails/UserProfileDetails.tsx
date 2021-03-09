@@ -10,14 +10,13 @@ import { closeSectionRight } from '../../ui-state-manager/actions';
 import { DispatchContextUI } from '../../ui-state-manager/UIStateManager';
 import { PondErrorMessage } from '../PondErrorMessage/PondErrorMessage';
 
-const FIELD_DISPLAY_NAME_ID = 'user-profile-details-display-name';
-
 type UserProfileDetailsProps = Readonly<{
   userDisplayName: string;
   editUserProfile: (displayName: string) => Promise<boolean>;
   close: () => void;
 }>;
 
+const FIELD_DISPLAY_NAME_ID = 'user-profile-details-display-name';
 const CANNOT_EDIT = "Sorry cannot edit User's profile";
 
 export const UserProfileDetails = ({
