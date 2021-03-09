@@ -21,6 +21,7 @@ import {
   isUserUUIDRegistered,
 } from '../../../../business-logic/user-catalog-fish/logic';
 import {
+  SYSTEM_USER,
   Users,
   UserUUID,
 } from '../../../../business-logic/user-catalog-fish/types';
@@ -52,9 +53,18 @@ export const mapPublicMessagesToChannelUI = (
     };
   });
 
-export const mapChannelsToSidebarUI = (channels: Channels): ChannelsListUI =>
+export const mapChannelsToSidebarUI = (
+  channels: Channels,
+  signInUser: UserUUID
+): ChannelsListUI =>
   Object.values(channels).reduce<ChannelsListUI>((acc, val) => {
-    return !val.profile.isArchived
+    const isUserAssociatedWithChannel = val.users.includes(signInUser);
+    const isSystemChannel = val.users.includes(SYSTEM_USER);
+    const isChannelUnArchived = !val.profile.isArchived;
+    const canIncludeChannel =
+      isSystemChannel || (isChannelUnArchived && isUserAssociatedWithChannel);
+
+    return canIncludeChannel
       ? [
           ...acc,
           {

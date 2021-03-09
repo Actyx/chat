@@ -218,7 +218,7 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
     stateUI.sectionRight === SectionRight.UserProfileEdit;
 
   const channelsSideBarUI = sortAlphabeticChannelsSidebar(
-    mapChannelsToSidebarUI(stateChannelsCatalogFish.channels)
+    mapChannelsToSidebarUI(stateChannelsCatalogFish.channels, stateUI.userUUID)
   );
 
   const usersSideBarUI = sortAlphabeticUsersSidebar(
