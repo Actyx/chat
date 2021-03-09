@@ -87,6 +87,7 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
 
   const [pondErrorMessage, setPondErrorMessage] = useState<string>();
 
+  // TODO remove duplication by using utility fns
   useEffect(() => {
     const cancelSubUserCatalogFish = pond.observe(
       UserCatalogFish,
