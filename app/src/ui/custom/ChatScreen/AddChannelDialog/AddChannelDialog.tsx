@@ -33,9 +33,7 @@ export const AddChannelDialog = ({
   const handleChangeDescription = (e: InputChangeEvent) =>
     setDescription(e.target.value);
 
-  const handleAddChannel = () => {
-    addChannel(name, description);
-  };
+  const handleAddChannel = () => addChannel(name, description);
 
   return (
     <Dialog

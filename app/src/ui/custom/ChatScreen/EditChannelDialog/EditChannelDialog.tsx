@@ -35,9 +35,7 @@ export const EditChannelDialog = ({
   const handleChangeDescription = (e: InputChangeEvent) =>
     setDescription(e.target.value);
 
-  const handleEditChannel = () => {
-    editChannel(name, description);
-  };
+  const handleEditChannel = () => editChannel(name, description);
 
   return (
     <Dialog

@@ -189,6 +189,7 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
 
   const handleHideDialog = () => {
     dispatch(hideDialog());
+    setInvalidMessage(undefined);
   };
 
   const handleShowEditChannelDialog = (channelId: ChannelId) => {
@@ -214,14 +215,11 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
       );
       if (isSuccess) {
         setPondErrorMessage(undefined);
-        // setInvalidMessage(undefined);
         dispatch(hideDialog());
-        // handleHideDialog();
       } else {
         setInvalidMessage(MESSAGE.invalidName);
       }
     } catch (err) {
-      // setInvalidMessage(undefined);
       setPondErrorMessage(err);
     }
   };
@@ -239,13 +237,10 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
       if (isSuccess) {
         setPondErrorMessage(undefined);
         dispatch(hideDialog());
-        // setInvalidMessage(undefined);
-        // handleHideDialog();
       } else {
         setInvalidMessage(MESSAGE.invalidName);
       }
     } catch (err) {
-      // setInvalidMessage(undefined);
       setPondErrorMessage(err);
     }
   };
