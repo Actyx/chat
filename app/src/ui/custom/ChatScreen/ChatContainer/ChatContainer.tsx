@@ -51,11 +51,7 @@ import {
 import { Chat } from './Chat';
 import pkg from '../../../../../package.json';
 
-// TODO create separate modules
-const MESSAGE = {
-  invalidName: 'That name is already taken by a channel',
-  confirmHideMessage: 'Are you sure to hide this message?',
-};
+const CONFIRM_HIDE_MESSAGE = 'Are you sure to hide this message?';
 
 type ChatContainerProps = Readonly<{
   pond: Pond;
@@ -171,7 +167,7 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
   };
 
   const handleHideMessage = async (messageId: MessageId) => {
-    const hasUserConfirmed = window.confirm(MESSAGE.confirmHideMessage);
+    const hasUserConfirmed = window.confirm(CONFIRM_HIDE_MESSAGE);
     if (hasUserConfirmed) {
       try {
         await hideMessageFromChannel(pond)(
