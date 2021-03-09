@@ -16,10 +16,11 @@ export const Dialog = ({ header, body, footer, close }: DialogProps) => {
   };
 
   return (
-    <Modal close={close}>
-      <div className="w-screen h-screen flex items-center	justify-center">
+    <>
+      <Modal close={close} />
+      <div className="fixed w-screen h-screen flex items-center	justify-center pointer-events-none">
         <div
-          className="dialog flex flex-col rounded-lg bg-white"
+          className="dialog flex flex-col rounded-lg bg-white pointer-events-auto"
           onClick={handleClick}
         >
           <div className="h-20">{header}</div>
@@ -27,6 +28,6 @@ export const Dialog = ({ header, body, footer, close }: DialogProps) => {
           <div className="h-24">{footer}</div>
         </div>
       </div>
-    </Modal>
+    </>
   );
 };
