@@ -15,7 +15,6 @@ import { AddChannelDialog } from '../AddChannelDialog/AddChannelDialog';
 import './chat.css';
 import { StateContextUI } from '../../../ui-state-manager/UIStateManager';
 import { ErrorBoundary } from '../../../common/ErrorBoundary/ErrorBoundary';
-import { PondErrorMessage } from '../../PondErrorMessage/PondErrorMessage';
 
 type ChatProps = Readonly<{
   appName: string;
@@ -32,7 +31,6 @@ type ChatProps = Readonly<{
     name: string;
     description: string;
   }>;
-  pondErrorMessage?: string;
   canUserManageArchiviation: (channelId: ChannelId) => boolean;
   canShowUserProfileDetails: boolean;
   handleShowAddChannelDialog: () => void;
@@ -82,7 +80,6 @@ export const Chat = ({
   handleDissociateUserChannel,
   handleHideUserProfileDetails,
   selectedChannel,
-  pondErrorMessage,
   handleEditChannel,
   handleAddChannel,
   handleHideDialog,
@@ -172,9 +169,6 @@ export const Chat = ({
         </ErrorBoundary>
       </MainContent>
       {renderDialog()}
-      {pondErrorMessage && (
-        <PondErrorMessage variant="danger" message={pondErrorMessage} />
-      )}
     </div>
   );
 };

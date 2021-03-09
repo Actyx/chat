@@ -1,5 +1,5 @@
 import { Pond } from '@actyx/pond';
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { mkChannelFish } from '../../../../business-logic/channel-fish/channel-fish';
 import {
   editMessageInChannel,
@@ -50,6 +50,7 @@ import {
 } from './ui-map';
 import { Chat } from './Chat';
 import pkg from '../../../../../package.json';
+import { Alert } from '../../../common/Alert/Alert';
 
 type ChatContainerProps = Readonly<{
   pond: Pond;
@@ -114,7 +115,7 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
       try {
         await addDefaultChannelIfDoesNotExist(pond)(stateUI.userUUID);
       } catch (err) {
-        setPondErrorMessage(undefined);
+        setPondErrorMessage(err);
       }
     };
     mainChannel();
@@ -197,9 +198,11 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
   };
 
   const handleHideDialog = () => dispatch(hideDialog());
+
   //#endregion
 
   //#region UI mapping
+
   const channelMessages = mapPublicMessagesToChannelUI(
     getVisiblePublicMessages(stateChannelMainFish.messages),
     stateUserCatalogFish.users,
@@ -251,34 +254,36 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
   //#endregion
 
   return (
-    <Chat
-      appName={pkg.chat.appName}
-      userDisplayName={userDisplayName}
-      channelsSideBarUI={channelsSideBarUI}
-      usersSideBarUI={usersSideBarUI}
-      totalUsers={totalUsers}
-      channelName={channelName}
-      channelDescription={channelDescription}
-      channelMessages={channelMessages}
-      channelsOverviewCatalog={channelsOverviewCatalog}
-      selectedChannel={selectedChannel}
-      pondErrorMessage={pondErrorMessage}
-      canUserManageArchiviation={canUserManageArchiviation}
-      canShowUserProfileDetails={canShowUserProfileDetails}
-      handleShowAddChannelDialog={handleShowAddChannelDialog}
-      handleShowEditChannelDialog={handleShowEditChannelDialog}
-      handleEditUserProfile={handleEditUserProfile}
-      handleAddMessage={handleAddMessage}
-      handleEditMessage={handleEditMessage}
-      handleHideMessage={handleHideMessage}
-      handleAddChannel={handleAddChannel}
-      handleEditChannel={handleEditChannel}
-      handleArchiveChannel={handleArchiveChannel}
-      handleUnarchiveChannel={handleUnarchiveChannel}
-      handleAssociateUserChannel={handleAssociateUserChannel}
-      handleDissociateUserChannel={handleDissociateUserChannel}
-      handleHideUserProfileDetails={handleHideUserProfileDetails}
-      handleHideDialog={handleHideDialog}
-    />
+    <>
+      {pondErrorMessage && <Alert variant="danger">{pondErrorMessage}</Alert>}
+      <Chat
+        appName={pkg.chat.appName}
+        userDisplayName={userDisplayName}
+        channelsSideBarUI={channelsSideBarUI}
+        usersSideBarUI={usersSideBarUI}
+        totalUsers={totalUsers}
+        channelName={channelName}
+        channelDescription={channelDescription}
+        channelMessages={channelMessages}
+        channelsOverviewCatalog={channelsOverviewCatalog}
+        selectedChannel={selectedChannel}
+        canUserManageArchiviation={canUserManageArchiviation}
+        canShowUserProfileDetails={canShowUserProfileDetails}
+        handleShowAddChannelDialog={handleShowAddChannelDialog}
+        handleShowEditChannelDialog={handleShowEditChannelDialog}
+        handleEditUserProfile={handleEditUserProfile}
+        handleAddMessage={handleAddMessage}
+        handleEditMessage={handleEditMessage}
+        handleHideMessage={handleHideMessage}
+        handleAddChannel={handleAddChannel}
+        handleEditChannel={handleEditChannel}
+        handleArchiveChannel={handleArchiveChannel}
+        handleUnarchiveChannel={handleUnarchiveChannel}
+        handleAssociateUserChannel={handleAssociateUserChannel}
+        handleDissociateUserChannel={handleDissociateUserChannel}
+        handleHideUserProfileDetails={handleHideUserProfileDetails}
+        handleHideDialog={handleHideDialog}
+      />
+    </>
   );
 };
