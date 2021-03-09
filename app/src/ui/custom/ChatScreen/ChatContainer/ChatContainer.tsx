@@ -70,8 +70,6 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
     Readonly<{ channelId: ChannelId; name: string; description: string }>
   >();
 
-  const [invalidMessage, setInvalidMessage] = useState<string | undefined>();
-
   //#region Pond and Fishes
 
   const [
@@ -188,8 +186,8 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
   };
 
   const handleHideDialog = () => {
+    debugger;
     dispatch(hideDialog());
-    setInvalidMessage(undefined);
   };
 
   const handleShowEditChannelDialog = (channelId: ChannelId) => {
@@ -332,7 +330,6 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
       selectedChannel={selectedChannel}
       //
       pondErrorMessage={pondErrorMessage}
-      invalidMessage={invalidMessage}
       //
       handleShowAddChannelDialog={handleShowAddChannelDialog}
       handleAddChannel={handleAddChannel}

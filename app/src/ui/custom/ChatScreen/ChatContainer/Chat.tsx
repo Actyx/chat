@@ -35,7 +35,6 @@ type ChatProps = Readonly<{
   canShowUserProfileDetails: boolean;
   canUserManageArchiviation: (channelId: ChannelId) => boolean;
   pondErrorMessage?: string;
-  invalidMessage?: string;
   handleShowAddChannelDialog: () => void;
   handleShowEditChannelDialog: (channelId: ChannelId) => void;
   handleEditUserProfile: (displayName: string) => void;
@@ -85,7 +84,6 @@ export const Chat = ({
   selectedChannel,
   pondErrorMessage,
   handleEditChannel,
-  invalidMessage,
   handleAddChannel,
   handleHideDialog,
   handleShowAddChannelDialog,
