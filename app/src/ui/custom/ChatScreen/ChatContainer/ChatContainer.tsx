@@ -172,41 +172,21 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
   ): Promise<boolean> =>
     editChannel(pond)(stateUI.userUUID, channelId)(newName, newDescription);
 
-  const handleArchiveChannel = async (channelId: ChannelId) => {
-    try {
-      await archiveChannel(pond)(stateUI.userUUID, channelId);
-      setPondErrorMessage(undefined);
-    } catch (err) {
-      setPondErrorMessage(err);
-    }
-  };
+  const handleArchiveChannel = async (channelId: ChannelId): Promise<boolean> =>
+    archiveChannel(pond)(stateUI.userUUID, channelId);
 
-  const handleUnarchiveChannel = async (channelId: ChannelId) => {
-    try {
-      await unarchiveChannel(pond)(stateUI.userUUID, channelId);
-      setPondErrorMessage(undefined);
-    } catch (err) {
-      setPondErrorMessage(err);
-    }
-  };
+  const handleUnarchiveChannel = (channelId: ChannelId): Promise<boolean> =>
+    unarchiveChannel(pond)(stateUI.userUUID, channelId);
 
-  const handleAssociateUserChannel = async (channelId: ChannelId) => {
-    try {
-      await associateUserToChannel(pond)(stateUI.userUUID, channelId);
-      setPondErrorMessage(undefined);
-    } catch (err) {
-      setPondErrorMessage(err);
-    }
-  };
+  const handleAssociateUserChannel = async (
+    channelId: ChannelId
+  ): Promise<boolean> =>
+    associateUserToChannel(pond)(stateUI.userUUID, channelId);
 
-  const handleDissociateUserChannel = async (channelId: ChannelId) => {
-    try {
-      await dissociateUserChannel(pond)(stateUI.userUUID, channelId);
-      setPondErrorMessage(undefined);
-    } catch (err) {
-      setPondErrorMessage(err);
-    }
-  };
+  const handleDissociateUserChannel = async (
+    channelId: ChannelId
+  ): Promise<boolean> =>
+    dissociateUserChannel(pond)(stateUI.userUUID, channelId);
 
   const handleHideUserProfileDetails = () => dispatch(closeSectionRight());
 

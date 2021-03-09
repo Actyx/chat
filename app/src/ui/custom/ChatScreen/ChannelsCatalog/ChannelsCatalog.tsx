@@ -1,5 +1,5 @@
 import { Timestamp } from '@actyx/pond';
-import React from 'react';
+import React, { useState } from 'react';
 import { ChannelId } from '../../../../business-logic/message/types';
 import { Button } from '../../../common/Button/Button';
 import { CentralSection } from '../../../common/CentralSection/CentralSection';
@@ -28,8 +28,8 @@ type ChannelsCatalogProps = Readonly<{
   channels: ChannelsOverviewUI;
   editChannel: (channelId: ChannelId) => void;
   canUserManageArchiviation: (channelId: ChannelId) => boolean;
-  archiveChannel: (channelId: ChannelId) => void;
-  unarchiveChannel: (channelId: ChannelId) => void;
+  archiveChannel: (channelId: ChannelId) => Promise<boolean>;
+  unarchiveChannel: (channelId: ChannelId) => Promise<boolean>;
   associateUserChannel: (channelId: ChannelId) => void;
   dissociateUserChannel: (channelId: ChannelId) => void;
   showAddChannel: () => void;
@@ -45,6 +45,40 @@ export const ChannelsCatalog = ({
   dissociateUserChannel,
   showAddChannel,
 }: ChannelsCatalogProps) => {
+  const [pondErrorMessage, setPondErrorMessage] = useState<string>();
+
+  const handleArchiveChannel = async (channelId: ChannelId) => {
+    try {
+      await archiveChannel(channelId);
+    } catch (err) {
+      setPondErrorMessage(err);
+    }
+  };
+
+  const handleUnarchiveChannel = async (channelId: ChannelId) => {
+    try {
+      await unarchiveChannel(channelId);
+    } catch (err) {
+      setPondErrorMessage(pondErrorMessage);
+    }
+  };
+
+  const handleAssociateUserChannel = async (channelId: ChannelId) => {
+    try {
+      await associateUserChannel(channelId);
+    } catch (err) {
+      setPondErrorMessage(err);
+    }
+  };
+
+  const handleDissociateUserChannel = async (channelId: ChannelId) => {
+    try {
+      await dissociateUserChannel(channelId);
+    } catch (err) {
+      setPondErrorMessage(err);
+    }
+  };
+
   return (
     <CentralSection
       header={
@@ -66,10 +100,10 @@ export const ChannelsCatalog = ({
           channelOverview={c}
           editChannel={editChannel}
           canUserManageArchiviation={canUserManageArchiviation}
-          archiveChannel={archiveChannel}
-          unarchiveChannel={unarchiveChannel}
-          associateUserChannel={associateUserChannel}
-          dissociateUserChannel={dissociateUserChannel}
+          archiveChannel={handleArchiveChannel}
+          unarchiveChannel={handleUnarchiveChannel}
+          associateUserChannel={handleAssociateUserChannel}
+          dissociateUserChannel={handleDissociateUserChannel}
         />
       ))}
     />
