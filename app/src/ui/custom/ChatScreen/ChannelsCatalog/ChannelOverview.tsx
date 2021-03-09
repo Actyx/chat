@@ -82,9 +82,10 @@ export const ChannelOverview = ({
           <Typography tag="div" color="gray-medium">
             {`Created by: ${createdBy} on `} <DateTime timestamp={createdOn} />
           </Typography>
-          {editedBy && (
+          {editedBy && editedOn && (
             <Typography tag="div" color="gray-medium">
-              {`Last edited by ${editedBy} on ${editedOn}`}
+              {`Last edited by ${editedBy} on `}{' '}
+              <DateTime timestamp={editedOn} />
               <br />
             </Typography>
           )}
