@@ -122,7 +122,7 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
 
   //#endregion
 
-  //#region UI handlers
+  //#region Handlers operations
 
   const handleEditUserProfile = (displayName: string): Promise<boolean> =>
     editUserProfile(pond)(stateUI.userUUID, displayName);
@@ -142,8 +142,6 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
     hideMessageFromChannel(pond)(stateUI.activeChannelId, stateUI.userUUID)(
       messageId
     );
-
-  const handleHideDialog = () => dispatch(hideDialog());
 
   const handleShowEditChannelDialog = (channelId: ChannelId) => {
     const channelProfile = getChannelProfileByChannelId(
@@ -187,13 +185,16 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
     channelId: ChannelId
   ): Promise<boolean> =>
     dissociateUserChannel(pond)(stateUI.userUUID, channelId);
+  //#endregion
 
+  //#region Handlers navigation
   const handleHideUserProfileDetails = () => dispatch(closeSectionRight());
 
   const handleShowAddChannelDialog = () => {
     dispatch(showAddChannelDialog());
   };
 
+  const handleHideDialog = () => dispatch(hideDialog());
   //#endregion
 
   //#region UI mapping
