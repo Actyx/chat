@@ -185,9 +185,11 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
     channelId: ChannelId
   ): Promise<boolean> =>
     dissociateUserChannel(pond)(stateUI.userUUID, channelId);
+
   //#endregion
 
   //#region Handlers navigation
+
   const handleHideUserProfileDetails = () => dispatch(closeSectionRight());
 
   const handleShowAddChannelDialog = () => {
@@ -245,6 +247,7 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
     stateChannelsCatalogFish.channels,
     stateUserCatalogFish.users
   );
+
   //#endregion
 
   return (
