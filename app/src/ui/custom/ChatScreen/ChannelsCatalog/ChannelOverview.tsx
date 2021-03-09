@@ -76,7 +76,9 @@ export const ChannelOverview = ({
             </Typography>
           )}
           <Typography tag="div" color="gray-medium">
-            {usersAssociatedTotal} members
+            {`${usersAssociatedTotal} member${
+              usersAssociatedTotal > 1 ? 's' : ''
+            }`}{' '}
             {usersAssociated.length > 0 && ` (${usersAssociated.join(', ')})`}
           </Typography>
           <Typography tag="div" color="gray-medium">
