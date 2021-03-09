@@ -7,6 +7,7 @@ import { Header } from '../../../common/Dialog/Header';
 import { Label } from '../../../common/Label/Label';
 import { TextField } from '../../../common/TextField/TextField';
 import {
+  FormEventElement,
   InputChangeEvent,
   InputClickEvent,
 } from '../../../utils/ui-event-types';
@@ -60,13 +61,19 @@ export const EditChannelDialog = ({
     }
   };
 
+  const handleSumbit = (e: FormEventElement) => {
+    e.preventDefault();
+    e.stopPropagation();
+    handleEditChannel();
+  };
+
   return (
-    <Dialog
-      header={<Header title="Edit channel" close={closeDialog} />}
-      body={
-        <Body>
-          <div className="space-y-6">
-            <form className="space-y-4" onSubmit={handleEditChannel}>
+    <form className="space-y-4" onSubmit={handleSumbit}>
+      <Dialog
+        header={<Header title="Edit channel" close={closeDialog} />}
+        body={
+          <Body>
+            <div className="space-y-6">
               <div className="space-y-2">
                 <Label htmlFor={FIELD_NAME}>Name</Label>
                 <TextField
@@ -94,12 +101,12 @@ export const EditChannelDialog = ({
               {pondErrorMessage && (
                 <PondErrorMessage variant="danger" message={pondErrorMessage} />
               )}
-            </form>
-          </div>
-        </Body>
-      }
-      footer={<Footer textConfirm="Edit" confirm={handleEditChannel} />}
-      close={closeDialog}
-    ></Dialog>
+            </div>
+          </Body>
+        }
+        footer={<Footer textConfirm="Edit" confirm={handleEditChannel} />}
+        close={closeDialog}
+      ></Dialog>
+    </form>
   );
 };

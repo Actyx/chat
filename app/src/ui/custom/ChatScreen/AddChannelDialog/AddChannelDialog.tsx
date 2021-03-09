@@ -61,6 +61,7 @@ export const AddChannelDialog = ({
 
   const handleSumbit = (e: FormEventElement) => {
     e.preventDefault();
+    e.stopPropagation();
     handleAddChannel();
   };
 
