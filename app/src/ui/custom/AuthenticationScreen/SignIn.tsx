@@ -37,17 +37,15 @@ export const SignIn = ({
     <div className="text-center space-y-3">
       <Heading1>Sign-in</Heading1>
       <SubHeading>Enter your credentials</SubHeading>
-      <form onSubmit={handleSubmit}>
-        <div className="w-96 space-y-5">
-          <TextField
-            type="password"
-            required
-            value={userUUID}
-            full
-            change={handleChangeUserUUID}
-          />
-          <Button full>Sign-in</Button>
-        </div>
+      <form className="w-96 space-y-5" onSubmit={handleSubmit}>
+        <TextField
+          type="password"
+          required
+          value={userUUID}
+          full
+          change={handleChangeUserUUID}
+        />
+        <Button full>Sign-in</Button>
       </form>
       {isSignInSuccess !== undefined && (
         <Alert

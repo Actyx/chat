@@ -60,6 +60,7 @@ export const Debug = ({ pond }: DebugProps) => {
 
   return (
     <div className="fixed top-0 left-0">
+      <div className="w-5 h-5 cursor-help" onClick={handleShowDebug} />
       {showDebug && (
         <div
           style={{ width: '75vw', height: '50vh' }}
@@ -77,7 +78,6 @@ export const Debug = ({ pond }: DebugProps) => {
           <pre>{format(stateChannelsCatalogFish)}</pre>
         </div>
       )}
-      <div className="w-5 h-5 cursor-help" onClick={handleShowDebug} />
     </div>
   );
 };
