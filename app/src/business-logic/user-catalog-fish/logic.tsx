@@ -13,6 +13,7 @@ import { v4 as uuid } from 'uuid';
 import { Pond } from '@actyx/pond';
 import { UserCatalogFish } from './user-catalog-fish';
 import { isStringEmpty, prepareString } from '../../common/strings';
+import { isUserUUIDRegistered } from './logic-helpers';
 
 //#region Others
 
@@ -59,11 +60,6 @@ export const mkUserUUID = (): UserUUID => uuid();
 //#endregion
 
 //#region Sign-in
-
-export const isUserUUIDRegistered = (
-  userUUID: UserUUID,
-  users: Users
-): boolean => userUUID in users;
 
 export const signIn = (userUUID: UserUUID, users: Users): boolean => {
   const canSignIn = isUserUUIDRegistered(userUUID, users);

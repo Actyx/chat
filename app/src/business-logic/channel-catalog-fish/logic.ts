@@ -11,15 +11,14 @@ import {
 } from './events';
 import { v4 as uuid } from 'uuid';
 import { ChannelId } from '../message/types';
-import {
-  ChannelProfile,
-  Channels,
-  ChannelCatalogFishState,
-  Users,
-} from './types';
+import { Channels, ChannelCatalogFishState, Users } from './types';
 import { ChannelCatalogFish } from './channel-catalog-fish';
 import { isSignedInUser } from '../user-catalog-fish/logic';
 import { DEFAULT_CHANNEL } from '../channel-fish/channel-fish';
+import {
+  getChannelProfileByChannelId,
+  isUserAssociatedToChannel,
+} from './logic-helpers';
 
 export const isChannelIdRegistered = (
   channelId: ChannelId,
@@ -39,11 +38,6 @@ export const doesChannelNameExist = (
   state: ChannelCatalogFishState
 ): boolean =>
   Object.values(state.channels).some((c) => c.profile.name === name);
-
-export const getChannelProfileByChannelId = (
-  channelId: ChannelId,
-  channels: Channels
-): ChannelProfile | undefined => channels[channelId]?.profile;
 
 export const hasUserCreatedChannel = (
   userUUID: UserUUID,
@@ -66,16 +60,6 @@ const prepareContentChannelProfile = (
     ? undefined
     : prepareString(description);
   return { newName, newDescription };
-};
-
-export const isUserAssociatedToChannel = (
-  userUUID: UserUUID,
-  channelId: ChannelId,
-  channels: Channels
-): boolean => {
-  return getChannelProfileByChannelId(channelId, channels)
-    ? channels[channelId].users.includes(userUUID)
-    : false;
 };
 
 export const addChannel = (pond: Pond) => (userUUID: UserUUID) => async (

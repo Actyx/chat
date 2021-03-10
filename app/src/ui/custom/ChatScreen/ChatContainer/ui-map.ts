@@ -5,10 +5,8 @@ import {
 } from '../../../../business-logic/channel-fish/logic';
 import { PublicMessages } from '../../../../business-logic/channel-fish/types';
 import {
-  getChannelProfileByChannelId,
   getChannelUsersByChannelId,
   isChannelIdSystemDefault,
-  isUserAssociatedToChannel,
 } from '../../../../business-logic/channel-catalog-fish/logic';
 import { Channels } from '../../../../business-logic/channel-catalog-fish/types';
 import {
@@ -18,7 +16,6 @@ import {
 import {
   getTotalUsers,
   isUserCreatedBySystem,
-  isUserUUIDRegistered,
 } from '../../../../business-logic/user-catalog-fish/logic';
 import {
   SYSTEM_USER,
@@ -30,6 +27,11 @@ import { isDefined } from '../../../../common/filters';
 import { MessagesUI } from '../Channel/Channel';
 import { ChannelsOverviewUI } from '../ChannelsCatalog/ChannelsCatalog';
 import { ChannelsListUI, UsersListUI } from '../Sidebar/Sidebar';
+import {
+  getChannelProfileByChannelId,
+  isUserAssociatedToChannel,
+} from '../../../../business-logic/channel-catalog-fish/logic-helpers';
+import { isUserUUIDRegistered } from '../../../../business-logic/user-catalog-fish/logic-helpers';
 
 export const mapPublicMessagesToChannelUI = (
   messages: PublicMessages,

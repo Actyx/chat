@@ -7,7 +7,7 @@ import {
 } from './types';
 import { Timestamp } from '@actyx/pond';
 import { Reduce } from '@actyx/pond';
-import { isUserUUIDRegistered } from './logic';
+import { isUserUUIDRegistered } from './logic-helpers';
 
 export const reducer: Reduce<UserCatalogFishState, UserCatalogFishEvent> = (
   state,

@@ -14,7 +14,6 @@ import {
   associateUserToChannel,
   dissociateUserChannel,
   editChannel,
-  getChannelProfileByChannelId,
   hasUserCreatedChannel,
   unarchiveChannel,
 } from '../../../../business-logic/channel-catalog-fish/logic';
@@ -49,6 +48,7 @@ import { Chat } from './Chat';
 import pkg from '../../../../../package.json';
 import { Alert } from '../../../common/Alert/Alert';
 import { useFish } from '../../../utils/use-fish';
+import { getChannelProfileByChannelId } from '../../../../business-logic/channel-catalog-fish/logic-helpers';
 
 type ChatContainerProps = Readonly<{
   pond: Pond;
