@@ -169,11 +169,11 @@ export const getVisiblePublicMessages = (
 export const getChannelNameAndDescription = (
   channelId: ChannelId,
   channels: Channels
-): Readonly<{ channelName: string; channelDescription: string }> => {
+): Readonly<{ channelName: string; channelDescription?: string }> => {
   const profile = getChannelProfileByChannelId(channelId, channels);
   return {
     channelName: profile?.name ?? '',
-    channelDescription: profile?.description ?? '',
+    channelDescription: profile?.description,
   };
 };
 

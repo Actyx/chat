@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 import { XIcon } from '../Icons/XIcon';
 import { Typography } from '../Typography/Typography';
 import { ButtonArea } from '../ButtonArea/ButtonArea';
-import { Header } from '../CentralSection/CentralSection';
+import { Header } from '../CentralSection/Header';
 
 export type FlexPanelProps = Readonly<{
   title: string;

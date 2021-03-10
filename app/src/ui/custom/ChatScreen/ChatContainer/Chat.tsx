@@ -23,7 +23,7 @@ type ChatProps = Readonly<{
   usersSideBarUI: UsersListUI;
   totalUsers: number;
   channelName: string;
-  channelDescription: string;
+  channelDescription?: string;
   channelMessages: ReadonlyArray<MessageUI>;
   channelsOverviewCatalog: ChannelsOverviewUI;
   selectedChannel?: Readonly<{

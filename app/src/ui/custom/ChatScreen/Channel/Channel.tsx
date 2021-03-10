@@ -14,7 +14,7 @@ export type MessagesUI = ReadonlyArray<MessageUI>;
 
 type ChannelProps = Readonly<{
   channelName: string;
-  channelDescription: string;
+  channelDescription?: string;
   messages: ReadonlyArray<MessageUI>;
   totalUsers: number;
   editMessage: (messageId: MessageId, content: string) => void;
@@ -72,9 +72,11 @@ export const Channel = ({
             <Typography tag="div" weight="bold" color="gray-dark">
               #{channelName}
             </Typography>
-            <Typography tag="div" size="sm" color="gray-medium">
-              {channelDescription}
-            </Typography>
+            {channelDescription && (
+              <Typography tag="div" size="sm" color="gray-medium">
+                {channelDescription}
+              </Typography>
+            )}
           </div>
           <div className="flex space-x-2">
             <Typography tag="div" size="sm" color="gray-medium">
