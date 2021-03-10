@@ -1,6 +1,6 @@
 import React, { useState, MouseEvent } from 'react';
 import { UserUUID } from '../../../business-logic/user-catalog-fish/types';
-import { FormEventElement, InputChangeEvent } from '../../utils/ui-event-types';
+import { FormEventElement, InputChangeEvent } from '../../utils/element-events';
 import { TextField } from '../../common/TextField/TextField';
 import { Heading1 } from '../../common/Hedings/Heading1';
 import { SubHeading } from '../../common/SubHeading/SubHeading';

@@ -1,13 +1,13 @@
 import React, { useContext, useState } from 'react';
 import { FlexPanel } from '../../common/FlexPanel/FlexPanel';
-import { FormEventElement, InputChangeEvent } from '../../utils/ui-event-types';
+import { FormEventElement, InputChangeEvent } from '../../utils/element-events';
 import { TextField } from '../../common/TextField/TextField';
 import { Button } from '../../common/Button/Button';
 import { Label } from '../../common/Label/Label';
 import { Typography } from '../../common/Typography/Typography';
 import { Alert } from '../../common/Alert/Alert';
-import { closeSectionRight } from '../../ui-state-manager/actions';
-import { DispatchContextUI } from '../../ui-state-manager/UIStateManager';
+import { closeSectionRight } from '../../state-manager/actions';
+import { DispatchContextUI } from '../../state-manager/UIStateManager';
 
 type UserProfileDetailsProps = Readonly<{
   userDisplayName: string;

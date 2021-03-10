@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { UserUUID } from '../../../business-logic/user-catalog-fish/types';
-import { FormEventElement, InputChangeEvent } from '../../utils/ui-event-types';
+import { FormEventElement, InputChangeEvent } from '../../utils/element-events';
 import { TextField } from '../../common/TextField/TextField';
 import { Button } from '../../common/Button/Button';
 import { Alert } from '../../common/Alert/Alert';

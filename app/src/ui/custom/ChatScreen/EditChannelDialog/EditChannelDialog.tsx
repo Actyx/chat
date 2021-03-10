@@ -9,7 +9,7 @@ import { TextField } from '../../../common/TextField/TextField';
 import {
   FormEventElement,
   InputChangeEvent,
-} from '../../../utils/ui-event-types';
+} from '../../../utils/element-events';
 
 type EditChannelDialogProps = Readonly<{
   currentName: string;

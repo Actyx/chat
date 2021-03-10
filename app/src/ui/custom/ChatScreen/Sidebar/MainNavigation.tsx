@@ -2,8 +2,8 @@ import { Row } from './Row';
 import { Typography } from '../../../common/Typography/Typography';
 import { SpeakerphoneIcon } from '../../../common/Icons/SpeakerphoneIcon';
 import { useContext } from 'react';
-import { StateContextUI } from '../../../ui-state-manager/UIStateManager';
-import { SectionCenter } from '../../../ui-state-manager/types';
+import { StateContextUI } from '../../../state-manager/UIStateManager';
+import { SectionCenter } from '../../../state-manager/types';
 
 type MainNavigationProps = Readonly<{
   channelCatalog: () => void;

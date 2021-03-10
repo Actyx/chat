@@ -1,6 +1,6 @@
 import React, { useContext, useRef } from 'react';
 import { MessageId } from '../../../../business-logic/message/types';
-import { StateContextUI } from '../../../ui-state-manager/UIStateManager';
+import { StateContextUI } from '../../../state-manager/UIStateManager';
 import { Message, MessageUI } from './Message';
 import { useScrollIntoViewLatestMessage } from './useScrollIntoViewLatestMessage';
 

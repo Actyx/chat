@@ -5,7 +5,7 @@ import { Dialog, DialogProps } from './Dialog';
 import { Header } from './Header';
 import { Footer } from './Footer';
 import { Body } from './Body';
-import { mkLoremIpsum } from '../../utils/ui-content';
+import { mkLoremIpsum } from '../../utils/content';
 
 export default {
   title: 'Common/Dialog',

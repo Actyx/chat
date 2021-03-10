@@ -1,14 +1,14 @@
 import classNames from 'classnames';
 import { useContext } from 'react';
-import { mkColor } from '../../utils/ui-colors';
+import { mkColor } from '../../utils/colors';
 import { LogoutIcon } from '../../common/Icons/LogoutIcon';
 import { Typography } from '../../common/Typography/Typography';
 import { ButtonArea } from '../../common/ButtonArea/ButtonArea';
 import {
   showUserProfileEditSection,
   signOutActiveUser,
-} from '../../ui-state-manager/actions';
-import { DispatchContextUI } from '../../ui-state-manager/UIStateManager';
+} from '../../state-manager/actions';
+import { DispatchContextUI } from '../../state-manager/UIStateManager';
 
 type Props = Readonly<{
   userDisplayName: string;

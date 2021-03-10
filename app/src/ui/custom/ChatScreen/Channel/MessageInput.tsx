@@ -4,7 +4,7 @@ import { ButtonArea } from '../../../common/ButtonArea/ButtonArea';
 import {
   FormEventElement,
   TextAreaChangeEvent,
-} from '../../../utils/ui-event-types';
+} from '../../../utils/element-events';
 
 type MessageInputProps = Readonly<{
   channelName: string;

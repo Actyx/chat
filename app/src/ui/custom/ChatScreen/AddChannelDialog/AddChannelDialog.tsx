@@ -5,7 +5,7 @@ import { Body } from '../../../common/Dialog/Body';
 import {
   FormEventElement,
   InputChangeEvent,
-} from '../../../utils/ui-event-types';
+} from '../../../utils/element-events';
 import { Footer } from '../../../common/Dialog/Footer';
 import { Label } from '../../../common/Label/Label';
 import { TextField } from '../../../common/TextField/TextField';

@@ -3,8 +3,8 @@ import { ChannelId } from '../../../../business-logic/message/types';
 import {
   showChannelsCatalogSection,
   showChannelSection,
-} from '../../../ui-state-manager/actions';
-import { DispatchContextUI } from '../../../ui-state-manager/UIStateManager';
+} from '../../../state-manager/actions';
+import { DispatchContextUI } from '../../../state-manager/UIStateManager';
 import { ChannelsList } from './ChannelsList';
 import { Typography } from '../../../common/Typography/Typography';
 import { CollapsibleList } from './CollapsibleList';

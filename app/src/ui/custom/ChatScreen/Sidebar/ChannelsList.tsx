@@ -4,8 +4,8 @@ import { Typography } from '../../../common/Typography/Typography';
 import { ChannelsListUI } from './Sidebar';
 import { Row } from './Row';
 import { useContext } from 'react';
-import { StateContextUI } from '../../../ui-state-manager/UIStateManager';
-import { SectionCenter } from '../../../ui-state-manager/types';
+import { StateContextUI } from '../../../state-manager/UIStateManager';
+import { SectionCenter } from '../../../state-manager/types';
 
 type ChannelsListProps = Readonly<{
   channels: ChannelsListUI;

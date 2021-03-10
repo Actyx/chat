@@ -6,7 +6,7 @@ import { ChannelCatalogFish } from '../../../business-logic/channel-catalog-fish
 import { ChannelCatalogFishState } from '../../../business-logic/channel-catalog-fish/types';
 import { UserCatalogFishState } from '../../../business-logic/user-catalog-fish/types';
 import { UserCatalogFish } from '../../../business-logic/user-catalog-fish/user-catalog-fish';
-import { StateContextUI } from '../../ui-state-manager/UIStateManager';
+import { StateContextUI } from '../../state-manager/UIStateManager';
 
 type DebugProps = Readonly<{
   pond: Pond;

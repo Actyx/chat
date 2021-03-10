@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { MouseEventDiv } from '../../utils/ui-event-types';
+import { MouseEventDiv } from '../../utils/element-events';
 import { Modal } from '../Modal/Modal';
 import './dialog.css';
 

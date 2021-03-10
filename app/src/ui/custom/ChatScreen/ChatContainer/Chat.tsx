@@ -1,5 +1,5 @@
 import React, { ReactNode, useContext } from 'react';
-import { Dialogs, SectionCenter } from '../../../ui-state-manager/types';
+import { Dialogs, SectionCenter } from '../../../state-manager/types';
 import { ChannelsListUI, Sidebar, UsersListUI } from '../Sidebar/Sidebar';
 import { TopBar } from '../TopBar';
 import { UserProfileDetails } from '../../UserProfileDetails/UserProfileDetails';
@@ -13,7 +13,7 @@ import { ChannelId, MessageId } from '../../../../business-logic/message/types';
 import { EditChannelDialog } from '../EditChannelDialog/EditChannelDialog';
 import { AddChannelDialog } from '../AddChannelDialog/AddChannelDialog';
 import './chat.css';
-import { StateContextUI } from '../../../ui-state-manager/UIStateManager';
+import { StateContextUI } from '../../../state-manager/UIStateManager';
 import { ErrorBoundary } from '../../../common/ErrorBoundary/ErrorBoundary';
 
 type ChatProps = Readonly<{

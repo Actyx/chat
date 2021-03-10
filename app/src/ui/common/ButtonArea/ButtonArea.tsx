@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { MouseEventButton } from '../../utils/ui-event-types';
+import { MouseEventButton } from '../../utils/element-events';
 import cn from 'classnames';
 
 export type ButtonAreaBase = Readonly<{

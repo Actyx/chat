@@ -25,13 +25,13 @@ import {
   closeSectionRight,
   hideDialog,
   showEditChannelDialog,
-} from '../../../ui-state-manager/actions';
-import { showAddChannelDialog } from '../../../ui-state-manager/actions';
-import { SectionRight } from '../../../ui-state-manager/types';
+} from '../../../state-manager/actions';
+import { showAddChannelDialog } from '../../../state-manager/actions';
+import { SectionRight } from '../../../state-manager/types';
 import {
   DispatchContextUI,
   StateContextUI,
-} from '../../../ui-state-manager/UIStateManager';
+} from '../../../state-manager/UIStateManager';
 import {
   getChannelNameAndDescription,
   getDisplayNameByUser,

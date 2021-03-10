@@ -3,7 +3,7 @@ import { Button } from '../../../common/Button/Button';
 import {
   FormEventElement,
   TextAreaChangeEvent,
-} from '../../../utils/ui-event-types';
+} from '../../../utils/element-events';
 
 export type MessageEditProps = Readonly<{
   currentContent: string;

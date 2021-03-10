@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Pond } from '@actyx/pond';
-import { UIStateManager } from './ui/ui-state-manager/UIStateManager';
+import { UIStateManager } from './ui/state-manager/UIStateManager';
 import { ScreenRooter as ScreenRouter } from './ui/custom/ScreenRouter/ScreenRouter';
 import { Debug } from './ui/custom/Debug/Debug';
 import { CircularProgress } from './ui/common/CircularProgress/CircularProgress';

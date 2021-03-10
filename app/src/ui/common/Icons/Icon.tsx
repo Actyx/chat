@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { ReactNode } from 'react';
-import { ColorUI, mkColor } from '../../utils/ui-colors';
+import { ColorUI, mkColor } from '../../utils/colors';
 
 export type IconProps = Readonly<{
   fill?: boolean;

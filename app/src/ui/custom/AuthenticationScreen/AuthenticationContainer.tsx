@@ -8,11 +8,8 @@ import {
 } from '../../../business-logic/user-catalog-fish/logic';
 import { SignUp } from './SignUp';
 import { SignIn } from './SignIn';
-import { DispatchContextUI } from '../../ui-state-manager/UIStateManager';
-import {
-  addSignedInUser,
-  goToChatScreen,
-} from '../../ui-state-manager/actions';
+import { DispatchContextUI } from '../../state-manager/UIStateManager';
+import { addSignedInUser, goToChatScreen } from '../../state-manager/actions';
 import { UserCatalogFish } from '../../../business-logic/user-catalog-fish/user-catalog-fish';
 import { CreateAccount } from './CreateAccount';
 import { ErrorBoundary } from '../../common/ErrorBoundary/ErrorBoundary';

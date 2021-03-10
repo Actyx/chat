@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { ReactNode } from 'react';
-import { ColorUI } from '../../utils/ui-colors';
+import { ColorUI } from '../../utils/colors';
 import { Typography } from '../Typography/Typography';
 
 type Variant = 'secondary' | 'danger' | 'warning' | 'success';

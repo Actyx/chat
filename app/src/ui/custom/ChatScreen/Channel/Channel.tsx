@@ -6,7 +6,7 @@ import { UsersIcon } from '../../../common/Icons/UsersIcon';
 import { UserIcon } from '../../../common/Icons/UserIcon';
 import { MessageList } from './MessageList';
 import { MessageUI } from './Message';
-import { StateContextUI } from '../../../ui-state-manager/UIStateManager';
+import { StateContextUI } from '../../../state-manager/UIStateManager';
 import { CentralSection } from '../../../common/CentralSection/CentralSection';
 import { Alert } from '../../../common/Alert/Alert';
 

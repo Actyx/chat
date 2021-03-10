@@ -1,8 +1,8 @@
 import { Pond } from '@actyx/pond';
 import { useContext } from 'react';
 import { AuthenticationContainer } from '../AuthenticationScreen/AuthenticationContainer';
-import { StateContextUI } from '../../ui-state-manager/UIStateManager';
-import { Screens } from '../../ui-state-manager/types';
+import { StateContextUI } from '../../state-manager/UIStateManager';
+import { Screens } from '../../state-manager/types';
 import { ChatContainer } from '../ChatScreen/ChatContainer/ChatContainer';
 import { isSignedInUser } from '../../../business-logic/user-catalog-fish/logic';
 
