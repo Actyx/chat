@@ -1,9 +1,6 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { Pond } from '@actyx/pond';
-import {
-  UserCatalogFishState,
-  UserUUID,
-} from '../../../business-logic/user-catalog-fish/types';
+import { UserUUID } from '../../../business-logic/user-catalog-fish/types';
 import {
   signUp,
   signIn,
@@ -19,6 +16,7 @@ import {
 import { UserCatalogFish } from '../../../business-logic/user-catalog-fish/user-catalog-fish';
 import { CreateAccount } from './CreateAccount';
 import { ErrorBoundary } from '../../common/ErrorBoundary/ErrorBoundary';
+import { useFish } from '../../utils/use-fish';
 
 type AuthenticationContainerProps = Readonly<{
   pond: Pond;
@@ -29,18 +27,11 @@ export const AuthenticationContainer = ({
 }: AuthenticationContainerProps) => {
   const dispatch = useContext(DispatchContextUI);
 
-  const [
-    stateUserCatalogFish,
-    setStateUserCatalogFish,
-  ] = useState<UserCatalogFishState>(UserCatalogFish.initialState);
-
-  useEffect(() => {
-    const cancelSubscription = pond.observe(
-      UserCatalogFish,
-      setStateUserCatalogFish
-    );
-    return () => cancelSubscription();
-  }, [pond]);
+  const stateUserCatalogFish = useFish(
+    pond,
+    UserCatalogFish,
+    UserCatalogFish.initialState
+  );
 
   const [showSignUp, setShowSignUp] = useState<boolean>(false);
 

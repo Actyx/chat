@@ -6,7 +6,6 @@ import {
   hideMessageFromChannel,
   addMessageToChannel,
 } from '../../../../business-logic/channel-fish/logic';
-import { ChannelFishState } from '../../../../business-logic/channel-fish/types';
 import { ChannelCatalogFish } from '../../../../business-logic/channel-catalog-fish/channel-catalog-fish';
 import {
   addChannel,
@@ -19,10 +18,8 @@ import {
   hasUserCreatedChannel,
   unarchiveChannel,
 } from '../../../../business-logic/channel-catalog-fish/logic';
-import { ChannelCatalogFishState } from '../../../../business-logic/channel-catalog-fish/types';
 import { ChannelId, MessageId } from '../../../../business-logic/message/types';
 import { editUserProfile } from '../../../../business-logic/user-catalog-fish/logic';
-import { UserCatalogFishState } from '../../../../business-logic/user-catalog-fish/types';
 import { UserCatalogFish } from '../../../../business-logic/user-catalog-fish/user-catalog-fish';
 import {
   closeSectionRight,
@@ -51,6 +48,7 @@ import {
 import { Chat } from './Chat';
 import pkg from '../../../../../package.json';
 import { Alert } from '../../../common/Alert/Alert';
+import { useFish } from '../../../utils/use-fish';
 
 type ChatContainerProps = Readonly<{
   pond: Pond;
@@ -67,48 +65,25 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
 
   //#region Pond and Fishes
 
-  const [
-    stateUserCatalogFish,
-    setStateUserCatalogFish,
-  ] = useState<UserCatalogFishState>(UserCatalogFish.initialState);
+  const [pondErrorMessage, setPondErrorMessage] = useState<string>();
 
-  const [
-    stateChannelMainFish,
-    setStateChannelMainFish,
-  ] = useState<ChannelFishState>(
+  const stateUserCatalogFish = useFish(
+    pond,
+    UserCatalogFish,
+    UserCatalogFish.initialState
+  );
+
+  const stateChannelMainFish = useFish(
+    pond,
+    mkChannelFish(stateUI.activeChannelId),
     mkChannelFish(stateUI.activeChannelId).initialState
   );
 
-  const [
-    stateChannelsCatalogFish,
-    setStateChannelsCatalogFish,
-  ] = useState<ChannelCatalogFishState>(ChannelCatalogFish.initialState);
-
-  const [pondErrorMessage, setPondErrorMessage] = useState<string>();
-
-  // TODO remove duplication by using utility fns
-  useEffect(() => {
-    const cancelSubUserCatalogFish = pond.observe(
-      UserCatalogFish,
-      setStateUserCatalogFish
-    );
-
-    const cancelSubChannelFish = pond.observe(
-      mkChannelFish(stateUI.activeChannelId),
-      setStateChannelMainFish
-    );
-
-    const cancelSubChannelsCatalogFish = pond.observe(
-      ChannelCatalogFish,
-      setStateChannelsCatalogFish
-    );
-
-    return () => {
-      cancelSubUserCatalogFish();
-      cancelSubChannelFish();
-      cancelSubChannelsCatalogFish();
-    };
-  }, [pond, stateUI.activeChannelId]);
+  const stateChannelsCatalogFish = useFish(
+    pond,
+    ChannelCatalogFish,
+    ChannelCatalogFish.initialState
+  );
 
   useEffect(() => {
     const mainChannel = async () => {
