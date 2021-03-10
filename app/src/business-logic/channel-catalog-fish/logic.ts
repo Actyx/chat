@@ -118,34 +118,32 @@ export const editChannel = (pond: Pond) => (
 
     await pond
       .run(ChannelCatalogFish, (fishState, enqueue) => {
-        let canEdit = false;
-        const hasChannelId = isChannelIdRegistered(
-          channelId,
-          fishState.channels
-        );
         const profile = getChannelProfileByChannelId(
           channelId,
           fishState.channels
         );
-        if (hasChannelId && profile) {
+        if (profile) {
           const isEditName = profile.name !== newName;
           const isEditDescription = profile.description !== newDescription;
-          if (isEditName && !isEditDescription) {
-            canEdit = !doesChannelNameExist(newName, fishState);
-          } else if (!isEditName && isEditDescription) {
-            canEdit = true;
+          const isEditWithUniqueNameOnly =
+            isEditName &&
+            !isEditDescription &&
+            !doesChannelNameExist(newName, fishState);
+          const isEditWithDescriptionOnly = !isEditName && isEditDescription;
+
+          const canEdit = isEditWithUniqueNameOnly || isEditWithDescriptionOnly;
+
+          if (canEdit) {
+            enqueue(
+              ...getChannelProfileEdited(
+                channelId,
+                userUUID,
+                newName,
+                newDescription
+              )
+            );
+            isSuccess = true;
           }
-        }
-        if (canEdit) {
-          enqueue(
-            ...getChannelProfileEdited(
-              channelId,
-              userUUID,
-              newName,
-              newDescription
-            )
-          );
-          isSuccess = true;
         }
       })
       .toPromise();
