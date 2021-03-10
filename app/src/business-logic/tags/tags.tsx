@@ -10,7 +10,7 @@ export const channelCatalogTag = Tag<ChannelCatalogFishEvent>(
 
 export const messagesCatalogTag = Tag<PublicMessageEvent>('messages-catalog');
 export const messageTag = Tag<PublicMessageEvent>('message');
-export const sender = Tag<PublicMessageEvent>('sender');
+export const sender = Tag('sender');
 
 export const userCatalogTag = Tag<UserCatalogFishEvent>('user-catalog');
 export const userTag = Tag<UserCatalogFishEvent>('user');
