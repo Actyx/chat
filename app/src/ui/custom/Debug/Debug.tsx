@@ -1,12 +1,10 @@
 import { Pond } from '@actyx/pond';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { mkChannelFish } from '../../../business-logic/channel-fish/channel-fish';
-import { ChannelFishState } from '../../../business-logic/channel-fish/types';
 import { ChannelCatalogFish } from '../../../business-logic/channel-catalog-fish/channel-catalog-fish';
-import { ChannelCatalogFishState } from '../../../business-logic/channel-catalog-fish/types';
-import { UserCatalogFishState } from '../../../business-logic/user-catalog-fish/types';
 import { UserCatalogFish } from '../../../business-logic/user-catalog-fish/user-catalog-fish';
 import { StateContextUI } from '../../state-manager/UIStateManager';
+import { useFish } from '../../utils/use-fish';
 
 type DebugProps = Readonly<{
   pond: Pond;
@@ -17,44 +15,25 @@ const format = (value: any) => JSON.stringify(value, undefined, 4);
 export const Debug = ({ pond }: DebugProps) => {
   const stateUI = useContext(StateContextUI);
 
-  const [
-    stateUserCatalogFish,
-    setStateUserCatalogFish,
-  ] = useState<UserCatalogFishState>(UserCatalogFish.initialState);
-
-  const [stateChannelFish, setStateChannelFish] = useState<ChannelFishState>(
-    mkChannelFish(stateUI.activeChannelId).initialState
-  );
-
-  const [
-    stateChannelsCatalogFish,
-    setChannelsCatalogFish,
-  ] = useState<ChannelCatalogFishState>(ChannelCatalogFish.initialState);
-
   const [showDebug, setShowDebug] = useState<boolean>(false);
 
-  useEffect(() => {
-    const cancelSubUserCatalogFish = pond.observe(
-      UserCatalogFish,
-      setStateUserCatalogFish
-    );
+  const stateUserCatalogFish = useFish(
+    pond,
+    UserCatalogFish,
+    UserCatalogFish.initialState
+  );
 
-    const cancelSubscChannelFish = pond.observe(
-      mkChannelFish(stateUI.activeChannelId),
-      setStateChannelFish
-    );
+  const stateChannelsCatalogFish = useFish(
+    pond,
+    ChannelCatalogFish,
+    ChannelCatalogFish.initialState
+  );
 
-    const cancelChannelsCatalogFish = pond.observe(
-      ChannelCatalogFish,
-      setChannelsCatalogFish
-    );
-
-    return () => {
-      cancelSubUserCatalogFish();
-      cancelSubscChannelFish();
-      cancelChannelsCatalogFish();
-    };
-  }, [pond, stateUI.activeChannelId]);
+  const stateChannelFish = useFish(
+    pond,
+    mkChannelFish(stateUI.activeChannelId),
+    mkChannelFish(stateUI.activeChannelId).initialState
+  );
 
   const handleShowDebug = () => setShowDebug(!showDebug);
 
