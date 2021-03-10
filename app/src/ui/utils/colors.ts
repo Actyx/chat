@@ -23,7 +23,7 @@ export type ColorUI =
   | 'yellow-dark';
 
 export const mkColor = (type: 'text' | 'bg') => (color: ColorUI): string => {
-  const styled = {
+  const styles = {
     text: {
       'text-white': color === 'white',
       'text-black': color === 'black',
@@ -81,5 +81,5 @@ export const mkColor = (type: 'text' | 'bg') => (color: ColorUI): string => {
       'yellow-blue-900': color === 'yellow-dark',
     },
   };
-  return cn(styled[type]);
+  return cn(styles[type]);
 };

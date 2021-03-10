@@ -21,7 +21,7 @@ export const TopBar = ({ userDisplayName }: Props) => {
 
   const handleSignOut = () => dispatch(signOutActiveUser());
 
-  const style = classNames(
+  const styles = classNames(
     'w-full',
     'flex justify-end items-center',
     'space-x-3',
@@ -32,7 +32,7 @@ export const TopBar = ({ userDisplayName }: Props) => {
   );
 
   return (
-    <div className={style}>
+    <div className={styles}>
       <ButtonArea type="button" click={handleEditUserProfile}>
         <Typography color="gray-light">{userDisplayName}</Typography>
       </ButtonArea>
