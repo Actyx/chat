@@ -7,13 +7,14 @@ import {
   UserUUID,
   SYSTEM_USER,
   ANONYMOUS_USER,
+  SignUpLogicResult,
 } from './types';
 import { v4 as uuid } from 'uuid';
 import { Pond } from '@actyx/pond';
 import { UserCatalogFish } from './user-catalog-fish';
 import { isStringEmpty, prepareString } from '../../common/strings';
 import { isUserUUIDRegistered } from './logic-helpers';
-import { ErrorType, SignUpResult } from '../common/types';
+import { ErrorType } from '../common/logic-types';
 
 //#region Others
 
@@ -32,7 +33,7 @@ export const getTotalUsers = (users: Users) => Object.values(users).length;
 export const signUpLogic = (
   makerUUID: () => UserUUID,
   fishState: UserCatalogFishState
-) => (displayName: string, email: Email): SignUpResult => {
+) => (displayName: string, email: Email): SignUpLogicResult => {
   const userUUID = makerUUID();
   const canSignUp = !isUserEmailRegistered(email, fishState.emails);
   if (canSignUp) {
@@ -45,7 +46,8 @@ export const signUpLogic = (
     return {
       status: 'error',
       errorType: ErrorType.SignUp_EmailAlreadyExists,
-      errorMessage: 'Email is already registered',
+      errorMessage:
+        'User cannot sign-up, his email is already registered in the system',
     };
   }
 };

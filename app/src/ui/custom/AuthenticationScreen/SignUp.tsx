@@ -1,5 +1,8 @@
 import React, { useState, MouseEvent } from 'react';
-import { UserUUID } from '../../../business-logic/user-catalog-fish/types';
+import {
+  SignUpLogicResult,
+  UserUUID,
+} from '../../../business-logic/user-catalog-fish/types';
 import { FormEventElement, InputChangeEvent } from '../../utils/element-events';
 import { TextField } from '../../common/TextField/TextField';
 import { Heading1 } from '../../common/Hedings/Heading1';
@@ -8,12 +11,16 @@ import { Button } from '../../common/Button/Button';
 import { Alert } from '../../common/Alert/Alert';
 import { ButtonTextLink } from '../../common/ButtonTextLink/ButtonTextLink';
 import { ExclamationIcon } from '../../common/Icons/ExclamationIcon';
-import { SignUpResult } from '../../../business-logic/common/types';
+import { messages } from '../../../business-logic/user-catalog-fish/messages';
+import { Language } from '../../../business-logic/common/l10n-types';
+import { getMessage } from '../../../business-logic/common/l10n';
 
 type SignUpProps = Readonly<{
-  signUp: (displayName: string, email: string) => Promise<SignUpResult>;
+  signUp: (displayName: string, email: string) => Promise<SignUpLogicResult>;
   showSignIn: () => void;
 }>;
+
+const getUIMessage = getMessage(messages)(Language.En);
 
 export const SignUp = ({ signUp, showSignIn }: SignUpProps) => {
   const [isSignUpSuccess, setIsSignUpSuccess] = useState<boolean>();
@@ -42,7 +49,7 @@ export const SignUp = ({ signUp, showSignIn }: SignUpProps) => {
         setUserUUID(result.others?.userUUID);
       } else {
         setIsSignUpSuccess(false);
-        setInvalidMessage(result.errorMessage);
+        setInvalidMessage(getUIMessage(result.errorType));
       }
     } catch (err) {
       setPondErrorMessage(err);

@@ -1,4 +1,5 @@
 import { Timestamp } from '@actyx/pond';
+import { LogicResult } from '../common/logic-types';
 
 //#region General
 
@@ -60,5 +61,16 @@ export type UserCatalogFishState = {
   users: Users;
   emails: UsersEmails;
 };
+
+//#endregion
+
+//#region Logic
+
+export type SignUpLogicResult = LogicResult<
+  UserCatalogFishEvent,
+  Readonly<{
+    userUUID: UserUUID;
+  }>
+>;
 
 //#endregion

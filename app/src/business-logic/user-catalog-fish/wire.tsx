@@ -2,18 +2,18 @@ import { Pond } from '@actyx/pond';
 import { signUpLogic } from './logic';
 import {
   Email,
+  SignUpLogicResult,
   UserCatalogFishEvent,
   UserCatalogFishState,
   UserUUID,
 } from './types';
 import { UserCatalogFish } from './user-catalog-fish';
-import { SignUpResult } from '../common/types';
 
 export const signUpWire = (pond: Pond, makerUUID: () => UserUUID) => async (
   displayName: string,
   email: Email
-): Promise<SignUpResult> => {
-  let resultOutput: SignUpResult;
+): Promise<SignUpLogicResult> => {
+  let resultOutput: SignUpLogicResult;
   await pond
     .run<UserCatalogFishState, UserCatalogFishEvent>(
       UserCatalogFish,
