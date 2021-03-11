@@ -6,7 +6,7 @@ export enum ErrorType {
 
 export type LogicResultSuccess<T> = Readonly<{
   status: 'ok';
-  tagsWithEvents: ReadonlyArray<TagsWithEvent<T>>;
+  tagsWithEvents: readonly [TagsWithEvent<T>];
 }>;
 
 export type LogicResultError = Readonly<{
