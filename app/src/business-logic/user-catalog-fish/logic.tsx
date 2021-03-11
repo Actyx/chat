@@ -1,7 +1,6 @@
 import { getUserAddedEvent, getUserProfileEditedEvent } from './events';
 import {
   Email,
-  UserCatalogFishEvent,
   Users,
   UserCatalogFishState,
   UsersEmails,
@@ -14,6 +13,7 @@ import { Pond } from '@actyx/pond';
 import { UserCatalogFish } from './user-catalog-fish';
 import { isStringEmpty, prepareString } from '../../common/strings';
 import { isUserUUIDRegistered } from './logic-helpers';
+import { ErrorType, SignUpResult } from '../common/types';
 
 //#region Others
 
@@ -29,26 +29,47 @@ export const getTotalUsers = (users: Users) => Object.values(users).length;
 
 //#region Sign-up
 
-export const signUp = (pond: Pond, makerUUID: () => UserUUID) => async (
-  displayName: string,
-  email: Email
-): Promise<UserUUID | undefined> => {
+export const signUpLogic = (
+  makerUUID: () => UserUUID,
+  fishState: UserCatalogFishState
+) => (displayName: string, email: Email): SignUpResult => {
   const userUUID = makerUUID();
-  let isSuccess = false;
-  await pond
-    .run<UserCatalogFishState, UserCatalogFishEvent>(
-      UserCatalogFish,
-      (fishState, enqueue) => {
-        const canSignUp = !isUserEmailRegistered(email, fishState.emails);
-        if (canSignUp) {
-          enqueue(...getUserAddedEvent(userUUID, displayName, email));
-          isSuccess = true;
-        }
-      }
-    )
-    .toPromise();
-  return isSuccess ? userUUID : undefined;
+  const canSignUp = !isUserEmailRegistered(email, fishState.emails);
+  if (canSignUp) {
+    return {
+      status: 'ok',
+      tagsWithEvents: [getUserAddedEvent(userUUID, displayName, email)],
+      others: { userUUID },
+    };
+  } else {
+    return {
+      status: 'error',
+      errorType: ErrorType.SignUp_EmailAlreadyExists,
+      errorMessage: 'email has been already registered',
+    };
+  }
 };
+
+// export const signUp = (pond: Pond, makerUUID: () => UserUUID) => async (
+//   displayName: string,
+//   email: Email
+// ): Promise<UserUUID | undefined> => {
+//   const userUUID = makerUUID();
+//   let isSuccess = false;
+//   await pond
+//     .run<UserCatalogFishState, UserCatalogFishEvent>(
+//       UserCatalogFish,
+//       (fishState, enqueue) => {
+//         const canSignUp = !isUserEmailRegistered(email, fishState.emails);
+//         if (canSignUp) {
+//           enqueue(...getUserAddedEvent(userUUID, displayName, email));
+//           isSuccess = true;
+//         }
+//       }
+//     )
+//     .toPromise();
+//   return isSuccess ? userUUID : undefined;
+// };
 
 const isUserEmailRegistered = (
   email: Email,

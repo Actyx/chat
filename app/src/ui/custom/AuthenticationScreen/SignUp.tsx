@@ -8,9 +8,10 @@ import { Button } from '../../common/Button/Button';
 import { Alert } from '../../common/Alert/Alert';
 import { ButtonTextLink } from '../../common/ButtonTextLink/ButtonTextLink';
 import { ExclamationIcon } from '../../common/Icons/ExclamationIcon';
+import { SignUpResult } from '../../../business-logic/common/types';
 
 type SignUpProps = Readonly<{
-  signUp: (displayName: string, email: string) => Promise<UserUUID | undefined>;
+  signUp: (displayName: string, email: string) => Promise<SignUpResult>;
   showSignIn: () => void;
 }>;
 
@@ -33,13 +34,28 @@ export const SignUp = ({ signUp, showSignIn }: SignUpProps) => {
     e.preventDefault();
     e.stopPropagation();
     try {
-      const newUserUUID = await signUp(name, email);
-      setIsSignUpSuccess(newUserUUID ? true : false);
-      setUserUUID(newUserUUID);
+      const result = await signUp(name, email);
+      if (result.status === 'ok') {
+        setIsSignUpSuccess(result.others?.userUUID ? true : false);
+        setUserUUID(result.others?.userUUID);
+      } else {
+        setIsSignUpSuccess(false);
+      }
     } catch (err) {
       setPondErrorMessage(err);
     }
   };
+  // const handleSubmit = async (e: FormEventElement) => {
+  //   e.preventDefault();
+  //   e.stopPropagation();
+  //   try {
+  //     const newUserUUID = await signUp(name, email);
+  //     setIsSignUpSuccess(newUserUUID ? true : false);
+  //     setUserUUID(newUserUUID);
+  //   } catch (err) {
+  //     setPondErrorMessage(err);
+  //   }
+  // };
 
   const handleOpenSignIn = (e: MouseEvent<HTMLButtonElement>) => showSignIn();
 
