@@ -1,4 +1,4 @@
-import { TagsWithEvent } from '../../common/types';
+import { ReadonlyArrayOfOneOrMore, TagsWithEvent } from '../../common/types';
 
 export enum ErrorType {
   SignUp_EmailAlreadyExists = 'SignUp_EmailAlreadyExists',
@@ -6,7 +6,7 @@ export enum ErrorType {
 
 export type LogicResultSuccess<T> = Readonly<{
   status: 'ok';
-  tagsWithEvents: readonly [TagsWithEvent<T>];
+  tagsWithEvents: ReadonlyArrayOfOneOrMore<TagsWithEvent<T>>;
 }>;
 
 export type LogicResultError = Readonly<{
