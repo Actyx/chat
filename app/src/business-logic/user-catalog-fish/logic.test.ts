@@ -40,7 +40,7 @@ describe('UserCatalogFish', () => {
           },
         },
         emails: [{ email: 'simone@gmail.com', userUUID: 'user-1' }],
-      })('Simon', 'simone@gmail.com');
+      })('Simone', 'simone@gmail.com');
 
       const expectedResult = {
         status: 'error',
