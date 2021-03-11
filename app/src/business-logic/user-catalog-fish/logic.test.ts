@@ -2,7 +2,7 @@ import { signUpLogic } from './logic';
 
 describe('UserCatalogFish', () => {
   describe('signUpLogic', () => {
-    it('should add a new user to the system', () => {
+    it('should register a new user if his email is not already registered', () => {
       const result = signUpLogic(() => 'user-1', {
         users: {},
         emails: {},
@@ -30,26 +30,28 @@ describe('UserCatalogFish', () => {
       expect(result).toMatchObject(expectedResult);
     });
 
-    // it('should should not add a new user to the system and return and error instead', () => {
-    //   const result = signUpLogic(() => 'user-1', {
-    //     users: {
-    //       'user-1': {
-    //         userUUID: 'user-1',
-    //         createdOn: 1615299711075000,
-    //         displayName: 'Simone',
-    //         email: 'simone@gmail.com',
-    //       },
-    //     },
-    //     emails: {
-    //       'simon@gmail.com': null,
-    //     },
-    //   })('Simon', 'simone@gmail.com');
+    it('should not register a new user if his email is already registered', () => {
+      const result = signUpLogic(() => 'user-1', {
+        users: {
+          'user-1': {
+            userUUID: 'user-1',
+            createdOn: 1615299711075000,
+            displayName: 'Simone',
+            email: 'simone@gmail.com',
+          },
+        },
+        emails: {
+          'simone@gmail.com': null,
+        },
+      })('Simon', 'simone@gmail.com');
 
-    //   const expectedResult = {
-    //     status: 'error',
-    //     errorType: 'SignUp_EmailAlreadyExists',
-    //     errorMessage: '',
-    //   };
-    // });
+      const expectedResult = {
+        status: 'error',
+        errorType: 'SignUp_EmailAlreadyExists',
+        errorMessage: expect.any(String),
+      };
+
+      expect(result).toMatchObject(expectedResult);
+    });
   });
 });
