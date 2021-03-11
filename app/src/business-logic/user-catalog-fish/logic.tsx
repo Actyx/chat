@@ -14,6 +14,7 @@ import { v4 as uuid } from 'uuid';
 import { isStringEmpty, prepareString } from '../../common/strings';
 import { isUserUUIDRegistered } from './logic-helpers';
 import { ErrorType } from '../common/logic-types';
+import { logBugBl } from '../../logger/logger';
 
 //#region Others
 
@@ -81,18 +82,24 @@ export const editUserProfileLogic = (
   const hasDisplayName = !isStringEmpty(newDisplayName);
 
   if (!isUserSignIn) {
+    const errorType = ErrorType.Authetication_UserIsNotSignedIn;
+    const errorMessage = 'User is not signed-in';
+    logBugBl(ErrorType.Authetication_UserIsNotSignedIn);
     return {
       status: 'error',
-      errorType: ErrorType.Authetication_UserIsNotSignedIn,
-      errorMessage: 'User is not signed-in',
+      errorType,
+      errorMessage,
     };
   }
 
   if (!isUserRegistered) {
+    const errorType = ErrorType.UserEditProfile_UserIsNotRegistered;
+    const errorMessage = 'UserUUID is not registered';
+    logBugBl(ErrorType.UserEditProfile_UserIsNotRegistered);
     return {
       status: 'error',
-      errorType: ErrorType.UserEditProfile_UserIsNotRegistered,
-      errorMessage: 'UserUUID is not registered',
+      errorType,
+      errorMessage,
     };
   }
 
