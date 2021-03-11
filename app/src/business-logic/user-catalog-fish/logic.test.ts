@@ -7,6 +7,7 @@ describe('UserCatalogFish', () => {
         users: {},
         emails: [],
       })('Simone', 'simone@gmail.com');
+
       const expectedTags = {
         rawTags: ['user-catalog', 'user', 'user:user-1'],
       };
