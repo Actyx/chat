@@ -18,6 +18,8 @@ type SignUpProps = Readonly<{
 export const SignUp = ({ signUp, showSignIn }: SignUpProps) => {
   const [isSignUpSuccess, setIsSignUpSuccess] = useState<boolean>();
 
+  const [invalidMessage, setInvalidMessage] = useState<string>();
+
   const [userUUID, setUserUUID] = useState<UserUUID>();
 
   const [name, setName] = useState('');
@@ -40,22 +42,12 @@ export const SignUp = ({ signUp, showSignIn }: SignUpProps) => {
         setUserUUID(result.others?.userUUID);
       } else {
         setIsSignUpSuccess(false);
+        setInvalidMessage(result.errorMessage);
       }
     } catch (err) {
       setPondErrorMessage(err);
     }
   };
-  // const handleSubmit = async (e: FormEventElement) => {
-  //   e.preventDefault();
-  //   e.stopPropagation();
-  //   try {
-  //     const newUserUUID = await signUp(name, email);
-  //     setIsSignUpSuccess(newUserUUID ? true : false);
-  //     setUserUUID(newUserUUID);
-  //   } catch (err) {
-  //     setPondErrorMessage(err);
-  //   }
-  // };
 
   const handleOpenSignIn = (e: MouseEvent<HTMLButtonElement>) => showSignIn();
 
@@ -95,7 +87,7 @@ export const SignUp = ({ signUp, showSignIn }: SignUpProps) => {
                   </ButtonTextLink>
                 </div>
               ) : (
-                'Email is already registered'
+                invalidMessage
               )}
             </Alert>
           )}

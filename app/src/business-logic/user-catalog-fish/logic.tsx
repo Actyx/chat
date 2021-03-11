@@ -45,31 +45,10 @@ export const signUpLogic = (
     return {
       status: 'error',
       errorType: ErrorType.SignUp_EmailAlreadyExists,
-      errorMessage: 'email has been already registered',
+      errorMessage: 'Email is already registered',
     };
   }
 };
-
-// export const signUp = (pond: Pond, makerUUID: () => UserUUID) => async (
-//   displayName: string,
-//   email: Email
-// ): Promise<UserUUID | undefined> => {
-//   const userUUID = makerUUID();
-//   let isSuccess = false;
-//   await pond
-//     .run<UserCatalogFishState, UserCatalogFishEvent>(
-//       UserCatalogFish,
-//       (fishState, enqueue) => {
-//         const canSignUp = !isUserEmailRegistered(email, fishState.emails);
-//         if (canSignUp) {
-//           enqueue(...getUserAddedEvent(userUUID, displayName, email));
-//           isSuccess = true;
-//         }
-//       }
-//     )
-//     .toPromise();
-//   return isSuccess ? userUUID : undefined;
-// };
 
 const isUserEmailRegistered = (
   email: Email,
