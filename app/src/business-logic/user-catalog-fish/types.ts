@@ -68,4 +68,6 @@ export type UserCatalogFishState = {
 
 export type SignUpLogicResult = LogicResult<UserCatalogFishEvent>;
 
+export type EditUserProfileResult = LogicResult<UserCatalogFishEvent>;
+
 //#endregion

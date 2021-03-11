@@ -18,7 +18,6 @@ import {
   unarchiveChannel,
 } from '../../../../business-logic/channel-catalog-fish/logic';
 import { ChannelId, MessageId } from '../../../../business-logic/message/types';
-import { editUserProfile } from '../../../../business-logic/user-catalog-fish/logic';
 import { UserCatalogFish } from '../../../../business-logic/user-catalog-fish/user-catalog-fish';
 import {
   closeSectionRight,
@@ -49,6 +48,8 @@ import pkg from '../../../../../package.json';
 import { Alert } from '../../../common/Alert/Alert';
 import { useFish } from '../../../utils/use-fish';
 import { getChannelProfileByChannelId } from '../../../../business-logic/channel-catalog-fish/logic-helpers';
+import { editUserProfileWire } from '../../../../business-logic/user-catalog-fish/wire';
+import { EditUserProfileResult } from '../../../../business-logic/user-catalog-fish/types';
 
 type ChatContainerProps = Readonly<{
   pond: Pond;
@@ -100,8 +101,10 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
 
   //#region Handlers operations
 
-  const handleEditUserProfile = (displayName: string): Promise<boolean> =>
-    editUserProfile(pond)(stateUI.userUUID, displayName);
+  const handleEditUserProfile = (
+    displayName: string
+  ): Promise<EditUserProfileResult> =>
+    editUserProfileWire(pond)(stateUI.userUUID, displayName);
 
   const handleAddMessage = (content: string): Promise<boolean> =>
     addMessageToChannel(pond)(stateUI.activeChannelId, stateUI.userUUID)({

@@ -1,7 +1,10 @@
 import { ReadonlyArrayOfOneOrMore, TagsWithEvent } from '../../common/types';
 
 export enum ErrorType {
+  Authetication_UserIsNotSignedIn = 'Authetication_UserIsNotSignedIn',
   SignUp_EmailAlreadyExists = 'SignUp_EmailAlreadyExists',
+  UserEditProfile_DisplayNameIsRequired = 'UserEditProfile_DisplayNameIsRequired',
+  UserEditProfile_UserIsNotRegistered = 'UserEditProfile_UserIsNotRegistered',
 }
 
 export type LogicResultSuccess<T> = Readonly<{

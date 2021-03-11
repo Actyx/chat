@@ -8,15 +8,20 @@ import { Typography } from '../../common/Typography/Typography';
 import { Alert } from '../../common/Alert/Alert';
 import { closeSectionRight } from '../../state-manager/actions';
 import { DispatchContextUI } from '../../state-manager/UIStateManager';
+import { EditUserProfileResult } from '../../../business-logic/user-catalog-fish/types';
+import { messages } from '../../../business-logic/user-catalog-fish/messages';
+import { Language } from '../../../business-logic/common/l10n-types';
+import { getMessage } from '../../../business-logic/common/l10n';
 
 type UserProfileDetailsProps = Readonly<{
   userDisplayName: string;
-  editUserProfile: (displayName: string) => Promise<boolean>;
+  editUserProfile: (displayName: string) => Promise<EditUserProfileResult>;
   close: () => void;
 }>;
 
 const FIELD_DISPLAY_NAME_ID = 'user-profile-details-display-name';
-const CANNOT_EDIT = "Sorry cannot edit User's profile";
+
+const getUIMessage = getMessage(messages)(Language.En);
 
 export const UserProfileDetails = ({
   userDisplayName,
@@ -37,11 +42,11 @@ export const UserProfileDetails = ({
   const handleSubmit = async (e: FormEventElement) => {
     e.preventDefault();
     try {
-      const isUserProfileEdited = await editUserProfile(displayName);
-      if (isUserProfileEdited === true) {
+      const result = await editUserProfile(displayName);
+      if (result.status === 'ok') {
         dispatch(closeSectionRight());
       } else {
-        setInvalidMessage(CANNOT_EDIT);
+        setInvalidMessage(getUIMessage(result.errorType));
       }
     } catch (err) {
       setPondErrorMessage(err);
@@ -73,7 +78,7 @@ export const UserProfileDetails = ({
             Save changes
           </Button>
         </div>
-        {invalidMessage && <Alert variant="danger">{invalidMessage}</Alert>}
+        {invalidMessage && <Alert variant="warning">{invalidMessage}</Alert>}
         {pondErrorMessage && <Alert variant="danger">{pondErrorMessage}</Alert>}
       </form>
     </FlexPanel>

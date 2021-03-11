@@ -8,10 +8,9 @@ import {
   SYSTEM_USER,
   ANONYMOUS_USER,
   SignUpLogicResult,
+  EditUserProfileResult,
 } from './types';
 import { v4 as uuid } from 'uuid';
-import { Pond } from '@actyx/pond';
-import { UserCatalogFish } from './user-catalog-fish';
 import { isStringEmpty, prepareString } from '../../common/strings';
 import { isUserUUIDRegistered } from './logic-helpers';
 import { ErrorType } from '../common/logic-types';
@@ -71,29 +70,44 @@ export const signIn = (userUUID: UserUUID, users: Users): boolean => {
 
 //#region User profile edit
 
-export const editUserProfile = (pond: Pond) => async (
-  userUUID: UserUUID,
-  displayName: string
-): Promise<boolean> => {
-  let isSuccess = false;
-  if (isSignedInUser(userUUID)) {
-    await pond
-      .run(UserCatalogFish, (fishState, enqueue) => {
-        const isUserRegistered = isUserUUIDRegistered(
-          userUUID,
-          fishState.users
-        );
-        const newDisplayName = prepareString(displayName);
-        const isNameNotEmpty = !isStringEmpty(newDisplayName);
-        const canEditUserProfile = isUserRegistered && isNameNotEmpty;
-        if (canEditUserProfile) {
-          enqueue(...getUserProfileEditedEvent(userUUID, displayName));
-          isSuccess = true;
-        }
-      })
-      .toPromise();
+export const editUserProfileLogic = (
+  fishState: UserCatalogFishState,
+  displayName: string,
+  userUUID: UserUUID
+): EditUserProfileResult => {
+  const isUserSignIn = isSignedInUser(userUUID);
+  const isUserRegistered = isUserUUIDRegistered(userUUID, fishState.users);
+  const newDisplayName = prepareString(displayName);
+  const hasDisplayName = !isStringEmpty(newDisplayName);
+
+  if (!isUserSignIn) {
+    return {
+      status: 'error',
+      errorType: ErrorType.Authetication_UserIsNotSignedIn,
+      errorMessage: 'User is not signed-in',
+    };
   }
-  return isSuccess;
+
+  if (!isUserRegistered) {
+    return {
+      status: 'error',
+      errorType: ErrorType.UserEditProfile_UserIsNotRegistered,
+      errorMessage: 'UserUUID is not registered',
+    };
+  }
+
+  if (!hasDisplayName) {
+    return {
+      status: 'error',
+      errorType: ErrorType.UserEditProfile_DisplayNameIsRequired,
+      errorMessage: 'The displayName is required',
+    };
+  }
+
+  return {
+    status: 'ok',
+    tagsWithEvents: [getUserProfileEditedEvent(userUUID, displayName)],
+  };
 };
 
 //#endregion

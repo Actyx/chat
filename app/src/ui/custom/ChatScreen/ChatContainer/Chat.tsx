@@ -15,6 +15,7 @@ import { AddChannelDialog } from '../AddChannelDialog/AddChannelDialog';
 import './chat.css';
 import { StateContextUI } from '../../../state-manager/UIStateManager';
 import { ErrorBoundary } from '../../../common/ErrorBoundary/ErrorBoundary';
+import { EditUserProfileResult } from '../../../../business-logic/user-catalog-fish/types';
 
 type ChatProps = Readonly<{
   appName: string;
@@ -35,7 +36,9 @@ type ChatProps = Readonly<{
   canShowUserProfileDetails: boolean;
   handleShowAddChannelDialog: () => void;
   handleShowEditChannelDialog: (channelId: ChannelId) => void;
-  handleEditUserProfile: (displayName: string) => Promise<boolean>;
+  handleEditUserProfile: (
+    displayName: string
+  ) => Promise<EditUserProfileResult>;
   handleAddMessage: (content: string) => Promise<boolean>;
   handleEditMessage: (messageId: MessageId, content: string) => void;
   handleHideMessage: (messageId: MessageId) => void;
