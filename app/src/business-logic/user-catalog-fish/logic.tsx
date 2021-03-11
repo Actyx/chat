@@ -40,7 +40,6 @@ export const signUpLogic = (
     return {
       status: 'ok',
       tagsWithEvents: [getUserAddedEvent(userUUID, displayName, email)],
-      others: { userUUID },
     };
   } else {
     return {
@@ -54,8 +53,8 @@ export const signUpLogic = (
 
 const isUserEmailRegistered = (
   email: Email,
-  usersEmails: UsersEmails
-): boolean => email in usersEmails;
+  usersEmails: UsersEmails[]
+): boolean => (usersEmails.find((x) => x.email === email) ? true : false);
 
 export const mkUserUUID = (): UserUUID => uuid();
 

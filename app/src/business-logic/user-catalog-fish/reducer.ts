@@ -42,7 +42,7 @@ const userAdded = (
       displayName,
       email,
     };
-    state.emails[email] = null;
+    state.emails.push({ email, userUUID });
   }
   return state;
 };

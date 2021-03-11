@@ -9,7 +9,7 @@ import { userCatalogTag } from '../tags/tags';
 
 const initialState: UserCatalogFishState = {
   users: {},
-  emails: {},
+  emails: [],
 };
 
 export const UserCatalogFish: Fish<

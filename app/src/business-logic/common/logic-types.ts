@@ -4,10 +4,9 @@ export enum ErrorType {
   SignUp_EmailAlreadyExists = 'SignUp_EmailAlreadyExists',
 }
 
-export type LogicResultSuccess<T, O = void> = Readonly<{
+export type LogicResultSuccess<T> = Readonly<{
   status: 'ok';
   tagsWithEvents: ReadonlyArray<TagsWithEvent<T>>;
-  others?: O;
 }>;
 
 export type LogicResultError = Readonly<{
@@ -16,6 +15,4 @@ export type LogicResultError = Readonly<{
   errorMessage: string;
 }>;
 
-export type LogicResult<T, O = void> =
-  | LogicResultSuccess<T, O>
-  | LogicResultError;
+export type LogicResult<T> = LogicResultSuccess<T> | LogicResultError;

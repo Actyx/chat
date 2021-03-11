@@ -54,23 +54,18 @@ export type UserCatalogFishEvent = UserAddedEvent | UserProfileEditedEvent;
 
 //#region State
 
-export type UsersEmails = Record<Email, null>;
+export type UsersEmails = { email: Email; userUUID: UserUUID };
 export type Users = Record<UserUUID, UserProfile>;
 
 export type UserCatalogFishState = {
   users: Users;
-  emails: UsersEmails;
+  emails: UsersEmails[];
 };
 
 //#endregion
 
 //#region Logic
 
-export type SignUpLogicResult = LogicResult<
-  UserCatalogFishEvent,
-  Readonly<{
-    userUUID: UserUUID;
-  }>
->;
+export type SignUpLogicResult = LogicResult<UserCatalogFishEvent>;
 
 //#endregion

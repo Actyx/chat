@@ -5,7 +5,7 @@ describe('UserCatalogFish', () => {
     it('should register a new user if his email is not already registered', () => {
       const result = signUpLogic(() => 'user-1', {
         users: {},
-        emails: {},
+        emails: [],
       })('Simone', 'simone@gmail.com');
       const expectedTags = {
         rawTags: ['user-catalog', 'user', 'user:user-1'],
@@ -24,7 +24,6 @@ describe('UserCatalogFish', () => {
       const expectedResult = {
         status: 'ok',
         tagsWithEvents: [[expectedTags, expectedEvent]],
-        others: { userUUID: 'user-1' },
       };
 
       expect(result).toMatchObject(expectedResult);
@@ -40,9 +39,7 @@ describe('UserCatalogFish', () => {
             email: 'simone@gmail.com',
           },
         },
-        emails: {
-          'simone@gmail.com': null,
-        },
+        emails: [{ email: 'simone@gmail.com', userUUID: 'user-1' }],
       })('Simon', 'simone@gmail.com');
 
       const expectedResult = {

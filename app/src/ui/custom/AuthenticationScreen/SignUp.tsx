@@ -1,8 +1,5 @@
 import React, { useState, MouseEvent } from 'react';
-import {
-  SignUpLogicResult,
-  UserUUID,
-} from '../../../business-logic/user-catalog-fish/types';
+import { SignUpLogicResult } from '../../../business-logic/user-catalog-fish/types';
 import { FormEventElement, InputChangeEvent } from '../../utils/element-events';
 import { TextField } from '../../common/TextField/TextField';
 import { Heading1 } from '../../common/Hedings/Heading1';
@@ -15,19 +12,39 @@ import { messages } from '../../../business-logic/user-catalog-fish/messages';
 import { Language } from '../../../business-logic/common/l10n-types';
 import { getMessage } from '../../../business-logic/common/l10n';
 
+type EmailsUserUUIDsUI = ReadonlyArray<{
+  email: string;
+  userUUID: string;
+}>;
+
 type SignUpProps = Readonly<{
   signUp: (displayName: string, email: string) => Promise<SignUpLogicResult>;
   showSignIn: () => void;
+  emailsUserUUIDs: ReadonlyArray<{
+    email: string;
+    userUUID: string;
+  }>;
 }>;
 
 const getUIMessage = getMessage(messages)(Language.En);
 
-export const SignUp = ({ signUp, showSignIn }: SignUpProps) => {
+const getToken = (
+  emailsUserUUIDs: EmailsUserUUIDsUI,
+  email: string,
+  isSignUpSuccess?: boolean
+): string | undefined =>
+  isSignUpSuccess
+    ? emailsUserUUIDs.find((x) => x.email === email)?.userUUID
+    : undefined;
+
+export const SignUp = ({
+  signUp,
+  showSignIn,
+  emailsUserUUIDs,
+}: SignUpProps) => {
   const [isSignUpSuccess, setIsSignUpSuccess] = useState<boolean>();
 
   const [invalidMessage, setInvalidMessage] = useState<string>();
-
-  const [userUUID, setUserUUID] = useState<UserUUID>();
 
   const [name, setName] = useState('');
 
@@ -45,8 +62,7 @@ export const SignUp = ({ signUp, showSignIn }: SignUpProps) => {
     try {
       const result = await signUp(name, email);
       if (result.status === 'ok') {
-        setIsSignUpSuccess(result.others?.userUUID ? true : false);
-        setUserUUID(result.others?.userUUID);
+        setIsSignUpSuccess(true);
       } else {
         setIsSignUpSuccess(false);
         setInvalidMessage(getUIMessage(result.errorType));
@@ -57,6 +73,8 @@ export const SignUp = ({ signUp, showSignIn }: SignUpProps) => {
   };
 
   const handleOpenSignIn = (e: MouseEvent<HTMLButtonElement>) => showSignIn();
+
+  const token = getToken(emailsUserUUIDs, email, isSignUpSuccess);
 
   return (
     <div className="text-center space-y-3">
@@ -87,8 +105,8 @@ export const SignUp = ({ signUp, showSignIn }: SignUpProps) => {
             >
               {isSignUpSuccess ? (
                 <div className="space-y-2">
-                  <div>Your password is (please keep it safe):</div>
-                  <div className="font-semibold">{userUUID}</div>
+                  <div>Your authetication token is (keep it safe):</div>
+                  <div className="font-semibold">{token}</div>
                   <ButtonTextLink click={handleOpenSignIn}>
                     Click here to Sign-in
                   </ButtonTextLink>
