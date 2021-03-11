@@ -54,12 +54,12 @@ export type UserCatalogFishEvent = UserAddedEvent | UserProfileEditedEvent;
 
 //#region State
 
-export type UsersEmails = { email: Email; userUUID: UserUUID };
+export type UsersEmails = Record<Email, UserUUID>;
 export type Users = Record<UserUUID, UserProfile>;
 
 export type UserCatalogFishState = {
   users: Users;
-  emails: UsersEmails[];
+  emails: UsersEmails;
 };
 
 //#endregion

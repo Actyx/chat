@@ -5,7 +5,7 @@ describe('UserCatalogFish', () => {
     it('should register a new user if his email is not already registered', () => {
       const result = signUpLogic(() => 'user-1', {
         users: {},
-        emails: [],
+        emails: {},
       })('Simone', 'simone@gmail.com');
 
       const expectedTags = {
@@ -40,7 +40,7 @@ describe('UserCatalogFish', () => {
             email: 'simone@gmail.com',
           },
         },
-        emails: [{ email: 'simone@gmail.com', userUUID: 'user-1' }],
+        emails: { 'simone@gmail.com': 'user-1' },
       })('Simone', 'simone@gmail.com');
 
       const expectedResult = {

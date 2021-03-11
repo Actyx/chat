@@ -53,8 +53,8 @@ export const signUpLogic = (
 
 const isUserEmailRegistered = (
   email: Email,
-  usersEmails: UsersEmails[]
-): boolean => (usersEmails.find((x) => x.email === email) ? true : false);
+  usersEmails: UsersEmails
+): boolean => email in usersEmails;
 
 export const mkUserUUID = (): UserUUID => uuid();
 

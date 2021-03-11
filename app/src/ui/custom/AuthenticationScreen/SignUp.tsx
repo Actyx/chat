@@ -12,18 +12,12 @@ import { messages } from '../../../business-logic/user-catalog-fish/messages';
 import { Language } from '../../../business-logic/common/l10n-types';
 import { getMessage } from '../../../business-logic/common/l10n';
 
-type EmailsUserUUIDsUI = ReadonlyArray<{
-  email: string;
-  userUUID: string;
-}>;
+type EmailsUserUUIDsUI = Record<string, string>;
 
 type SignUpProps = Readonly<{
   signUp: (displayName: string, email: string) => Promise<SignUpLogicResult>;
   showSignIn: () => void;
-  emailsUserUUIDs: ReadonlyArray<{
-    email: string;
-    userUUID: string;
-  }>;
+  emailsUserUUIDs: EmailsUserUUIDsUI;
 }>;
 
 const getUIMessage = getMessage(messages)(Language.En);
@@ -32,10 +26,7 @@ const getToken = (
   emailsUserUUIDs: EmailsUserUUIDsUI,
   email: string,
   isSignUpSuccess?: boolean
-): string | undefined =>
-  isSignUpSuccess
-    ? emailsUserUUIDs.find((x) => x.email === email)?.userUUID
-    : undefined;
+): string | undefined => (isSignUpSuccess ? emailsUserUUIDs[email] : undefined);
 
 export const SignUp = ({
   signUp,
