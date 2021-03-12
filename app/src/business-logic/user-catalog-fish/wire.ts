@@ -3,29 +3,23 @@ import { editUserProfileLogic, signUpLogic } from './logic';
 import {
   EditUserProfileResult,
   Email,
-  SignUpLogicResult,
+  UserCatalogFishEvent,
+  UserCatalogFishState,
   UserUUID,
 } from './types';
 import { UserCatalogFish } from './user-catalog-fish';
 import { mkUUID } from '../common/util';
+import { wire } from '../common/logic-helpers';
 
 const signUpWire = (makerUUID: () => UserUUID) => (pond: Pond) => async (
   displayName: string,
   email: Email
-): Promise<SignUpLogicResult> =>
-  new Promise((res, rej) => {
-    let result: SignUpLogicResult;
-    pond
-      .run(UserCatalogFish, (fishState, enqueue) => {
-        result = signUpLogic(makerUUID, fishState)(displayName, email);
-        if (result.type === 'ok') {
-          enqueue(...result.tagsWithEvents[0]);
-        }
-      })
-      .toPromise()
-      .then(() => res(result))
-      .catch(rej);
-  });
+) =>
+  wire<UserCatalogFishState, UserCatalogFishEvent>(
+    pond,
+    UserCatalogFish,
+    signUpLogic(makerUUID)(displayName, email)
+  );
 
 export const signUpWireForUI = signUpWire(mkUUID);
 
