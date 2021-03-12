@@ -74,7 +74,6 @@ export const addChannelLogic = (userUUID: UserUUID) => (
   fishState: ChannelCatalogFishState
 ) => (name: string, description: string): AddChannelLogicResult => {
   const isUserSignIn = isSignedInUser(userUUID);
-
   if (!isUserSignIn) {
     return mkErrorAutheticationUserIsNotSignIn<ChannelAddedEvent>();
   }
@@ -93,12 +92,10 @@ export const addChannelLogic = (userUUID: UserUUID) => (
     };
   }
 
-  const newChannelId = uuid();
-
   return {
     status: 'ok',
     tagsWithEvents: [
-      getChannelAdded(newChannelId, userUUID, newName, newDescription),
+      getChannelAdded(uuid(), userUUID, newName, newDescription),
     ],
   };
 };
