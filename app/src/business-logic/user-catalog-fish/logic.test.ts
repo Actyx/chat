@@ -80,7 +80,7 @@ describe('logic', () => {
       expect(result).toMatchObject(expectedResult);
     });
 
-    it('should not allow a user trying to edit a profile when he is not registered', () => {
+    it('should not allow a user trying to edit a profile when they are not registered', () => {
       const result = editUserProfileLogic(
         { users: {}, emails: {} },
         'SPO',
