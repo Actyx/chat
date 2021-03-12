@@ -12,9 +12,9 @@ import { TextField } from '../../../common/TextField/TextField';
 import { Typography } from '../../../common/Typography/Typography';
 import { Alert } from '../../../common/Alert/Alert';
 import { AddChannelLogicResult } from '../../../../business-logic/channel-catalog-fish/types';
-import { messages } from '../../../../business-logic/l10n/messages';
-import { Language } from '../../../../business-logic/l10n/types';
-import { getMessage } from '../../../../business-logic/l10n/l10n';
+import { messages } from '../../../../l10n/messages';
+import { Language } from '../../../../l10n/types';
+import { getMessage } from '../../../../l10n/l10n';
 
 type AddChannelDialogProps = Readonly<{
   errorMessage?: string;

@@ -1,4 +1,4 @@
-import { ErrorType } from '../common/logic-types';
+import { ErrorType } from '../business-logic/common/logic-types';
 
 export enum Language {
   En = 'En',

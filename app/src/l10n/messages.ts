@@ -1,5 +1,5 @@
 import { Language } from './types';
-import { ErrorType as ET } from '../common/logic-types';
+import { ErrorType as ET } from '../business-logic/common/logic-types';
 
 export const messages = {
   [Language.En]: {
