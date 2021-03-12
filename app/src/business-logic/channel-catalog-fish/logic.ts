@@ -9,7 +9,6 @@ import {
   getChannelProfileEdited,
   getChannelUnarchived,
 } from './events';
-import { v4 as uuid } from 'uuid';
 import { ChannelId } from '../message/types';
 import {
   Channels,
@@ -45,7 +44,9 @@ export const doesChannelNameExist = (
   name: string,
   state: ChannelCatalogFishState
 ): boolean =>
-  Object.values(state.channels).some((c) => c.profile.name === name);
+  Object.values(state.channels).some(
+    (c) => c.profile.name.trim().toLowerCase() === name.trim().toLowerCase()
+  );
 
 export const hasUserCreatedChannel = (
   userUUID: UserUUID,
@@ -70,9 +71,12 @@ const prepareContentChannelProfile = (
   return { newName, newDescription };
 };
 
-export const addChannelLogic = (userUUID: UserUUID) => (
+export const addChannelLogic = (makerUUID: () => ChannelId) => (
   fishState: ChannelCatalogFishState
-) => (name: string, description: string): AddChannelLogicResult => {
+) => (userUUID: UserUUID) => (
+  name: string,
+  description: string
+): AddChannelLogicResult => {
   const isUserSignIn = isSignedInUser(userUUID);
   if (!isUserSignIn) {
     return mkErrorAutheticationUserIsNotSignIn<ChannelAddedEvent>();
@@ -82,20 +86,20 @@ export const addChannelLogic = (userUUID: UserUUID) => (
     name,
     description
   );
-
   const doesChannelExists = !doesChannelNameExist(newName, fishState);
   if (!doesChannelExists) {
     return {
       status: 'error',
       errorType: ErrorType.ChannelAdd_ChannelNameExist,
-      errorMessage: 'The channel name has been already registered in the sytem',
+      errorMessage:
+        'The channel name has been already registered in the system',
     };
   }
 
   return {
     status: 'ok',
     tagsWithEvents: [
-      getChannelAdded(uuid(), userUUID, newName, newDescription),
+      getChannelAdded(makerUUID(), userUUID, newName, newDescription),
     ],
   };
 };

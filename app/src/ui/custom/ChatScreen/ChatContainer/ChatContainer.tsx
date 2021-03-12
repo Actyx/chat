@@ -49,7 +49,7 @@ import { useFish } from '../../../utils/use-fish';
 import { getChannelProfileByChannelId } from '../../../../business-logic/channel-catalog-fish/logic-helpers';
 import { editUserProfileWire } from '../../../../business-logic/user-catalog-fish/wire';
 import { EditUserProfileResult } from '../../../../business-logic/user-catalog-fish/types';
-import { addChannelWire } from '../../../../business-logic/channel-catalog-fish/wire';
+import { addChannelWireForUi } from '../../../../business-logic/channel-catalog-fish/wire';
 import { AddChannelLogicResult } from '../../../../business-logic/channel-catalog-fish/types';
 
 type ChatContainerProps = Readonly<{
@@ -142,7 +142,7 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
     name: string,
     description: string
   ): Promise<AddChannelLogicResult> =>
-    addChannelWire(pond)(stateUI.userUUID)(name, description);
+    addChannelWireForUi(pond)(stateUI.userUUID)(name, description);
 
   const handleEditChannel = async (
     channelId: ChannelId,

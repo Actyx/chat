@@ -11,7 +11,6 @@ import {
   EditUserProfileResult,
   UserCatalogFishEvent,
 } from './types';
-import { v4 as uuid } from 'uuid';
 import { isStringEmpty, prepareString } from '../../common/strings';
 import { isUserUUIDRegistered } from './logic-helpers';
 import { ErrorType } from '../common/logic-types';
@@ -57,8 +56,6 @@ const isUserEmailRegistered = (
   email: Email,
   usersEmails: UsersEmails
 ): boolean => email in usersEmails;
-
-export const mkUserUUID = (): UserUUID => uuid();
 
 //#endregion
 

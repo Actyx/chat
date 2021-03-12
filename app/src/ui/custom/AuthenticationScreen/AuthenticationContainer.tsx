@@ -1,10 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Pond } from '@actyx/pond';
 import { UserUUID } from '../../../business-logic/user-catalog-fish/types';
-import {
-  signIn,
-  mkUserUUID,
-} from '../../../business-logic/user-catalog-fish/logic';
+import { signIn } from '../../../business-logic/user-catalog-fish/logic';
 import { SignUp } from './SignUp';
 import { SignIn } from './SignIn';
 import { DispatchContextUI } from '../../state-manager/UIStateManager';
@@ -13,7 +10,7 @@ import { UserCatalogFish } from '../../../business-logic/user-catalog-fish/user-
 import { CreateAccount } from './CreateAccount';
 import { ErrorBoundary } from '../../common/ErrorBoundary/ErrorBoundary';
 import { useFish } from '../../utils/use-fish';
-import { signUpWire } from '../../../business-logic/user-catalog-fish/wire';
+import { signUpWireForUI } from '../../../business-logic/user-catalog-fish/wire';
 
 type AuthenticationContainerProps = Readonly<{
   pond: Pond;
@@ -35,7 +32,7 @@ export const AuthenticationContainer = ({
   const [isSignInSuccess, setIsSignInSuccess] = useState<boolean>();
 
   const handleSignUp = async (displayName: string, email: string) =>
-    signUpWire(pond, mkUserUUID)(displayName, email);
+    signUpWireForUI(pond)(displayName, email);
 
   const handleSignIn = (userUUID: UserUUID) => {
     const isUserSignedIn = signIn(userUUID, stateUserCatalogFish.users);

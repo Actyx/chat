@@ -1,10 +1,12 @@
 import { Pond } from '@actyx/pond';
+import { mkUUID } from '../common/util';
+import { ChannelId } from '../message/types';
 import { UserUUID } from '../user-catalog-fish/types';
 import { ChannelCatalogFish } from './channel-catalog-fish';
 import { addChannelLogic } from './logic';
 import { AddChannelLogicResult } from './types';
 
-export const addChannelWire = (pond: Pond) => (userUUID: UserUUID) => async (
+const addChannelWire =  (makerUUID: () => ChannelId) =>(pond: Pond) => (userUUID: UserUUID) => async (
   name: string,
   description: string
 ): Promise<AddChannelLogicResult> =>
@@ -12,7 +14,7 @@ export const addChannelWire = (pond: Pond) => (userUUID: UserUUID) => async (
     try {
       await pond
         .run(ChannelCatalogFish, (fishState, enqueue) => {
-          const result = addChannelLogic(userUUID)(fishState)(
+          const result = addChannelLogic(makerUUID)(fishState)(userUUID)(
             name,
             description
           );
@@ -26,3 +28,5 @@ export const addChannelWire = (pond: Pond) => (userUUID: UserUUID) => async (
       rej(err);
     }
   });
+
+  export const addChannelWireForUi = addChannelWire(mkUUID)

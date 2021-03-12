@@ -7,8 +7,9 @@ import {
   UserUUID,
 } from './types';
 import { UserCatalogFish } from './user-catalog-fish';
+import { mkUUID } from '../common/util';
 
-export const signUpWire = (pond: Pond, makerUUID: () => UserUUID) => async (
+const signUpWire = (makerUUID: () => UserUUID) => (pond: Pond) => async (
   displayName: string,
   email: Email
 ): Promise<SignUpLogicResult> =>
@@ -27,6 +28,8 @@ export const signUpWire = (pond: Pond, makerUUID: () => UserUUID) => async (
       rej(err);
     }
   });
+
+export const signUpWireForUI = signUpWire(mkUUID);
 
 export const editUserProfileWire = (pond: Pond) => async (
   userUUID: UserUUID,

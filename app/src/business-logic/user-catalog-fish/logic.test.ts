@@ -1,6 +1,6 @@
 import { editUserProfileLogic, signUpLogic } from './logic';
 
-describe('UserCatalogFish', () => {
+describe('logic', () => {
   describe('signUpLogic', () => {
     it('should register a new user if his email is not already registered', () => {
       const result = signUpLogic(() => 'user-1', {
