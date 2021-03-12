@@ -89,8 +89,7 @@ export const addChannelLogic = (makerUUID: () => ChannelId) => (
     return {
       type: 'error',
       code: ErrorCode.ChannelAddChannelNameExist,
-      message:
-        'The channel name has been already registered in the system',
+      message: 'The channel name has been already registered in the system',
     };
   }
 

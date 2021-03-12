@@ -31,8 +31,7 @@ export const AuthenticationContainer = ({
 
   const [isSignInSuccess, setIsSignInSuccess] = useState<boolean>();
 
-  const handleSignUp = async (displayName: string, email: string) =>
-    signUpWireForUI(pond)(displayName, email);
+  const handleSignUp = signUpWireForUI(pond);
 
   const handleSignIn = (userUUID: UserUUID) => {
     const isUserSignedIn = signIn(userUUID, stateUserCatalogFish.users);
