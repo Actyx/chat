@@ -5,6 +5,7 @@ export enum ErrorType {
   SignUp_EmailAlreadyExists = 'SignUp_EmailAlreadyExists',
   UserEditProfile_DisplayNameIsRequired = 'UserEditProfile_DisplayNameIsRequired',
   UserEditProfile_UserIsNotRegistered = 'UserEditProfile_UserIsNotRegistered',
+  ChannelAdd_ChannelNameExist = 'ChannelAdd_ChannelNameExist',
 }
 
 export type LogicResultSuccess<T> = Readonly<{

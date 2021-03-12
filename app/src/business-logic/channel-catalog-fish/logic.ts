@@ -11,7 +11,12 @@ import {
 } from './events';
 import { v4 as uuid } from 'uuid';
 import { ChannelId } from '../message/types';
-import { Channels, ChannelCatalogFishState, Users } from './types';
+import {
+  Channels,
+  ChannelCatalogFishState,
+  Users,
+  AddChannelLogicResult,
+} from './types';
 import { ChannelCatalogFish } from './channel-catalog-fish';
 import { isSignedInUser } from '../user-catalog-fish/logic';
 import { DEFAULT_CHANNEL } from '../channel-fish/channel-fish';
@@ -19,6 +24,8 @@ import {
   getChannelProfileByChannelId,
   isUserAssociatedToChannel,
 } from './logic-helpers';
+import { ErrorType } from '../common/logic-types';
+import { logBugBl } from '../../logger/logger';
 
 export const isChannelIdRegistered = (
   channelId: ChannelId,
@@ -62,31 +69,44 @@ const prepareContentChannelProfile = (
   return { newName, newDescription };
 };
 
-export const addChannel = (pond: Pond) => (userUUID: UserUUID) => async (
-  name: string,
-  description: string
-): Promise<boolean> => {
-  let isSuccess = false;
-  if (isSignedInUser(userUUID)) {
-    const { newName, newDescription } = prepareContentChannelProfile(
-      name,
-      description
-    );
+export const addChannelLogic = (userUUID: UserUUID) => (
+  fishState: ChannelCatalogFishState
+) => (name: string, description: string): AddChannelLogicResult => {
+  const isUserSignIn = isSignedInUser(userUUID);
 
-    await pond
-      .run(ChannelCatalogFish, (fishState, enqueue) => {
-        const canAdd = !doesChannelNameExist(newName, fishState);
-        if (canAdd) {
-          const newChannelId = uuid();
-          enqueue(
-            ...getChannelAdded(newChannelId, userUUID, newName, newDescription)
-          );
-          isSuccess = true;
-        }
-      })
-      .toPromise();
+  if (!isUserSignIn) {
+    const errorType = ErrorType.Authetication_UserIsNotSignedIn;
+    const errorMessage = 'User is not signed-in';
+    logBugBl(ErrorType.Authetication_UserIsNotSignedIn);
+    return {
+      status: 'error',
+      errorType,
+      errorMessage,
+    };
   }
-  return isSuccess;
+
+  const { newName, newDescription } = prepareContentChannelProfile(
+    name,
+    description
+  );
+
+  const doesChannelExists = !doesChannelNameExist(newName, fishState);
+  if (!doesChannelExists) {
+    return {
+      status: 'error',
+      errorType: ErrorType.ChannelAdd_ChannelNameExist,
+      errorMessage: 'The channel name has been already registered in the sytem',
+    };
+  }
+
+  const newChannelId = uuid();
+
+  return {
+    status: 'ok',
+    tagsWithEvents: [
+      getChannelAdded(newChannelId, userUUID, newName, newDescription),
+    ],
+  };
 };
 
 export const editChannel = (pond: Pond) => (

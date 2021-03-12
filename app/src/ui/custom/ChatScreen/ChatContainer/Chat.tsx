@@ -16,6 +16,7 @@ import './chat.css';
 import { StateContextUI } from '../../../state-manager/UIStateManager';
 import { ErrorBoundary } from '../../../common/ErrorBoundary/ErrorBoundary';
 import { EditUserProfileResult } from '../../../../business-logic/user-catalog-fish/types';
+import { AddChannelLogicResult } from '../../../../business-logic/channel-catalog-fish/types';
 
 type ChatProps = Readonly<{
   appName: string;
@@ -42,7 +43,10 @@ type ChatProps = Readonly<{
   handleAddMessage: (content: string) => Promise<boolean>;
   handleEditMessage: (messageId: MessageId, content: string) => void;
   handleHideMessage: (messageId: MessageId) => void;
-  handleAddChannel: (name: string, description: string) => Promise<boolean>;
+  handleAddChannel: (
+    name: string,
+    description: string
+  ) => Promise<AddChannelLogicResult>;
   handleEditChannel: (
     channelId: ChannelId,
     newName: string,

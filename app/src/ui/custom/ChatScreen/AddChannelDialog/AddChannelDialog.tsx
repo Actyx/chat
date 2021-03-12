@@ -11,17 +11,24 @@ import { Label } from '../../../common/Label/Label';
 import { TextField } from '../../../common/TextField/TextField';
 import { Typography } from '../../../common/Typography/Typography';
 import { Alert } from '../../../common/Alert/Alert';
+import { AddChannelLogicResult } from '../../../../business-logic/channel-catalog-fish/types';
+import { messages } from '../../../../business-logic/user-catalog-fish/messages';
+import { Language } from '../../../../business-logic/common/l10n-types';
+import { getMessage } from '../../../../business-logic/common/l10n';
 
 type AddChannelDialogProps = Readonly<{
   errorMessage?: string;
-  addChannel: (name: string, description: string) => Promise<boolean>;
+  addChannel: (
+    name: string,
+    description: string
+  ) => Promise<AddChannelLogicResult>;
   closeDialog: () => void;
 }>;
 
 const FIELD_NAME = 'add-channel-dialog-textfield-name';
 const FIELD_DESCRIPTION = 'add-channel-dialog-textfield-description';
 
-const INVALID_NAME = 'That name is already taken by a channel';
+const getUIMessage = getMessage(messages)(Language.En);
 
 export const AddChannelDialog = ({
   addChannel,
@@ -47,11 +54,11 @@ export const AddChannelDialog = ({
 
   const handleAddChannel = async () => {
     try {
-      const isSuccess = await addChannel(name, description);
-      if (isSuccess) {
+      const result = await addChannel(name, description);
+      if (result.status === 'ok') {
         closeDialog();
       } else {
-        setInvalidMessage(INVALID_NAME);
+        setInvalidMessage(getUIMessage(result.errorType));
       }
     } catch (err) {
       setPondErrorMessage(err);

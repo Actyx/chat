@@ -1,4 +1,5 @@
 import { Timestamp } from '@actyx/pond';
+import { LogicResult } from '../common/logic-types';
 import { ChannelId } from '../message/types';
 import { UserUUID } from '../user-catalog-fish/types';
 
@@ -102,5 +103,11 @@ export type Channels = Record<
 export type ChannelCatalogFishState = Readonly<{
   channels: Channels;
 }>;
+
+//#endregion
+
+//#region Result logic
+
+export type AddChannelLogicResult = LogicResult<ChannelAddedEvent>;
 
 //#endregion

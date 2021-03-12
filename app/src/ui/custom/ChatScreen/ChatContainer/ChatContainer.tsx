@@ -8,7 +8,6 @@ import {
 } from '../../../../business-logic/channel-fish/logic';
 import { ChannelCatalogFish } from '../../../../business-logic/channel-catalog-fish/channel-catalog-fish';
 import {
-  addChannel,
   addDefaultChannelIfDoesNotExist,
   archiveChannel,
   associateUserToChannel,
@@ -50,6 +49,8 @@ import { useFish } from '../../../utils/use-fish';
 import { getChannelProfileByChannelId } from '../../../../business-logic/channel-catalog-fish/logic-helpers';
 import { editUserProfileWire } from '../../../../business-logic/user-catalog-fish/wire';
 import { EditUserProfileResult } from '../../../../business-logic/user-catalog-fish/types';
+import { addChannelWire } from '../../../../business-logic/channel-catalog-fish/wire';
+import { AddChannelLogicResult } from '../../../../business-logic/channel-catalog-fish/types';
 
 type ChatContainerProps = Readonly<{
   pond: Pond;
@@ -140,7 +141,8 @@ export const ChatContainer = ({ pond }: ChatContainerProps) => {
   const handleAddChannel = (
     name: string,
     description: string
-  ): Promise<boolean> => addChannel(pond)(stateUI.userUUID)(name, description);
+  ): Promise<AddChannelLogicResult> =>
+    addChannelWire(pond)(stateUI.userUUID)(name, description);
 
   const handleEditChannel = async (
     channelId: ChannelId,
