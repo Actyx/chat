@@ -34,23 +34,18 @@ export const getTotalUsers = (users: Users) => Object.values(users).length;
 export const signUpLogic = (
   makerUUID: () => UserUUID,
   fishState: UserCatalogFishState
-) => (displayName: string, email: Email): SignUpLogicResult => {
-  const userUUID = makerUUID();
-  const canSignUp = !isUserEmailRegistered(email, fishState.emails);
-  if (canSignUp) {
-    return {
-      type: 'ok',
-      tagsWithEvents: [getUserAddedEvent(userUUID, displayName, email)],
-    };
-  } else {
-    return {
-      type: 'error',
-      code: ErrorCode.SignUpEmailAlreadyExists,
-      message:
-        'User cannot sign-up, his email is already registered in the system',
-    };
-  }
-};
+) => (displayName: string, email: Email): SignUpLogicResult =>
+  isUserEmailRegistered(email, fishState.emails)
+    ? {
+        type: 'error',
+        code: ErrorCode.SignUpEmailAlreadyExists,
+        message:
+          'User cannot sign-up, his email is already registered in the system',
+      }
+    : {
+        type: 'ok',
+        tagsWithEvents: [getUserAddedEvent(makerUUID(), displayName, email)],
+      };
 
 const isUserEmailRegistered = (
   email: Email,
