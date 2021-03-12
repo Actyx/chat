@@ -11,26 +11,33 @@ import {
 } from './events';
 import { v4 as uuid } from 'uuid';
 import { ChannelId } from '../message/types';
-import { ChannelProfile, Channels, ChannelCatalogFishState } from './types';
+import { Channels, ChannelCatalogFishState, Users } from './types';
 import { ChannelCatalogFish } from './channel-catalog-fish';
 import { isSignedInUser } from '../user-catalog-fish/logic';
 import { DEFAULT_CHANNEL } from '../channel-fish/channel-fish';
+import {
+  getChannelProfileByChannelId,
+  isUserAssociatedToChannel,
+} from './logic-helpers';
 
 export const isChannelIdRegistered = (
   channelId: ChannelId,
   channels: Channels
 ): boolean => channelId in channels;
 
+export const isChannelIdSystemDefault = (channelId: ChannelId) =>
+  channelId === DEFAULT_CHANNEL.channelId;
+
+export const getChannelUsersByChannelId = (
+  channelId: ChannelId,
+  channels: Channels
+): Users | undefined => channels[channelId]?.users;
+
 export const doesChannelNameExist = (
   name: string,
   state: ChannelCatalogFishState
 ): boolean =>
   Object.values(state.channels).some((c) => c.profile.name === name);
-
-export const getChannelProfileByChannelId = (
-  channelId: ChannelId,
-  channels: Channels
-): ChannelProfile | undefined => channels[channelId]?.profile;
 
 export const hasUserCreatedChannel = (
   userUUID: UserUUID,
@@ -53,16 +60,6 @@ const prepareContentChannelProfile = (
     ? undefined
     : prepareString(description);
   return { newName, newDescription };
-};
-
-export const isUserAssociatedToChannel = (
-  userUUID: UserUUID,
-  channelId: ChannelId,
-  channels: Channels
-): boolean => {
-  return getChannelProfileByChannelId(channelId, channels)
-    ? channels[channelId].users.includes(userUUID)
-    : false;
 };
 
 export const addChannel = (pond: Pond) => (userUUID: UserUUID) => async (
@@ -105,19 +102,32 @@ export const editChannel = (pond: Pond) => (
 
     await pond
       .run(ChannelCatalogFish, (fishState, enqueue) => {
-        const canEdit =
-          !doesChannelNameExist(newName, fishState) &&
-          isChannelIdRegistered(channelId, fishState.channels);
-        if (canEdit) {
-          enqueue(
-            ...getChannelProfileEdited(
-              channelId,
-              userUUID,
-              newName,
-              newDescription
-            )
-          );
-          isSuccess = true;
+        const profile = getChannelProfileByChannelId(
+          channelId,
+          fishState.channels
+        );
+        if (profile) {
+          const isEditName = profile.name !== newName;
+          const isEditDescription = profile.description !== newDescription;
+          const isEditWithUniqueNameOnly =
+            isEditName &&
+            !isEditDescription &&
+            !doesChannelNameExist(newName, fishState);
+          const isEditWithDescriptionOnly = !isEditName && isEditDescription;
+
+          const canEdit = isEditWithUniqueNameOnly || isEditWithDescriptionOnly;
+
+          if (canEdit) {
+            enqueue(
+              ...getChannelProfileEdited(
+                channelId,
+                userUUID,
+                newName,
+                newDescription
+              )
+            );
+            isSuccess = true;
+          }
         }
       })
       .toPromise();

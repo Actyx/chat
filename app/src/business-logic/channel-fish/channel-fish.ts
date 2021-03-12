@@ -21,10 +21,10 @@ const initialState: ChannelFishState = {
 };
 
 export const mkChannelFish = (
-  channelName: string
+  channelId: ChannelId
 ): Fish<ChannelFishState, PublicMessageEvent> => ({
-  fishId: FishId.of('channel', channelName, 0),
+  fishId: FishId.of('channel', channelId, 0),
   initialState,
   onEvent: reducer,
-  where: messagesCatalogTag.and(channelTag.withId(channelName)),
+  where: messagesCatalogTag.and(channelTag.withId(channelId)),
 });

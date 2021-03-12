@@ -1,24 +1,36 @@
-import cx from 'classnames';
+import cn from 'classnames';
 import { ReactNode } from 'react';
+import { ColorUI, mkColor } from '../../utils/colors';
 
-type IconProps = Readonly<{
-  size?: 'small';
-  color?: 'gray-medium' | 'red-medium';
-  children: ReactNode;
+export type IconProps = Readonly<{
+  fill?: boolean;
+  size?: 'xs' | 'sm' | 'base';
+  color?: ColorUI;
 }>;
 
+type Props = IconProps & Readonly<{ children: ReactNode }>;
+
 export const Icon = ({
-  size = 'small',
+  fill = false,
+  size = 'base',
   color = 'gray-medium',
   children,
-}: IconProps) => {
-  const isSmall = size === 'small';
-  const styles = cx({
-    'h-6': isSmall,
-    'w-6': isSmall,
-    'text-gray-700': color === 'gray-medium',
-    'text-red-700': color === 'red-medium',
-  });
+}: Props) => {
+  const isSx = size === 'xs';
+  const isSmall = size === 'sm';
+  const isMedium = size === 'base';
+  const styles = cn(
+    {
+      'h-3': isSx,
+      'w-3': isSx,
+      'h-4': isSmall,
+      'w-4': isSmall,
+      'h-5': isMedium,
+      'w-5': isMedium,
+      'fill-current': fill,
+    },
+    mkColor('text')(color)
+  );
 
   return (
     <svg

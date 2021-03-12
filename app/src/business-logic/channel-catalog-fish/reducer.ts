@@ -4,7 +4,7 @@ import { UserCatalogFishEvent, UserUUID } from '../user-catalog-fish/types';
 import {
   getChannelProfileByChannelId,
   isUserAssociatedToChannel,
-} from './logic';
+} from './logic-helpers';
 import {
   ChannelAddedEvent,
   ChannelArchivedEvent,

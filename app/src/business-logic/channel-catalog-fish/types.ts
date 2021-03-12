@@ -92,9 +92,11 @@ export type ChannelCatalogFishEvent =
 
 //#region State
 
+export type Users = UserUUID[];
+
 export type Channels = Record<
   ChannelId,
-  { profile: ChannelProfile; users: UserUUID[] }
+  { profile: ChannelProfile; users: Users }
 >;
 
 export type ChannelCatalogFishState = Readonly<{

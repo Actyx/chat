@@ -39,34 +39,35 @@ User profile
 
 Notes:
 
-- The unique identifier cannot be deleted or changed, recovery credentials are out of scope now
+- The unique identifier cannot be deleted or changed, recovery credentials are out of scope for now
 
 ### Channels
 
-- [x] The system, when initiated, creates a default channel called "main", this channel cannot be deleted, renamed, or archived
+- [x] The system, when initiated, creates a default channel called "main", this channel cannot be deleted or archived but can be renamed
 - [x] A user can create a channel providing a unique name and an optional description, if the channel name is already present in the system, the user is notified and the new channel cannot be created
 - [x] A user can create a channel and he will automatically join it
 - [x] Any users can edit the channel name and description, information on when and who made the last edit are shown to every users
-- [x] Only the user who created a channel can archive it, when archived the channel won't be visible as active channels for all users in the chat
+- [x] Only the user who created a channel can archive it, when archived the channel won't be visible as in the sidebar as active channels for all users in the chat
 - [x] Only the user who created a channel can unarchived it
 - [x] A user can browse all channels in alphabetical ascending order
 - [x] A user can see all users joined to a channel
 - [x] A user can join a channel
 - [x] A user can leave a channel
 - [x] A user can enter a new message into a channel
-- [x] A channel display all its messages in simple ascending order, the latest are always visible at the bottom
 - [x] A user can view all related messages in a channel
+- [x] A channel display all its messages in simple ascending order, the latest are always visible at the bottom
 
-Notes: it is not possible to delete a channel only unarchive it
+Notes: it is not possible to really delete a channel only to archive it
 
 ### Messaging
 
 - [x] A message displays textual content, sender, and date/time
+- [x] A user can copy and paste emojis
 - [x] A user can edit his messages only
 - [x] A user can delete his messages only
 - [x] A user can delete a message in a channel, when deleted the message is not visible in the channel
-- [ ] A user can delete a message in a direct conversation, when deleted the message is not visible in the direct conversation [LATER]
 - [x] A user can edit the textual content of a message, when edited the message is marked as edited
+- [ ] A user can delete a message in a direct conversation, when deleted the message is not visible in the direct conversation [LATER]
 - [ ] A user can add to a message multiple recipients [LATER]
 - [ ] A user can edit/remove multiple recipients from a message [LATER]
 

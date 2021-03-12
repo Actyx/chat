@@ -1,21 +1,15 @@
 import { ReactNode } from 'react';
-import cx from 'classnames';
+import cn from 'classnames';
+import { ColorUI, mkColor } from '../../utils/colors';
 
 type HTMLTag = 'span' | 'h1' | 'div';
 
-export type TypographyColorUI =
-  | 'black'
-  | 'gray-dark'
-  | 'gray-medium'
-  | 'red-dark'
-  | 'green-dark';
-
 export type TypographyProps = Readonly<{
-  size?: 'base' | 'sm' | 'lg' | 'xxl';
+  size?: 'base' | 'sm' | 'lg' | 'xxl' | 'xxl2';
   tag?: HTMLTag;
   children: ReactNode;
-  weight?: 'normal' | 'semibold' | 'bold';
-  color?: TypographyColorUI;
+  weight?: 'normal' | 'medium' | 'semibold' | 'bold';
+  color?: ColorUI;
   align?: 'initial' | 'left' | 'center' | 'right';
 }>;
 
@@ -38,23 +32,24 @@ export const Typography = ({
   color = 'black',
   align = 'initial',
 }: TypographyProps) => {
-  const styles = cx({
-    'font-sans': true,
-    'text-base': size === 'base',
-    'text-sm': size === 'sm',
-    'text-lg': size === 'lg',
-    'text-5xl': size === 'xxl',
-    'font-normal': weight === 'normal',
-    'font-semibold': weight === 'semibold',
-    'font-bold': weight === 'bold',
-    'text-black': color === 'black',
-    'text-gray-900': color === 'gray-dark',
-    'text-gray-700': color === 'gray-medium',
-    'text-red-900': color === 'red-dark',
-    'text-left': align === 'left',
-    'text-center': align === 'center',
-    'text-right': align === 'right',
-  });
+  const styles = cn(
+    {
+      'font-sans': true,
+      'text-base': size === 'base',
+      'text-sm': size === 'sm',
+      'text-lg': size === 'lg',
+      'text-2xl': size === 'xxl2',
+      'text-5xl': size === 'xxl',
+      'font-normal': weight === 'normal',
+      'font-medium': weight === 'medium',
+      'font-semibold': weight === 'semibold',
+      'font-bold': weight === 'bold',
+      'text-left': align === 'left',
+      'text-center': align === 'center',
+      'text-right': align === 'right',
+    },
+    mkColor('text')(color)
+  );
 
   return render(htmlTag, styles, children);
 };

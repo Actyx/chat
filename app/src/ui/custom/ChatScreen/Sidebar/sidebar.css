@@ -1,0 +1,7 @@
+.sidebar {
+    min-width: 15rem;
+}
+
+.sidebar-content {
+    height: calc(100% - 5rem);
+}

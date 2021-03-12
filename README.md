@@ -92,6 +92,18 @@ Contains all UI React components, reusable components, and related utilities fun
 
 - src/ui/ExampleScreen: Each subfolder represents a main screen in the application
 
+## Application configurations
+
+You can confiture several aspects of the application by using object `chat` in `package.json` file:
+
+| Name    | Description                             |
+|---------|-----------------------------------------|
+| appName | Application name visible in the sidebar |
+
+## Tips and tricks
+
+- Click near the top/left corner of your browser viewport to open an application state inspector
+
 ## Others docs
 
 [Events and Tags](./docs/events-tags-overview.md)

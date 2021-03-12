@@ -29,9 +29,15 @@ Success.args = {
   children: 'A simple success alert—check it out!',
 };
 
+export const Warning = Template.bind({});
+Warning.args = {
+  variant: 'warning',
+  children: 'A simple warning alert—check it out!',
+};
+
 export const Icon = Template.bind({});
 Icon.args = {
   variant: 'success',
   children: 'A simple success alert—check it out!',
-  icon: SparklesIcon,
+  icon: <SparklesIcon />,
 };
