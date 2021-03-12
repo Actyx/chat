@@ -55,10 +55,10 @@ export const AddChannelDialog = ({
   const handleAddChannel = async () => {
     try {
       const result = await addChannel(name, description);
-      if (result.status === 'ok') {
+      if (result.type === 'ok') {
         closeDialog();
       } else {
-        setInvalidMessage(getUIMessage(result.errorType));
+        setInvalidMessage(getUIMessage(result.code));
       }
     } catch (err) {
       setPondErrorMessage(err);

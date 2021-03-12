@@ -18,7 +18,7 @@ const addChannelWire =  (makerUUID: () => ChannelId) =>(pond: Pond) => (userUUID
             name,
             description
           );
-          if (result.status === 'ok') {
+          if (result.type === 'ok') {
             enqueue(...result.tagsWithEvents[0]);
           }
           res(result);

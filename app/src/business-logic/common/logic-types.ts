@@ -1,22 +1,22 @@
 import { ReadonlyArrayOfOneOrMore, TagsWithEvent } from '../../common/types';
 
-export enum ErrorType {
-  Authetication_UserIsNotSignedIn = 'Authetication_UserIsNotSignedIn',
-  SignUp_EmailAlreadyExists = 'SignUp_EmailAlreadyExists',
-  UserEditProfile_DisplayNameIsRequired = 'UserEditProfile_DisplayNameIsRequired',
-  UserEditProfile_UserIsNotRegistered = 'UserEditProfile_UserIsNotRegistered',
-  ChannelAdd_ChannelNameExist = 'ChannelAdd_ChannelNameExist',
+export enum ErrorCode {
+  AutheticationUserIsNotSignedIn = 'AutheticationUserIsNotSignedIn',
+  SignUpEmailAlreadyExists = 'SignUpEmailAlreadyExists',
+  UserEditProfileDisplayNameIsRequired = 'UserEditProfileDisplayNameIsRequired',
+  UserEditProfileUserIsNotRegistered = 'UserEditProfileUserIsNotRegistered',
+  ChannelAddChannelNameExist = 'ChannelAddChannelNameExist',
 }
 
 export type LogicResultSuccess<T> = Readonly<{
-  status: 'ok';
+  type: 'ok';
   tagsWithEvents: ReadonlyArrayOfOneOrMore<TagsWithEvent<T>>;
 }>;
 
 export type LogicResultError = Readonly<{
-  status: 'error';
-  errorType: ErrorType;
-  errorMessage: string;
+  type: 'error';
+  code: ErrorCode;
+  message: string;
 }>;
 
 export type LogicResult<T> = LogicResultSuccess<T> | LogicResultError;

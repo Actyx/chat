@@ -1,13 +1,12 @@
 import { logBugBl } from '../../logger/logger';
-import { ErrorType, LogicResult } from './logic-types';
+import { ErrorCode, LogicResult } from './logic-types';
 
 export const mkErrorAutheticationUserIsNotSignIn = <T>(): LogicResult<T> => {
-  const errorType = ErrorType.Authetication_UserIsNotSignedIn;
-  const errorMessage = 'User is not signed-in';
-  logBugBl(ErrorType.Authetication_UserIsNotSignedIn);
+  const code = ErrorCode.AutheticationUserIsNotSignedIn;
+  logBugBl(code);
   return {
-    status: 'error',
-    errorType,
-    errorMessage,
+    type: 'error',
+    code,
+    message: 'User is not signed-in'
   };
 };

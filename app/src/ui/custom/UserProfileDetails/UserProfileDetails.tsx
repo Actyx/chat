@@ -43,10 +43,10 @@ export const UserProfileDetails = ({
     e.preventDefault();
     try {
       const result = await editUserProfile(displayName);
-      if (result.status === 'ok') {
+      if (result.type === 'ok') {
         dispatch(closeSectionRight());
       } else {
-        setInvalidMessage(getUIMessage(result.errorType));
+        setInvalidMessage(getUIMessage(result.code));
       }
     } catch (err) {
       setPondErrorMessage(err);

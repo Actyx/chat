@@ -8,9 +8,9 @@ describe('logic', () => {
       })('anonymous-user')('marketing', 'all about marketing');
 
       const expectedResult = {
-        status: 'error',
-        errorType: 'Authetication_UserIsNotSignedIn',
-        errorMessage: expect.any(String),
+        type: 'error',
+        code: 'AutheticationUserIsNotSignedIn',
+        message: expect.any(String),
       };
 
       expect(result).toMatchObject(expectedResult);
@@ -48,9 +48,9 @@ describe('logic', () => {
       })('user-1')(' MArketing ', 'all about marketing');
 
       const expectedResult = {
-        status: 'error',
-        errorType: 'ChannelAdd_ChannelNameExist',
-        errorMessage: expect.any(String),
+        type: 'error',
+        code: 'ChannelAddChannelNameExist',
+        message: expect.any(String),
       };
 
       expect(result).toMatchObject(expectedResult);
@@ -84,7 +84,7 @@ describe('logic', () => {
       };
 
       const expectedResult = {
-        status: 'ok',
+        type: 'ok',
         tagsWithEvents: [[expectedTags, expectedEvent]],
       };
 

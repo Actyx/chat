@@ -18,7 +18,7 @@ const signUpWire = (makerUUID: () => UserUUID) => (pond: Pond) => async (
       await pond
         .run(UserCatalogFish, (fishState, enqueue) => {
           const result = signUpLogic(makerUUID, fishState)(displayName, email);
-          if (result.status === 'ok') {
+          if (result.type === 'ok') {
             enqueue(...result.tagsWithEvents[0]);
           }
           res(result);
@@ -40,7 +40,7 @@ export const editUserProfileWire = (pond: Pond) => async (
       await pond
         .run(UserCatalogFish, (fishState, enqueue) => {
           const result = editUserProfileLogic(fishState, displayName, userUUID);
-          if (result.status === 'ok') {
+          if (result.type === 'ok') {
             enqueue(...result.tagsWithEvents[0]);
           }
           res(result);

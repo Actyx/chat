@@ -52,11 +52,11 @@ export const SignUp = ({
     e.stopPropagation();
     try {
       const result = await signUp(name, email);
-      if (result.status === 'ok') {
+      if (result.type === 'ok') {
         setIsSignUpSuccess(true);
       } else {
         setIsSignUpSuccess(false);
-        setInvalidMessage(getUIMessage(result.errorType));
+        setInvalidMessage(getUIMessage(result.code));
       }
     } catch (err) {
       setPondErrorMessage(err);

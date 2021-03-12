@@ -23,7 +23,7 @@ describe('logic', () => {
       };
 
       const expectedResult = {
-        status: 'ok',
+        type: 'ok',
         tagsWithEvents: [[expectedTags, expectedEvent]],
       };
 
@@ -44,9 +44,9 @@ describe('logic', () => {
       })('Simone', 'simone@gmail.com');
 
       const expectedResult = {
-        status: 'error',
-        errorType: 'SignUp_EmailAlreadyExists',
-        errorMessage: expect.any(String),
+        type: 'error',
+        code: 'SignUpEmailAlreadyExists',
+        message: expect.any(String),
       };
 
       expect(result).toMatchObject(expectedResult);
@@ -72,9 +72,9 @@ describe('logic', () => {
       );
 
       const expectedResult = {
-        status: 'error',
-        errorType: 'Authetication_UserIsNotSignedIn',
-        errorMessage: expect.any(String),
+        type: 'error',
+        code: 'AutheticationUserIsNotSignedIn',
+        message: expect.any(String),
       };
 
       expect(result).toMatchObject(expectedResult);
@@ -88,9 +88,9 @@ describe('logic', () => {
       );
 
       const expectedResult = {
-        status: 'error',
-        errorType: 'UserEditProfile_UserIsNotRegistered',
-        errorMessage: expect.any(String),
+        type: 'error',
+        code: 'UserEditProfileUserIsNotRegistered',
+        message: expect.any(String),
       };
 
       expect(result).toMatchObject(expectedResult);
@@ -114,9 +114,9 @@ describe('logic', () => {
       );
 
       const expectedResult = {
-        status: 'error',
-        errorType: 'UserEditProfile_DisplayNameIsRequired',
-        errorMessage: expect.any(String),
+        type: 'error',
+        code: 'UserEditProfileDisplayNameIsRequired',
+        message: expect.any(String),
       };
 
       expect(result).toMatchObject(expectedResult);
@@ -153,7 +153,7 @@ describe('logic', () => {
       };
 
       const expectedResult = {
-        status: 'ok',
+        type: 'ok',
         tagsWithEvents: [[expectedTags, expectedEvent]],
       };
 

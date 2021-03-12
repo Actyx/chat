@@ -24,7 +24,7 @@ import {
   getChannelProfileByChannelId,
   isUserAssociatedToChannel,
 } from './logic-helpers';
-import { ErrorType } from '../common/logic-types';
+import { ErrorCode } from '../common/logic-types';
 import { mkErrorAutheticationUserIsNotSignIn } from '../common/errors';
 
 export const isChannelIdRegistered = (
@@ -87,15 +87,15 @@ export const addChannelLogic = (makerUUID: () => ChannelId) => (
   );
   if (doesChannelNameExist(newName, fishState)) {
     return {
-      status: 'error',
-      errorType: ErrorType.ChannelAdd_ChannelNameExist,
-      errorMessage:
+      type: 'error',
+      code: ErrorCode.ChannelAddChannelNameExist,
+      message:
         'The channel name has been already registered in the system',
     };
   }
 
   return {
-    status: 'ok',
+    type: 'ok',
     tagsWithEvents: [
       getChannelAdded(makerUUID(), userUUID, newName, newDescription),
     ],

@@ -13,7 +13,7 @@ import {
 } from './types';
 import { isStringEmpty, prepareString } from '../../common/strings';
 import { isUserUUIDRegistered } from './logic-helpers';
-import { ErrorType } from '../common/logic-types';
+import { ErrorCode } from '../common/logic-types';
 import { logBugBl } from '../../logger/logger';
 import { mkErrorAutheticationUserIsNotSignIn } from '../common/errors';
 
@@ -39,14 +39,14 @@ export const signUpLogic = (
   const canSignUp = !isUserEmailRegistered(email, fishState.emails);
   if (canSignUp) {
     return {
-      status: 'ok',
+      type: 'ok',
       tagsWithEvents: [getUserAddedEvent(userUUID, displayName, email)],
     };
   } else {
     return {
-      status: 'error',
-      errorType: ErrorType.SignUp_EmailAlreadyExists,
-      errorMessage:
+      type: 'error',
+      code: ErrorCode.SignUpEmailAlreadyExists,
+      message:
         'User cannot sign-up, his email is already registered in the system',
     };
   }
@@ -85,26 +85,25 @@ export const editUserProfileLogic = (
   }
 
   if (!isUserRegistered) {
-    const errorType = ErrorType.UserEditProfile_UserIsNotRegistered;
-    const errorMessage = 'UserUUID is not registered';
-    logBugBl(ErrorType.UserEditProfile_UserIsNotRegistered);
+    const code = ErrorCode.UserEditProfileUserIsNotRegistered;
+    logBugBl(code);
     return {
-      status: 'error',
-      errorType,
-      errorMessage,
+      type: 'error',
+      code,
+      message: 'UserUUID is not registered',
     };
   }
 
   if (!hasDisplayName) {
     return {
-      status: 'error',
-      errorType: ErrorType.UserEditProfile_DisplayNameIsRequired,
-      errorMessage: 'The displayName is required',
+      type: 'error',
+      code: ErrorCode.UserEditProfileDisplayNameIsRequired,
+      message: 'The displayName is required',
     };
   }
 
   return {
-    status: 'ok',
+    type: 'ok',
     tagsWithEvents: [getUserProfileEditedEvent(userUUID, displayName)],
   };
 };
