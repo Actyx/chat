@@ -16,6 +16,7 @@ import {
   ChannelCatalogFishState,
   Users,
   AddChannelLogicResult,
+  ChannelAddedEvent,
 } from './types';
 import { ChannelCatalogFish } from './channel-catalog-fish';
 import { isSignedInUser } from '../user-catalog-fish/logic';
@@ -25,7 +26,7 @@ import {
   isUserAssociatedToChannel,
 } from './logic-helpers';
 import { ErrorType } from '../common/logic-types';
-import { logBugBl } from '../../logger/logger';
+import { mkErrorAutheticationUserIsNotSignIn } from '../common/errors';
 
 export const isChannelIdRegistered = (
   channelId: ChannelId,
@@ -75,14 +76,7 @@ export const addChannelLogic = (userUUID: UserUUID) => (
   const isUserSignIn = isSignedInUser(userUUID);
 
   if (!isUserSignIn) {
-    const errorType = ErrorType.Authetication_UserIsNotSignedIn;
-    const errorMessage = 'User is not signed-in';
-    logBugBl(ErrorType.Authetication_UserIsNotSignedIn);
-    return {
-      status: 'error',
-      errorType,
-      errorMessage,
-    };
+    return mkErrorAutheticationUserIsNotSignIn<ChannelAddedEvent>();
   }
 
   const { newName, newDescription } = prepareContentChannelProfile(

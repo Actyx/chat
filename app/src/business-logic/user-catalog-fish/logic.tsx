@@ -9,12 +9,14 @@ import {
   ANONYMOUS_USER,
   SignUpLogicResult,
   EditUserProfileResult,
+  UserCatalogFishEvent,
 } from './types';
 import { v4 as uuid } from 'uuid';
 import { isStringEmpty, prepareString } from '../../common/strings';
 import { isUserUUIDRegistered } from './logic-helpers';
 import { ErrorType } from '../common/logic-types';
 import { logBugBl } from '../../logger/logger';
+import { mkErrorAutheticationUserIsNotSignIn } from '../common/errors';
 
 //#region Others
 
@@ -82,14 +84,7 @@ export const editUserProfileLogic = (
   const hasDisplayName = !isStringEmpty(newDisplayName);
 
   if (!isUserSignIn) {
-    const errorType = ErrorType.Authetication_UserIsNotSignedIn;
-    const errorMessage = 'User is not signed-in';
-    logBugBl(ErrorType.Authetication_UserIsNotSignedIn);
-    return {
-      status: 'error',
-      errorType,
-      errorMessage,
-    };
+    return mkErrorAutheticationUserIsNotSignIn<UserCatalogFishEvent>();
   }
 
   if (!isUserRegistered) {
