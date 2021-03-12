@@ -6,7 +6,9 @@ import { ChannelCatalogFish } from './channel-catalog-fish';
 import { addChannelLogic } from './logic';
 import { AddChannelLogicResult } from './types';
 
-const addChannelWire =  (makerUUID: () => ChannelId) =>(pond: Pond) => (userUUID: UserUUID) => async (
+const addChannelWire = (makerUUID: () => ChannelId) => (pond: Pond) => (
+  userUUID: UserUUID
+) => async (
   name: string,
   description: string
 ): Promise<AddChannelLogicResult> =>
@@ -29,4 +31,4 @@ const addChannelWire =  (makerUUID: () => ChannelId) =>(pond: Pond) => (userUUID
     }
   });
 
-  export const addChannelWireForUi = addChannelWire(mkUUID)
+export const addChannelWireForUi = addChannelWire(mkUUID);
