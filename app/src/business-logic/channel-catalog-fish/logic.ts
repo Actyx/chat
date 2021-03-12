@@ -77,8 +77,7 @@ export const addChannelLogic = (makerUUID: () => ChannelId) => (
   name: string,
   description: string
 ): AddChannelLogicResult => {
-  const isUserSignIn = isSignedInUser(userUUID);
-  if (!isUserSignIn) {
+  if (!isSignedInUser(userUUID)) {
     return mkErrorAutheticationUserIsNotSignIn<ChannelAddedEvent>();
   }
 
@@ -86,8 +85,7 @@ export const addChannelLogic = (makerUUID: () => ChannelId) => (
     name,
     description
   );
-  const doesChannelExists = !doesChannelNameExist(newName, fishState);
-  if (!doesChannelExists) {
+  if (doesChannelNameExist(newName, fishState)) {
     return {
       status: 'error',
       errorType: ErrorType.ChannelAdd_ChannelNameExist,
