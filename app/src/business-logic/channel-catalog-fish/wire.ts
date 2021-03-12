@@ -13,22 +13,20 @@ const addChannelWire = (makerUUID: () => ChannelId) => (pond: Pond) => (
   description: string
 ): Promise<AddChannelLogicResult> =>
   new Promise(async (res, rej) => {
-    try {
-      await pond
-        .run(ChannelCatalogFish, (fishState, enqueue) => {
-          const result = addChannelLogic(makerUUID)(fishState)(userUUID)(
-            name,
-            description
-          );
-          if (result.type === 'ok') {
-            enqueue(...result.tagsWithEvents[0]);
-          }
-          res(result);
-        })
-        .toPromise();
-    } catch (err) {
-      rej(err);
-    }
+    let result: AddChannelLogicResult;
+    pond
+      .run(ChannelCatalogFish, (fishState, enqueue) => {
+        result = addChannelLogic(makerUUID)(fishState)(userUUID)(
+          name,
+          description
+        );
+        if (result.type === 'ok') {
+          enqueue(...result.tagsWithEvents[0]);
+        }
+      })
+      .toPromise()
+      .then(() => res(result))
+      .catch(rej);
   });
 
 export const addChannelWireForUi = addChannelWire(mkUUID);
