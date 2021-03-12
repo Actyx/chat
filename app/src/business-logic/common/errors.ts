@@ -7,6 +7,6 @@ export const mkErrorAutheticationUserIsNotSignIn = <T>(): LogicResult<T> => {
   return {
     type: 'error',
     code,
-    message: 'User is not signed-in'
+    message: 'User is not signed in',
   };
 };
