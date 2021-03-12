@@ -70,16 +70,11 @@ export const editUserProfileLogic = (
   displayName: string,
   userUUID: UserUUID
 ): EditUserProfileResult => {
-  const isUserSignIn = isSignedInUser(userUUID);
-  const isUserRegistered = isUserUUIDRegistered(userUUID, fishState.users);
-  const newDisplayName = prepareString(displayName);
-  const hasDisplayName = !isStringEmpty(newDisplayName);
-
-  if (!isUserSignIn) {
+  if (!isSignedInUser(userUUID)) {
     return mkErrorAutheticationUserIsNotSignIn<UserCatalogFishEvent>();
   }
 
-  if (!isUserRegistered) {
+  if (!isUserUUIDRegistered(userUUID, fishState.users)) {
     const code = ErrorCode.UserEditProfileUserIsNotRegistered;
     logBugBl(code);
     return {
@@ -88,6 +83,9 @@ export const editUserProfileLogic = (
       message: 'UserUUID is not registered',
     };
   }
+
+  const newDisplayName = prepareString(displayName);
+  const hasDisplayName = !isStringEmpty(newDisplayName);
 
   if (!hasDisplayName) {
     return {
