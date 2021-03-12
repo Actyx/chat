@@ -92,7 +92,7 @@ export const SignUp = ({
           {isSignUpSuccess !== undefined && (
             <Alert
               icon={!isSignUpSuccess && <ExclamationIcon color="red-medium" />}
-              variant={isSignUpSuccess ? 'success' : 'danger'}
+              variant={isSignUpSuccess ? 'success' : 'warning'}
             >
               {isSignUpSuccess ? (
                 <div className="space-y-2">
