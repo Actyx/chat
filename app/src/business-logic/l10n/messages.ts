@@ -1,4 +1,4 @@
-import { Language } from '../common/l10n-types';
+import { Language } from './types';
 import { ErrorType as ET } from '../common/logic-types';
 
 export const messages = {

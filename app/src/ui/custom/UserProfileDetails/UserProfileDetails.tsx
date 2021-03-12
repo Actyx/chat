@@ -9,9 +9,9 @@ import { Alert } from '../../common/Alert/Alert';
 import { closeSectionRight } from '../../state-manager/actions';
 import { DispatchContextUI } from '../../state-manager/UIStateManager';
 import { EditUserProfileResult } from '../../../business-logic/user-catalog-fish/types';
-import { messages } from '../../../business-logic/user-catalog-fish/messages';
-import { Language } from '../../../business-logic/common/l10n-types';
-import { getMessage } from '../../../business-logic/common/l10n';
+import { messages } from '../../../business-logic/l10n/messages';
+import { Language } from '../../../business-logic/l10n/types';
+import { getMessage } from '../../../business-logic/l10n/l10n';
 
 type UserProfileDetailsProps = Readonly<{
   userDisplayName: string;

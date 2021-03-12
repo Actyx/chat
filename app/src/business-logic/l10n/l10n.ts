@@ -1,5 +1,5 @@
-import { Language, Messages } from './l10n-types';
-import { ErrorType } from './logic-types';
+import { Language, Messages } from './types';
+import { ErrorType } from '../common/logic-types';
 
 export const getMessage = (messages: Messages) => (language: Language) => (
   errorType: ErrorType
