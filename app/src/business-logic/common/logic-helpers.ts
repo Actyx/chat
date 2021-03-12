@@ -6,17 +6,14 @@ export const wire = <S, E>(
   fish: Fish<S, E>,
   logic: (fishState: S) => LogicResult<E>
 ): Promise<LogicResult<E>> => {
-  return new Promise((res, rej) => {
-    let result: LogicResult<E>;
-    pond
-      .run(fish, (fishState, enqueue) => {
-        result = logic(fishState);
-        if (result.type === 'ok') {
-          enqueue(...result.tagsWithEvents[0]);
-        }
-      })
-      .toPromise()
-      .then(() => res(result))
-      .catch(rej);
-  });
+  let result: LogicResult<E>;
+  return pond
+    .run(fish, (fishState, enqueue) => {
+      result = logic(fishState);
+      if (result.type === 'ok') {
+        enqueue(...result.tagsWithEvents[0]);
+      }
+    })
+    .toPromise()
+    .then(() => result);
 };
