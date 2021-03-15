@@ -11,7 +11,7 @@ export const wire = <S, E, R>(
     .run(fish, (fishState, enqueue) => {
       logicResult = logic(fishState);
       if (logicResult.type === 'ok') {
-        enqueue(...logicResult.tagsWithEvents[0]); // FIX THIS
+        logicResult.tagsWithEvents.forEach((x) => enqueue(...x));
       }
     })
     .toPromise()
