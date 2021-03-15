@@ -12,9 +12,7 @@ import { TextField } from '../../../common/TextField/TextField';
 import { Typography } from '../../../common/Typography/Typography';
 import { Alert } from '../../../common/Alert/Alert';
 import { AddChannelLogicResult } from '../../../../business-logic/channel-catalog-fish/types';
-import { messages } from '../../../../l10n/messages';
-import { Language } from '../../../../l10n/types';
-import { getMessage } from '../../../../l10n/l10n';
+import { getUIMessage } from '../../../../l10n/l10n';
 
 type AddChannelDialogProps = Readonly<{
   errorMessage?: string;
@@ -27,8 +25,6 @@ type AddChannelDialogProps = Readonly<{
 
 const FIELD_NAME = 'add-channel-dialog-textfield-name';
 const FIELD_DESCRIPTION = 'add-channel-dialog-textfield-description';
-
-const getUIMessage = getMessage(messages)(Language.En);
 
 export const AddChannelDialog = ({
   addChannel,

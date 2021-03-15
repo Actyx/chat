@@ -1,16 +1,13 @@
 import { usePond } from '@actyx-contrib/react-pond';
 import React, { useState } from 'react';
+import { mkUUID } from '../../../../business-logic/common/util';
 import {
   Email,
   UserUUID,
 } from '../../../../business-logic/user-catalog-fish/types';
-import { signUpWireForUI } from '../../../../business-logic/user-catalog-fish/wire';
-import { getMessage } from '../../../../l10n/l10n';
-import { messages } from '../../../../l10n/messages';
-import { Language } from '../../../../l10n/types';
+import { getUIMessage } from '../../../../l10n/l10n';
 import { SignUp } from './SignUp';
-
-const getUIMessage = getMessage(messages)(Language.En);
+import { signUpWire } from '../../../../business-logic/user-catalog-fish/wire';
 
 type SignUpContainerProps = Readonly<{
   showSignIn: () => void;
@@ -29,7 +26,7 @@ export const SignUpContainer = ({ showSignIn }: SignUpContainerProps) => {
 
   const handleSignUp = async (name: string, email: Email) => {
     try {
-      const resultLogicUI = await signUpWireForUI(pond)(name, email);
+      const resultLogicUI = await signUpWire(mkUUID)(pond)(name, email);
       if (resultLogicUI.type === 'ok') {
         setIsSignUpSuccess(true);
         setNewUserUUID(resultLogicUI.result);

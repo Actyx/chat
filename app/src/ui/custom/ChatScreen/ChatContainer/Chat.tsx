@@ -2,7 +2,6 @@ import React, { ReactNode, useContext } from 'react';
 import { Dialogs, SectionCenter } from '../../../state-manager/types';
 import { ChannelsListUI, Sidebar, UsersListUI } from '../Sidebar/Sidebar';
 import { TopBar } from '../TopBar';
-import { UserProfileDetails } from '../../UserProfileDetails/UserProfileDetails';
 import { Channel } from '../Channel/Channel';
 import {
   ChannelsCatalog,
@@ -15,8 +14,8 @@ import { AddChannelDialog } from '../AddChannelDialog/AddChannelDialog';
 import './chat.css';
 import { StateContextUI } from '../../../state-manager/UIStateManager';
 import { ErrorBoundary } from '../../../common/ErrorBoundary/ErrorBoundary';
-import { EditUserProfileResult } from '../../../../business-logic/user-catalog-fish/types';
 import { AddChannelLogicResult } from '../../../../business-logic/channel-catalog-fish/types';
+import { UserProfileDetailsContainer } from '../../UserProfileDetails/UserProfileDetailsContainer';
 
 type ChatProps = Readonly<{
   appName: string;
@@ -37,9 +36,6 @@ type ChatProps = Readonly<{
   canShowUserProfileDetails: boolean;
   handleShowAddChannelDialog: () => void;
   handleShowEditChannelDialog: (channelId: ChannelId) => void;
-  handleEditUserProfile: (
-    displayName: string
-  ) => Promise<EditUserProfileResult>;
   handleAddMessage: (content: string) => Promise<boolean>;
   handleEditMessage: (messageId: MessageId, content: string) => void;
   handleHideMessage: (messageId: MessageId) => void;
@@ -56,7 +52,6 @@ type ChatProps = Readonly<{
   handleUnarchiveChannel: (channelId: ChannelId) => Promise<boolean>;
   handleAssociateUserChannel: (channelId: ChannelId) => void;
   handleDissociateUserChannel: (channelId: ChannelId) => void;
-  handleHideUserProfileDetails: () => void;
   handleHideDialog: () => void;
 }>;
 
@@ -72,7 +67,6 @@ export const Chat = ({
   usersSideBarUI,
   canShowUserProfileDetails,
   handleAddMessage,
-  handleEditUserProfile,
   handleEditMessage,
   handleHideMessage,
   channelName,
@@ -85,7 +79,6 @@ export const Chat = ({
   handleUnarchiveChannel,
   handleAssociateUserChannel,
   handleDissociateUserChannel,
-  handleHideUserProfileDetails,
   selectedChannel,
   handleEditChannel,
   handleAddChannel,
@@ -167,11 +160,7 @@ export const Chat = ({
         <ErrorBoundary>{renderSectionCenter()}</ErrorBoundary>
         <ErrorBoundary>
           {canShowUserProfileDetails && (
-            <UserProfileDetails
-              userDisplayName={userDisplayName}
-              editUserProfile={handleEditUserProfile}
-              close={handleHideUserProfileDetails}
-            />
+            <UserProfileDetailsContainer userDisplayName={userDisplayName} />
           )}
         </ErrorBoundary>
       </MainContent>

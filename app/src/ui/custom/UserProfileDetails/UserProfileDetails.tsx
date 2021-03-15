@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { FlexPanel } from '../../common/FlexPanel/FlexPanel';
 import { FormEventElement, InputChangeEvent } from '../../utils/element-events';
 import { TextField } from '../../common/TextField/TextField';
@@ -6,34 +6,24 @@ import { Button } from '../../common/Button/Button';
 import { Label } from '../../common/Label/Label';
 import { Typography } from '../../common/Typography/Typography';
 import { Alert } from '../../common/Alert/Alert';
-import { closeSectionRight } from '../../state-manager/actions';
-import { DispatchContextUI } from '../../state-manager/UIStateManager';
-import { EditUserProfileResult } from '../../../business-logic/user-catalog-fish/types';
-import { messages } from '../../../l10n/messages';
-import { Language } from '../../../l10n/types';
-import { getMessage } from '../../../l10n/l10n';
 
 type UserProfileDetailsProps = Readonly<{
+  invalidMessage?: string;
+  pondErrorMessage?: string;
   userDisplayName: string;
-  editUserProfile: (displayName: string) => Promise<EditUserProfileResult>;
+  editUserProfile: (displayName: string) => void;
   close: () => void;
 }>;
 
 const FIELD_DISPLAY_NAME_ID = 'user-profile-details-display-name';
 
-const getUIMessage = getMessage(messages)(Language.En);
-
 export const UserProfileDetails = ({
+  invalidMessage,
+  pondErrorMessage,
   userDisplayName,
   editUserProfile,
   close,
 }: UserProfileDetailsProps) => {
-  const dispatch = useContext(DispatchContextUI);
-
-  const [invalidMessage, setInvalidMessage] = useState<string>();
-
-  const [pondErrorMessage, setPondErrorMessage] = useState<string>();
-
   const [displayName, setDisplayName] = useState<string>(userDisplayName);
 
   const handleChangeDisplayName = (e: InputChangeEvent) =>
@@ -41,16 +31,7 @@ export const UserProfileDetails = ({
 
   const handleSubmit = async (e: FormEventElement) => {
     e.preventDefault();
-    try {
-      const result = await editUserProfile(displayName);
-      if (result.type === 'ok') {
-        dispatch(closeSectionRight());
-      } else {
-        setInvalidMessage(getUIMessage(result.code));
-      }
-    } catch (err) {
-      setPondErrorMessage(err);
-    }
+    editUserProfile(displayName);
   };
 
   return (

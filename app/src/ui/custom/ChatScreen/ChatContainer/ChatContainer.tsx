@@ -18,7 +18,6 @@ import {
 import { ChannelId, MessageId } from '../../../../business-logic/message/types';
 import { UserCatalogFish } from '../../../../business-logic/user-catalog-fish/user-catalog-fish';
 import {
-  closeSectionRight,
   hideDialog,
   showEditChannelDialog,
 } from '../../../state-manager/actions';
@@ -46,15 +45,11 @@ import pkg from '../../../../../package.json';
 import { Alert } from '../../../common/Alert/Alert';
 import { useFish } from '../../../utils/use-fish';
 import { getChannelProfileByChannelId } from '../../../../business-logic/channel-catalog-fish/logic-helpers';
-import { editUserProfileWire } from '../../../../business-logic/user-catalog-fish/wire';
-import { EditUserProfileResult } from '../../../../business-logic/user-catalog-fish/types';
 import { addChannelWireForUi } from '../../../../business-logic/channel-catalog-fish/wire';
 import { AddChannelLogicResult } from '../../../../business-logic/channel-catalog-fish/types';
 import { usePond } from '@actyx-contrib/react-pond';
 
-type ChatContainerProps = Readonly<{}>;
-
-export const ChatContainer = ({}: ChatContainerProps) => {
+export const ChatContainer = () => {
   const dispatch = useContext(DispatchContextUI);
   const pond = usePond();
 
@@ -100,11 +95,6 @@ export const ChatContainer = ({}: ChatContainerProps) => {
   //#endregion
 
   //#region Handlers operations
-
-  const handleEditUserProfile = (
-    displayName: string
-  ): Promise<EditUserProfileResult> =>
-    editUserProfileWire(pond)(stateUI.userUUID, displayName);
 
   const handleAddMessage = (content: string): Promise<boolean> =>
     addMessageToChannel(pond)(stateUI.activeChannelId, stateUI.userUUID)({
@@ -169,8 +159,6 @@ export const ChatContainer = ({}: ChatContainerProps) => {
   //#endregion
 
   //#region Handlers navigation
-
-  const handleHideUserProfileDetails = () => dispatch(closeSectionRight());
 
   const handleShowAddChannelDialog = () => {
     dispatch(showAddChannelDialog());
@@ -250,7 +238,6 @@ export const ChatContainer = ({}: ChatContainerProps) => {
         canShowUserProfileDetails={canShowUserProfileDetails}
         handleShowAddChannelDialog={handleShowAddChannelDialog}
         handleShowEditChannelDialog={handleShowEditChannelDialog}
-        handleEditUserProfile={handleEditUserProfile}
         handleAddMessage={handleAddMessage}
         handleEditMessage={handleEditMessage}
         handleHideMessage={handleHideMessage}
@@ -260,7 +247,6 @@ export const ChatContainer = ({}: ChatContainerProps) => {
         handleUnarchiveChannel={handleUnarchiveChannel}
         handleAssociateUserChannel={handleAssociateUserChannel}
         handleDissociateUserChannel={handleDissociateUserChannel}
-        handleHideUserProfileDetails={handleHideUserProfileDetails}
         handleHideDialog={handleHideDialog}
       />
     </>

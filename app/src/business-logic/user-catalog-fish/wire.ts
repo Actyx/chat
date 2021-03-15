@@ -2,6 +2,7 @@ import { Pond } from '@actyx/pond';
 import { editUserProfileLogic, signUpLogic } from './logic';
 import {
   EditUserProfileResult,
+  EditUserProfileResultUI,
   Email,
   SignUpLogicResultUI,
   UserCatalogFishEvent,
@@ -9,10 +10,9 @@ import {
   UserUUID,
 } from './types';
 import { UserCatalogFish } from './user-catalog-fish';
-import { mkUUID } from '../common/util';
 import { wire } from '../common/logic-helpers';
 
-const signUpWire = (makerUUID: () => UserUUID) => (pond: Pond) => async (
+export const signUpWire = (makerUUID: () => UserUUID) => (pond: Pond) => async (
   displayName: string,
   email: Email
 ): Promise<SignUpLogicResultUI> =>
@@ -22,22 +22,23 @@ const signUpWire = (makerUUID: () => UserUUID) => (pond: Pond) => async (
     signUpLogic(makerUUID)(displayName, email)
   );
 
-export const signUpWireForUI = signUpWire(mkUUID);
-
+// FIXME use the final wire function
 export const editUserProfileWire = (pond: Pond) => async (
   userUUID: UserUUID,
   displayName: string
-): Promise<EditUserProfileResult> =>
-  new Promise(async (res, rej) => {
-    let result: EditUserProfileResult;
-    pond
-      .run(UserCatalogFish, (fishState, enqueue) => {
-        const result = editUserProfileLogic(fishState, displayName, userUUID);
-        if (result.type === 'ok') {
-          enqueue(...result.tagsWithEvents[0]);
-        }
-      })
-      .toPromise()
-      .then(() => res(result))
-      .catch(rej);
-  });
+): Promise<EditUserProfileResultUI> => {
+  let logicResult: EditUserProfileResult;
+  return pond
+    .run(UserCatalogFish, (fishState, enqueue) => {
+      logicResult = editUserProfileLogic(fishState, displayName, userUUID);
+      if (logicResult.type === 'ok') {
+        logicResult.tagsWithEvents.forEach((x) => enqueue(...x));
+      }
+    })
+    .toPromise()
+    .then(() =>
+      logicResult.type === 'ok'
+        ? { type: 'ok', result: logicResult.result }
+        : logicResult
+    );
+};
