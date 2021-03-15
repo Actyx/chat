@@ -34,14 +34,12 @@ export const UserProfileDetailsContainer = ({
         stateUI.userUUID,
         displayName
       );
-      debugger;
       if (result.type === 'ok') {
         dispatch(closeSectionRight());
       } else {
         setInvalidMessage(getUIMessage(result.code));
       }
     } catch (err) {
-      debugger;
       setPondErrorMessage(err);
     }
   };
