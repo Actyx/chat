@@ -10,12 +10,11 @@ import {
 import { MessageUI } from '../Channel/Message';
 import { ChannelId } from '../../../../business-logic/message/types';
 import { EditChannelDialog } from '../EditChannelDialog/EditChannelDialog';
-import { AddChannelDialog } from '../AddChannelDialog/AddChannelDialog';
 import './chat.css';
 import { StateContextUI } from '../../../state-manager/UIStateManager';
 import { ErrorBoundary } from '../../../common/ErrorBoundary/ErrorBoundary';
-import { AddChannelLogicResult } from '../../../../business-logic/channel-catalog-fish/types';
 import { UserProfileDetailsContainer } from '../../UserProfileDetails/UserProfileDetailsContainer';
+import { AddChannelDialogContainer } from '../AddChannelDialog/AddChannelDialogContainer';
 
 type ChatProps = Readonly<{
   appName: string;
@@ -36,10 +35,6 @@ type ChatProps = Readonly<{
   canShowUserProfileDetails: boolean;
   handleShowAddChannelDialog: () => void;
   handleShowEditChannelDialog: (channelId: ChannelId) => void;
-  handleAddChannel: (
-    name: string,
-    description: string
-  ) => Promise<AddChannelLogicResult>;
   handleEditChannel: (
     channelId: ChannelId,
     newName: string,
@@ -75,7 +70,6 @@ export const Chat = ({
   handleDissociateUserChannel,
   selectedChannel,
   handleEditChannel,
-  handleAddChannel,
   handleHideDialog,
   handleShowAddChannelDialog,
 }: ChatProps) => {
@@ -84,12 +78,7 @@ export const Chat = ({
   const renderDialog = () => {
     switch (stateUI.dialog) {
       case Dialogs.AddChannel:
-        return (
-          <AddChannelDialog
-            closeDialog={handleHideDialog}
-            addChannel={handleAddChannel}
-          />
-        );
+        return <AddChannelDialogContainer />;
       case Dialogs.EditChannel:
         return selectedChannel ? (
           <EditChannelDialog

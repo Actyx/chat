@@ -40,8 +40,6 @@ import pkg from '../../../../../package.json';
 import { Alert } from '../../../common/Alert/Alert';
 import { useFish } from '../../../utils/use-fish';
 import { getChannelProfileByChannelId } from '../../../../business-logic/channel-catalog-fish/logic-helpers';
-import { addChannelWireForUi } from '../../../../business-logic/channel-catalog-fish/wire';
-import { AddChannelLogicResult } from '../../../../business-logic/channel-catalog-fish/types';
 import { usePond } from '@actyx-contrib/react-pond';
 
 export const ChatContainer = () => {
@@ -106,12 +104,6 @@ export const ChatContainer = () => {
       dispatch(showEditChannelDialog());
     }
   };
-
-  const handleAddChannel = (
-    name: string,
-    description: string
-  ): Promise<AddChannelLogicResult> =>
-    addChannelWireForUi(pond)(stateUI.userUUID)(name, description);
 
   const handleEditChannel = async (
     channelId: ChannelId,
@@ -218,7 +210,6 @@ export const ChatContainer = () => {
         canShowUserProfileDetails={canShowUserProfileDetails}
         handleShowAddChannelDialog={handleShowAddChannelDialog}
         handleShowEditChannelDialog={handleShowEditChannelDialog}
-        handleAddChannel={handleAddChannel}
         handleEditChannel={handleEditChannel}
         handleArchiveChannel={handleArchiveChannel}
         handleUnarchiveChannel={handleUnarchiveChannel}

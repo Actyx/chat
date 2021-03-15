@@ -11,15 +11,13 @@ import { Label } from '../../../common/Label/Label';
 import { TextField } from '../../../common/TextField/TextField';
 import { Typography } from '../../../common/Typography/Typography';
 import { Alert } from '../../../common/Alert/Alert';
-import { AddChannelLogicResult } from '../../../../business-logic/channel-catalog-fish/types';
-import { getUIMessage } from '../../../../l10n/l10n';
 
 type AddChannelDialogProps = Readonly<{
   errorMessage?: string;
-  addChannel: (
-    name: string,
-    description: string
-  ) => Promise<AddChannelLogicResult>;
+  invalidMessage?: string;
+  pondErrorMessage?: string;
+  resetInvalidMessage: () => void;
+  addChannel: (name: string, description: string) => void;
   closeDialog: () => void;
 }>;
 
@@ -27,20 +25,19 @@ const FIELD_NAME = 'add-channel-dialog-textfield-name';
 const FIELD_DESCRIPTION = 'add-channel-dialog-textfield-description';
 
 export const AddChannelDialog = ({
+  invalidMessage,
+  pondErrorMessage,
+  resetInvalidMessage,
   addChannel,
   closeDialog,
 }: AddChannelDialogProps) => {
-  const [invalidMessage, setInvalidMessage] = useState<string>();
-
-  const [pondErrorMessage, setPondErrorMessage] = useState<string>();
-
   const [name, setName] = useState<string>('');
 
   const [description, setDescription] = useState<string>('');
 
   const handleChangeName = (e: InputChangeEvent) => {
     if (invalidMessage) {
-      setInvalidMessage(undefined);
+      resetInvalidMessage();
     }
     setName(e.target.value);
   };
@@ -48,27 +45,16 @@ export const AddChannelDialog = ({
   const handleChangeDescription = (e: InputChangeEvent) =>
     setDescription(e.target.value);
 
-  const handleAddChannel = async () => {
-    try {
-      const result = await addChannel(name, description);
-      if (result.type === 'ok') {
-        closeDialog();
-      } else {
-        setInvalidMessage(getUIMessage(result.code));
-      }
-    } catch (err) {
-      setPondErrorMessage(err);
-    }
-  };
-
-  const handleSumbit = (e: FormEventElement) => {
+  const handleAddChannel = (e: FormEventElement) => {
     e.preventDefault();
     e.stopPropagation();
-    handleAddChannel();
+    addChannel(name, description);
   };
 
+  const handleConfirmation = () => addChannel(name, description);
+
   return (
-    <form onSubmit={handleSumbit}>
+    <form onSubmit={handleAddChannel}>
       <Dialog
         close={closeDialog}
         header={<Header title="Create a channel" close={closeDialog} />}
@@ -116,7 +102,7 @@ export const AddChannelDialog = ({
             </div>
           </Body>
         }
-        footer={<Footer textConfirm="Create" confirm={handleAddChannel} />}
+        footer={<Footer textConfirm="Create" confirm={handleConfirmation} />}
       ></Dialog>
     </form>
   );
