@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { AuthenticationContainer } from '../AuthenticationScreen/AuthenticationContainer';
+import { AuthenticationContainer } from '../AuthenticationScreen/AuthenticationScreen';
 import { StateContextUI } from '../../state-manager/UIStateManager';
 import { Screens } from '../../state-manager/types';
 import { ChatContainer } from '../ChatScreen/ChatContainer/ChatContainer';

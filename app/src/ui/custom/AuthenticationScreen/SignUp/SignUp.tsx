@@ -1,12 +1,15 @@
 import React, { useState, MouseEvent } from 'react';
-import { FormEventElement, InputChangeEvent } from '../../utils/element-events';
-import { TextField } from '../../common/TextField/TextField';
-import { Heading1 } from '../../common/Hedings/Heading1';
-import { SubHeading } from '../../common/SubHeading/SubHeading';
-import { Button } from '../../common/Button/Button';
-import { Alert } from '../../common/Alert/Alert';
-import { ButtonTextLink } from '../../common/ButtonTextLink/ButtonTextLink';
-import { ExclamationIcon } from '../../common/Icons/ExclamationIcon';
+import {
+  FormEventElement,
+  InputChangeEvent,
+} from '../../../utils/element-events';
+import { TextField } from '../../../common/TextField/TextField';
+import { Heading1 } from '../../../common/Hedings/Heading1';
+import { SubHeading } from '../../../common/SubHeading/SubHeading';
+import { Button } from '../../../common/Button/Button';
+import { Alert } from '../../../common/Alert/Alert';
+import { ButtonTextLink } from '../../../common/ButtonTextLink/ButtonTextLink';
+import { ExclamationIcon } from '../../../common/Icons/ExclamationIcon';
 
 type SignUpProps = Readonly<{
   isSignUpSuccess?: boolean;

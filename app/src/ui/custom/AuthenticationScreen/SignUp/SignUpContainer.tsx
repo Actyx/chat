@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 import {
   Email,
   UserUUID,
-} from '../../../business-logic/user-catalog-fish/types';
-import { signUpWireForUI } from '../../../business-logic/user-catalog-fish/wire';
-import { getMessage } from '../../../l10n/l10n';
-import { messages } from '../../../l10n/messages';
-import { Language } from '../../../l10n/types';
+} from '../../../../business-logic/user-catalog-fish/types';
+import { signUpWireForUI } from '../../../../business-logic/user-catalog-fish/wire';
+import { getMessage } from '../../../../l10n/l10n';
+import { messages } from '../../../../l10n/messages';
+import { Language } from '../../../../l10n/types';
 import { SignUp } from './SignUp';
 
 const getUIMessage = getMessage(messages)(Language.En);
