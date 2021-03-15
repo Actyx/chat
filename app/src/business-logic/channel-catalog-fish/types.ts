@@ -108,6 +108,6 @@ export type ChannelCatalogFishState = Readonly<{
 
 //#region Result logic
 
-export type AddChannelLogicResult = LogicResult<ChannelAddedEvent, undefined>;
+export type AddChannelLogicResult = LogicResult<ChannelAddedEvent, void>;
 
 //#endregion
