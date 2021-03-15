@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-import { Pond } from '@actyx/pond';
 import { UserUUID } from '../../../business-logic/user-catalog-fish/types';
 import { signIn } from '../../../business-logic/user-catalog-fish/logic';
 import { SignUp } from './SignUp';
@@ -11,15 +10,11 @@ import { CreateAccount } from './CreateAccount';
 import { ErrorBoundary } from '../../common/ErrorBoundary/ErrorBoundary';
 import { useFish } from '../../utils/use-fish';
 import { signUpWireForUI } from '../../../business-logic/user-catalog-fish/wire';
+import { usePond } from '@actyx-contrib/react-pond';
 
-type AuthenticationContainerProps = Readonly<{
-  pond: Pond;
-}>;
-
-export const AuthenticationContainer = ({
-  pond,
-}: AuthenticationContainerProps) => {
+export const AuthenticationContainer = () => {
   const dispatch = useContext(DispatchContextUI);
+  const pond = usePond();
 
   const stateUserCatalogFish = useFish(
     pond,

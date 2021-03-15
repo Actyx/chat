@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@actyx-contrib/react-pond": "^2.0.2",
     "@actyx/pond": "^2.4.1",
     "@craco/craco": "^6.1.1",
     "@tailwindcss/forms": "^0.2.1",

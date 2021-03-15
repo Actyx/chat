@@ -1,4 +1,3 @@
-import { Pond } from '@actyx/pond';
 import React, { useContext, useEffect, useState } from 'react';
 import { mkChannelFish } from '../../../../business-logic/channel-fish/channel-fish';
 import {
@@ -51,13 +50,13 @@ import { editUserProfileWire } from '../../../../business-logic/user-catalog-fis
 import { EditUserProfileResult } from '../../../../business-logic/user-catalog-fish/types';
 import { addChannelWireForUi } from '../../../../business-logic/channel-catalog-fish/wire';
 import { AddChannelLogicResult } from '../../../../business-logic/channel-catalog-fish/types';
+import { usePond } from '@actyx-contrib/react-pond';
 
-type ChatContainerProps = Readonly<{
-  pond: Pond;
-}>;
+type ChatContainerProps = Readonly<{}>;
 
-export const ChatContainer = ({ pond }: ChatContainerProps) => {
+export const ChatContainer = ({}: ChatContainerProps) => {
   const dispatch = useContext(DispatchContextUI);
+  const pond = usePond();
 
   const stateUI = useContext(StateContextUI);
 
