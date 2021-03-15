@@ -19,7 +19,6 @@ type ChannelProps = Readonly<{
   totalUsers: number;
   editMessage: (messageId: MessageId, content: string) => void;
   hideMessage: (messageId: MessageId) => void;
-  addMessage: (content: string) => void;
 }>;
 
 const CONFIRM_HIDE_MESSAGE = 'Are you sure to delete this message?';
@@ -31,7 +30,6 @@ export const Channel = ({
   totalUsers,
   editMessage,
   hideMessage,
-  addMessage,
 }: ChannelProps) => {
   const stateUI = useContext(StateContextUI);
 

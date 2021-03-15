@@ -127,7 +127,6 @@ export const Chat = ({
             messages={channelMessages}
             editMessage={handleEditMessage}
             hideMessage={handleHideMessage}
-            addMessage={handleAddMessage}
           />
         );
       case SectionCenter.ChannelsCatalog:
