@@ -66,9 +66,9 @@ export type UserCatalogFishState = {
 
 //#region Logic
 
-export type SignUpLogicResult = LogicResult<UserCatalogFishEvent, undefined>;
+export type SignUpLogicResult = LogicResult<UserCatalogFishEvent, UserUUID>;
 
-export type SignUpLogicResultUI = LogicResultUI<undefined>;
+export type SignUpLogicResultUI = LogicResultUI<UserUUID>;
 
 export type EditUserProfileResult = LogicResult<
   UserCatalogFishEvent,

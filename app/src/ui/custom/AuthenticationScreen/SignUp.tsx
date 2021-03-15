@@ -1,5 +1,8 @@
 import React, { useState, MouseEvent } from 'react';
-import { SignUpLogicResultUI } from '../../../business-logic/user-catalog-fish/types';
+import {
+  SignUpLogicResultUI,
+  UserUUID,
+} from '../../../business-logic/user-catalog-fish/types';
 import { FormEventElement, InputChangeEvent } from '../../utils/element-events';
 import { TextField } from '../../common/TextField/TextField';
 import { Heading1 } from '../../common/Hedings/Heading1';
@@ -12,28 +15,17 @@ import { messages } from '../../../l10n/messages';
 import { Language } from '../../../l10n/types';
 import { getMessage } from '../../../l10n/l10n';
 
-type EmailsUserUUIDsUI = Record<string, string>;
-
 type SignUpProps = Readonly<{
   signUp: (displayName: string, email: string) => Promise<SignUpLogicResultUI>;
   showSignIn: () => void;
-  emailsUserUUIDs: EmailsUserUUIDsUI;
 }>;
 
 const getUIMessage = getMessage(messages)(Language.En);
 
-const getToken = (
-  emailsUserUUIDs: EmailsUserUUIDsUI,
-  email: string,
-  isSignUpSuccess?: boolean
-): string | undefined => (isSignUpSuccess ? emailsUserUUIDs[email] : undefined);
-
-export const SignUp = ({
-  signUp,
-  showSignIn,
-  emailsUserUUIDs,
-}: SignUpProps) => {
+export const SignUp = ({ signUp, showSignIn }: SignUpProps) => {
   const [isSignUpSuccess, setIsSignUpSuccess] = useState<boolean>();
+
+  const [newUserUUID, setNewUserUUID] = useState<UserUUID>();
 
   const [invalidMessage, setInvalidMessage] = useState<string>();
 
@@ -51,12 +43,13 @@ export const SignUp = ({
     e.preventDefault();
     e.stopPropagation();
     try {
-      const result = await signUp(name, email);
-      if (result.type === 'ok') {
+      const resultLogicUI = await signUp(name, email);
+      if (resultLogicUI.type === 'ok') {
         setIsSignUpSuccess(true);
+        setNewUserUUID(resultLogicUI.result);
       } else {
         setIsSignUpSuccess(false);
-        setInvalidMessage(getUIMessage(result.code));
+        setInvalidMessage(getUIMessage(resultLogicUI.code));
       }
     } catch (err) {
       setPondErrorMessage(err);
@@ -64,8 +57,6 @@ export const SignUp = ({
   };
 
   const handleOpenSignIn = (e: MouseEvent<HTMLButtonElement>) => showSignIn();
-
-  const token = getToken(emailsUserUUIDs, email, isSignUpSuccess);
 
   return (
     <div className="text-center space-y-3">
@@ -97,7 +88,7 @@ export const SignUp = ({
               {isSignUpSuccess ? (
                 <div className="space-y-2">
                   <div>Your authetication token is (keep it safe):</div>
-                  <div className="font-semibold">{token}</div>
+                  <div className="font-semibold">{newUserUUID}</div>
                   <ButtonTextLink click={handleOpenSignIn}>
                     Click here to Sign-in
                   </ButtonTextLink>

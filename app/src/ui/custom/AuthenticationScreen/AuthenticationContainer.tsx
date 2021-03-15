@@ -51,11 +51,7 @@ export const AuthenticationContainer = ({
     <div className="mt-24 flex flex-col w-screen items-center">
       {showSignUp ? (
         <ErrorBoundary>
-          <SignUp
-            signUp={handleSignUp}
-            showSignIn={handleShowSignIn}
-            emailsUserUUIDs={stateUserCatalogFish.emails}
-          />
+          <SignUp signUp={handleSignUp} showSignIn={handleShowSignIn} />
         </ErrorBoundary>
       ) : (
         <ErrorBoundary>

@@ -16,7 +16,7 @@ const signUpWire = (makerUUID: () => UserUUID) => (pond: Pond) => async (
   displayName: string,
   email: Email
 ): Promise<SignUpLogicResultUI> =>
-  wire<UserCatalogFishState, UserCatalogFishEvent, undefined>(
+  wire<UserCatalogFishState, UserCatalogFishEvent, UserUUID>(
     pond,
     UserCatalogFish,
     signUpLogic(makerUUID)(displayName, email)

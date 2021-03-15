@@ -33,8 +33,9 @@ export const getTotalUsers = (users: Users) => Object.values(users).length;
 export const signUpLogic = (makerUUID: () => UserUUID) => (
   displayName: string,
   email: Email
-) => (fishState: UserCatalogFishState): SignUpLogicResult =>
-  isUserEmailRegistered(email, fishState.emails)
+) => (fishState: UserCatalogFishState): SignUpLogicResult => {
+  const userUUID = makerUUID();
+  return isUserEmailRegistered(email, fishState.emails)
     ? {
         type: 'error',
         code: ErrorCode.SignUpEmailAlreadyExists,
@@ -43,9 +44,10 @@ export const signUpLogic = (makerUUID: () => UserUUID) => (
       }
     : {
         type: 'ok',
-        tagsWithEvents: [getUserAddedEvent(makerUUID(), displayName, email)],
-        result: undefined,
+        tagsWithEvents: [getUserAddedEvent(userUUID, displayName, email)],
+        result: userUUID,
       };
+};
 
 const isUserEmailRegistered = (
   email: Email,
