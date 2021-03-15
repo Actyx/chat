@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { MessageId } from '../../../../business-logic/message/types';
 import { Typography } from '../../../common/Typography/Typography';
-import { MessageInput } from './MessageInput';
 import { UsersIcon } from '../../../common/Icons/UsersIcon';
 import { UserIcon } from '../../../common/Icons/UserIcon';
 import { MessageList } from './MessageList';
@@ -9,6 +8,7 @@ import { MessageUI } from './Message';
 import { StateContextUI } from '../../../state-manager/UIStateManager';
 import { CentralSection } from '../../../common/CentralSection/CentralSection';
 import { Alert } from '../../../common/Alert/Alert';
+import { MessageInputContainer } from './MessageInput/MessageInputContainer';
 
 export type MessagesUI = ReadonlyArray<MessageUI>;
 
@@ -36,14 +36,6 @@ export const Channel = ({
   const stateUI = useContext(StateContextUI);
 
   const [pondErrorMessage, setPondErrorMessage] = useState<string>();
-
-  const handleAddMessage = async (content: string) => {
-    try {
-      await addMessage(content);
-    } catch (err) {
-      setPondErrorMessage(err);
-    }
-  };
 
   const handleEditMessage = async (messageId: MessageId, content: string) => {
     try {
@@ -105,10 +97,7 @@ export const Channel = ({
               <Alert variant="danger">{pondErrorMessage}</Alert>
             </div>
           )}
-          <MessageInput
-            channelName={channelName}
-            addMessage={handleAddMessage}
-          />
+          <MessageInputContainer channelName={channelName} />
         </>
       }
     />

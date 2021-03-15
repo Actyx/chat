@@ -1,10 +1,10 @@
 import cn from 'classnames';
 import React, { useState } from 'react';
-import { ButtonArea } from '../../../common/ButtonArea/ButtonArea';
+import { ButtonArea } from '../../../../common/ButtonArea/ButtonArea';
 import {
   FormEventElement,
   TextAreaChangeEvent,
-} from '../../../utils/element-events';
+} from '../../../../utils/element-events';
 
 type MessageInputProps = Readonly<{
   channelName: string;

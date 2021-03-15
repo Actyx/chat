@@ -51,6 +51,7 @@ import { usePond } from '@actyx-contrib/react-pond';
 
 export const ChatContainer = () => {
   const dispatch = useContext(DispatchContextUI);
+
   const pond = usePond();
 
   const stateUI = useContext(StateContextUI);
