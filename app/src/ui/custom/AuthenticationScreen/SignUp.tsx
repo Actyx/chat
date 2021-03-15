@@ -1,8 +1,4 @@
 import React, { useState, MouseEvent } from 'react';
-import {
-  SignUpLogicResultUI,
-  UserUUID,
-} from '../../../business-logic/user-catalog-fish/types';
 import { FormEventElement, InputChangeEvent } from '../../utils/element-events';
 import { TextField } from '../../common/TextField/TextField';
 import { Heading1 } from '../../common/Hedings/Heading1';
@@ -11,29 +7,27 @@ import { Button } from '../../common/Button/Button';
 import { Alert } from '../../common/Alert/Alert';
 import { ButtonTextLink } from '../../common/ButtonTextLink/ButtonTextLink';
 import { ExclamationIcon } from '../../common/Icons/ExclamationIcon';
-import { messages } from '../../../l10n/messages';
-import { Language } from '../../../l10n/types';
-import { getMessage } from '../../../l10n/l10n';
 
 type SignUpProps = Readonly<{
-  signUp: (displayName: string, email: string) => Promise<SignUpLogicResultUI>;
+  isSignUpSuccess?: boolean;
+  invalidMessage?: string;
+  newUserUUID?: string;
+  pondErrorMessage?: string;
+  signUp: (displayName: string, email: string) => void;
   showSignIn: () => void;
 }>;
 
-const getUIMessage = getMessage(messages)(Language.En);
-
-export const SignUp = ({ signUp, showSignIn }: SignUpProps) => {
-  const [isSignUpSuccess, setIsSignUpSuccess] = useState<boolean>();
-
-  const [newUserUUID, setNewUserUUID] = useState<UserUUID>();
-
-  const [invalidMessage, setInvalidMessage] = useState<string>();
-
+export const SignUp = ({
+  isSignUpSuccess,
+  invalidMessage,
+  newUserUUID,
+  pondErrorMessage,
+  signUp,
+  showSignIn,
+}: SignUpProps) => {
   const [name, setName] = useState('');
 
   const [email, setEmail] = useState('');
-
-  const [pondErrorMessage, setPondErrorMessage] = useState<string>();
 
   const handleChangeName = (e: InputChangeEvent) => setName(e.target.value);
 
@@ -42,18 +36,7 @@ export const SignUp = ({ signUp, showSignIn }: SignUpProps) => {
   const handleSubmit = async (e: FormEventElement) => {
     e.preventDefault();
     e.stopPropagation();
-    try {
-      const resultLogicUI = await signUp(name, email);
-      if (resultLogicUI.type === 'ok') {
-        setIsSignUpSuccess(true);
-        setNewUserUUID(resultLogicUI.result);
-      } else {
-        setIsSignUpSuccess(false);
-        setInvalidMessage(getUIMessage(resultLogicUI.code));
-      }
-    } catch (err) {
-      setPondErrorMessage(err);
-    }
+    signUp(name, email);
   };
 
   const handleOpenSignIn = (e: MouseEvent<HTMLButtonElement>) => showSignIn();
