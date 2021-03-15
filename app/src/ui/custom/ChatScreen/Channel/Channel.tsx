@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { MessageId } from '../../../../business-logic/message/types';
 import { Typography } from '../../../common/Typography/Typography';
 import { UsersIcon } from '../../../common/Icons/UsersIcon';
@@ -7,7 +7,6 @@ import { MessageList } from './MessageList';
 import { MessageUI } from './Message';
 import { StateContextUI } from '../../../state-manager/UIStateManager';
 import { CentralSection } from '../../../common/CentralSection/CentralSection';
-import { Alert } from '../../../common/Alert/Alert';
 import { MessageInputContainer } from './MessageInput/MessageInputContainer';
 
 export type MessagesUI = ReadonlyArray<MessageUI>;
@@ -21,38 +20,13 @@ type ChannelProps = Readonly<{
   hideMessage: (messageId: MessageId) => void;
 }>;
 
-const CONFIRM_HIDE_MESSAGE = 'Are you sure to delete this message?';
-
 export const Channel = ({
   channelName,
   channelDescription,
   messages,
   totalUsers,
-  editMessage,
-  hideMessage,
 }: ChannelProps) => {
   const stateUI = useContext(StateContextUI);
-
-  const [pondErrorMessage, setPondErrorMessage] = useState<string>();
-
-  const handleEditMessage = async (messageId: MessageId, content: string) => {
-    try {
-      await editMessage(messageId, content);
-    } catch (err) {
-      setPondErrorMessage(err);
-    }
-  };
-
-  const handleHideMessage = async (messageId: MessageId) => {
-    const hasUserConfirmed = window.confirm(CONFIRM_HIDE_MESSAGE);
-    if (hasUserConfirmed) {
-      try {
-        await hideMessage(messageId);
-      } catch (err) {
-        setPondErrorMessage(err);
-      }
-    }
-  };
 
   return (
     <CentralSection
@@ -80,24 +54,8 @@ export const Channel = ({
           </div>
         </>
       }
-      body={
-        <MessageList
-          key={stateUI.activeChannelId}
-          messages={messages}
-          editMessage={handleEditMessage}
-          hideMessage={handleHideMessage}
-        />
-      }
-      footer={
-        <>
-          {pondErrorMessage && (
-            <div className="p-4">
-              <Alert variant="danger">{pondErrorMessage}</Alert>
-            </div>
-          )}
-          <MessageInputContainer channelName={channelName} />
-        </>
-      }
+      body={<MessageList key={stateUI.activeChannelId} messages={messages} />}
+      footer={<MessageInputContainer channelName={channelName} />}
     />
   );
 };

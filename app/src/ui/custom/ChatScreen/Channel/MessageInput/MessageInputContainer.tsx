@@ -1,7 +1,6 @@
-import { usePond } from '@actyx-contrib/react-pond';
 import React, { useContext, useState } from 'react';
+import { usePond } from '@actyx-contrib/react-pond';
 import { addMessageToChannel } from '../../../../../business-logic/channel-fish/logic';
-import { Alert } from '../../../../common/Alert/Alert';
 import { StateContextUI } from '../../../../state-manager/UIStateManager';
 import { MessageInput } from './MessageInput';
 
@@ -31,13 +30,10 @@ export const MessageInputContainer = ({
     }
   };
   return (
-    <>
-      {pondErrorMessage && (
-        <div className="p-4">
-          <Alert variant="danger">{pondErrorMessage}</Alert>
-        </div>
-      )}
-      <MessageInput channelName={channelName} addMessage={handleAddMessage} />
-    </>
+    <MessageInput
+      channelName={channelName}
+      pondErrorMessage={pondErrorMessage}
+      addMessage={handleAddMessage}
+    />
   );
 };
