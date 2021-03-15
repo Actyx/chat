@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { MessageId } from '../../../../business-logic/message/types';
 import { Typography } from '../../../common/Typography/Typography';
 import { UsersIcon } from '../../../common/Icons/UsersIcon';
 import { UserIcon } from '../../../common/Icons/UserIcon';
@@ -16,8 +15,6 @@ type ChannelProps = Readonly<{
   channelDescription?: string;
   messages: ReadonlyArray<MessageUI>;
   totalUsers: number;
-  editMessage: (messageId: MessageId, content: string) => void;
-  hideMessage: (messageId: MessageId) => void;
 }>;
 
 export const Channel = ({

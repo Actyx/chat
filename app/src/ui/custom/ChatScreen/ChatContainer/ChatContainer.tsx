@@ -1,10 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { mkChannelFish } from '../../../../business-logic/channel-fish/channel-fish';
-import {
-  editMessageInChannel,
-  hideMessageFromChannel,
-  addMessageToChannel,
-} from '../../../../business-logic/channel-fish/logic';
 import { ChannelCatalogFish } from '../../../../business-logic/channel-catalog-fish/channel-catalog-fish';
 import {
   addDefaultChannelIfDoesNotExist,
@@ -15,7 +10,7 @@ import {
   hasUserCreatedChannel,
   unarchiveChannel,
 } from '../../../../business-logic/channel-catalog-fish/logic';
-import { ChannelId, MessageId } from '../../../../business-logic/message/types';
+import { ChannelId } from '../../../../business-logic/message/types';
 import { UserCatalogFish } from '../../../../business-logic/user-catalog-fish/user-catalog-fish';
 import {
   hideDialog,
@@ -96,22 +91,6 @@ export const ChatContainer = () => {
   //#endregion
 
   //#region Handlers operations
-
-  const handleAddMessage = (content: string): Promise<boolean> =>
-    addMessageToChannel(pond)(stateUI.activeChannelId, stateUI.userUUID)({
-      content,
-    });
-
-  const handleEditMessage = (messageId: MessageId, content: string) =>
-    editMessageInChannel(pond)(stateUI.activeChannelId, stateUI.userUUID)(
-      messageId,
-      content
-    );
-
-  const handleHideMessage = (messageId: MessageId) =>
-    hideMessageFromChannel(pond)(stateUI.activeChannelId, stateUI.userUUID)(
-      messageId
-    );
 
   const handleShowEditChannelDialog = (channelId: ChannelId) => {
     const channelProfile = getChannelProfileByChannelId(
@@ -239,9 +218,6 @@ export const ChatContainer = () => {
         canShowUserProfileDetails={canShowUserProfileDetails}
         handleShowAddChannelDialog={handleShowAddChannelDialog}
         handleShowEditChannelDialog={handleShowEditChannelDialog}
-        handleAddMessage={handleAddMessage}
-        handleEditMessage={handleEditMessage}
-        handleHideMessage={handleHideMessage}
         handleAddChannel={handleAddChannel}
         handleEditChannel={handleEditChannel}
         handleArchiveChannel={handleArchiveChannel}

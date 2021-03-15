@@ -8,7 +8,7 @@ import {
   ChannelsOverviewUI,
 } from '../ChannelsCatalog/ChannelsCatalog';
 import { MessageUI } from '../Channel/Message';
-import { ChannelId, MessageId } from '../../../../business-logic/message/types';
+import { ChannelId } from '../../../../business-logic/message/types';
 import { EditChannelDialog } from '../EditChannelDialog/EditChannelDialog';
 import { AddChannelDialog } from '../AddChannelDialog/AddChannelDialog';
 import './chat.css';
@@ -36,9 +36,6 @@ type ChatProps = Readonly<{
   canShowUserProfileDetails: boolean;
   handleShowAddChannelDialog: () => void;
   handleShowEditChannelDialog: (channelId: ChannelId) => void;
-  handleAddMessage: (content: string) => Promise<boolean>;
-  handleEditMessage: (messageId: MessageId, content: string) => void;
-  handleHideMessage: (messageId: MessageId) => void;
   handleAddChannel: (
     name: string,
     description: string
@@ -66,9 +63,6 @@ export const Chat = ({
   channelsSideBarUI,
   usersSideBarUI,
   canShowUserProfileDetails,
-  handleAddMessage,
-  handleEditMessage,
-  handleHideMessage,
   channelName,
   channelDescription,
   channelMessages,
@@ -125,8 +119,6 @@ export const Chat = ({
             channelName={channelName}
             channelDescription={channelDescription}
             messages={channelMessages}
-            editMessage={handleEditMessage}
-            hideMessage={handleHideMessage}
           />
         );
       case SectionCenter.ChannelsCatalog:
