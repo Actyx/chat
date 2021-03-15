@@ -9,7 +9,7 @@ import {
 } from '../../../state-manager/actions';
 import { DispatchContextUI } from '../../../state-manager/UIStateManager';
 import { useFish } from '../../../utils/use-fish';
-import { SignIn } from '../SignIn';
+import { SignIn } from './SignIn';
 
 export const SignInContainer = () => {
   const dispatch = useContext(DispatchContextUI);
