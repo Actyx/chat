@@ -3,6 +3,7 @@ import { editUserProfileLogic, signUpLogic } from './logic';
 import {
   EditUserProfileResult,
   Email,
+  SignUpLogicResultUI,
   UserCatalogFishEvent,
   UserCatalogFishState,
   UserUUID,
@@ -14,8 +15,8 @@ import { wire } from '../common/logic-helpers';
 const signUpWire = (makerUUID: () => UserUUID) => (pond: Pond) => async (
   displayName: string,
   email: Email
-) =>
-  wire<UserCatalogFishState, UserCatalogFishEvent>(
+): Promise<SignUpLogicResultUI> =>
+  wire<UserCatalogFishState, UserCatalogFishEvent, undefined>(
     pond,
     UserCatalogFish,
     signUpLogic(makerUUID)(displayName, email)

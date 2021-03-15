@@ -15,7 +15,6 @@ import {
   ChannelCatalogFishState,
   Users,
   AddChannelLogicResult,
-  ChannelAddedEvent,
 } from './types';
 import { ChannelCatalogFish } from './channel-catalog-fish';
 import { isSignedInUser } from '../user-catalog-fish/logic';
@@ -78,7 +77,7 @@ export const addChannelLogic = (makerUUID: () => ChannelId) => (
   description: string
 ): AddChannelLogicResult => {
   if (!isSignedInUser(userUUID)) {
-    return mkErrorAutheticationUserIsNotSignIn<ChannelAddedEvent>();
+    return mkErrorAutheticationUserIsNotSignIn();
   }
 
   const { newName, newDescription } = prepareContentChannelProfile(
@@ -98,6 +97,7 @@ export const addChannelLogic = (makerUUID: () => ChannelId) => (
     tagsWithEvents: [
       getChannelAdded(makerUUID(), userUUID, newName, newDescription),
     ],
+    result: undefined,
   };
 };
 

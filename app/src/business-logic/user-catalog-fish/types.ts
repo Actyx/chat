@@ -1,5 +1,5 @@
 import { Timestamp } from '@actyx/pond';
-import { LogicResult } from '../common/logic-types';
+import { LogicResult, LogicResultUI } from '../common/logic-types';
 
 //#region General
 
@@ -66,8 +66,13 @@ export type UserCatalogFishState = {
 
 //#region Logic
 
-export type SignUpLogicResult = LogicResult<UserCatalogFishEvent>;
+export type SignUpLogicResult = LogicResult<UserCatalogFishEvent, undefined>;
 
-export type EditUserProfileResult = LogicResult<UserCatalogFishEvent>;
+export type SignUpLogicResultUI = LogicResultUI<undefined>;
+
+export type EditUserProfileResult = LogicResult<
+  UserCatalogFishEvent,
+  undefined
+>;
 
 //#endregion

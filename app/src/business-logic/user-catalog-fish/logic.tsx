@@ -9,7 +9,6 @@ import {
   ANONYMOUS_USER,
   SignUpLogicResult,
   EditUserProfileResult,
-  UserCatalogFishEvent,
 } from './types';
 import { isStringEmpty, prepareString } from '../../common/strings';
 import { isUserUUIDRegistered } from './logic-helpers';
@@ -45,6 +44,7 @@ export const signUpLogic = (makerUUID: () => UserUUID) => (
     : {
         type: 'ok',
         tagsWithEvents: [getUserAddedEvent(makerUUID(), displayName, email)],
+        result: undefined,
       };
 
 const isUserEmailRegistered = (
@@ -71,7 +71,7 @@ export const editUserProfileLogic = (
   userUUID: UserUUID
 ): EditUserProfileResult => {
   if (!isSignedInUser(userUUID)) {
-    return mkErrorAutheticationUserIsNotSignIn<UserCatalogFishEvent>();
+    return mkErrorAutheticationUserIsNotSignIn();
   }
 
   if (!isUserUUIDRegistered(userUUID, fishState.users)) {
@@ -98,6 +98,7 @@ export const editUserProfileLogic = (
   return {
     type: 'ok',
     tagsWithEvents: [getUserProfileEditedEvent(userUUID, displayName)],
+    result: undefined,
   };
 };
 

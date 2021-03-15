@@ -3,10 +3,10 @@ import { editUserProfileLogic, signUpLogic } from './logic';
 describe('logic', () => {
   describe('signUpLogic', () => {
     it('should register a new user if his email is not already registered', () => {
-      const result = signUpLogic(() => 'user-1', {
+      const result = signUpLogic(() => 'user-1')('Simone', 'simone@gmail.com')({
         users: {},
         emails: {},
-      })('Simone', 'simone@gmail.com');
+      });
 
       const expectedTags = {
         rawTags: ['user-catalog', 'user', 'user:user-1'],
@@ -31,7 +31,7 @@ describe('logic', () => {
     });
 
     it('should not register a new user if his email is already registered', () => {
-      const result = signUpLogic(() => 'user-1', {
+      const result = signUpLogic(() => 'user-1')('Simone', 'simone@gmail.com')({
         users: {
           'user-1': {
             userUUID: 'user-1',
@@ -41,7 +41,7 @@ describe('logic', () => {
           },
         },
         emails: { 'simone@gmail.com': 'user-1' },
-      })('Simone', 'simone@gmail.com');
+      });
 
       const expectedResult = {
         type: 'error',

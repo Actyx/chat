@@ -1,5 +1,5 @@
 import React, { useState, MouseEvent } from 'react';
-import { SignUpLogicResult } from '../../../business-logic/user-catalog-fish/types';
+import { SignUpLogicResultUI } from '../../../business-logic/user-catalog-fish/types';
 import { FormEventElement, InputChangeEvent } from '../../utils/element-events';
 import { TextField } from '../../common/TextField/TextField';
 import { Heading1 } from '../../common/Hedings/Heading1';
@@ -15,7 +15,7 @@ import { getMessage } from '../../../l10n/l10n';
 type EmailsUserUUIDsUI = Record<string, string>;
 
 type SignUpProps = Readonly<{
-  signUp: (displayName: string, email: string) => Promise<SignUpLogicResult>;
+  signUp: (displayName: string, email: string) => Promise<SignUpLogicResultUI>;
   showSignIn: () => void;
   emailsUserUUIDs: EmailsUserUUIDsUI;
 }>;

@@ -1,7 +1,7 @@
 import { logBugBl } from '../../logger/logger';
-import { ErrorCode, LogicResult } from './logic-types';
+import { ErrorCode, LogicResultError } from './logic-types';
 
-export const mkErrorAutheticationUserIsNotSignIn = <T>(): LogicResult<T> => {
+export const mkErrorAutheticationUserIsNotSignIn = (): LogicResultError => {
   const code = ErrorCode.AutheticationUserIsNotSignedIn;
   logBugBl(code);
   return {

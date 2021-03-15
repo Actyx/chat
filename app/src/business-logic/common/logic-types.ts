@@ -8,9 +8,10 @@ export enum ErrorCode {
   ChannelAddChannelNameExist = 'ChannelAddChannelNameExist',
 }
 
-export type LogicResultSuccess<T> = Readonly<{
+export type LogicResultSuccess<E, R> = Readonly<{
   type: 'ok';
-  tagsWithEvents: ReadonlyArrayOfOneOrMore<TagsWithEvent<T>>;
+  tagsWithEvents: ReadonlyArrayOfOneOrMore<TagsWithEvent<E>>;
+  result: R;
 }>;
 
 export type LogicResultError = Readonly<{
@@ -19,4 +20,11 @@ export type LogicResultError = Readonly<{
   message: string;
 }>;
 
-export type LogicResult<T> = LogicResultSuccess<T> | LogicResultError;
+export type LogicResult<E, R> = LogicResultSuccess<E, R> | LogicResultError;
+
+export type LogicResultSuccessUI<R> = Readonly<{
+  type: 'ok';
+  result: R;
+}>;
+
+export type LogicResultUI<R> = LogicResultSuccessUI<R> | LogicResultError;

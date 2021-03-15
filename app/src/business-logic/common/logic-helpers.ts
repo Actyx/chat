@@ -1,19 +1,23 @@
 import { Fish, Pond } from '@actyx/pond';
-import { LogicResult } from './logic-types';
+import { LogicResult, LogicResultUI } from './logic-types';
 
-export const wire = <S, E>(
+export const wire = <S, E, R>(
   pond: Pond,
   fish: Fish<S, E>,
-  logic: (fishState: S) => LogicResult<E>
-): Promise<LogicResult<E>> => {
-  let result: LogicResult<E>;
+  logic: (fishState: S) => LogicResult<E, R>
+): Promise<LogicResultUI<R>> => {
+  let logicResult: LogicResult<E, R>;
   return pond
     .run(fish, (fishState, enqueue) => {
-      result = logic(fishState);
-      if (result.type === 'ok') {
-        enqueue(...result.tagsWithEvents[0]);
+      logicResult = logic(fishState);
+      if (logicResult.type === 'ok') {
+        enqueue(...logicResult.tagsWithEvents[0]); // FIX THIS
       }
     })
     .toPromise()
-    .then(() => result);
+    .then(() =>
+      logicResult.type === 'ok'
+        ? { type: 'ok', result: logicResult.result }
+        : logicResult
+    );
 };
