@@ -31,9 +31,10 @@ export const getTotalUsers = (users: Users) => Object.values(users).length;
 //#region Sign-up
 
 export const signUpLogic = (makerUUID: () => UserUUID) => (
+  fishState: UserCatalogFishState,
   displayName: string,
   email: Email
-) => (fishState: UserCatalogFishState): SignUpLogicResult => {
+): SignUpLogicResult => {
   const userUUID = makerUUID();
   return isUserEmailRegistered(email, fishState.emails)
     ? {

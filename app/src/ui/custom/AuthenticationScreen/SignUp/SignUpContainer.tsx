@@ -9,7 +9,7 @@ import {
 } from '../../../../business-logic/user-catalog-fish/types';
 import { getUIMessage } from '../../../../l10n/l10n';
 import { SignUp } from './SignUp';
-import { wire } from '../../../../business-logic/common/logic-helpers';
+import { wire, wire2 } from '../../../../business-logic/common/logic-helpers';
 import { signUpLogic } from '../../../../business-logic/user-catalog-fish/logic';
 import { UserCatalogFish } from '../../../../business-logic/user-catalog-fish/user-catalog-fish';
 
@@ -20,10 +20,6 @@ type SignUpContainerProps = Readonly<{
 export const SignUpContainer = ({ showSignIn }: SignUpContainerProps) => {
   const pond = usePond();
 
-  const wireBl = wire<UserCatalogFishState, UserCatalogFishEvent, UserUUID>(
-    pond
-  )(UserCatalogFish);
-
   const [isSignUpSuccess, setIsSignUpSuccess] = useState<boolean>();
 
   const [newUserUUID, setNewUserUUID] = useState<UserUUID>();
@@ -32,20 +28,20 @@ export const SignUpContainer = ({ showSignIn }: SignUpContainerProps) => {
 
   const [invalidMessage, setInvalidMessage] = useState<string>();
 
-  const handleSignUp = async (name: string, email: Email) => {
-    try {
-      const resultLogic = await wireBl(signUpLogic(mkUUID)(name, email))();
-      if (resultLogic.type === 'ok') {
-        setIsSignUpSuccess(true);
-        setNewUserUUID(resultLogic.result);
-      } else {
-        setIsSignUpSuccess(false);
-        setInvalidMessage(getUIMessage(resultLogic.code));
-      }
-    } catch (err) {
-      setPondErrorMessage(err);
-    }
-  };
+  const performSignUp = wire2(pond, UserCatalogFish)(signUpLogic(mkUUID));
+
+  const handleSignUp = (name: string, email: Email) =>
+    performSignUp(name, email)
+      .then((result) => {
+        if (result.type === 'ok') {
+          setIsSignUpSuccess(true);
+          setNewUserUUID(result.result);
+        } else {
+          setIsSignUpSuccess(false);
+          setInvalidMessage(getUIMessage(result.code));
+        }
+      })
+      .catch((err) => setPondErrorMessage(err));
 
   return (
     <SignUp
