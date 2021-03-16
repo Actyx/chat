@@ -1,17 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { mkChannelFish } from '../../../../business-logic/channel-fish/channel-fish';
-import { ChannelCatalogFish } from '../../../../business-logic/channel-catalog-fish/channel-catalog-fish';
 import { addDefaultChannelIfDoesNotExist } from '../../../../business-logic/channel-catalog-fish/logic';
 import { UserCatalogFish } from '../../../../business-logic/user-catalog-fish/user-catalog-fish';
 import { SectionRight } from '../../../state-manager/types';
 import { StateContextUI } from '../../../state-manager/UIStateManager';
-import {
-  getChannelNameAndDescription,
-  getDisplayNameByUser,
-  getTotalUsersNumber,
-  getVisiblePublicMessages,
-  mapPublicMessagesToChannelUI,
-} from './ui-map';
+import { getDisplayNameByUser } from './ui-map';
 import { Chat } from './Chat';
 import { Alert } from '../../../common/Alert/Alert';
 import { useFish } from '../../../utils/use-fish';
@@ -32,18 +24,6 @@ export const ChatContainer = () => {
     UserCatalogFish.initialState
   );
 
-  const stateChannelMainFish = useFish(
-    pond,
-    mkChannelFish(stateUI.activeChannelId),
-    mkChannelFish(stateUI.activeChannelId).initialState
-  );
-
-  const stateChannelsCatalogFish = useFish(
-    pond,
-    ChannelCatalogFish,
-    ChannelCatalogFish.initialState
-  );
-
   useEffect(() => {
     const mainChannel = async () => {
       try {
@@ -59,12 +39,6 @@ export const ChatContainer = () => {
 
   //#region UI mapping
 
-  const channelMessages = mapPublicMessagesToChannelUI(
-    getVisiblePublicMessages(stateChannelMainFish.messages),
-    stateUserCatalogFish.users,
-    stateUI.userUUID
-  );
-
   const userDisplayName = getDisplayNameByUser(
     stateUI.userUUID,
     stateUserCatalogFish.users
@@ -73,17 +47,6 @@ export const ChatContainer = () => {
   const canShowUserProfileDetails =
     stateUI.sectionRight === SectionRight.UserProfileEdit;
 
-  const { channelName, channelDescription } = getChannelNameAndDescription(
-    stateUI.activeChannelId,
-    stateChannelsCatalogFish.channels
-  );
-
-  const totalUsers = getTotalUsersNumber(
-    stateUI.activeChannelId,
-    stateChannelsCatalogFish.channels,
-    stateUserCatalogFish.users
-  );
-
   //#endregion
 
   return (
@@ -91,10 +54,6 @@ export const ChatContainer = () => {
       {pondErrorMessage && <Alert variant="danger">{pondErrorMessage}</Alert>}
       <Chat
         userDisplayName={userDisplayName}
-        totalUsers={totalUsers}
-        channelName={channelName}
-        channelDescription={channelDescription}
-        channelMessages={channelMessages}
         canShowUserProfileDetails={canShowUserProfileDetails}
       />
     </>
