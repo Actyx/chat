@@ -1,91 +1,92 @@
-import { ErrorCode } from '../../common/logic-types';
 import { editChannel } from './editChannel';
 
-describe('editChannel', () => {
-  it('should not edit a new channel if user is not signed-in', () => {
-    const result = editChannel(
-      { channels: {} },
-      'anonymous-user',
-      'channel-1',
-      'marketing',
-      'all about marketing'
-    );
+describe('logic', () => {
+  describe('editChannel', () => {
+    it('should not edit a new channel if user is not signed-in', () => {
+      const result = editChannel(
+        { channels: {} },
+        'anonymous-user',
+        'channel-1',
+        'marketing',
+        'all about marketing'
+      );
 
-    const expectedResult = {
-      type: 'error',
-      code: 'AutheticationUserIsNotSignedIn',
-      message: expect.any(String),
-    };
+      const expectedResult = {
+        type: 'error',
+        code: 'AutheticationUserIsNotSignedIn',
+        message: expect.any(String),
+      };
 
-    expect(result).toMatchObject(expectedResult);
-  });
+      expect(result).toMatchObject(expectedResult);
+    });
 
-  it('should not edit a channel if channel profile does not exits', () => {
-    const result = editChannel(
-      { channels: {} },
-      'user-1',
-      'channel-1',
-      'marketing',
-      'all about marketing'
-    );
+    it('should not edit a channel if channel profile does not exits', () => {
+      const result = editChannel(
+        { channels: {} },
+        'user-1',
+        'channel-1',
+        'marketing',
+        'all about marketing'
+      );
 
-    const expectedResult = {
-      type: 'error',
-      code: ErrorCode.ChannelEditChannelProfileDoesNotExist,
-      message: expect.any(String),
-    };
+      const expectedResult = {
+        type: 'error',
+        code: 'ChannelEditChannelProfileDoesNotExist',
+        message: expect.any(String),
+      };
 
-    expect(result).toMatchObject(expectedResult);
-  });
+      expect(result).toMatchObject(expectedResult);
+    });
 
-  it('should update channel description', () => {
-    const result = editChannel(
-      {
-        channels: {
-          'channel-1': {
-            profile: {
-              channelId: 'channel-1',
-              createdOn: 1615466183569000,
-              createdBy: 'user-1',
-              isArchived: false,
-              name: 'marketing',
+    it('should update channel description', () => {
+      const result = editChannel(
+        {
+          channels: {
+            'channel-1': {
+              profile: {
+                channelId: 'channel-1',
+                createdOn: 1615466183569000,
+                createdBy: 'user-1',
+                isArchived: false,
+                name: 'marketing',
+              },
+              users: ['user-1'],
             },
-            users: ['user-1'],
           },
         },
-      },
-      'user-1',
-      'channel-1',
-      'marketing',
-      'all about marketing'
-    );
+        'user-1',
+        'channel-1',
+        'marketing',
+        'all about marketing'
+      );
 
-    const expectedTags = {
-      rawTags: [
-        'channel-catalog',
-        'channel',
-        'channel:channel-1',
-        'user',
-        'user:user-1',
-      ],
-    };
+      const expectedTags = {
+        rawTags: [
+          'channel-catalog',
+          'channel',
+          'channel:channel-1',
+          'user',
+          'user:user-1',
+        ],
+      };
 
-    const expectedEvent = {
-      type: 'ChannelProfileEdited',
-      payload: {
-        channelId: 'channel-1',
-        editedBy: 'user-1',
-        name: 'marketing',
-        description: 'all about marketing',
-      },
-    };
+      const expectedEvent = {
+        type: 'ChannelProfileEdited',
+        payload: {
+          channelId: 'channel-1',
+          editedBy: 'user-1',
+          name: 'marketing',
+          description: 'all about marketing',
+        },
+      };
 
-    const expectedResult = {
-      type: 'ok',
-      tagsWithEvents: [[expectedTags, expectedEvent]],
-      result: undefined,
-    };
+      const expectedResult = {
+        type: 'ok',
+        tagsWithEvents: [[expectedTags, expectedEvent]],
+        result: undefined,
+      };
 
-    expect(result).toMatchObject(expectedResult);
+      expect(result).toMatchObject(expectedResult);
+    });
   });
 });
