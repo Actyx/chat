@@ -32,7 +32,6 @@ export type ChannelsOverviewUI = ReadonlyArray<ChannelOverviewUI>;
 type ChannelsCatalogProps = Readonly<{
   channels: ChannelsOverviewUI;
   activeEditChannelId: (channelId: ChannelId) => void;
-  canUserManageArchiviation: (channelId: ChannelId) => boolean;
 }>;
 
 export const ChannelsCatalog = ({

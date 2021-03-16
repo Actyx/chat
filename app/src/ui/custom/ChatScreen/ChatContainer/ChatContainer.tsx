@@ -1,11 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { mkChannelFish } from '../../../../business-logic/channel-fish/channel-fish';
 import { ChannelCatalogFish } from '../../../../business-logic/channel-catalog-fish/channel-catalog-fish';
-import {
-  addDefaultChannelIfDoesNotExist,
-  hasUserCreatedChannel,
-} from '../../../../business-logic/channel-catalog-fish/logic';
-import { ChannelId } from '../../../../business-logic/message/types';
+import { addDefaultChannelIfDoesNotExist } from '../../../../business-logic/channel-catalog-fish/logic';
 import { UserCatalogFish } from '../../../../business-logic/user-catalog-fish/user-catalog-fish';
 import { SectionRight } from '../../../state-manager/types';
 import { StateContextUI } from '../../../state-manager/UIStateManager';
@@ -100,13 +96,6 @@ export const ChatContainer = () => {
     )
   );
 
-  const canUserManageArchiviation = (channelId: ChannelId) =>
-    hasUserCreatedChannel(
-      stateUI.userUUID,
-      channelId,
-      stateChannelsCatalogFish.channels
-    );
-
   const { channelName, channelDescription } = getChannelNameAndDescription(
     stateUI.activeChannelId,
     stateChannelsCatalogFish.channels
@@ -133,7 +122,6 @@ export const ChatContainer = () => {
         channelDescription={channelDescription}
         channelMessages={channelMessages}
         channelsOverviewCatalog={channelsOverviewCatalog}
-        canUserManageArchiviation={canUserManageArchiviation}
         canShowUserProfileDetails={canShowUserProfileDetails}
       />
     </>

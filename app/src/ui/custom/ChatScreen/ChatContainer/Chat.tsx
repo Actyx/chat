@@ -26,7 +26,6 @@ type ChatProps = Readonly<{
   channelDescription?: string;
   channelMessages: ReadonlyArray<MessageUI>;
   channelsOverviewCatalog: ChannelsOverviewUI;
-  canUserManageArchiviation: (channelId: ChannelId) => boolean;
   canShowUserProfileDetails: boolean;
 }>;
 
@@ -45,7 +44,6 @@ export const Chat = ({
   channelDescription,
   channelMessages,
   channelsOverviewCatalog,
-  canUserManageArchiviation,
 }: ChatProps) => {
   const stateUI = useContext(StateContextUI);
 
@@ -82,7 +80,6 @@ export const Chat = ({
         return (
           <ChannelsCatalog
             channels={channelsOverviewCatalog}
-            canUserManageArchiviation={canUserManageArchiviation}
             activeEditChannelId={handleactiveEditChannelId}
           />
         );
