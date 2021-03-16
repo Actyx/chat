@@ -1,26 +1,25 @@
 import { usePond } from '@actyx-contrib/react-pond';
 import { useContext, useState } from 'react';
+import { ChannelCatalogFish } from '../../../../business-logic/channel-catalog-fish/channel-catalog-fish';
 import { editChannel } from '../../../../business-logic/channel-catalog-fish/logic';
+import { getChannelProfileByChannelId } from '../../../../business-logic/channel-catalog-fish/logic-helpers';
 import { ChannelId } from '../../../../business-logic/message/types';
 import { hideDialog } from '../../../state-manager/actions';
 import {
   DispatchContextUI,
   StateContextUI,
 } from '../../../state-manager/UIStateManager';
+import { useFish } from '../../../utils/use-fish';
 import { EditChannelDialog } from './EditChannelDialog';
 
 type EditChannelDialogContainerProps = Readonly<{
-  selectedChannelId?: ChannelId;
-  currentName: string;
-  currentDescription: string;
+  selectedChannelId: ChannelId;
 }>;
 
 const INVALID_NAME = 'That name is already taken by a channel';
 
 export const EditChannelDialogContainer = ({
   selectedChannelId,
-  currentName,
-  currentDescription,
 }: EditChannelDialogContainerProps) => {
   const dispatch = useContext(DispatchContextUI);
 
@@ -37,9 +36,6 @@ export const EditChannelDialogContainer = ({
   const handleResetInvalidMessage = () => setInvalidMessage(undefined);
 
   const handleEditChannel = async (newName: string, newDescription: string) => {
-    if (!selectedChannelId) {
-      return;
-    }
     try {
       const isSuccess = await editChannel(pond)(
         stateUI.userUUID,
@@ -55,15 +51,26 @@ export const EditChannelDialogContainer = ({
     }
   };
 
-  return (
+  const stateChannelsCatalogFish = useFish(
+    pond,
+    ChannelCatalogFish,
+    ChannelCatalogFish.initialState
+  );
+
+  const channelProfile = getChannelProfileByChannelId(
+    selectedChannelId,
+    stateChannelsCatalogFish.channels
+  );
+
+  return channelProfile ? (
     <EditChannelDialog
       invalidMessage={invalidMessage}
       resetInvalidMessage={handleResetInvalidMessage}
       pondErrorMessage={pondErrorMessage}
-      currentName={currentName}
-      currentDescription={currentDescription}
+      currentName={channelProfile.name}
+      currentDescription={channelProfile.description ?? ''}
       editChannel={handleEditChannel}
       closeDialog={handleHideDialog}
     />
-  );
+  ) : null;
 };

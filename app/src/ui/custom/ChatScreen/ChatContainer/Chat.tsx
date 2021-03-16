@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext } from 'react';
+import React, { ReactNode, useContext, useState } from 'react';
 import { Dialogs, SectionCenter } from '../../../state-manager/types';
 import { ChannelsListUI, Sidebar, UsersListUI } from '../Sidebar/Sidebar';
 import { TopBar } from '../TopBar';
@@ -26,14 +26,8 @@ type ChatProps = Readonly<{
   channelDescription?: string;
   channelMessages: ReadonlyArray<MessageUI>;
   channelsOverviewCatalog: ChannelsOverviewUI;
-  selectedChannel?: Readonly<{
-    channelId: ChannelId;
-    name: string;
-    description: string;
-  }>;
   canUserManageArchiviation: (channelId: ChannelId) => boolean;
   canShowUserProfileDetails: boolean;
-  showEditChannelDialog: (channelId: ChannelId) => void;
 }>;
 
 const MainContent = ({ children }: Readonly<{ children: ReactNode }>) => {
@@ -52,22 +46,21 @@ export const Chat = ({
   channelMessages,
   channelsOverviewCatalog,
   canUserManageArchiviation,
-  showEditChannelDialog,
-  selectedChannel,
 }: ChatProps) => {
   const stateUI = useContext(StateContextUI);
+
+  const [editChannelId, setEditChannelId] = useState<ChannelId>();
+
+  const handleactiveEditChannelId = (channelId: ChannelId) =>
+    setEditChannelId(channelId);
 
   const renderDialog = () => {
     switch (stateUI.dialog) {
       case Dialogs.AddChannel:
         return <AddChannelDialogContainer />;
       case Dialogs.EditChannel:
-        return selectedChannel ? (
-          <EditChannelDialogContainer
-            selectedChannelId={selectedChannel?.channelId}
-            currentName={selectedChannel.name}
-            currentDescription={selectedChannel.description}
-          />
+        return editChannelId ? (
+          <EditChannelDialogContainer selectedChannelId={editChannelId} />
         ) : undefined;
       case Dialogs.None:
         return undefined;
@@ -90,7 +83,7 @@ export const Chat = ({
           <ChannelsCatalog
             channels={channelsOverviewCatalog}
             canUserManageArchiviation={canUserManageArchiviation}
-            showEditChannelDialog={showEditChannelDialog}
+            activeEditChannelId={handleactiveEditChannelId}
           />
         );
     }

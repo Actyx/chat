@@ -5,7 +5,10 @@ import { Button } from '../../../common/Button/Button';
 import { CentralSection } from '../../../common/CentralSection/CentralSection';
 import { SpeakerphoneIcon } from '../../../common/Icons/SpeakerphoneIcon';
 import { Typography } from '../../../common/Typography/Typography';
-import { showAddChannelDialog } from '../../../state-manager/actions';
+import {
+  showAddChannelDialog,
+  showEditChannelDialog,
+} from '../../../state-manager/actions';
 import { DispatchContextUI } from '../../../state-manager/UIStateManager';
 import { ChannelOverviewContainer } from './ChannelOverview/ChannelOverviewContainer';
 
@@ -28,17 +31,22 @@ export type ChannelsOverviewUI = ReadonlyArray<ChannelOverviewUI>;
 
 type ChannelsCatalogProps = Readonly<{
   channels: ChannelsOverviewUI;
-  showEditChannelDialog: (channelId: ChannelId) => void;
+  activeEditChannelId: (channelId: ChannelId) => void;
   canUserManageArchiviation: (channelId: ChannelId) => boolean;
 }>;
 
 export const ChannelsCatalog = ({
   channels,
-  showEditChannelDialog,
+  activeEditChannelId: activeChannelId,
 }: ChannelsCatalogProps) => {
   const dispatch = useContext(DispatchContextUI);
 
   const handleShowAddDialog = () => dispatch(showAddChannelDialog());
+
+  const handleShowEditChannelDialog = (channelId: ChannelId) => {
+    dispatch(showEditChannelDialog());
+    activeChannelId(channelId);
+  };
 
   return (
     <CentralSection
@@ -59,7 +67,7 @@ export const ChannelsCatalog = ({
         <ChannelOverviewContainer
           key={c.channelId}
           channelOverview={c}
-          showEditChannelDialog={showEditChannelDialog}
+          showEditChannelDialog={handleShowEditChannelDialog}
         />
       ))}
     />

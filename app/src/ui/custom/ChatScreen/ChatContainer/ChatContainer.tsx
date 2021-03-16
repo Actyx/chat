@@ -7,12 +7,8 @@ import {
 } from '../../../../business-logic/channel-catalog-fish/logic';
 import { ChannelId } from '../../../../business-logic/message/types';
 import { UserCatalogFish } from '../../../../business-logic/user-catalog-fish/user-catalog-fish';
-import { showEditChannelDialog } from '../../../state-manager/actions';
 import { SectionRight } from '../../../state-manager/types';
-import {
-  DispatchContextUI,
-  StateContextUI,
-} from '../../../state-manager/UIStateManager';
+import { StateContextUI } from '../../../state-manager/UIStateManager';
 import {
   getChannelNameAndDescription,
   getDisplayNameByUser,
@@ -30,19 +26,12 @@ import { Chat } from './Chat';
 import pkg from '../../../../../package.json';
 import { Alert } from '../../../common/Alert/Alert';
 import { useFish } from '../../../utils/use-fish';
-import { getChannelProfileByChannelId } from '../../../../business-logic/channel-catalog-fish/logic-helpers';
 import { usePond } from '@actyx-contrib/react-pond';
 
 export const ChatContainer = () => {
-  const dispatch = useContext(DispatchContextUI);
-
   const pond = usePond();
 
   const stateUI = useContext(StateContextUI);
-
-  const [selectedChannel, setSelectedChannel] = useState<
-    Readonly<{ channelId: ChannelId; name: string; description: string }>
-  >();
 
   //#region Pond and Fishes
 
@@ -76,25 +65,6 @@ export const ChatContainer = () => {
     };
     mainChannel();
   }, [pond, stateUI.userUUID]);
-
-  //#endregion
-
-  //#region Handlers operations
-
-  const handleShowEditChannelDialog = (channelId: ChannelId) => {
-    const channelProfile = getChannelProfileByChannelId(
-      channelId,
-      stateChannelsCatalogFish.channels
-    );
-    if (channelProfile) {
-      setSelectedChannel({
-        channelId: channelProfile.channelId,
-        name: channelProfile.name,
-        description: channelProfile.description ?? '',
-      });
-      dispatch(showEditChannelDialog());
-    }
-  };
 
   //#endregion
 
@@ -163,10 +133,8 @@ export const ChatContainer = () => {
         channelDescription={channelDescription}
         channelMessages={channelMessages}
         channelsOverviewCatalog={channelsOverviewCatalog}
-        selectedChannel={selectedChannel}
         canUserManageArchiviation={canUserManageArchiviation}
         canShowUserProfileDetails={canShowUserProfileDetails}
-        showEditChannelDialog={handleShowEditChannelDialog}
       />
     </>
   );
