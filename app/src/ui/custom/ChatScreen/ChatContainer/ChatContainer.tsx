@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { addDefaultChannelIfDoesNotExist } from '../../../../business-logic/channel-catalog-fish/logic';
-import { SectionRight } from '../../../state-manager/types';
 import { StateContextUI } from '../../../state-manager/UIStateManager';
 import { Chat } from './Chat';
 import { Alert } from '../../../common/Alert/Alert';
@@ -30,15 +29,11 @@ export const ChatContainer = () => {
 
   //#region UI mapping
 
-  const canShowUserProfileDetails =
-    stateUI.sectionRight === SectionRight.UserProfileEdit;
-
   //#endregion
 
-  return (
-    <>
-      {pondErrorMessage && <Alert variant="danger">{pondErrorMessage}</Alert>}
-      <Chat canShowUserProfileDetails={canShowUserProfileDetails} />
-    </>
+  return pondErrorMessage ? (
+    <Alert variant="danger">{pondErrorMessage}</Alert>
+  ) : (
+    <Chat />
   );
 };

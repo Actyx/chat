@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { AuthenticationContainer } from '../AuthenticationScreen/AuthenticationScreen';
+import { AuthenticationScreen } from '../AuthenticationScreen/AuthenticationScreen';
 import { StateContextUI } from '../../state-manager/UIStateManager';
 import { Screens } from '../../state-manager/types';
 import { ChatContainer } from '../ChatScreen/ChatContainer/ChatContainer';
@@ -15,7 +15,7 @@ export const ScreenRouter = () => {
   const renderScreen = () => {
     switch (screen) {
       case Screens.Authentication:
-        return <AuthenticationContainer />;
+        return <AuthenticationScreen />;
       case Screens.Chat:
         const canRouteToChatScreen = isSignedInUser(userUUID);
         return canRouteToChatScreen ? <ChatContainer /> : <AccessNotAllowed />;

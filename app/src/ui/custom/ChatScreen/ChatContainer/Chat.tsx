@@ -1,5 +1,9 @@
 import React, { ReactNode, useContext, useState } from 'react';
-import { Dialogs, SectionCenter } from '../../../state-manager/types';
+import {
+  Dialogs,
+  SectionCenter,
+  SectionRight,
+} from '../../../state-manager/types';
 import { ChannelId } from '../../../../business-logic/message/types';
 import './chat.css';
 import { StateContextUI } from '../../../state-manager/UIStateManager';
@@ -12,18 +16,17 @@ import { ChannelsCatalogContainer } from '../ChannelsCatalog/ChannelOverview/Cha
 import { ChannelContainer } from '../Channel/ChannelContainer';
 import { TopBarContainer } from '../TopBar/TopBarContainer';
 
-type ChatProps = Readonly<{
-  canShowUserProfileDetails: boolean;
-}>;
-
 const MainContent = ({ children }: Readonly<{ children: ReactNode }>) => {
   return <div className="fixed w-full flex chat-content">{children}</div>;
 };
 
-export const Chat = ({ canShowUserProfileDetails }: ChatProps) => {
+export const Chat = () => {
   const stateUI = useContext(StateContextUI);
 
   const [editChannelId, setEditChannelId] = useState<ChannelId>();
+
+  const canShowUserProfileDetails =
+    stateUI.sectionRight === SectionRight.UserProfileEdit;
 
   const handleactiveEditChannelId = (channelId: ChannelId) =>
     setEditChannelId(channelId);

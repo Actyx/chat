@@ -4,7 +4,7 @@ import { ErrorBoundary } from '../../common/ErrorBoundary/ErrorBoundary';
 import { SignUpContainer } from './SignUp/SignUpContainer';
 import { SignInContainer } from './SignIn/SignInContainer';
 
-export const AuthenticationContainer = () => {
+export const AuthenticationScreen = () => {
   const [showSignUp, setShowSignUp] = useState<boolean>(false);
 
   const handleShowSignUp = () => setShowSignUp(true);
