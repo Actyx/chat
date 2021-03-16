@@ -19,7 +19,7 @@ import {
   ArchiveChannelLogicResult,
 } from './types';
 import { ChannelCatalogFish } from './channel-catalog-fish';
-import { isSignedInUser } from '../user-catalog-fish/logic';
+import { isSignedInUser } from '../user-catalog-fish/logic/helpers';
 import { DEFAULT_CHANNEL } from '../channel-fish/channel-fish';
 import {
   getChannelProfileByChannelId,

@@ -1,7 +1,7 @@
 import { usePond } from '@actyx-contrib/react-pond';
 import React, { useContext, useState } from 'react';
 import { wire } from '../../../business-logic/common/logic-helpers';
-import { editUserProfileLogic } from '../../../business-logic/user-catalog-fish/logic';
+import { editUserProfile } from '../../../business-logic/user-catalog-fish/logic/editUserProfile';
 import { UserCatalogFish } from '../../../business-logic/user-catalog-fish/user-catalog-fish';
 import { getUIMessage } from '../../../l10n/l10n';
 import { closeSectionRight } from '../../state-manager/actions';
@@ -37,10 +37,7 @@ export const UserProfileDetailsContainer = () => {
     stateUserCatalogFish.users
   );
 
-  const performUserProfileEdit = wire(
-    pond,
-    UserCatalogFish
-  )(editUserProfileLogic);
+  const performUserProfileEdit = wire(pond, UserCatalogFish)(editUserProfile);
 
   const handleEditUserProfile = async (displayName: string) => {
     performUserProfileEdit(displayName, stateUI.userUUID)

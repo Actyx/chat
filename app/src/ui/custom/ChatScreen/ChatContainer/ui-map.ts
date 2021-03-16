@@ -16,7 +16,7 @@ import {
 import {
   getTotalUsers,
   isUserCreatedBySystem,
-} from '../../../../business-logic/user-catalog-fish/logic';
+} from '../../../../business-logic/user-catalog-fish/logic/helpers';
 import {
   SYSTEM_USER,
   Users,
@@ -31,7 +31,7 @@ import {
   getChannelProfileByChannelId,
   isUserAssociatedToChannel,
 } from '../../../../business-logic/channel-catalog-fish/logic-helpers';
-import { isUserUUIDRegistered } from '../../../../business-logic/user-catalog-fish/logic-helpers';
+import { isUserUUIDRegistered } from '../../../../business-logic/user-catalog-fish/logic/helpers';
 
 export const mapPublicMessagesToChannelUI = (
   messages: PublicMessages,

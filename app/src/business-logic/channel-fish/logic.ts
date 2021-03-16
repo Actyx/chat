@@ -18,7 +18,7 @@ import { v4 as uuid } from 'uuid';
 import { mkChannelFish } from './channel-fish';
 import { ChannelCatalogFish } from '../channel-catalog-fish/channel-catalog-fish';
 import { isChannelIdRegistered } from '../channel-catalog-fish/logic';
-import { isSignedInUser } from '../user-catalog-fish/logic';
+import { isSignedInUser } from '../user-catalog-fish/logic/helpers';
 
 //#region Add message
 

@@ -1,6 +1,6 @@
 import { usePond } from '@actyx-contrib/react-pond';
 import React, { useContext, useState } from 'react';
-import { signIn } from '../../../../business-logic/user-catalog-fish/logic';
+import { signIn } from '../../../../business-logic/user-catalog-fish/logic/helpers';
 import { UserUUID } from '../../../../business-logic/user-catalog-fish/types';
 import { UserCatalogFish } from '../../../../business-logic/user-catalog-fish/user-catalog-fish';
 import {

@@ -8,8 +8,8 @@ import {
 import { getUIMessage } from '../../../../l10n/l10n';
 import { SignUp } from './SignUp';
 import { wire } from '../../../../business-logic/common/logic-helpers';
-import { signUpLogic } from '../../../../business-logic/user-catalog-fish/logic';
 import { UserCatalogFish } from '../../../../business-logic/user-catalog-fish/user-catalog-fish';
+import { signUp } from '../../../../business-logic/user-catalog-fish/logic/signUp';
 
 type SignUpContainerProps = Readonly<{
   showSignIn: () => void;
@@ -26,7 +26,7 @@ export const SignUpContainer = ({ showSignIn }: SignUpContainerProps) => {
 
   const [invalidMessage, setInvalidMessage] = useState<string>();
 
-  const performSignUp = wire(pond, UserCatalogFish)(signUpLogic(mkUUID));
+  const performSignUp = wire(pond, UserCatalogFish)(signUp(mkUUID));
 
   const handleSignUp = (name: string, email: Email) =>
     performSignUp(name, email)
