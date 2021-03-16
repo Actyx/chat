@@ -1,7 +1,12 @@
 import { usePond } from '@actyx-contrib/react-pond';
 import React, { useContext, useState } from 'react';
+import { wire } from '../../../business-logic/common/logic-helpers';
+import { editUserProfileLogic } from '../../../business-logic/user-catalog-fish/logic';
+import {
+  UserCatalogFishEvent,
+  UserCatalogFishState,
+} from '../../../business-logic/user-catalog-fish/types';
 import { UserCatalogFish } from '../../../business-logic/user-catalog-fish/user-catalog-fish';
-import { editUserProfileWire } from '../../../business-logic/user-catalog-fish/wire';
 import { getUIMessage } from '../../../l10n/l10n';
 import { closeSectionRight } from '../../state-manager/actions';
 import {
@@ -36,16 +41,19 @@ export const UserProfileDetailsContainer = () => {
     stateUserCatalogFish.users
   );
 
+  const wireBl = wire<UserCatalogFishState, UserCatalogFishEvent, void>(pond)(
+    UserCatalogFish
+  );
+
   const handleEditUserProfile = async (displayName: string) => {
     try {
-      const result = await editUserProfileWire(pond)(
-        stateUI.userUUID,
-        displayName
-      );
-      if (result.type === 'ok') {
+      const resultLogic = await wireBl(
+        editUserProfileLogic(displayName, stateUI.userUUID)
+      )();
+      if (resultLogic.type === 'ok') {
         dispatch(closeSectionRight());
       } else {
-        setInvalidMessage(getUIMessage(result.code));
+        setInvalidMessage(getUIMessage(resultLogic.code));
       }
     } catch (err) {
       setPondErrorMessage(err);
