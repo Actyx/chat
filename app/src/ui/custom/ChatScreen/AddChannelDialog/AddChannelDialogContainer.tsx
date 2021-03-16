@@ -1,7 +1,7 @@
 import { usePond } from '@actyx-contrib/react-pond';
 import React, { useContext, useState } from 'react';
 import { ChannelCatalogFish } from '../../../../business-logic/channel-catalog-fish/channel-catalog-fish';
-import { addChannelLogic } from '../../../../business-logic/channel-catalog-fish/logic';
+import { addChannelLogic } from '../../../../business-logic/channel-catalog-fish/logic/addChannel';
 import { wire } from '../../../../business-logic/common/logic-helpers';
 import { mkUUID } from '../../../../business-logic/common/util';
 import { getUIMessage } from '../../../../l10n/l10n';

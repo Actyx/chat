@@ -14,7 +14,6 @@ import {
   Channels,
   ChannelCatalogFishState,
   Users,
-  AddChannelLogicResult,
   EditChannelLogicResult,
   ArchiveChannelLogicResult,
 } from './types';
@@ -62,7 +61,7 @@ export const hasUserCreatedChannel = (
   return false;
 };
 
-const prepareContentChannelProfile = (
+export const prepareContentChannelProfile = (
   name: string,
   description: string
 ): Readonly<{ newName: string; newDescription?: string }> => {
@@ -71,37 +70,6 @@ const prepareContentChannelProfile = (
     ? undefined
     : prepareString(description);
   return { newName, newDescription };
-};
-
-export const addChannelLogic = (makerUUID: () => ChannelId) => (
-  fishState: ChannelCatalogFishState,
-  userUUID: UserUUID,
-  name: string,
-  description: string
-): AddChannelLogicResult => {
-  if (!isSignedInUser(userUUID)) {
-    return mkErrorAutheticationUserIsNotSignIn();
-  }
-
-  const { newName, newDescription } = prepareContentChannelProfile(
-    name,
-    description
-  );
-  if (doesChannelNameExist(newName, fishState)) {
-    return {
-      type: 'error',
-      code: ErrorCode.ChannelAddChannelNameExist,
-      message: `The channel name (${newName}) has been already registered in the system`,
-    };
-  }
-
-  return {
-    type: 'ok',
-    tagsWithEvents: [
-      getChannelAdded(makerUUID(), userUUID, newName, newDescription),
-    ],
-    result: undefined,
-  };
 };
 
 export const editChannelLogic = (
