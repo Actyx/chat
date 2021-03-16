@@ -7,7 +7,7 @@ import { getChannelAdded } from '../events';
 import { doesChannelNameExist, prepareContentChannelProfile } from '../logic';
 import { AddChannelLogicResult, ChannelCatalogFishState } from '../types';
 
-export const addChannelLogic = (makerUUID: () => ChannelId) => (
+export const addChannel = (makerUUID: () => ChannelId) => (
   fishState: ChannelCatalogFishState,
   userUUID: UserUUID,
   name: string,

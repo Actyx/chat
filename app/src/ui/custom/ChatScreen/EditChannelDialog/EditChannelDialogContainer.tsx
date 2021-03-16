@@ -1,8 +1,8 @@
 import { usePond } from '@actyx-contrib/react-pond';
 import { useContext, useState } from 'react';
 import { ChannelCatalogFish } from '../../../../business-logic/channel-catalog-fish/channel-catalog-fish';
-import { editChannelLogic } from '../../../../business-logic/channel-catalog-fish/logic';
 import { getChannelProfileByChannelId } from '../../../../business-logic/channel-catalog-fish/logic-helpers';
+import { editChannel } from '../../../../business-logic/channel-catalog-fish/logic/editChannel';
 import { wire } from '../../../../business-logic/common/logic-helpers';
 import { ChannelId } from '../../../../business-logic/message/types';
 import { getUIMessage } from '../../../../l10n/l10n';
@@ -46,7 +46,7 @@ export const EditChannelDialogContainer = ({
     stateChannelsCatalogFish.channels
   );
 
-  const performEditChannel = wire(pond, ChannelCatalogFish)(editChannelLogic);
+  const performEditChannel = wire(pond, ChannelCatalogFish)(editChannel);
 
   const handleEditChannel = async (newName: string, newDescription: string) => {
     performEditChannel(

@@ -1,10 +1,12 @@
-import { addChannel } from './addChannel';
+import { ErrorCode } from '../../common/logic-types';
+import { editChannel } from './editChannel';
 
-describe('addChannelLogic', () => {
-  it('should not add a new channel if user is not signed-in', () => {
-    const result = addChannel(() => 'channel-1')(
+describe('editChannel', () => {
+  it('should not edit a new channel if user is not signed-in', () => {
+    const result = editChannel(
       { channels: {} },
       'anonymous-user',
+      'channel-1',
       'marketing',
       'all about marketing'
     );
@@ -18,62 +20,42 @@ describe('addChannelLogic', () => {
     expect(result).toMatchObject(expectedResult);
   });
 
-  it('should not add a new channel if new channel name already exits', () => {
-    const result = addChannel(() => 'channel-1')(
-      {
-        channels: {
-          'channel-1': {
-            profile: {
-              channelId: 'channel-1',
-              createdOn: 1615466183569000,
-              createdBy: 'user-1',
-              isArchived: false,
-              name: 'marketing',
-            },
-            users: ['user-1'],
-          },
-        },
-      },
+  it('should not edit a channel if channel profile does not exits', () => {
+    const result = editChannel(
+      { channels: {} },
       'user-1',
+      'channel-1',
       'marketing',
-      'all about marketing'
-    );
-
-    const resultUntidy = addChannel(() => 'channel-1')(
-      {
-        channels: {
-          'channel-1': {
-            profile: {
-              channelId: 'channel-1',
-              createdOn: 1615466183569000,
-              createdBy: 'user-1',
-              isArchived: false,
-              name: 'marketing',
-            },
-            users: ['user-1'],
-          },
-        },
-      },
-      'user-1',
-      ' MArketing ',
       'all about marketing'
     );
 
     const expectedResult = {
       type: 'error',
-      code: 'ChannelAddChannelNameExist',
+      code: ErrorCode.ChannelEditChannelProfileDoesNotExist,
       message: expect.any(String),
     };
 
     expect(result).toMatchObject(expectedResult);
-
-    expect(resultUntidy).toMatchObject(expectedResult);
   });
 
-  it('should add a new channel', () => {
-    const result = addChannel(() => 'channel-1')(
-      { channels: {} },
+  it('should update channel description', () => {
+    const result = editChannel(
+      {
+        channels: {
+          'channel-1': {
+            profile: {
+              channelId: 'channel-1',
+              createdOn: 1615466183569000,
+              createdBy: 'user-1',
+              isArchived: false,
+              name: 'marketing',
+            },
+            users: ['user-1'],
+          },
+        },
+      },
       'user-1',
+      'channel-1',
       'marketing',
       'all about marketing'
     );
@@ -89,10 +71,10 @@ describe('addChannelLogic', () => {
     };
 
     const expectedEvent = {
-      type: 'ChannelAdded',
+      type: 'ChannelProfileEdited',
       payload: {
         channelId: 'channel-1',
-        createdBy: 'user-1',
+        editedBy: 'user-1',
         name: 'marketing',
         description: 'all about marketing',
       },
@@ -101,6 +83,7 @@ describe('addChannelLogic', () => {
     const expectedResult = {
       type: 'ok',
       tagsWithEvents: [[expectedTags, expectedEvent]],
+      result: undefined,
     };
 
     expect(result).toMatchObject(expectedResult);
