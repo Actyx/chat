@@ -10,12 +10,9 @@ import {
   getDisplayNameByUser,
   getTotalUsersNumber,
   getVisiblePublicMessages,
-  mapChannelsToChannelCatalogUI,
   mapPublicMessagesToChannelUI,
-  sortAlphabeticChannelsOverview,
 } from './ui-map';
 import { Chat } from './Chat';
-import pkg from '../../../../../package.json';
 import { Alert } from '../../../common/Alert/Alert';
 import { useFish } from '../../../utils/use-fish';
 import { usePond } from '@actyx-contrib/react-pond';
@@ -76,14 +73,6 @@ export const ChatContainer = () => {
   const canShowUserProfileDetails =
     stateUI.sectionRight === SectionRight.UserProfileEdit;
 
-  const channelsOverviewCatalog = sortAlphabeticChannelsOverview(
-    mapChannelsToChannelCatalogUI(
-      stateChannelsCatalogFish.channels,
-      stateUserCatalogFish.users,
-      stateUI.userUUID
-    )
-  );
-
   const { channelName, channelDescription } = getChannelNameAndDescription(
     stateUI.activeChannelId,
     stateChannelsCatalogFish.channels
@@ -101,13 +90,11 @@ export const ChatContainer = () => {
     <>
       {pondErrorMessage && <Alert variant="danger">{pondErrorMessage}</Alert>}
       <Chat
-        appName={pkg.chat.appName}
         userDisplayName={userDisplayName}
         totalUsers={totalUsers}
         channelName={channelName}
         channelDescription={channelDescription}
         channelMessages={channelMessages}
-        channelsOverviewCatalog={channelsOverviewCatalog}
         canShowUserProfileDetails={canShowUserProfileDetails}
       />
     </>

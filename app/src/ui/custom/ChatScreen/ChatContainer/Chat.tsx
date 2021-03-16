@@ -2,10 +2,6 @@ import React, { ReactNode, useContext, useState } from 'react';
 import { Dialogs, SectionCenter } from '../../../state-manager/types';
 import { TopBar } from '../TopBar';
 import { Channel } from '../Channel/Channel';
-import {
-  ChannelsCatalog,
-  ChannelsOverviewUI,
-} from '../ChannelsCatalog/ChannelsCatalog';
 import { MessageUI } from '../Channel/Message';
 import { ChannelId } from '../../../../business-logic/message/types';
 import './chat.css';
@@ -15,16 +11,15 @@ import { UserProfileDetailsContainer } from '../../UserProfileDetails/UserProfil
 import { AddChannelDialogContainer } from '../AddChannelDialog/AddChannelDialogContainer';
 import { EditChannelDialogContainer } from '../EditChannelDialog/EditChannelDialogContainer';
 import { SideBarContainer } from '../Sidebar/SidebarContainer';
+import { ChannelsCatalogContainer } from '../ChannelsCatalog/ChannelOverview/ChannelsCatalogContainer';
 
 type ChatProps = Readonly<{
-  appName: string;
   userDisplayName: string;
   totalUsers: number;
+  canShowUserProfileDetails: boolean;
   channelName: string;
   channelDescription?: string;
   channelMessages: ReadonlyArray<MessageUI>;
-  channelsOverviewCatalog: ChannelsOverviewUI;
-  canShowUserProfileDetails: boolean;
 }>;
 
 const MainContent = ({ children }: Readonly<{ children: ReactNode }>) => {
@@ -32,14 +27,12 @@ const MainContent = ({ children }: Readonly<{ children: ReactNode }>) => {
 };
 
 export const Chat = ({
-  appName,
-  totalUsers,
   userDisplayName,
+  totalUsers,
   canShowUserProfileDetails,
   channelName,
   channelDescription,
   channelMessages,
-  channelsOverviewCatalog,
 }: ChatProps) => {
   const stateUI = useContext(StateContextUI);
 
@@ -74,8 +67,7 @@ export const Chat = ({
         );
       case SectionCenter.ChannelsCatalog:
         return (
-          <ChannelsCatalog
-            channels={channelsOverviewCatalog}
+          <ChannelsCatalogContainer
             activeEditChannelId={handleactiveEditChannelId}
           />
         );
