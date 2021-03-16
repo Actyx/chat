@@ -110,4 +110,9 @@ export type ChannelCatalogFishState = Readonly<{
 
 export type AddChannelLogicResult = LogicResult<ChannelAddedEvent, void>;
 
+export type EditChannelLogicResult = LogicResult<
+  ChannelProfileEditedEvent,
+  void
+>;
+
 //#endregion

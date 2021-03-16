@@ -1,9 +1,11 @@
 import { usePond } from '@actyx-contrib/react-pond';
 import { useContext, useState } from 'react';
 import { ChannelCatalogFish } from '../../../../business-logic/channel-catalog-fish/channel-catalog-fish';
-import { editChannel } from '../../../../business-logic/channel-catalog-fish/logic';
+import { editChannelLogic } from '../../../../business-logic/channel-catalog-fish/logic';
 import { getChannelProfileByChannelId } from '../../../../business-logic/channel-catalog-fish/logic-helpers';
+import { wire } from '../../../../business-logic/common/logic-helpers';
 import { ChannelId } from '../../../../business-logic/message/types';
+import { getUIMessage } from '../../../../l10n/l10n';
 import { hideDialog } from '../../../state-manager/actions';
 import {
   DispatchContextUI,
@@ -15,8 +17,6 @@ import { EditChannelDialog } from './EditChannelDialog';
 type EditChannelDialogContainerProps = Readonly<{
   selectedChannelId: ChannelId;
 }>;
-
-const INVALID_NAME = 'That name is already taken by a channel';
 
 export const EditChannelDialogContainer = ({
   selectedChannelId,
@@ -35,22 +35,6 @@ export const EditChannelDialogContainer = ({
 
   const handleResetInvalidMessage = () => setInvalidMessage(undefined);
 
-  const handleEditChannel = async (newName: string, newDescription: string) => {
-    try {
-      const isSuccess = await editChannel(pond)(
-        stateUI.userUUID,
-        selectedChannelId
-      )(newName, newDescription);
-      if (isSuccess) {
-        handleHideDialog();
-      } else {
-        setInvalidMessage(INVALID_NAME);
-      }
-    } catch (err) {
-      setPondErrorMessage(err);
-    }
-  };
-
   const stateChannelsCatalogFish = useFish(
     pond,
     ChannelCatalogFish,
@@ -61,6 +45,25 @@ export const EditChannelDialogContainer = ({
     selectedChannelId,
     stateChannelsCatalogFish.channels
   );
+
+  const performEditChannel = wire(pond, ChannelCatalogFish)(editChannelLogic);
+
+  const handleEditChannel = async (newName: string, newDescription: string) => {
+    performEditChannel(
+      stateUI.userUUID,
+      selectedChannelId,
+      newName,
+      newDescription
+    )
+      .then((result) => {
+        if (result.type === 'ok') {
+          handleHideDialog();
+        } else {
+          setInvalidMessage(getUIMessage(result.code));
+        }
+      })
+      .catch(setPondErrorMessage);
+  };
 
   return channelProfile ? (
     <EditChannelDialog

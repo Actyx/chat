@@ -15,6 +15,7 @@ import {
   ChannelCatalogFishState,
   Users,
   AddChannelLogicResult,
+  EditChannelLogicResult,
 } from './types';
 import { ChannelCatalogFish } from './channel-catalog-fish';
 import { isSignedInUser } from '../user-catalog-fish/logic';
@@ -98,6 +99,56 @@ export const addChannelLogic = (makerUUID: () => ChannelId) => (
       getChannelAdded(makerUUID(), userUUID, newName, newDescription),
     ],
     result: undefined,
+  };
+};
+
+export const editChannelLogic = (
+  fishState: ChannelCatalogFishState,
+  userUUID: UserUUID,
+  channelId: ChannelId,
+  name: string,
+  description: string
+): EditChannelLogicResult => {
+  if (!isSignedInUser(userUUID)) {
+    return mkErrorAutheticationUserIsNotSignIn();
+  }
+  const { newName, newDescription } = prepareContentChannelProfile(
+    name,
+    description
+  );
+
+  const profile = getChannelProfileByChannelId(channelId, fishState.channels);
+  if (!profile) {
+    return {
+      type: 'error',
+      code: ErrorCode.ChannelEditChannelNameExist,
+      message: `Cannot edit channel because channel profile does not exists`,
+    };
+  }
+
+  const isEditName = profile.name !== newName;
+  const isEditDescription = profile.description !== newDescription;
+  const isEditWithUniqueNameOnly =
+    isEditName &&
+    !isEditDescription &&
+    !doesChannelNameExist(newName, fishState);
+  const isEditWithDescriptionOnly = !isEditName && isEditDescription;
+
+  const canEdit = isEditWithUniqueNameOnly || isEditWithDescriptionOnly;
+  if (canEdit) {
+    return {
+      type: 'ok',
+      tagsWithEvents: [
+        getChannelProfileEdited(channelId, userUUID, newName, newDescription),
+      ],
+      result: undefined,
+    };
+  }
+
+  return {
+    type: 'error',
+    code: ErrorCode.ChannelEditChannelNameExist,
+    message: `Cannot edit channel because new name ${newName} already exists`,
   };
 };
 

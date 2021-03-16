@@ -6,6 +6,7 @@ export enum ErrorCode {
   UserEditProfileDisplayNameIsRequired = 'UserEditProfileDisplayNameIsRequired',
   UserEditProfileUserIsNotRegistered = 'UserEditProfileUserIsNotRegistered',
   ChannelAddChannelNameExist = 'ChannelAddChannelNameExist',
+  ChannelEditChannelNameExist = 'ChannelEditChannelNameExist',
 }
 
 export type LogicResultSuccess<E, R> = Readonly<{

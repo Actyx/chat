@@ -10,5 +10,7 @@ export const messages = {
     [Code.UserEditProfileUserIsNotRegistered]: 'User is not registered',
     [Code.ChannelAddChannelNameExist]:
       'That name is already taken by a channel',
+    [Code.ChannelEditChannelNameExist]:
+      'That name is already taken by a channel',
   },
 };
