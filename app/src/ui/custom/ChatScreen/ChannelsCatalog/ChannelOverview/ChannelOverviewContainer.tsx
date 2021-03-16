@@ -5,7 +5,6 @@ import {
   associateUserToChannel,
   dissociateUserChannel,
   hasUserCreatedChannel,
-  unarchiveChannel,
 } from '../../../../../business-logic/channel-catalog-fish/logic';
 import { ChannelId } from '../../../../../business-logic/message/types';
 import { StateContextUI } from '../../../../state-manager/UIStateManager';
@@ -14,6 +13,7 @@ import { ChannelOverview } from './ChannelOverview';
 import { useFish } from '../../../../utils/use-fish';
 import { wire } from '../../../../../business-logic/common/logic-helpers';
 import { archiveChannel } from '../../../../../business-logic/channel-catalog-fish/logic/archiveChannel';
+import { unarchiveChannel } from '../../../../../business-logic/channel-catalog-fish/logic/unarchiveChannel';
 
 type ChannelOverviewContainerProps = Readonly<{
   channelOverview: ChannelOverviewUI;
@@ -65,13 +65,15 @@ export const ChannelOverviewContainer = ({
     }
   };
 
-  const handleUnarchiveChannel = async (channelId: ChannelId) => {
-    try {
-      await unarchiveChannel(pond)(stateUI.userUUID, channelId);
-    } catch (err) {
-      setPondErrorMessage(err);
-    }
-  };
+  const performUnarchiveChannel = wire(
+    pond,
+    ChannelCatalogFish
+  )(unarchiveChannel);
+
+  const handleUnarchiveChannel = async (channelId: ChannelId) =>
+    performUnarchiveChannel(stateUI.userUUID, channelId).catch(
+      setPondErrorMessage
+    );
 
   const handleDissociateUserChannel = async (channelId: ChannelId) => {
     try {

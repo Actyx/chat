@@ -5,7 +5,6 @@ import {
   getChannelAdded,
   getChannelAssociatedUser,
   getChannelDissociatedUser,
-  getChannelUnarchived,
 } from './events';
 import { ChannelId } from '../message/types';
 import { Channels, ChannelCatalogFishState, Users } from './types';
@@ -59,27 +58,6 @@ export const prepareContentChannelProfile = (
     ? undefined
     : prepareString(description);
   return { newName, newDescription };
-};
-
-export const unarchiveChannel = (pond: Pond) => async (
-  userUUID: UserUUID,
-  channelId: ChannelId
-): Promise<boolean> => {
-  let isSuccess = false;
-  if (isSignedInUser(userUUID)) {
-    await pond
-      .run(ChannelCatalogFish, (fishState, enqueue) => {
-        const canUnarchive =
-          hasUserCreatedChannel(userUUID, channelId, fishState.channels) &&
-          isChannelIdRegistered(channelId, fishState.channels);
-        if (canUnarchive) {
-          enqueue(...getChannelUnarchived(channelId, userUUID));
-          isSuccess = true;
-        }
-      })
-      .toPromise();
-  }
-  return isSuccess;
 };
 
 export const associateUserToChannel = (pond: Pond) => async (
