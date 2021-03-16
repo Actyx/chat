@@ -3,19 +3,11 @@ import { mkChannelFish } from '../../../../business-logic/channel-fish/channel-f
 import { ChannelCatalogFish } from '../../../../business-logic/channel-catalog-fish/channel-catalog-fish';
 import {
   addDefaultChannelIfDoesNotExist,
-  archiveChannel,
-  associateUserToChannel,
-  dissociateUserChannel,
   hasUserCreatedChannel,
-  unarchiveChannel,
 } from '../../../../business-logic/channel-catalog-fish/logic';
 import { ChannelId } from '../../../../business-logic/message/types';
 import { UserCatalogFish } from '../../../../business-logic/user-catalog-fish/user-catalog-fish';
-import {
-  hideDialog,
-  showEditChannelDialog,
-} from '../../../state-manager/actions';
-import { showAddChannelDialog } from '../../../state-manager/actions';
+import { showEditChannelDialog } from '../../../state-manager/actions';
 import { SectionRight } from '../../../state-manager/types';
 import {
   DispatchContextUI,
@@ -104,32 +96,6 @@ export const ChatContainer = () => {
     }
   };
 
-  const handleArchiveChannel = async (channelId: ChannelId): Promise<boolean> =>
-    archiveChannel(pond)(stateUI.userUUID, channelId);
-
-  const handleUnarchiveChannel = (channelId: ChannelId): Promise<boolean> =>
-    unarchiveChannel(pond)(stateUI.userUUID, channelId);
-
-  const handleAssociateUserChannel = async (
-    channelId: ChannelId
-  ): Promise<boolean> =>
-    associateUserToChannel(pond)(stateUI.userUUID, channelId);
-
-  const handleDissociateUserChannel = async (
-    channelId: ChannelId
-  ): Promise<boolean> =>
-    dissociateUserChannel(pond)(stateUI.userUUID, channelId);
-
-  //#endregion
-
-  //#region Handlers navigation
-
-  const handleShowAddChannelDialog = () => {
-    dispatch(showAddChannelDialog());
-  };
-
-  const handleHideDialog = () => dispatch(hideDialog());
-
   //#endregion
 
   //#region UI mapping
@@ -200,13 +166,7 @@ export const ChatContainer = () => {
         selectedChannel={selectedChannel}
         canUserManageArchiviation={canUserManageArchiviation}
         canShowUserProfileDetails={canShowUserProfileDetails}
-        handleShowAddChannelDialog={handleShowAddChannelDialog}
-        handleShowEditChannelDialog={handleShowEditChannelDialog}
-        handleArchiveChannel={handleArchiveChannel}
-        handleUnarchiveChannel={handleUnarchiveChannel}
-        handleAssociateUserChannel={handleAssociateUserChannel}
-        handleDissociateUserChannel={handleDissociateUserChannel}
-        handleHideDialog={handleHideDialog}
+        showEditChannelDialog={handleShowEditChannelDialog}
       />
     </>
   );

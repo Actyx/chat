@@ -33,13 +33,7 @@ type ChatProps = Readonly<{
   }>;
   canUserManageArchiviation: (channelId: ChannelId) => boolean;
   canShowUserProfileDetails: boolean;
-  handleShowAddChannelDialog: () => void;
-  handleShowEditChannelDialog: (channelId: ChannelId) => void;
-  handleArchiveChannel: (channelId: ChannelId) => Promise<boolean>;
-  handleUnarchiveChannel: (channelId: ChannelId) => Promise<boolean>;
-  handleAssociateUserChannel: (channelId: ChannelId) => void;
-  handleDissociateUserChannel: (channelId: ChannelId) => void;
-  handleHideDialog: () => void;
+  showEditChannelDialog: (channelId: ChannelId) => void;
 }>;
 
 const MainContent = ({ children }: Readonly<{ children: ReactNode }>) => {
@@ -58,13 +52,8 @@ export const Chat = ({
   channelMessages,
   channelsOverviewCatalog,
   canUserManageArchiviation,
-  handleShowEditChannelDialog,
-  handleArchiveChannel,
-  handleUnarchiveChannel,
-  handleAssociateUserChannel,
-  handleDissociateUserChannel,
+  showEditChannelDialog,
   selectedChannel,
-  handleShowAddChannelDialog,
 }: ChatProps) => {
   const stateUI = useContext(StateContextUI);
 
@@ -101,12 +90,7 @@ export const Chat = ({
           <ChannelsCatalog
             channels={channelsOverviewCatalog}
             canUserManageArchiviation={canUserManageArchiviation}
-            editChannel={handleShowEditChannelDialog}
-            archiveChannel={handleArchiveChannel}
-            unarchiveChannel={handleUnarchiveChannel}
-            associateUserChannel={handleAssociateUserChannel}
-            dissociateUserChannel={handleDissociateUserChannel}
-            showAddChannel={handleShowAddChannelDialog}
+            showEditChannelDialog={showEditChannelDialog}
           />
         );
     }
