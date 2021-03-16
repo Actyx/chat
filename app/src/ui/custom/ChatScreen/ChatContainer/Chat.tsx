@@ -1,6 +1,5 @@
 import React, { ReactNode, useContext, useState } from 'react';
 import { Dialogs, SectionCenter } from '../../../state-manager/types';
-import { TopBar } from '../TopBar';
 import { ChannelId } from '../../../../business-logic/message/types';
 import './chat.css';
 import { StateContextUI } from '../../../state-manager/UIStateManager';
@@ -11,9 +10,9 @@ import { EditChannelDialogContainer } from '../EditChannelDialog/EditChannelDial
 import { SideBarContainer } from '../Sidebar/SidebarContainer';
 import { ChannelsCatalogContainer } from '../ChannelsCatalog/ChannelOverview/ChannelsCatalogContainer';
 import { ChannelContainer } from '../Channel/ChannelContainer';
+import { TopBarContainer } from '../TopBar/TopBarContainer';
 
 type ChatProps = Readonly<{
-  userDisplayName: string;
   canShowUserProfileDetails: boolean;
 }>;
 
@@ -21,10 +20,7 @@ const MainContent = ({ children }: Readonly<{ children: ReactNode }>) => {
   return <div className="fixed w-full flex chat-content">{children}</div>;
 };
 
-export const Chat = ({
-  userDisplayName,
-  canShowUserProfileDetails,
-}: ChatProps) => {
+export const Chat = ({ canShowUserProfileDetails }: ChatProps) => {
   const stateUI = useContext(StateContextUI);
 
   const [editChannelId, setEditChannelId] = useState<ChannelId>();
@@ -60,16 +56,14 @@ export const Chat = ({
 
   return (
     <div>
-      <TopBar userDisplayName={userDisplayName} />
+      <TopBarContainer />
       <MainContent>
         <ErrorBoundary>
           <SideBarContainer />
         </ErrorBoundary>
         <ErrorBoundary>{renderSectionCenter()}</ErrorBoundary>
         <ErrorBoundary>
-          {canShowUserProfileDetails && (
-            <UserProfileDetailsContainer userDisplayName={userDisplayName} />
-          )}
+          {canShowUserProfileDetails && <UserProfileDetailsContainer />}
         </ErrorBoundary>
       </MainContent>
       {renderDialog()}

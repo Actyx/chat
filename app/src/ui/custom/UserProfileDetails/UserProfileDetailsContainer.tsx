@@ -1,5 +1,6 @@
 import { usePond } from '@actyx-contrib/react-pond';
 import React, { useContext, useState } from 'react';
+import { UserCatalogFish } from '../../../business-logic/user-catalog-fish/user-catalog-fish';
 import { editUserProfileWire } from '../../../business-logic/user-catalog-fish/wire';
 import { getUIMessage } from '../../../l10n/l10n';
 import { closeSectionRight } from '../../state-manager/actions';
@@ -7,15 +8,11 @@ import {
   DispatchContextUI,
   StateContextUI,
 } from '../../state-manager/UIStateManager';
+import { useFish } from '../../utils/use-fish';
+import { getDisplayNameByUser } from '../ChatScreen/ChatContainer/ui-map';
 import { UserProfileDetails } from './UserProfileDetails';
 
-type UserProfileDetailsContainerProps = {
-  userDisplayName: string;
-};
-
-export const UserProfileDetailsContainer = ({
-  userDisplayName,
-}: UserProfileDetailsContainerProps) => {
+export const UserProfileDetailsContainer = () => {
   const pond = usePond();
 
   const stateUI = useContext(StateContextUI);
@@ -27,6 +24,17 @@ export const UserProfileDetailsContainer = ({
   const [pondErrorMessage, setPondErrorMessage] = useState<string>();
 
   const handleHideUserProfileDetails = () => dispatch(closeSectionRight());
+
+  const stateUserCatalogFish = useFish(
+    pond,
+    UserCatalogFish,
+    UserCatalogFish.initialState
+  );
+
+  const userDisplayName = getDisplayNameByUser(
+    stateUI.userUUID,
+    stateUserCatalogFish.users
+  );
 
   const handleEditUserProfile = async (displayName: string) => {
     try {
@@ -44,7 +52,7 @@ export const UserProfileDetailsContainer = ({
     }
   };
 
-  return (
+  return userDisplayName ? (
     <UserProfileDetails
       invalidMessage={invalidMessage}
       pondErrorMessage={pondErrorMessage}
@@ -52,5 +60,5 @@ export const UserProfileDetailsContainer = ({
       editUserProfile={handleEditUserProfile}
       close={handleHideUserProfileDetails}
     />
-  );
+  ) : null;
 };
