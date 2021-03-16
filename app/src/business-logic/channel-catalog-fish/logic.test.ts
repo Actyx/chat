@@ -3,9 +3,11 @@ import { addChannelLogic } from './logic';
 describe('logic', () => {
   describe('addChannelLogic', () => {
     it('should not add a new channel if user is not signed-in', () => {
-      const result = addChannelLogic(() => 'channel-1')({
-        channels: {},
-      })('anonymous-user')('marketing', 'all about marketing');
+      const result = addChannelLogic(() => 'channel-1')(
+        'anonymous-user',
+        'marketing',
+        'all about marketing'
+      )({ channels: {} });
 
       const expectedResult = {
         type: 'error',
@@ -17,7 +19,11 @@ describe('logic', () => {
     });
 
     it('should not add a new channel if new channel name already exits', () => {
-      const result = addChannelLogic(() => 'channel-1')({
+      const result = addChannelLogic(() => 'channel-1')(
+        'user-1',
+        'marketing',
+        'all about marketing'
+      )({
         channels: {
           'channel-1': {
             profile: {
@@ -30,9 +36,13 @@ describe('logic', () => {
             users: ['user-1'],
           },
         },
-      })('user-1')('marketing', 'all about marketing');
+      });
 
-      const resultUntidy = addChannelLogic(() => 'channel-1')({
+      const resultUntidy = addChannelLogic(() => 'channel-1')(
+        'user-1',
+        ' MArketing ',
+        'all about marketing'
+      )({
         channels: {
           'channel-1': {
             profile: {
@@ -45,7 +55,7 @@ describe('logic', () => {
             users: ['user-1'],
           },
         },
-      })('user-1')(' MArketing ', 'all about marketing');
+      });
 
       const expectedResult = {
         type: 'error',
@@ -59,9 +69,13 @@ describe('logic', () => {
     });
 
     it('should add a new channel', () => {
-      const result = addChannelLogic(() => 'channel-1')({
+      const result = addChannelLogic(() => 'channel-1')(
+        'user-1',
+        'marketing',
+        'all about marketing'
+      )({
         channels: {},
-      })('user-1')('marketing', 'all about marketing');
+      });
 
       const expectedTags = {
         rawTags: [

@@ -3,7 +3,6 @@
  * It also has the responsibility to keep the relationship of which users have joined a channel.
  */
 
-import { UserCatalogFishEvent } from '../user-catalog-fish/types';
 import { Fish, FishId } from '@actyx/pond';
 import { channelCatalogTag } from '../tags/tags';
 import { reducer } from './reducer';
@@ -15,7 +14,7 @@ const initialState: ChannelCatalogFishState = {
 
 export const ChannelCatalogFish: Fish<
   ChannelCatalogFishState,
-  ChannelCatalogFishEvent | UserCatalogFishEvent
+  ChannelCatalogFishEvent
 > = {
   fishId: FishId.of('channelCatalog', 'channelCatalog', 0),
   initialState,

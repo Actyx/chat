@@ -71,11 +71,10 @@ const prepareContentChannelProfile = (
 };
 
 export const addChannelLogic = (makerUUID: () => ChannelId) => (
-  fishState: ChannelCatalogFishState
-) => (userUUID: UserUUID) => (
+  userUUID: UserUUID,
   name: string,
   description: string
-): AddChannelLogicResult => {
+) => (fishState: ChannelCatalogFishState): AddChannelLogicResult => {
   if (!isSignedInUser(userUUID)) {
     return mkErrorAutheticationUserIsNotSignIn();
   }
