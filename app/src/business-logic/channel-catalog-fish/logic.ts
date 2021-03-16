@@ -121,7 +121,7 @@ export const editChannelLogic = (
   if (!profile) {
     return {
       type: 'error',
-      code: ErrorCode.ChannelEditChannelNameExist,
+      code: ErrorCode.ChannelEditChannelProfileDoesNotExist,
       message: `Cannot edit channel because channel profile does not exists`,
     };
   }
@@ -150,52 +150,6 @@ export const editChannelLogic = (
     code: ErrorCode.ChannelEditChannelNameExist,
     message: `Cannot edit channel because new name ${newName} already exists`,
   };
-};
-
-export const editChannel = (pond: Pond) => (
-  userUUID: UserUUID,
-  channelId: ChannelId
-) => async (name: string, description: string): Promise<boolean> => {
-  let isSuccess = false;
-  if (isSignedInUser(userUUID)) {
-    const { newName, newDescription } = prepareContentChannelProfile(
-      name,
-      description
-    );
-
-    await pond
-      .run(ChannelCatalogFish, (fishState, enqueue) => {
-        const profile = getChannelProfileByChannelId(
-          channelId,
-          fishState.channels
-        );
-        if (profile) {
-          const isEditName = profile.name !== newName;
-          const isEditDescription = profile.description !== newDescription;
-          const isEditWithUniqueNameOnly =
-            isEditName &&
-            !isEditDescription &&
-            !doesChannelNameExist(newName, fishState);
-          const isEditWithDescriptionOnly = !isEditName && isEditDescription;
-
-          const canEdit = isEditWithUniqueNameOnly || isEditWithDescriptionOnly;
-
-          if (canEdit) {
-            enqueue(
-              ...getChannelProfileEdited(
-                channelId,
-                userUUID,
-                newName,
-                newDescription
-              )
-            );
-            isSuccess = true;
-          }
-        }
-      })
-      .toPromise();
-  }
-  return isSuccess;
 };
 
 export const archiveChannel = (pond: Pond) => async (

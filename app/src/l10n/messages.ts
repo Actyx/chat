@@ -12,5 +12,7 @@ export const messages = {
       'That name is already taken by a channel',
     [Code.ChannelEditChannelNameExist]:
       'That name is already taken by a channel',
+    [Code.ChannelEditChannelProfileDoesNotExist]:
+      'Cannot edit profile because it does not exist',
   },
 };
