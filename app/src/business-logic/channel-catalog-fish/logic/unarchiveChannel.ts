@@ -13,12 +13,12 @@ export const unarchiveChannel = (
   userUUID: UserUUID,
   channelId: ChannelId
 ): UnarchiveChannelLogicResult => {
-  if (!hasUserCreatedChannel(userUUID, channelId, fishState.channels)) {
-    return mkChannelUserIsNotOwner(userUUID, channelId);
-  }
-
   if (!isChannelIdRegistered(channelId, fishState.channels)) {
     return mkErrorChannelDoesNotExist(channelId);
+  }
+
+  if (!hasUserCreatedChannel(userUUID, channelId, fishState.channels)) {
+    return mkChannelUserIsNotOwner(userUUID, channelId);
   }
 
   return {
