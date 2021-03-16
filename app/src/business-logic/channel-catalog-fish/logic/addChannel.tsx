@@ -1,5 +1,7 @@
-import { mkErrorAutheticationUserIsNotSignIn } from '../../common/errors';
-import { ErrorCode } from '../../common/logic-types';
+import {
+  mkErrorAutheticationUserIsNotSignIn,
+  mkErrorDoesChannelNameExist,
+} from '../../common/errors';
 import { ChannelId } from '../../message/types';
 import { isSignedInUser } from '../../user-catalog-fish/logic/helpers';
 import { UserUUID } from '../../user-catalog-fish/types';
@@ -22,11 +24,7 @@ export const addChannel = (makerUUID: () => ChannelId) => (
     description
   );
   if (doesChannelNameExist(newName, fishState)) {
-    return {
-      type: 'error',
-      code: ErrorCode.ChannelAddChannelNameExist,
-      message: `The channel name (${newName}) has been already registered in the system`,
-    };
+    return mkErrorDoesChannelNameExist(newName);
   }
 
   return {

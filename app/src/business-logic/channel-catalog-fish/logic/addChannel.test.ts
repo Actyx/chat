@@ -62,7 +62,7 @@ describe('logic', () => {
 
       const expectedResult = {
         type: 'error',
-        code: 'ChannelAddChannelNameExist',
+        code: 'ChannelNameExist',
         message: expect.any(String),
       };
 

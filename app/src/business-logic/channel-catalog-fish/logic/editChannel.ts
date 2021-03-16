@@ -1,4 +1,7 @@
-import { mkErrorAutheticationUserIsNotSignIn } from '../../common/errors';
+import {
+  mkErrorAutheticationUserIsNotSignIn,
+  mkErrorDoesChannelNameExist,
+} from '../../common/errors';
 import { ErrorCode } from '../../common/logic-types';
 import { ChannelId } from '../../message/types';
 import { isSignedInUser } from '../../user-catalog-fish/logic/helpers';
@@ -42,11 +45,7 @@ export const editChannel = (
 
   const canEdit = isEditWithUniqueNameOnly || isEditWithDescriptionOnly;
   if (!canEdit) {
-    return {
-      type: 'error',
-      code: ErrorCode.ChannelEditChannelNameExist,
-      message: `Cannot edit channel (${channelId}) because new name ${newName} it is already registered in the system`,
-    };
+    return mkErrorDoesChannelNameExist(newName);
   }
 
   return {
