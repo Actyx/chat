@@ -40,8 +40,7 @@ export const signUpLogic = (makerUUID: () => UserUUID) => (
     ? {
         type: 'error',
         code: ErrorCode.SignUpEmailAlreadyExists,
-        message:
-          'User cannot sign-up, his email is already registered in the system',
+        message: `New user cannot sign up, email provided (${email}) is already registered in the system`,
       }
     : {
         type: 'ok',
@@ -83,7 +82,7 @@ export const editUserProfileLogic = (
     return {
       type: 'error',
       code,
-      message: 'UserUUID is not registered',
+      message: `UserUUID provided (${userUUID}) is not registered in the system`,
     };
   }
 

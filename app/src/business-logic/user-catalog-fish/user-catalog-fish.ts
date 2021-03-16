@@ -1,5 +1,5 @@
 /**
- * The UsersCatalogFish is responsible to provide users profile information in the system and relates to functionalities such sign-up and sign-in.
+ * The UsersCatalogFish is responsible to provide users profile information in the system and relates to functionalities such sign up and sign in.
  */
 
 import { UserCatalogFishEvent, UserCatalogFishState } from './types';
