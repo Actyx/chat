@@ -3,13 +3,11 @@ import React, { useState } from 'react';
 import { mkUUID } from '../../../../business-logic/common/util';
 import {
   Email,
-  UserCatalogFishEvent,
-  UserCatalogFishState,
   UserUUID,
 } from '../../../../business-logic/user-catalog-fish/types';
 import { getUIMessage } from '../../../../l10n/l10n';
 import { SignUp } from './SignUp';
-import { wire, wire2 } from '../../../../business-logic/common/logic-helpers';
+import { wire2 } from '../../../../business-logic/common/logic-helpers';
 import { signUpLogic } from '../../../../business-logic/user-catalog-fish/logic';
 import { UserCatalogFish } from '../../../../business-logic/user-catalog-fish/user-catalog-fish';
 
@@ -41,7 +39,7 @@ export const SignUpContainer = ({ showSignIn }: SignUpContainerProps) => {
           setInvalidMessage(getUIMessage(result.code));
         }
       })
-      .catch((err) => setPondErrorMessage(err));
+      .catch(setPondErrorMessage);
 
   return (
     <SignUp
