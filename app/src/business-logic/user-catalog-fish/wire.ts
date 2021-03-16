@@ -1,26 +1,11 @@
 import { Pond } from '@actyx/pond';
-import { editUserProfileLogic, signUpLogic } from './logic';
+import { editUserProfileLogic } from './logic';
 import {
   EditUserProfileResult,
   EditUserProfileResultUI,
-  Email,
-  SignUpLogicResultUI,
-  UserCatalogFishEvent,
-  UserCatalogFishState,
   UserUUID,
 } from './types';
 import { UserCatalogFish } from './user-catalog-fish';
-import { wire } from '../common/logic-helpers';
-
-export const signUpWire = (makerUUID: () => UserUUID) => (pond: Pond) => async (
-  displayName: string,
-  email: Email
-): Promise<SignUpLogicResultUI> =>
-  wire<UserCatalogFishState, UserCatalogFishEvent, UserUUID>(
-    pond,
-    UserCatalogFish,
-    signUpLogic(makerUUID)(displayName, email)
-  );
 
 // FIXME use the final wire function
 export const editUserProfileWire = (pond: Pond) => async (

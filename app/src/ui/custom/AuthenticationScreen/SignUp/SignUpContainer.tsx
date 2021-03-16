@@ -3,11 +3,15 @@ import React, { useState } from 'react';
 import { mkUUID } from '../../../../business-logic/common/util';
 import {
   Email,
+  UserCatalogFishEvent,
+  UserCatalogFishState,
   UserUUID,
 } from '../../../../business-logic/user-catalog-fish/types';
 import { getUIMessage } from '../../../../l10n/l10n';
 import { SignUp } from './SignUp';
-import { signUpWire } from '../../../../business-logic/user-catalog-fish/wire';
+import { wire } from '../../../../business-logic/common/logic-helpers';
+import { signUpLogic } from '../../../../business-logic/user-catalog-fish/logic';
+import { UserCatalogFish } from '../../../../business-logic/user-catalog-fish/user-catalog-fish';
 
 type SignUpContainerProps = Readonly<{
   showSignIn: () => void;
@@ -15,6 +19,10 @@ type SignUpContainerProps = Readonly<{
 
 export const SignUpContainer = ({ showSignIn }: SignUpContainerProps) => {
   const pond = usePond();
+
+  const wireBl = wire<UserCatalogFishState, UserCatalogFishEvent, UserUUID>(
+    pond
+  )(UserCatalogFish);
 
   const [isSignUpSuccess, setIsSignUpSuccess] = useState<boolean>();
 
@@ -26,13 +34,13 @@ export const SignUpContainer = ({ showSignIn }: SignUpContainerProps) => {
 
   const handleSignUp = async (name: string, email: Email) => {
     try {
-      const resultLogicUI = await signUpWire(mkUUID)(pond)(name, email);
-      if (resultLogicUI.type === 'ok') {
+      const resultLogic = await wireBl(signUpLogic(mkUUID)(name, email))();
+      if (resultLogic.type === 'ok') {
         setIsSignUpSuccess(true);
-        setNewUserUUID(resultLogicUI.result);
+        setNewUserUUID(resultLogic.result);
       } else {
         setIsSignUpSuccess(false);
-        setInvalidMessage(getUIMessage(resultLogicUI.code));
+        setInvalidMessage(getUIMessage(resultLogic.code));
       }
     } catch (err) {
       setPondErrorMessage(err);
