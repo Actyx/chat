@@ -1,9 +1,8 @@
-import { logBugBl } from '../../../logger/logger';
 import {
+  mkChannelUserIsNotOwner,
   mkErrorAutheticationUserIsNotSignIn,
   mkErrorChannelDoesNotExist,
 } from '../../common/errors';
-import { ErrorCode } from '../../common/logic-types';
 import { ChannelId } from '../../message/types';
 import { isSignedInUser } from '../../user-catalog-fish/logic/helpers';
 import { UserUUID } from '../../user-catalog-fish/types';
@@ -25,13 +24,7 @@ export const archiveChannel = (
   }
 
   if (!hasUserCreatedChannel(userUUID, channelId, fishState.channels)) {
-    const message = `Cannot archive this channel because its user (${userUUID}) is not the owner of this channel (${channelId})`;
-    logBugBl(message);
-    return {
-      type: 'error',
-      code: ErrorCode.ChannelUserIsNotOwner,
-      message,
-    };
+    return mkChannelUserIsNotOwner(userUUID, channelId);
   }
 
   return {

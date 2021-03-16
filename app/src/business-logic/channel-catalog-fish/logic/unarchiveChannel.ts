@@ -1,6 +1,7 @@
-import { logBugBl } from '../../../logger/logger';
-import { mkErrorChannelDoesNotExist } from '../../common/errors';
-import { ErrorCode } from '../../common/logic-types';
+import {
+  mkChannelUserIsNotOwner,
+  mkErrorChannelDoesNotExist,
+} from '../../common/errors';
 import { ChannelId } from '../../message/types';
 import { UserUUID } from '../../user-catalog-fish/types';
 import { getChannelUnarchived } from '../events';
@@ -13,13 +14,7 @@ export const unarchiveChannel = (
   channelId: ChannelId
 ): UnarchiveChannelLogicResult => {
   if (!hasUserCreatedChannel(userUUID, channelId, fishState.channels)) {
-    const message = `Cannot unarchive this channel because its user (${userUUID}) is not the owner of this channel (${channelId})`;
-    logBugBl(message);
-    return {
-      type: 'error',
-      code: ErrorCode.ChannelUserIsNotOwner,
-      message,
-    };
+    return mkChannelUserIsNotOwner(userUUID, channelId);
   }
 
   if (!isChannelIdRegistered(channelId, fishState.channels)) {

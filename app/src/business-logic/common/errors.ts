@@ -1,5 +1,6 @@
 import { logBugBl } from '../../logger/logger';
 import { ChannelId } from '../message/types';
+import { UserUUID } from '../user-catalog-fish/types';
 import { ErrorCode, LogicResultError } from './logic-types';
 
 export const mkErrorAutheticationUserIsNotSignIn = (): LogicResultError => {
@@ -20,6 +21,19 @@ export const mkErrorChannelDoesNotExist = (
   return {
     type: 'error',
     code: ErrorCode.ChannelDoesNotExist,
+    message,
+  };
+};
+
+export const mkChannelUserIsNotOwner = (
+  userUUID: UserUUID,
+  channelId: ChannelId
+): LogicResultError => {
+  const message = `User (${userUUID}) is not the owner of this channel (${channelId})`;
+  logBugBl(message);
+  return {
+    type: 'error',
+    code: ErrorCode.ChannelUserIsNotOwner,
     message,
   };
 };
