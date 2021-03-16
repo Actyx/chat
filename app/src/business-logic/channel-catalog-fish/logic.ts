@@ -91,7 +91,7 @@ export const addChannelLogic = (makerUUID: () => ChannelId) => (
     return {
       type: 'error',
       code: ErrorCode.ChannelAddChannelNameExist,
-      message: 'The channel name has been already registered in the system',
+      message: `The channel name (${newName}) has been already registered in the system`,
     };
   }
 
@@ -124,7 +124,7 @@ export const editChannelLogic = (
     return {
       type: 'error',
       code: ErrorCode.ChannelEditChannelProfileDoesNotExist,
-      message: `Cannot edit channel because channel profile does not exists`,
+      message: `Cannot edit channel (${channelId}) because channel profile is not registered in the system`,
     };
   }
 
@@ -137,20 +137,20 @@ export const editChannelLogic = (
   const isEditWithDescriptionOnly = !isEditName && isEditDescription;
 
   const canEdit = isEditWithUniqueNameOnly || isEditWithDescriptionOnly;
-  if (canEdit) {
+  if (!canEdit) {
     return {
-      type: 'ok',
-      tagsWithEvents: [
-        getChannelProfileEdited(channelId, userUUID, newName, newDescription),
-      ],
-      result: undefined,
+      type: 'error',
+      code: ErrorCode.ChannelEditChannelNameExist,
+      message: `Cannot edit channel (${channelId}) because new name ${newName} it is already registered in the system`,
     };
   }
 
   return {
-    type: 'error',
-    code: ErrorCode.ChannelEditChannelNameExist,
-    message: `Cannot edit channel because new name ${newName} already exists`,
+    type: 'ok',
+    tagsWithEvents: [
+      getChannelProfileEdited(channelId, userUUID, newName, newDescription),
+    ],
+    result: undefined,
   };
 };
 
@@ -162,8 +162,9 @@ export const archiveChannelLogic = (
   if (!isSignedInUser(userUUID)) {
     return mkErrorAutheticationUserIsNotSignIn();
   }
+
   if (!isChannelIdRegistered(channelId, fishState.channels)) {
-    const message = 'Channel does not exists';
+    const message = `Cannot archive channel (${channelId}) as it is not registered in the system`;
     logBugBl(message);
     return {
       type: 'error',
@@ -173,7 +174,7 @@ export const archiveChannelLogic = (
   }
 
   if (!hasUserCreatedChannel(userUUID, channelId, fishState.channels)) {
-    const message = 'User is not the owner of this channel';
+    const message = `Cannot archive this channel because its user (${userUUID}) is not the owner of this channel (${channelId})`;
     logBugBl(message);
     return {
       type: 'error',
