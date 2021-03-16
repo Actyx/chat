@@ -1,4 +1,5 @@
 import { logBugBl } from '../../../logger/logger';
+import { mkErrorChannelDoesNotExist } from '../../common/errors';
 import { ErrorCode } from '../../common/logic-types';
 import { ChannelId } from '../../message/types';
 import { UserUUID } from '../../user-catalog-fish/types';
@@ -22,13 +23,7 @@ export const unarchiveChannel = (
   }
 
   if (!isChannelIdRegistered(channelId, fishState.channels)) {
-    const message = `Cannot archive channel (${channelId}) as it is not registered in the system`;
-    logBugBl(message);
-    return {
-      type: 'error',
-      code: ErrorCode.ChannelDoesNotExist,
-      message,
-    };
+    return mkErrorChannelDoesNotExist(channelId);
   }
 
   return {

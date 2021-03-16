@@ -1,5 +1,8 @@
 import { logBugBl } from '../../../logger/logger';
-import { mkErrorAutheticationUserIsNotSignIn } from '../../common/errors';
+import {
+  mkErrorAutheticationUserIsNotSignIn,
+  mkErrorChannelDoesNotExist,
+} from '../../common/errors';
 import { ErrorCode } from '../../common/logic-types';
 import { ChannelId } from '../../message/types';
 import { isSignedInUser } from '../../user-catalog-fish/logic/helpers';
@@ -18,13 +21,7 @@ export const archiveChannel = (
   }
 
   if (!isChannelIdRegistered(channelId, fishState.channels)) {
-    const message = `Cannot archive channel (${channelId}) as it is not registered in the system`;
-    logBugBl(message);
-    return {
-      type: 'error',
-      code: ErrorCode.ChannelDoesNotExist,
-      message,
-    };
+    return mkErrorChannelDoesNotExist(channelId);
   }
 
   if (!hasUserCreatedChannel(userUUID, channelId, fishState.channels)) {
