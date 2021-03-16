@@ -2,7 +2,7 @@ import { usePond } from '@actyx-contrib/react-pond';
 import React, { useContext, useState } from 'react';
 import { ChannelCatalogFish } from '../../../../business-logic/channel-catalog-fish/channel-catalog-fish';
 import { addChannelLogic } from '../../../../business-logic/channel-catalog-fish/logic';
-import { wire2 } from '../../../../business-logic/common/logic-helpers';
+import { wire } from '../../../../business-logic/common/logic-helpers';
 import { mkUUID } from '../../../../business-logic/common/util';
 import { getUIMessage } from '../../../../l10n/l10n';
 import { hideDialog } from '../../../state-manager/actions';
@@ -27,7 +27,7 @@ export const AddChannelDialogContainer = () => {
 
   const handleResetInvalidMessage = () => setInvalidMessage(undefined);
 
-  const performAddChannel = wire2(
+  const performAddChannel = wire(
     pond,
     ChannelCatalogFish
   )(addChannelLogic(mkUUID));

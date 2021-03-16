@@ -7,7 +7,7 @@ import {
 } from '../../../../business-logic/user-catalog-fish/types';
 import { getUIMessage } from '../../../../l10n/l10n';
 import { SignUp } from './SignUp';
-import { wire2 } from '../../../../business-logic/common/logic-helpers';
+import { wire } from '../../../../business-logic/common/logic-helpers';
 import { signUpLogic } from '../../../../business-logic/user-catalog-fish/logic';
 import { UserCatalogFish } from '../../../../business-logic/user-catalog-fish/user-catalog-fish';
 
@@ -26,7 +26,7 @@ export const SignUpContainer = ({ showSignIn }: SignUpContainerProps) => {
 
   const [invalidMessage, setInvalidMessage] = useState<string>();
 
-  const performSignUp = wire2(pond, UserCatalogFish)(signUpLogic(mkUUID));
+  const performSignUp = wire(pond, UserCatalogFish)(signUpLogic(mkUUID));
 
   const handleSignUp = (name: string, email: Email) =>
     performSignUp(name, email)

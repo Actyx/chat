@@ -69,9 +69,10 @@ export const signIn = (userUUID: UserUUID, users: Users): boolean => {
 //#region User profile edit
 
 export const editUserProfileLogic = (
+  fishState: UserCatalogFishState,
   displayName: string,
   userUUID: UserUUID
-) => (fishState: UserCatalogFishState): EditUserProfileResult => {
+): EditUserProfileResult => {
   if (!isSignedInUser(userUUID)) {
     return mkErrorAutheticationUserIsNotSignIn();
   }
