@@ -14,5 +14,7 @@ export const messages = {
       'That name is already taken by a channel',
     [Code.ChannelEditChannelProfileDoesNotExist]:
       'Cannot edit profile because it does not exist',
+    [Code.ChannelUserIsNotOwner]: 'User does not own this channel',
+    [Code.ChannelDoesNotExist]: 'Channel does not exist',
   },
 };

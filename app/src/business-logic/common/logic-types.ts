@@ -8,6 +8,8 @@ export enum ErrorCode {
   ChannelAddChannelNameExist = 'ChannelAddChannelNameExist',
   ChannelEditChannelNameExist = 'ChannelEditChannelNameExist',
   ChannelEditChannelProfileDoesNotExist = 'ChannelEditChannelProfileDoesNotExist',
+  ChannelUserIsNotOwner = 'ChannelUserIsNotOwner',
+  ChannelDoesNotExist = 'ChannelDoesNotExist',
 }
 
 export type LogicResultSuccess<E, R> = Readonly<{

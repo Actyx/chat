@@ -16,6 +16,7 @@ import {
   Users,
   AddChannelLogicResult,
   EditChannelLogicResult,
+  ArchiveChannelLogicResult,
 } from './types';
 import { ChannelCatalogFish } from './channel-catalog-fish';
 import { isSignedInUser } from '../user-catalog-fish/logic';
@@ -26,6 +27,7 @@ import {
 } from './logic-helpers';
 import { ErrorCode } from '../common/logic-types';
 import { mkErrorAutheticationUserIsNotSignIn } from '../common/errors';
+import { logBugBl } from '../../logger/logger';
 
 export const isChannelIdRegistered = (
   channelId: ChannelId,
@@ -152,25 +154,39 @@ export const editChannelLogic = (
   };
 };
 
-export const archiveChannel = (pond: Pond) => async (
+export const archiveChannelLogic = (
+  fishState: ChannelCatalogFishState,
   userUUID: UserUUID,
   channelId: ChannelId
-): Promise<boolean> => {
-  let isSuccess = false;
-  if (isSignedInUser(userUUID)) {
-    await pond
-      .run(ChannelCatalogFish, (fishState, enqueue) => {
-        const canArchive =
-          hasUserCreatedChannel(userUUID, channelId, fishState.channels) &&
-          isChannelIdRegistered(channelId, fishState.channels);
-        if (canArchive) {
-          enqueue(...getChannelArchived(channelId, userUUID));
-          isSuccess = true;
-        }
-      })
-      .toPromise();
+): ArchiveChannelLogicResult => {
+  if (!isSignedInUser(userUUID)) {
+    return mkErrorAutheticationUserIsNotSignIn();
   }
-  return isSuccess;
+  if (!isChannelIdRegistered(channelId, fishState.channels)) {
+    const message = 'Channel does not exists';
+    logBugBl(message);
+    return {
+      type: 'error',
+      code: ErrorCode.ChannelDoesNotExist,
+      message,
+    };
+  }
+
+  if (!hasUserCreatedChannel(userUUID, channelId, fishState.channels)) {
+    const message = 'User is not the owner of this channel';
+    logBugBl(message);
+    return {
+      type: 'error',
+      code: ErrorCode.ChannelUserIsNotOwner,
+      message,
+    };
+  }
+
+  return {
+    type: 'ok',
+    tagsWithEvents: [getChannelArchived(channelId, userUUID)],
+    result: undefined,
+  };
 };
 
 export const unarchiveChannel = (pond: Pond) => async (

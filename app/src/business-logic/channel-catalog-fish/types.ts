@@ -115,4 +115,6 @@ export type EditChannelLogicResult = LogicResult<
   void
 >;
 
+export type ArchiveChannelLogicResult = LogicResult<ChannelArchivedEvent, void>;
+
 //#endregion
