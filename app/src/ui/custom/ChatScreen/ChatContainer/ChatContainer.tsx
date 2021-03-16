@@ -11,12 +11,8 @@ import {
   getTotalUsersNumber,
   getVisiblePublicMessages,
   mapChannelsToChannelCatalogUI,
-  mapChannelsToSidebarUI,
   mapPublicMessagesToChannelUI,
-  mapUsersToSidebarUI,
   sortAlphabeticChannelsOverview,
-  sortAlphabeticChannelsSidebar,
-  sortAlphabeticUsersSidebar,
 } from './ui-map';
 import { Chat } from './Chat';
 import pkg from '../../../../../package.json';
@@ -80,14 +76,6 @@ export const ChatContainer = () => {
   const canShowUserProfileDetails =
     stateUI.sectionRight === SectionRight.UserProfileEdit;
 
-  const channelsSideBarUI = sortAlphabeticChannelsSidebar(
-    mapChannelsToSidebarUI(stateChannelsCatalogFish.channels, stateUI.userUUID)
-  );
-
-  const usersSideBarUI = sortAlphabeticUsersSidebar(
-    mapUsersToSidebarUI(stateUserCatalogFish.users)
-  );
-
   const channelsOverviewCatalog = sortAlphabeticChannelsOverview(
     mapChannelsToChannelCatalogUI(
       stateChannelsCatalogFish.channels,
@@ -115,8 +103,6 @@ export const ChatContainer = () => {
       <Chat
         appName={pkg.chat.appName}
         userDisplayName={userDisplayName}
-        channelsSideBarUI={channelsSideBarUI}
-        usersSideBarUI={usersSideBarUI}
         totalUsers={totalUsers}
         channelName={channelName}
         channelDescription={channelDescription}

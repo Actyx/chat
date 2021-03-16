@@ -1,6 +1,5 @@
 import React, { ReactNode, useContext, useState } from 'react';
 import { Dialogs, SectionCenter } from '../../../state-manager/types';
-import { ChannelsListUI, Sidebar, UsersListUI } from '../Sidebar/Sidebar';
 import { TopBar } from '../TopBar';
 import { Channel } from '../Channel/Channel';
 import {
@@ -15,12 +14,11 @@ import { ErrorBoundary } from '../../../common/ErrorBoundary/ErrorBoundary';
 import { UserProfileDetailsContainer } from '../../UserProfileDetails/UserProfileDetailsContainer';
 import { AddChannelDialogContainer } from '../AddChannelDialog/AddChannelDialogContainer';
 import { EditChannelDialogContainer } from '../EditChannelDialog/EditChannelDialogContainer';
+import { SideBarContainer } from '../Sidebar/SidebarContainer';
 
 type ChatProps = Readonly<{
   appName: string;
   userDisplayName: string;
-  channelsSideBarUI: ChannelsListUI;
-  usersSideBarUI: UsersListUI;
   totalUsers: number;
   channelName: string;
   channelDescription?: string;
@@ -37,8 +35,6 @@ export const Chat = ({
   appName,
   totalUsers,
   userDisplayName,
-  channelsSideBarUI,
-  usersSideBarUI,
   canShowUserProfileDetails,
   channelName,
   channelDescription,
@@ -91,11 +87,7 @@ export const Chat = ({
       <TopBar userDisplayName={userDisplayName} />
       <MainContent>
         <ErrorBoundary>
-          <Sidebar
-            appName={appName}
-            channels={channelsSideBarUI}
-            users={usersSideBarUI}
-          />
+          <SideBarContainer />
         </ErrorBoundary>
         <ErrorBoundary>{renderSectionCenter()}</ErrorBoundary>
         <ErrorBoundary>
