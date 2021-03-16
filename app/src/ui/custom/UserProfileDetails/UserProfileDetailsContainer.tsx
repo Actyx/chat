@@ -52,7 +52,7 @@ export const UserProfileDetailsContainer = () => {
     }
   };
 
-  return userDisplayName ? (
+  return (
     <UserProfileDetails
       invalidMessage={invalidMessage}
       pondErrorMessage={pondErrorMessage}
@@ -60,5 +60,5 @@ export const UserProfileDetailsContainer = () => {
       editUserProfile={handleEditUserProfile}
       close={handleHideUserProfileDetails}
     />
-  ) : null;
+  );
 };

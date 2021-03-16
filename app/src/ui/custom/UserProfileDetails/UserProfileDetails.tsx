@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FlexPanel } from '../../common/FlexPanel/FlexPanel';
 import { FormEventElement, InputChangeEvent } from '../../utils/element-events';
 import { TextField } from '../../common/TextField/TextField';
@@ -25,6 +25,10 @@ export const UserProfileDetails = ({
   close,
 }: UserProfileDetailsProps) => {
   const [displayName, setDisplayName] = useState<string>(userDisplayName);
+
+  useEffect(() => {
+    setDisplayName(userDisplayName);
+  }, [userDisplayName]);
 
   const handleChangeDisplayName = (e: InputChangeEvent) =>
     setDisplayName(e.target.value);
