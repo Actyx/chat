@@ -6,7 +6,6 @@ import {
   archiveChannel,
   associateUserToChannel,
   dissociateUserChannel,
-  editChannel,
   hasUserCreatedChannel,
   unarchiveChannel,
 } from '../../../../business-logic/channel-catalog-fish/logic';
@@ -104,13 +103,6 @@ export const ChatContainer = () => {
       dispatch(showEditChannelDialog());
     }
   };
-
-  const handleEditChannel = async (
-    channelId: ChannelId,
-    newName: string,
-    newDescription: string
-  ): Promise<boolean> =>
-    editChannel(pond)(stateUI.userUUID, channelId)(newName, newDescription);
 
   const handleArchiveChannel = async (channelId: ChannelId): Promise<boolean> =>
     archiveChannel(pond)(stateUI.userUUID, channelId);
@@ -210,7 +202,6 @@ export const ChatContainer = () => {
         canShowUserProfileDetails={canShowUserProfileDetails}
         handleShowAddChannelDialog={handleShowAddChannelDialog}
         handleShowEditChannelDialog={handleShowEditChannelDialog}
-        handleEditChannel={handleEditChannel}
         handleArchiveChannel={handleArchiveChannel}
         handleUnarchiveChannel={handleUnarchiveChannel}
         handleAssociateUserChannel={handleAssociateUserChannel}

@@ -9,12 +9,12 @@ import {
 } from '../ChannelsCatalog/ChannelsCatalog';
 import { MessageUI } from '../Channel/Message';
 import { ChannelId } from '../../../../business-logic/message/types';
-import { EditChannelDialog } from '../EditChannelDialog/EditChannelDialog';
 import './chat.css';
 import { StateContextUI } from '../../../state-manager/UIStateManager';
 import { ErrorBoundary } from '../../../common/ErrorBoundary/ErrorBoundary';
 import { UserProfileDetailsContainer } from '../../UserProfileDetails/UserProfileDetailsContainer';
 import { AddChannelDialogContainer } from '../AddChannelDialog/AddChannelDialogContainer';
+import { EditChannelDialogContainer } from '../EditChannelDialog/EditChannelDialogContainer';
 
 type ChatProps = Readonly<{
   appName: string;
@@ -35,11 +35,6 @@ type ChatProps = Readonly<{
   canShowUserProfileDetails: boolean;
   handleShowAddChannelDialog: () => void;
   handleShowEditChannelDialog: (channelId: ChannelId) => void;
-  handleEditChannel: (
-    channelId: ChannelId,
-    newName: string,
-    newDescription: string
-  ) => Promise<boolean>;
   handleArchiveChannel: (channelId: ChannelId) => Promise<boolean>;
   handleUnarchiveChannel: (channelId: ChannelId) => Promise<boolean>;
   handleAssociateUserChannel: (channelId: ChannelId) => void;
@@ -69,8 +64,6 @@ export const Chat = ({
   handleAssociateUserChannel,
   handleDissociateUserChannel,
   selectedChannel,
-  handleEditChannel,
-  handleHideDialog,
   handleShowAddChannelDialog,
 }: ChatProps) => {
   const stateUI = useContext(StateContextUI);
@@ -81,17 +74,10 @@ export const Chat = ({
         return <AddChannelDialogContainer />;
       case Dialogs.EditChannel:
         return selectedChannel ? (
-          <EditChannelDialog
+          <EditChannelDialogContainer
+            selectedChannelId={selectedChannel?.channelId}
             currentName={selectedChannel.name}
             currentDescription={selectedChannel.description}
-            closeDialog={handleHideDialog}
-            editChannel={(newName, newDescription) =>
-              handleEditChannel(
-                selectedChannel.channelId,
-                newName,
-                newDescription
-              )
-            }
           />
         ) : undefined;
       case Dialogs.None:

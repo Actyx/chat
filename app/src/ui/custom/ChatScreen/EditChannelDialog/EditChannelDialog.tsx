@@ -12,34 +12,34 @@ import {
 } from '../../../utils/element-events';
 
 type EditChannelDialogProps = Readonly<{
+  invalidMessage?: string;
+  pondErrorMessage?: string;
+  resetInvalidMessage: () => void;
   currentName: string;
   currentDescription: string;
-  editChannel: (name: string, description: string) => Promise<boolean>;
+  editChannel: (name: string, description: string) => void;
   closeDialog: () => void;
 }>;
 
 const FIELD_NAME = 'edit-channel-dialog-textfield-name';
 const FIELD_DESCRIPTION = 'edit-channel-dialog-textfield-description';
 
-const INVALID_NAME = 'That name is already taken by a channel';
-
 export const EditChannelDialog = ({
+  invalidMessage,
+  pondErrorMessage,
+  resetInvalidMessage,
   currentName,
   currentDescription,
   editChannel,
   closeDialog,
 }: EditChannelDialogProps) => {
-  const [invalidMessage, setInvalidMessage] = useState<string>();
-
-  const [pondErrorMessage, setPondErrorMessage] = useState<string>();
-
   const [name, setName] = useState<string>(currentName);
 
   const [description, setDescription] = useState<string>(currentDescription);
 
   const handleChangeName = (e: InputChangeEvent) => {
     if (invalidMessage) {
-      setInvalidMessage(undefined);
+      resetInvalidMessage();
     }
     setName(e.target.value);
   };
@@ -47,18 +47,7 @@ export const EditChannelDialog = ({
   const handleChangeDescription = (e: InputChangeEvent) =>
     setDescription(e.target.value);
 
-  const handleEditChannel = async () => {
-    try {
-      const isSuccess = await editChannel(name, description);
-      if (isSuccess) {
-        closeDialog();
-      } else {
-        setInvalidMessage(INVALID_NAME);
-      }
-    } catch (err) {
-      setPondErrorMessage(err);
-    }
-  };
+  const handleEditChannel = () => editChannel(name, description);
 
   const handleSumbit = (e: FormEventElement) => {
     e.preventDefault();
