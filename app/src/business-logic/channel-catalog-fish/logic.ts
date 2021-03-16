@@ -3,18 +3,12 @@ import { isStringEmpty, prepareString } from '../../common/strings';
 import { SYSTEM_USER, UserUUID } from '../user-catalog-fish/types';
 import {
   getChannelAdded,
-  getChannelArchived,
   getChannelAssociatedUser,
   getChannelDissociatedUser,
   getChannelUnarchived,
 } from './events';
 import { ChannelId } from '../message/types';
-import {
-  Channels,
-  ChannelCatalogFishState,
-  Users,
-  ArchiveChannelLogicResult,
-} from './types';
+import { Channels, ChannelCatalogFishState, Users } from './types';
 import { ChannelCatalogFish } from './channel-catalog-fish';
 import { isSignedInUser } from '../user-catalog-fish/logic/helpers';
 import { DEFAULT_CHANNEL } from '../channel-fish/channel-fish';
@@ -22,9 +16,6 @@ import {
   getChannelProfileByChannelId,
   isUserAssociatedToChannel,
 } from './logic-helpers';
-import { ErrorCode } from '../common/logic-types';
-import { mkErrorAutheticationUserIsNotSignIn } from '../common/errors';
-import { logBugBl } from '../../logger/logger';
 
 export const isChannelIdRegistered = (
   channelId: ChannelId,
@@ -68,42 +59,6 @@ export const prepareContentChannelProfile = (
     ? undefined
     : prepareString(description);
   return { newName, newDescription };
-};
-
-export const archiveChannelLogic = (
-  fishState: ChannelCatalogFishState,
-  userUUID: UserUUID,
-  channelId: ChannelId
-): ArchiveChannelLogicResult => {
-  if (!isSignedInUser(userUUID)) {
-    return mkErrorAutheticationUserIsNotSignIn();
-  }
-
-  if (!isChannelIdRegistered(channelId, fishState.channels)) {
-    const message = `Cannot archive channel (${channelId}) as it is not registered in the system`;
-    logBugBl(message);
-    return {
-      type: 'error',
-      code: ErrorCode.ChannelDoesNotExist,
-      message,
-    };
-  }
-
-  if (!hasUserCreatedChannel(userUUID, channelId, fishState.channels)) {
-    const message = `Cannot archive this channel because its user (${userUUID}) is not the owner of this channel (${channelId})`;
-    logBugBl(message);
-    return {
-      type: 'error',
-      code: ErrorCode.ChannelUserIsNotOwner,
-      message,
-    };
-  }
-
-  return {
-    type: 'ok',
-    tagsWithEvents: [getChannelArchived(channelId, userUUID)],
-    result: undefined,
-  };
 };
 
 export const unarchiveChannel = (pond: Pond) => async (

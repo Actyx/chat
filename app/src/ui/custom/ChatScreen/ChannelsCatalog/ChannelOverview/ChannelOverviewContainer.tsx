@@ -2,7 +2,6 @@ import { usePond } from '@actyx-contrib/react-pond';
 import React, { useContext, useState } from 'react';
 import { ChannelCatalogFish } from '../../../../../business-logic/channel-catalog-fish/channel-catalog-fish';
 import {
-  archiveChannelLogic,
   associateUserToChannel,
   dissociateUserChannel,
   hasUserCreatedChannel,
@@ -14,6 +13,7 @@ import { ChannelOverviewUI } from '../ChannelsCatalog';
 import { ChannelOverview } from './ChannelOverview';
 import { useFish } from '../../../../utils/use-fish';
 import { wire } from '../../../../../business-logic/common/logic-helpers';
+import { archiveChannel } from '../../../../../business-logic/channel-catalog-fish/logic/archiveChannel';
 
 type ChannelOverviewContainerProps = Readonly<{
   channelOverview: ChannelOverviewUI;
@@ -46,10 +46,7 @@ export const ChannelOverviewContainer = ({
       stateChannelsCatalogFish.channels
     );
 
-  const performArchiveChannel = wire(
-    pond,
-    ChannelCatalogFish
-  )(archiveChannelLogic);
+  const performArchiveChannel = wire(pond, ChannelCatalogFish)(archiveChannel);
 
   const handleArchiveChannel = async (channelId: ChannelId) => {
     const hasUserConfirmed = window.confirm(CONFIRM_ARCHIVE_CHANNEL);

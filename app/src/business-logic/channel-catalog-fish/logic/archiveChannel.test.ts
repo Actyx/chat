@@ -1,31 +1,29 @@
-import { ErrorCode } from '../common/logic-types';
-import { archiveChannelLogic } from './logic';
+import { ErrorCode } from '../../common/logic-types';
+import { archiveChannel } from './archiveChannel';
 
-describe('logic', () => {
-  describe('archiveChannelLogic', () => {
-    it('should not archive a channel if user is not signed-in', () => {
-      const result = archiveChannelLogic(
-        { channels: {} },
-        'anonymous-user',
-        'channel-1'
-      );
-
-      const expectedResult = {
-        type: 'error',
-        code: 'AutheticationUserIsNotSignedIn',
-        message: expect.any(String),
-      };
-
-      expect(result).toMatchObject(expectedResult);
-    });
-  });
-
-  it('should not archive a channel if channel profile does not exits', () => {
-    const result = archiveChannelLogic({ channels: {} }, 'user-1', 'channel-1');
+describe('archiveChannel', () => {
+  it('should not archive a channel if user is not signed-in', () => {
+    const result = archiveChannel(
+      { channels: {} },
+      'anonymous-user',
+      'channel-1'
+    );
 
     const expectedResult = {
       type: 'error',
-      code: ErrorCode.ChannelDoesNotExist,
+      code: 'AutheticationUserIsNotSignedIn',
+      message: expect.any(String),
+    };
+
+    expect(result).toMatchObject(expectedResult);
+  });
+
+  it('should not archive a channel if channel profile does not exits', () => {
+    const result = archiveChannel({ channels: {} }, 'user-1', 'channel-1');
+
+    const expectedResult = {
+      type: 'error',
+      code: ErrorCode.ChannelDoesNotExist, // FIXME use string instead
       message: expect.any(String),
     };
 
@@ -33,7 +31,7 @@ describe('logic', () => {
   });
 
   it('should not archive a channel if user is not the its owner', () => {
-    const result = archiveChannelLogic(
+    const result = archiveChannel(
       {
         channels: {
           'channel-1': {
@@ -62,7 +60,7 @@ describe('logic', () => {
   });
 
   it('should archive a channel', () => {
-    const result = archiveChannelLogic(
+    const result = archiveChannel(
       {
         channels: {
           'channel-1': {
