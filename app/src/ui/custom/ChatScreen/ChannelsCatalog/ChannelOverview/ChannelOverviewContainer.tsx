@@ -9,7 +9,7 @@ import { useFish } from '../../../../utils/use-fish';
 import { wire } from '../../../../../business-logic/common/logic-helpers';
 import { archiveChannel } from '../../../../../business-logic/channel-catalog-fish/logic/archiveChannel';
 import { unarchiveChannel } from '../../../../../business-logic/channel-catalog-fish/logic/unarchiveChannel';
-import { associateUserToChannelLogic } from '../../../../../business-logic/channel-catalog-fish/logic/associateUserToChannel';
+import { associateUserToChannel } from '../../../../../business-logic/channel-catalog-fish/logic/associateUserToChannel';
 import { dissociateUserChannelLogic } from '../../../../../business-logic/channel-catalog-fish/logic/dissociateUserChannel';
 import { hasUserCreatedChannel } from '../../../../../business-logic/channel-catalog-fish/logic-helpers';
 
@@ -57,7 +57,7 @@ export const ChannelOverviewContainer = ({
     }
   };
 
-  const performAssociateUserToChannel = wirePond(associateUserToChannelLogic);
+  const performAssociateUserToChannel = wirePond(associateUserToChannel);
 
   const handleAssociateUserChannel = async (channelId: ChannelId) =>
     performAssociateUserToChannel(stateUI.userUUID, channelId).catch(

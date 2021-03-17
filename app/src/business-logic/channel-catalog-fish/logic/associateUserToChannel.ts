@@ -16,7 +16,7 @@ import {
   ChannelCatalogFishState,
 } from '../types';
 
-export const associateUserToChannelLogic = (
+export const associateUserToChannel = (
   fishState: ChannelCatalogFishState,
   userUUID: UserUUID,
   channelId: ChannelId
