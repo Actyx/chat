@@ -1,11 +1,7 @@
 import { Pond } from '@actyx/pond';
 import { isStringEmpty, prepareString } from '../../common/strings';
 import { SYSTEM_USER, UserUUID } from '../user-catalog-fish/types';
-import {
-  getChannelAdded,
-  getChannelAssociatedUser,
-  getChannelDissociatedUser,
-} from './events';
+import { getChannelAdded, getChannelDissociatedUser } from './events';
 import { ChannelId } from '../message/types';
 import { Channels, ChannelCatalogFishState, Users } from './types';
 import { ChannelCatalogFish } from './channel-catalog-fish';
@@ -58,27 +54,6 @@ export const prepareContentChannelProfile = (
     ? undefined
     : prepareString(description);
   return { newName, newDescription };
-};
-
-export const associateUserToChannel = (pond: Pond) => async (
-  userUUID: UserUUID,
-  channelId: ChannelId
-): Promise<boolean> => {
-  let isSuccess = false;
-  if (isSignedInUser(userUUID)) {
-    await pond
-      .run(ChannelCatalogFish, (fishState, enqueue) => {
-        const canAssociate =
-          !isUserAssociatedToChannel(userUUID, channelId, fishState.channels) &&
-          isChannelIdRegistered(channelId, fishState.channels);
-        if (canAssociate) {
-          enqueue(...getChannelAssociatedUser(channelId, userUUID));
-          isSuccess = true;
-        }
-      })
-      .toPromise();
-  }
-  return isSuccess;
 };
 
 export const dissociateUserChannel = (pond: Pond) => async (

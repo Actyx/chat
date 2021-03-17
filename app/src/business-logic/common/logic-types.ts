@@ -9,6 +9,7 @@ export enum ErrorCode {
   ChannelUserIsNotOwner = 'ChannelUserIsNotOwner',
   ChannelNameExist = 'ChannelNameExist',
   ChannelDoesNotExist = 'ChannelDoesNotExist',
+  ChannelUserIsNotAssociated = 'ChannelUserIsNotAssociated',
 }
 
 export type LogicResultSuccess<E, R> = Readonly<{

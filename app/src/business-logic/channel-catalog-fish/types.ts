@@ -122,4 +122,9 @@ export type UnarchiveChannelLogicResult = LogicResult<
   void
 >;
 
+export type AssociateUserToChannelLogicResult = LogicResult<
+  ChannelAssociatedUserEvent,
+  void
+>;
+
 //#endregion

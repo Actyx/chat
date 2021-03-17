@@ -2,7 +2,6 @@ import { usePond } from '@actyx-contrib/react-pond';
 import React, { useContext, useState } from 'react';
 import { ChannelCatalogFish } from '../../../../../business-logic/channel-catalog-fish/channel-catalog-fish';
 import {
-  associateUserToChannel,
   dissociateUserChannel,
   hasUserCreatedChannel,
 } from '../../../../../business-logic/channel-catalog-fish/logic';
@@ -14,6 +13,7 @@ import { useFish } from '../../../../utils/use-fish';
 import { wire } from '../../../../../business-logic/common/logic-helpers';
 import { archiveChannel } from '../../../../../business-logic/channel-catalog-fish/logic/archiveChannel';
 import { unarchiveChannel } from '../../../../../business-logic/channel-catalog-fish/logic/unarchiveChannel';
+import { associateUserToChannelLogic } from '../../../../../business-logic/channel-catalog-fish/logic/associateUserToChannel';
 
 type ChannelOverviewContainerProps = Readonly<{
   channelOverview: ChannelOverviewUI;
@@ -46,7 +46,9 @@ export const ChannelOverviewContainer = ({
       stateChannelsCatalogFish.channels
     );
 
-  const performArchiveChannel = wire(pond, ChannelCatalogFish)(archiveChannel);
+  const wirePond = wire(pond, ChannelCatalogFish);
+
+  const performArchiveChannel = wirePond(archiveChannel);
 
   const handleArchiveChannel = async (channelId: ChannelId) => {
     const hasUserConfirmed = window.confirm(CONFIRM_ARCHIVE_CHANNEL);
@@ -57,13 +59,12 @@ export const ChannelOverviewContainer = ({
     }
   };
 
-  const handleAssociateUserChannel = async (channelId: ChannelId) => {
-    try {
-      await associateUserToChannel(pond)(stateUI.userUUID, channelId);
-    } catch (err) {
-      setPondErrorMessage(err);
-    }
-  };
+  const performAssociateUserToChannel = wirePond(associateUserToChannelLogic);
+
+  const handleAssociateUserChannel = async (channelId: ChannelId) =>
+    performAssociateUserToChannel(stateUI.userUUID, channelId).catch(
+      setPondErrorMessage
+    );
 
   const performUnarchiveChannel = wire(
     pond,

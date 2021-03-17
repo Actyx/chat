@@ -47,3 +47,16 @@ export const mkErrorDoesChannelNameExist = (
     message: `The channel name (${channelName}) has been already registered in the system`,
   };
 };
+
+export const mkErrorUserIsNotAssociatedToChannel = (
+  userUUID: UserUUID,
+  channelId: ChannelId
+): LogicResultError => {
+  const message = `User (${userUUID}) is not associated to channel (${channelId})`;
+  logBugBl(message);
+  return {
+    type: 'error',
+    code: ErrorCode.ChannelUserIsNotAssociated,
+    message,
+  };
+};
