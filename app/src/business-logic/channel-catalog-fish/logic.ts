@@ -1,16 +1,13 @@
 import { Pond } from '@actyx/pond';
 import { isStringEmpty, prepareString } from '../../common/strings';
 import { SYSTEM_USER, UserUUID } from '../user-catalog-fish/types';
-import { getChannelAdded, getChannelDissociatedUser } from './events';
+import { getChannelAdded } from './events';
 import { ChannelId } from '../message/types';
 import { Channels, ChannelCatalogFishState, Users } from './types';
 import { ChannelCatalogFish } from './channel-catalog-fish';
 import { isSignedInUser } from '../user-catalog-fish/logic/helpers';
 import { DEFAULT_CHANNEL } from '../channel-fish/channel-fish';
-import {
-  getChannelProfileByChannelId,
-  isUserAssociatedToChannel,
-} from './logic-helpers';
+import { getChannelProfileByChannelId } from './logic-helpers';
 
 export const isChannelIdRegistered = (
   channelId: ChannelId,
@@ -54,27 +51,6 @@ export const prepareContentChannelProfile = (
     ? undefined
     : prepareString(description);
   return { newName, newDescription };
-};
-
-export const dissociateUserChannel = (pond: Pond) => async (
-  userUUID: UserUUID,
-  channelId: ChannelId
-): Promise<boolean> => {
-  let isSuccess = false;
-  if (isSignedInUser(userUUID)) {
-    await pond
-      .run(ChannelCatalogFish, (fishState, enqueue) => {
-        const canDissociate =
-          isUserAssociatedToChannel(userUUID, channelId, fishState.channels) &&
-          isChannelIdRegistered(channelId, fishState.channels);
-        if (canDissociate) {
-          enqueue(...getChannelDissociatedUser(channelId, userUUID));
-          isSuccess = true;
-        }
-      })
-      .toPromise();
-  }
-  return isSuccess;
 };
 
 export const addDefaultChannelIfDoesNotExist = (pond: Pond) => async (

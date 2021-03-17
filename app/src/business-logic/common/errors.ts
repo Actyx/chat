@@ -60,3 +60,16 @@ export const mkErrorUserIsNotAssociatedToChannel = (
     message,
   };
 };
+
+export const mkErrorUserIsAssociatedToChannel = (
+  userUUID: UserUUID,
+  channelId: ChannelId
+): LogicResultError => {
+  const message = `User (${userUUID}) is associated to channel (${channelId})`;
+  logBugBl(message);
+  return {
+    type: 'error',
+    code: ErrorCode.ChannelUserIsAssociated,
+    message,
+  };
+};

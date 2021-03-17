@@ -1,10 +1,7 @@
 import { usePond } from '@actyx-contrib/react-pond';
 import React, { useContext, useState } from 'react';
 import { ChannelCatalogFish } from '../../../../../business-logic/channel-catalog-fish/channel-catalog-fish';
-import {
-  dissociateUserChannel,
-  hasUserCreatedChannel,
-} from '../../../../../business-logic/channel-catalog-fish/logic';
+import { hasUserCreatedChannel } from '../../../../../business-logic/channel-catalog-fish/logic';
 import { ChannelId } from '../../../../../business-logic/message/types';
 import { StateContextUI } from '../../../../state-manager/UIStateManager';
 import { ChannelOverviewUI } from '../ChannelsCatalog';
@@ -14,6 +11,7 @@ import { wire } from '../../../../../business-logic/common/logic-helpers';
 import { archiveChannel } from '../../../../../business-logic/channel-catalog-fish/logic/archiveChannel';
 import { unarchiveChannel } from '../../../../../business-logic/channel-catalog-fish/logic/unarchiveChannel';
 import { associateUserToChannelLogic } from '../../../../../business-logic/channel-catalog-fish/logic/associateUserToChannel';
+import { dissociateUserChannelLogic } from '../../../../../business-logic/channel-catalog-fish/logic/dissociateUserChannel';
 
 type ChannelOverviewContainerProps = Readonly<{
   channelOverview: ChannelOverviewUI;
@@ -76,13 +74,12 @@ export const ChannelOverviewContainer = ({
       setPondErrorMessage
     );
 
-  const handleDissociateUserChannel = async (channelId: ChannelId) => {
-    try {
-      await dissociateUserChannel(pond)(stateUI.userUUID, channelId);
-    } catch (err) {
-      setPondErrorMessage(err);
-    }
-  };
+  const performDissociateUserChannel = wirePond(dissociateUserChannelLogic);
+
+  const handleDissociateUserChannel = async (channelId: ChannelId) =>
+    performDissociateUserChannel(stateUI.userUUID, channelId).catch(
+      setPondErrorMessage
+    );
 
   return (
     <ChannelOverview

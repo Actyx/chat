@@ -10,6 +10,7 @@ export enum ErrorCode {
   ChannelNameExist = 'ChannelNameExist',
   ChannelDoesNotExist = 'ChannelDoesNotExist',
   ChannelUserIsNotAssociated = 'ChannelUserIsNotAssociated',
+  ChannelUserIsAssociated = 'ChannelUserIsAssociated',
 }
 
 export type LogicResultSuccess<E, R> = Readonly<{

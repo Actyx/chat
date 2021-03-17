@@ -13,6 +13,7 @@ export const messages = {
     [Code.ChannelUserIsNotOwner]: 'User does not own this channel',
     [Code.ChannelNameExist]: 'That name is already taken by a channel',
     [Code.ChannelDoesNotExist]: 'Channel does not exist',
-    [Code.ChannelUserIsNotAssociated]: 'User is not associated channel',
+    [Code.ChannelUserIsNotAssociated]: 'User is not associated to channel',
+    [Code.ChannelUserIsAssociated]: 'User is associated to channel',
   },
 };
