@@ -1,8 +1,5 @@
-import { Timestamp } from '@actyx/pond';
 import { ChannelId } from '../message/types';
 import { UserUUID } from '../user-catalog-fish/types';
-
-//#region Events
 
 export enum ChannelCatalogFishEventType {
   ChannelAdded = 'ChannelAdded',
@@ -72,31 +69,3 @@ export type ChannelCatalogFishEvent =
   | ChannelUnarchiveEvent
   | ChannelAssociatedUserEvent
   | ChannelDissociatedUserEvent;
-
-//#endregion
-
-//#region State
-
-export type ChannelProfile = {
-  channelId: ChannelId;
-  createdOn: Timestamp;
-  createdBy: UserUUID;
-  editedOn?: Timestamp;
-  editedBy?: UserUUID;
-  isArchived: boolean;
-  name: string;
-  description?: string;
-};
-
-export type Users = UserUUID[];
-
-export type Channels = Record<
-  ChannelId,
-  { profile: ChannelProfile; users: Users }
->;
-
-export type ChannelCatalogFishState = Readonly<{
-  channels: Channels;
-}>;
-
-//#endregion

@@ -12,7 +12,8 @@ import {
   getChannelProfileByChannelId,
   prepareContentChannelProfile,
 } from '../logic-helpers';
-import { ChannelCatalogFishState, EditChannelLogicResult } from '../types';
+import { ChannelCatalogFishState } from '../types';
+import { EditChannelLogicResult } from './logic-types';
 
 export const editChannel = (
   fishState: ChannelCatalogFishState,

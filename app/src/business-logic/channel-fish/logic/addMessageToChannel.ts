@@ -3,7 +3,8 @@ import { ChannelId, MediaIds, PublicRecipientIds } from '../../message/types';
 import { isSignedInUser } from '../../user-catalog-fish/logic/helpers';
 import { UserUUID } from '../../user-catalog-fish/types';
 import { getPublicMessageAdded } from '../events';
-import { AddMessageToChannelResult, ChannelFishState } from '../types';
+import { ChannelFishState } from '../types';
+import { AddMessageToChannelResult } from './logic-types';
 
 export const addMessageToChannel = (makerUUID: () => UserUUID) => (
   fishState: ChannelFishState,

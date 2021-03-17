@@ -1,5 +1,4 @@
 import { Timestamp } from '@actyx/pond';
-import { LogicResult, LogicResultUI } from '../common/logic-types';
 
 //#region General
 
@@ -11,14 +10,6 @@ export type UserUUID = string;
 export const SYSTEM_USER: UserUUID = 'system-user';
 
 export type Email = string;
-
-export type UserProfile = {
-  userUUID: UserUUID;
-  createdOn: Timestamp;
-  editedOn?: Timestamp;
-  displayName: string;
-  email: Email;
-};
 
 //#endregion
 
@@ -54,6 +45,14 @@ export type UserCatalogFishEvent = UserAddedEvent | UserProfileEditedEvent;
 
 //#region State
 
+export type UserProfile = {
+  userUUID: UserUUID;
+  createdOn: Timestamp;
+  editedOn?: Timestamp;
+  displayName: string;
+  email: Email;
+};
+
 export type UsersEmails = Record<Email, UserUUID>;
 export type Users = Record<UserUUID, UserProfile>;
 
@@ -61,17 +60,5 @@ export type UserCatalogFishState = {
   users: Users;
   emails: UsersEmails;
 };
-
-//#endregion
-
-//#region Logic
-
-export type SignUpLogicResult = LogicResult<UserCatalogFishEvent, UserUUID>;
-
-export type SignUpLogicResultUI = LogicResultUI<UserUUID>;
-
-export type EditUserProfileResult = LogicResult<UserCatalogFishEvent, void>;
-
-export type EditUserProfileResultUI = LogicResultUI<void>;
 
 //#endregion

@@ -8,7 +8,8 @@ import { isSignedInUser } from '../../user-catalog-fish/logic/helpers';
 import { UserUUID } from '../../user-catalog-fish/types';
 import { getMessageContentEdited } from '../events';
 import { doesMessageBelongToUser, getMessageById } from './logic-helpers';
-import { ChannelFishState, EditMessageInChannelResult } from '../types';
+import { ChannelFishState } from '../types';
+import { EditMessageInChannelResult } from './logic-types';
 
 export const editMessageInChannel = (
   fishState: ChannelFishState,

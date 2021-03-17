@@ -7,10 +7,8 @@ import { UserUUID, SYSTEM_USER } from '../../user-catalog-fish/types';
 import { ChannelCatalogFish } from '../channel-catalog-fish';
 import { getChannelAdded } from '../events';
 import { isChannelIdRegistered } from '../logic-helpers';
-import {
-  AddDefaultChannelIfDoesNotExistLogicResult,
-  ChannelCatalogFishState,
-} from '../types';
+import { ChannelCatalogFishState } from '../types';
+import { AddDefaultChannelIfDoesNotExistLogicResult } from './logic-types';
 
 export const addDefaultChannelIfDoesNotExistLogic = (
   fishState: ChannelCatalogFishState,

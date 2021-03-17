@@ -11,10 +11,8 @@ import {
   isChannelIdRegistered,
   isUserAssociatedToChannel,
 } from '../logic-helpers';
-import {
-  AssociateUserToChannelLogicResult,
-  ChannelCatalogFishState,
-} from '../types';
+import { ChannelCatalogFishState } from '../types';
+import { AssociateUserToChannelLogicResult } from './logic-types';
 
 export const associateUserToChannel = (
   fishState: ChannelCatalogFishState,

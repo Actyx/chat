@@ -1,12 +1,8 @@
 import { ErrorCode } from '../../common/logic-types';
 import { getUserAddedEvent } from '../events';
-import {
-  Email,
-  SignUpLogicResult,
-  UserCatalogFishState,
-  UserUUID,
-} from '../types';
+import { Email, UserCatalogFishState, UserUUID } from '../types';
 import { isUserEmailRegistered } from './helpers';
+import { SignUpLogicResult } from './logic-types';
 
 export const signUp = (makerUUID: () => UserUUID) => (
   fishState: UserCatalogFishState,

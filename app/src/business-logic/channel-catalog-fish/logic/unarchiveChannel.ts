@@ -8,7 +8,8 @@ import { isSignedInUser } from '../../user-catalog-fish/logic/helpers';
 import { UserUUID } from '../../user-catalog-fish/types';
 import { getChannelUnarchived } from '../events';
 import { hasUserCreatedChannel, isChannelIdRegistered } from '../logic-helpers';
-import { ChannelCatalogFishState, UnarchiveChannelLogicResult } from '../types';
+import { ChannelCatalogFishState } from '../types';
+import { UnarchiveChannelLogicResult } from './logic-types';
 
 export const unarchiveChannel = (
   fishState: ChannelCatalogFishState,

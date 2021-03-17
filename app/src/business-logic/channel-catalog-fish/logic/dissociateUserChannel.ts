@@ -11,10 +11,8 @@ import {
   isChannelIdRegistered,
   isUserAssociatedToChannel,
 } from '../logic-helpers';
-import {
-  ChannelCatalogFishState,
-  DissociateUserChannelLogicResult,
-} from '../types';
+import { ChannelCatalogFishState } from '../types';
+import { DissociateUserChannelLogicResult } from './logic-types';
 
 export const dissociateUserChannel = (
   fishState: ChannelCatalogFishState,

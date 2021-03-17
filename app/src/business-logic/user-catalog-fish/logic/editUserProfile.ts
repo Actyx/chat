@@ -4,12 +4,9 @@ import { mkErrorAutheticationUserIsNotSignIn } from '../../common/errors';
 import { ErrorCode } from '../../common/logic-types';
 import { getUserProfileEditedEvent } from '../events';
 import { isUserUUIDRegistered } from './helpers';
-import {
-  EditUserProfileResult,
-  UserCatalogFishState,
-  UserUUID,
-} from '../types';
+import { UserCatalogFishState, UserUUID } from '../types';
 import { isSignedInUser } from './helpers';
+import { EditUserProfileResult } from './logic-types';
 
 export const editUserProfile = (
   fishState: UserCatalogFishState,
