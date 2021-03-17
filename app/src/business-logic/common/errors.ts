@@ -1,5 +1,5 @@
 import { logBugBl } from '../../logger/logger';
-import { ChannelId } from '../message/types';
+import { ChannelId, MessageId } from '../message/types';
 import { UserUUID } from '../user-catalog-fish/types';
 import { ErrorCode, LogicResultError } from './logic-types';
 
@@ -71,5 +71,26 @@ export const mkErrorUserIsAssociatedToChannel = (
     type: 'error',
     code: ErrorCode.ChannelUserIsAssociated,
     message,
+  };
+};
+
+export const mkErrorMessageDoesNotExist = (
+  messageId: MessageId
+): LogicResultError => {
+  return {
+    type: 'error',
+    code: ErrorCode.MessageDoesNotExist,
+    message: `Cannot edit a not existing message (${messageId})`,
+  };
+};
+
+export const mkErrorMessageUserIsNotOwner = (
+  messageId: MessageId,
+  userUUID: UserUUID
+): LogicResultError => {
+  return {
+    type: 'error',
+    code: ErrorCode.MessageUserIsNotOwner,
+    message: `Cannot edit message (${messageId}) does not belong to user (${userUUID}) `,
   };
 };

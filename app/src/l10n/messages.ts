@@ -16,5 +16,7 @@ export const messages = {
     [Ec.ChannelUserIsNotAssociated]: 'User is not associated to channel',
     [Ec.ChannelUserIsAssociated]: 'User is associated to channel',
     [Ec.ChannelDefaultAlredyExist]: 'Default channel already exist',
+    [Ec.MessageDoesNotExist]: 'Message does not exist',
+    [Ec.MessageUserIsNotOwner]: 'User is tno the owner of the message',
   },
 };

@@ -12,6 +12,8 @@ export enum ErrorCode {
   ChannelUserIsNotAssociated = 'ChannelUserIsNotAssociated',
   ChannelUserIsAssociated = 'ChannelUserIsAssociated',
   ChannelDefaultAlredyExist = 'ChannelDefaultAlredyExist',
+  MessageDoesNotExist = 'MessageDoesNotExist',
+  MessageUserIsNotOwner = 'MessageUserIsNotOwner',
 }
 
 export type LogicResultSuccess<E, R> = Readonly<{
