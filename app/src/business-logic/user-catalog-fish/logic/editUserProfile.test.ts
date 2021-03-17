@@ -2,7 +2,7 @@ import { editUserProfile } from './editUserProfile';
 
 describe('logic', () => {
   describe('editUserProfile', () => {
-    it('should not allow an anonymous user to edit a profile', () => {
+    it('should not edit user profile if user is not sign in', () => {
       const result = editUserProfile(
         {
           users: {
@@ -28,7 +28,7 @@ describe('logic', () => {
       expect(result).toMatchObject(expectedResult);
     });
 
-    it('should not allow a user trying to edit a profile when they are not registered', () => {
+    it('should not edit non existing user profile', () => {
       const result = editUserProfile(
         { users: {}, emails: {} },
         'SPO',
@@ -44,7 +44,7 @@ describe('logic', () => {
       expect(result).toMatchObject(expectedResult);
     });
 
-    it('should not allow a user trying to edit a profile without providing a display name', () => {
+    it('should not edit user profile without providing a display name', () => {
       const result = editUserProfile(
         {
           users: {
@@ -70,7 +70,7 @@ describe('logic', () => {
       expect(result).toMatchObject(expectedResult);
     });
 
-    it('should allow editing the user profile', () => {
+    it('should edit user profile', () => {
       const result = editUserProfile(
         {
           users: {
