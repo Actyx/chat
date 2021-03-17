@@ -7,7 +7,7 @@ import { ChannelId, MessageId } from '../../message/types';
 import { isSignedInUser } from '../../user-catalog-fish/logic/helpers';
 import { UserUUID } from '../../user-catalog-fish/types';
 import { getMessageHiddenEvent } from '../events';
-import { getMessageById, doesMessageBelongToUser } from '../logic';
+import { getMessageById, doesMessageBelongToUser } from './logic-helpers';
 import { ChannelFishState, HideMessageFromChannelResult } from '../types';
 
 export const hideMessageFromChannel = (

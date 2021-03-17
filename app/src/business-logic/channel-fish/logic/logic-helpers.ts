@@ -1,6 +1,6 @@
-import { MessageId, PublicMessage } from '../message/types';
-import { UserUUID } from '../user-catalog-fish/types';
-import { PublicMessages } from './types';
+import { MessageId, PublicMessage } from '../../message/types';
+import { UserUUID } from '../../user-catalog-fish/types';
+import { PublicMessages } from '../types';
 
 export const doesMessageBelongToUser = (
   userUUID: UserUUID,

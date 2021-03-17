@@ -2,7 +2,7 @@ import { Timestamp } from '@actyx/pond';
 import {
   canUserHideMessage,
   doesMessageBelongToUser,
-} from '../../../../business-logic/channel-fish/logic';
+} from '../../../../business-logic/channel-fish/logic/logic-helpers';
 import { PublicMessages } from '../../../../business-logic/channel-fish/types';
 import { Channels } from '../../../../business-logic/channel-catalog-fish/types';
 import {
