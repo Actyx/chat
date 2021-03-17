@@ -7,6 +7,10 @@ export type ChannelFishState = {
   messages: PublicMessages;
 };
 
+export type AddMessageToChannelResult = LogicResult<PublicMessageEvent, void>;
+
+export type AddMessageToChannelResultUI = LogicResultUI<void>;
+
 export type EditMessageInChannelResult = LogicResult<PublicMessageEvent, void>;
 
 export type EditMessageInChannelResultUI = LogicResultUI<void>;

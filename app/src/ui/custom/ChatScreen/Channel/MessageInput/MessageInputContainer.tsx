@@ -1,8 +1,10 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { usePond } from '@actyx-contrib/react-pond';
-import { addMessageToChannel } from '../../../../../business-logic/channel-fish/logic';
 import { StateContextUI } from '../../../../state-manager/UIStateManager';
 import { MessageInput } from './MessageInput';
+import { addMessageToChannelLogic } from '../../../../../business-logic/channel-fish/logic/addMessageToChannel';
+import { wire } from '../../../../../business-logic/common/logic-helpers';
+import { mkChannelFish } from '../../../../../business-logic/channel-fish/channel-fish';
 
 type MessageInputContainerProps = Readonly<{
   channelName: string;
@@ -17,18 +19,20 @@ export const MessageInputContainer = ({
 
   const stateUI = useContext(StateContextUI);
 
-  const handleAddMessage = async (content: string) => {
-    try {
-      await addMessageToChannel(pond)(
-        stateUI.activeChannelId,
-        stateUI.userUUID
-      )({
-        content,
-      });
-    } catch (err) {
-      setPondErrorMessage(err);
-    }
-  };
+  const performAddMessage = wire(
+    pond,
+    mkChannelFish(stateUI.activeChannelId)
+  )(addMessageToChannelLogic);
+
+  const handleAddMessage = async (content: string) =>
+    performAddMessage(
+      stateUI.activeChannelId,
+      stateUI.userUUID,
+      content,
+      undefined,
+      undefined
+    ).catch(setPondErrorMessage);
+
   return (
     <MessageInput
       channelName={channelName}
