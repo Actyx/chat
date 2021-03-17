@@ -4,10 +4,6 @@ import {
   doesMessageBelongToUser,
 } from '../../../../business-logic/channel-fish/logic';
 import { PublicMessages } from '../../../../business-logic/channel-fish/types';
-import {
-  getChannelUsersByChannelId,
-  isChannelIdSystemDefault,
-} from '../../../../business-logic/channel-catalog-fish/logic';
 import { Channels } from '../../../../business-logic/channel-catalog-fish/types';
 import {
   ChannelId,
@@ -29,6 +25,8 @@ import { ChannelsOverviewUI } from '../ChannelsCatalog/ChannelsCatalog';
 import { ChannelsListUI, UsersListUI } from '../Sidebar/Sidebar';
 import {
   getChannelProfileByChannelId,
+  getChannelUsersByChannelId,
+  isChannelIdSystemDefault,
   isUserAssociatedToChannel,
 } from '../../../../business-logic/channel-catalog-fish/logic-helpers';
 import { isUserUUIDRegistered } from '../../../../business-logic/user-catalog-fish/logic/helpers';

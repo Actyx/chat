@@ -5,9 +5,14 @@ import {
 import { ChannelId } from '../../message/types';
 import { UserUUID } from '../../user-catalog-fish/types';
 import { getChannelDissociatedUser } from '../events';
-import { isChannelIdRegistered } from '../logic';
-import { isUserAssociatedToChannel } from '../logic-helpers';
-import { ChannelCatalogFishState, DissociateUserChannelLogicResult } from '../types';
+import {
+  isChannelIdRegistered,
+  isUserAssociatedToChannel,
+} from '../logic-helpers';
+import {
+  ChannelCatalogFishState,
+  DissociateUserChannelLogicResult,
+} from '../types';
 
 export const dissociateUserChannelLogic = (
   fishState: ChannelCatalogFishState,

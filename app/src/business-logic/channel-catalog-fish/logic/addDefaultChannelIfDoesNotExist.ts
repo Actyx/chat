@@ -6,7 +6,7 @@ import { isSignedInUser } from '../../user-catalog-fish/logic/helpers';
 import { UserUUID, SYSTEM_USER } from '../../user-catalog-fish/types';
 import { ChannelCatalogFish } from '../channel-catalog-fish';
 import { getChannelAdded } from '../events';
-import { isChannelIdRegistered } from '../logic';
+import { isChannelIdRegistered } from '../logic-helpers';
 import {
   AddDefaultChannelIfDoesNotExistLogicResult,
   ChannelCatalogFishState,

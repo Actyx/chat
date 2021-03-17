@@ -1,7 +1,6 @@
 import { usePond } from '@actyx-contrib/react-pond';
 import React, { useContext, useState } from 'react';
 import { ChannelCatalogFish } from '../../../../../business-logic/channel-catalog-fish/channel-catalog-fish';
-import { hasUserCreatedChannel } from '../../../../../business-logic/channel-catalog-fish/logic';
 import { ChannelId } from '../../../../../business-logic/message/types';
 import { StateContextUI } from '../../../../state-manager/UIStateManager';
 import { ChannelOverviewUI } from '../ChannelsCatalog';
@@ -12,6 +11,7 @@ import { archiveChannel } from '../../../../../business-logic/channel-catalog-fi
 import { unarchiveChannel } from '../../../../../business-logic/channel-catalog-fish/logic/unarchiveChannel';
 import { associateUserToChannelLogic } from '../../../../../business-logic/channel-catalog-fish/logic/associateUserToChannel';
 import { dissociateUserChannelLogic } from '../../../../../business-logic/channel-catalog-fish/logic/dissociateUserChannel';
+import { hasUserCreatedChannel } from '../../../../../business-logic/channel-catalog-fish/logic-helpers';
 
 type ChannelOverviewContainerProps = Readonly<{
   channelOverview: ChannelOverviewUI;

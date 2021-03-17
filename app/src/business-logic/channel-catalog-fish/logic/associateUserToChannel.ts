@@ -5,8 +5,10 @@ import {
 import { ChannelId } from '../../message/types';
 import { UserUUID } from '../../user-catalog-fish/types';
 import { getChannelAssociatedUser } from '../events';
-import { isChannelIdRegistered } from '../logic';
-import { isUserAssociatedToChannel } from '../logic-helpers';
+import {
+  isChannelIdRegistered,
+  isUserAssociatedToChannel,
+} from '../logic-helpers';
 import {
   AssociateUserToChannelLogicResult,
   ChannelCatalogFishState,

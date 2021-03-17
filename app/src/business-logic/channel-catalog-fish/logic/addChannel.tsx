@@ -6,7 +6,10 @@ import { ChannelId } from '../../message/types';
 import { isSignedInUser } from '../../user-catalog-fish/logic/helpers';
 import { UserUUID } from '../../user-catalog-fish/types';
 import { getChannelAdded } from '../events';
-import { doesChannelNameExist, prepareContentChannelProfile } from '../logic';
+import {
+  doesChannelNameExist,
+  prepareContentChannelProfile,
+} from '../logic-helpers';
 import { AddChannelLogicResult, ChannelCatalogFishState } from '../types';
 
 export const addChannel = (makerUUID: () => ChannelId) => (

@@ -7,8 +7,11 @@ import { ChannelId } from '../../message/types';
 import { isSignedInUser } from '../../user-catalog-fish/logic/helpers';
 import { UserUUID } from '../../user-catalog-fish/types';
 import { getChannelProfileEdited } from '../events';
-import { doesChannelNameExist, prepareContentChannelProfile } from '../logic';
-import { getChannelProfileByChannelId } from '../logic-helpers';
+import {
+  doesChannelNameExist,
+  getChannelProfileByChannelId,
+  prepareContentChannelProfile,
+} from '../logic-helpers';
 import { ChannelCatalogFishState, EditChannelLogicResult } from '../types';
 
 export const editChannel = (

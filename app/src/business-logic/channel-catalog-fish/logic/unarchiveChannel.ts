@@ -5,7 +5,7 @@ import {
 import { ChannelId } from '../../message/types';
 import { UserUUID } from '../../user-catalog-fish/types';
 import { getChannelUnarchived } from '../events';
-import { hasUserCreatedChannel, isChannelIdRegistered } from '../logic';
+import { hasUserCreatedChannel, isChannelIdRegistered } from '../logic-helpers';
 import { ChannelCatalogFishState, UnarchiveChannelLogicResult } from '../types';
 
 export const unarchiveChannel = (

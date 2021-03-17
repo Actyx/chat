@@ -7,7 +7,7 @@ import { ChannelId } from '../../message/types';
 import { isSignedInUser } from '../../user-catalog-fish/logic/helpers';
 import { UserUUID } from '../../user-catalog-fish/types';
 import { getChannelArchived } from '../events';
-import { hasUserCreatedChannel, isChannelIdRegistered } from '../logic';
+import { hasUserCreatedChannel, isChannelIdRegistered } from '../logic-helpers';
 import { ArchiveChannelLogicResult, ChannelCatalogFishState } from '../types';
 
 export const archiveChannel = (
