@@ -1,11 +1,7 @@
-import { Pond } from '@actyx/pond';
 import { isStringEmpty, prepareString } from '../../common/strings';
-import { SYSTEM_USER, UserUUID } from '../user-catalog-fish/types';
-import { getChannelAdded } from './events';
+import { UserUUID } from '../user-catalog-fish/types';
 import { ChannelId } from '../message/types';
 import { Channels, ChannelCatalogFishState, Users } from './types';
-import { ChannelCatalogFish } from './channel-catalog-fish';
-import { isSignedInUser } from '../user-catalog-fish/logic/helpers';
 import { DEFAULT_CHANNEL } from '../channel-fish/channel-fish';
 import { getChannelProfileByChannelId } from './logic-helpers';
 
@@ -51,31 +47,4 @@ export const prepareContentChannelProfile = (
     ? undefined
     : prepareString(description);
   return { newName, newDescription };
-};
-
-export const addDefaultChannelIfDoesNotExist = (pond: Pond) => async (
-  userUUID: UserUUID
-): Promise<boolean> => {
-  let isSuccess = false;
-  if (isSignedInUser(userUUID)) {
-    await pond
-      .run(ChannelCatalogFish, (fishState, enqueue) => {
-        const canAddDefault = !isChannelIdRegistered(
-          DEFAULT_CHANNEL.channelId,
-          fishState.channels
-        );
-        if (canAddDefault) {
-          enqueue(
-            ...getChannelAdded(
-              DEFAULT_CHANNEL.channelId,
-              SYSTEM_USER,
-              DEFAULT_CHANNEL.name
-            )
-          );
-          isSuccess = true;
-        }
-      })
-      .toPromise();
-  }
-  return isSuccess;
 };

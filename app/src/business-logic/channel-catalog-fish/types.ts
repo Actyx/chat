@@ -127,8 +127,13 @@ export type AssociateUserToChannelLogicResult = LogicResult<
   void
 >;
 
-export type DissociateUserChannelResult = LogicResult<
+export type DissociateUserChannelLogicResult = LogicResult<
   ChannelDissociatedUserEvent,
+  void
+>;
+
+export type AddDefaultChannelIfDoesNotExistLogicResult = LogicResult<
+  ChannelAddedEvent,
   void
 >;
 

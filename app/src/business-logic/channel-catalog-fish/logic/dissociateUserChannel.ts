@@ -7,13 +7,13 @@ import { UserUUID } from '../../user-catalog-fish/types';
 import { getChannelDissociatedUser } from '../events';
 import { isChannelIdRegistered } from '../logic';
 import { isUserAssociatedToChannel } from '../logic-helpers';
-import { ChannelCatalogFishState, DissociateUserChannelResult } from '../types';
+import { ChannelCatalogFishState, DissociateUserChannelLogicResult } from '../types';
 
 export const dissociateUserChannelLogic = (
   fishState: ChannelCatalogFishState,
   userUUID: UserUUID,
   channelId: ChannelId
-): DissociateUserChannelResult => {
+): DissociateUserChannelLogicResult => {
   if (!isChannelIdRegistered(channelId, fishState.channels)) {
     return mkErrorChannelDoesNotExist(channelId);
   }
