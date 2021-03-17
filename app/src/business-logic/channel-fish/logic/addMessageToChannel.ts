@@ -1,12 +1,11 @@
 import { mkErrorAutheticationUserIsNotSignIn } from '../../common/errors';
-import { mkUUID } from '../../common/util';
 import { ChannelId, MediaIds, PublicRecipientIds } from '../../message/types';
 import { isSignedInUser } from '../../user-catalog-fish/logic/helpers';
 import { UserUUID } from '../../user-catalog-fish/types';
 import { getPublicMessageAdded } from '../events';
 import { AddMessageToChannelResult, ChannelFishState } from '../types';
 
-export const addMessageToChannelLogic = (
+export const addMessageToChannel = (makerUUID: () => UserUUID) => (
   fishState: ChannelFishState,
   channelId: ChannelId,
   userUUID: UserUUID,
@@ -21,11 +20,12 @@ export const addMessageToChannelLogic = (
   //   if (!isChannelIdRegistered(channelId, fishState.channels)) {
   //     return mkErrorChannelDoesNotExist(channelId);
   //   }
+  const messageId = makerUUID();
   return {
     type: 'ok',
     tagsWithEvents: [
       getPublicMessageAdded({
-        messageId: mkUUID(),
+        messageId,
         createdBy: userUUID,
         channelId,
         content,

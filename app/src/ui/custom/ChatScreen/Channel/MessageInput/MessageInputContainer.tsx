@@ -2,9 +2,10 @@ import { useContext, useState } from 'react';
 import { usePond } from '@actyx-contrib/react-pond';
 import { StateContextUI } from '../../../../state-manager/UIStateManager';
 import { MessageInput } from './MessageInput';
-import { addMessageToChannelLogic } from '../../../../../business-logic/channel-fish/logic/addMessageToChannel';
+import { addMessageToChannel } from '../../../../../business-logic/channel-fish/logic/addMessageToChannel';
 import { wire } from '../../../../../business-logic/common/logic-helpers';
 import { mkChannelFish } from '../../../../../business-logic/channel-fish/channel-fish';
+import { mkUUID } from '../../../../../business-logic/common/util';
 
 type MessageInputContainerProps = Readonly<{
   channelName: string;
@@ -22,7 +23,7 @@ export const MessageInputContainer = ({
   const performAddMessage = wire(
     pond,
     mkChannelFish(stateUI.activeChannelId)
-  )(addMessageToChannelLogic);
+  )(addMessageToChannel(mkUUID));
 
   const handleAddMessage = async (content: string) =>
     performAddMessage(
