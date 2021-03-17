@@ -1,10 +1,5 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { ChannelId } from '../../../../business-logic/message/types';
-import {
-  showChannelsCatalogSection,
-  showChannelSection,
-} from '../../../state-manager/actions';
-import { DispatchContextUI } from '../../../state-manager/UIStateManager';
 import { ChannelsList } from './ChannelsList';
 import { Typography } from '../../../common/Typography/Typography';
 import { CollapsibleList } from './CollapsibleList';
@@ -32,22 +27,23 @@ type SidebarProps = Readonly<{
   appName: string;
   channels: ChannelsListUI;
   users: UsersListUI;
+  selectChannelsCatalog: () => void;
+  selectChannel: (channelId: ChannelId) => void;
 }>;
 
-export const Sidebar = ({ appName, channels, users }: SidebarProps) => {
-  const dispatch = useContext(DispatchContextUI);
-
-  const handleChannelsCatalog = () => dispatch(showChannelsCatalogSection());
-
-  const handleSelectChannel = (channelId: ChannelId) =>
-    dispatch(showChannelSection(channelId));
-
+export const Sidebar = ({
+  appName,
+  channels,
+  users,
+  selectChannelsCatalog,
+  selectChannel,
+}: SidebarProps) => {
   return (
     <div className="w-60 h-full bg-gray-700 sidebar">
       <Header appName={appName} />
       <Body>
         <Section>
-          <MainNavigation channelCatalog={handleChannelsCatalog} />
+          <MainNavigation channelCatalog={selectChannelsCatalog} />
         </Section>
         <Section>
           <CollapsibleList
@@ -59,10 +55,7 @@ export const Sidebar = ({ appName, channels, users }: SidebarProps) => {
               </Typography>
             }
           >
-            <ChannelsList
-              channels={channels}
-              selectChannel={handleSelectChannel}
-            />
+            <ChannelsList channels={channels} selectChannel={selectChannel} />
           </CollapsibleList>
         </Section>
         <Section>

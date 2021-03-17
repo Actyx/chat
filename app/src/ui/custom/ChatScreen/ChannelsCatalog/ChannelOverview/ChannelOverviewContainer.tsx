@@ -3,7 +3,7 @@ import React, { useContext, useState } from 'react';
 import { ChannelCatalogFish } from '../../../../../business-logic/channel-catalog-fish/channel-catalog-fish';
 import { ChannelId } from '../../../../../business-logic/message/types';
 import { StateContextUI } from '../../../../state-manager/UIStateManager';
-import { ChannelOverviewUI } from '../ChannelsCatalog';
+import { ChannelOverviewUI } from './ChannelsCatalog';
 import { ChannelOverview } from './ChannelOverview';
 import { useFish } from '../../../../utils/use-fish';
 import { wire } from '../../../../../business-logic/common/logic-helpers';

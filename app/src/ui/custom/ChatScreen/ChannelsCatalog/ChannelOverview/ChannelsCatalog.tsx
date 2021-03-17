@@ -1,16 +1,10 @@
 import { Timestamp } from '@actyx/pond';
-import React, { useContext } from 'react';
-import { ChannelId } from '../../../../business-logic/message/types';
-import { Button } from '../../../common/Button/Button';
-import { CentralSection } from '../../../common/CentralSection/CentralSection';
-import { SpeakerphoneIcon } from '../../../common/Icons/SpeakerphoneIcon';
-import { Typography } from '../../../common/Typography/Typography';
-import {
-  showAddChannelDialog,
-  showEditChannelDialog,
-} from '../../../state-manager/actions';
-import { DispatchContextUI } from '../../../state-manager/UIStateManager';
-import { ChannelOverviewContainer } from './ChannelOverview/ChannelOverviewContainer';
+import { ChannelId } from '../../../../../business-logic/message/types';
+import { Button } from '../../../../common/Button/Button';
+import { CentralSection } from '../../../../common/CentralSection/CentralSection';
+import { SpeakerphoneIcon } from '../../../../common/Icons/SpeakerphoneIcon';
+import { Typography } from '../../../../common/Typography/Typography';
+import { ChannelOverviewContainer } from './ChannelOverviewContainer';
 
 export type ChannelOverviewUI = Readonly<{
   channelId: ChannelId;
@@ -31,22 +25,15 @@ export type ChannelsOverviewUI = ReadonlyArray<ChannelOverviewUI>;
 
 type ChannelsCatalogProps = Readonly<{
   channels: ChannelsOverviewUI;
-  activeEditChannelId: (channelId: ChannelId) => void;
+  showAddChannelDialog: () => void;
+  showEditChannelDialog: (channelId: ChannelId) => void;
 }>;
 
 export const ChannelsCatalog = ({
   channels,
-  activeEditChannelId: activeChannelId,
+  showAddChannelDialog,
+  showEditChannelDialog,
 }: ChannelsCatalogProps) => {
-  const dispatch = useContext(DispatchContextUI);
-
-  const handleShowAddDialog = () => dispatch(showAddChannelDialog());
-
-  const handleShowEditChannelDialog = (channelId: ChannelId) => {
-    dispatch(showEditChannelDialog());
-    activeChannelId(channelId);
-  };
-
   return (
     <CentralSection
       header={
@@ -57,7 +44,7 @@ export const ChannelsCatalog = ({
               Channels overview
             </Typography>
           </div>
-          <Button type="button" color="white" click={handleShowAddDialog}>
+          <Button type="button" color="white" click={showAddChannelDialog}>
             Create Channel
           </Button>
         </>
@@ -66,7 +53,7 @@ export const ChannelsCatalog = ({
         <ChannelOverviewContainer
           key={c.channelId}
           channelOverview={c}
-          showEditChannelDialog={handleShowEditChannelDialog}
+          showEditChannelDialog={showEditChannelDialog}
         />
       ))}
     />

@@ -5,7 +5,7 @@ import { Button } from '../../../../common/Button/Button';
 import { CheckIcon } from '../../../../common/Icons/CheckIcon';
 import { Typography } from '../../../../common/Typography/Typography';
 import { DateTime } from '../../../../common/DateTime/DateTime';
-import { ChannelOverviewUI } from '../ChannelsCatalog';
+import { ChannelOverviewUI } from './ChannelsCatalog';
 import { Alert } from '../../../../common/Alert/Alert';
 
 type ChannelDetailsProps = Readonly<{

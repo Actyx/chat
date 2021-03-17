@@ -3,13 +3,20 @@ import React, { useContext } from 'react';
 import { ChannelCatalogFish } from '../../../../../business-logic/channel-catalog-fish/channel-catalog-fish';
 import { ChannelId } from '../../../../../business-logic/message/types';
 import { UserCatalogFish } from '../../../../../business-logic/user-catalog-fish/user-catalog-fish';
-import { StateContextUI } from '../../../../state-manager/UIStateManager';
+import {
+  showAddChannelDialog,
+  showEditChannelDialog,
+} from '../../../../state-manager/actions';
+import {
+  DispatchContextUI,
+  StateContextUI,
+} from '../../../../state-manager/UIStateManager';
 import { useFish } from '../../../../utils/use-fish';
 import {
   mapChannelsToChannelCatalogUI,
   sortAlphabeticChannelsOverview,
 } from '../../ChatContainer/ui-map';
-import { ChannelsCatalog } from '../ChannelsCatalog';
+import { ChannelsCatalog } from './ChannelsCatalog';
 
 type ChannelsCatalogContainerProps = Readonly<{
   activeEditChannelId: (channelId: ChannelId) => void;
@@ -18,6 +25,8 @@ type ChannelsCatalogContainerProps = Readonly<{
 export const ChannelsCatalogContainer = ({
   activeEditChannelId,
 }: ChannelsCatalogContainerProps) => {
+  const dispatch = useContext(DispatchContextUI);
+
   const pond = usePond();
 
   const stateUI = useContext(StateContextUI);
@@ -42,10 +51,18 @@ export const ChannelsCatalogContainer = ({
     )
   );
 
+  const handleShowAddDialog = () => dispatch(showAddChannelDialog());
+
+  const handleShowEditChannelDialog = (channelId: ChannelId) => {
+    dispatch(showEditChannelDialog());
+    activeEditChannelId(channelId); // TODO should be placeit in global UI state so we do not need to pass it around?
+  };
+
   return (
     <ChannelsCatalog
       channels={channelsOverviewCatalog}
-      activeEditChannelId={activeEditChannelId}
+      showAddChannelDialog={handleShowAddDialog}
+      showEditChannelDialog={handleShowEditChannelDialog}
     />
   );
 };
