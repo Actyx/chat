@@ -31,7 +31,7 @@ describe('logic', () => {
 
       const expectedResult = {
         type: 'error',
-        code: 'ChannelEditChannelProfileDoesNotExist',
+        code: 'ChannelDoesNotExist',
         message: expect.any(String),
       };
 

@@ -5,7 +5,6 @@ export enum ErrorCode {
   SignUpEmailAlreadyExists = 'SignUpEmailAlreadyExists',
   UserEditProfileDisplayNameIsRequired = 'UserEditProfileDisplayNameIsRequired',
   UserEditProfileUserIsNotRegistered = 'UserEditProfileUserIsNotRegistered',
-  ChannelEditChannelProfileDoesNotExist = 'ChannelEditChannelProfileDoesNotExist',
   ChannelUserIsNotOwner = 'ChannelUserIsNotOwner',
   ChannelNameExist = 'ChannelNameExist',
   ChannelDoesNotExist = 'ChannelDoesNotExist',

@@ -8,8 +8,6 @@ export const messages = {
     [Ec.UserEditProfileDisplayNameIsRequired]:
       "User's display name is required",
     [Ec.UserEditProfileUserIsNotRegistered]: 'User is not registered',
-    [Ec.ChannelEditChannelProfileDoesNotExist]:
-      'Cannot edit profile because it does not exist',
     [Ec.ChannelUserIsNotOwner]: 'User does not own this channel',
     [Ec.ChannelNameExist]: 'That name is already taken by a channel',
     [Ec.ChannelDoesNotExist]: 'Channel does not exist',

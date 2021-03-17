@@ -19,13 +19,16 @@ export const hideMessageFromChannel = (
   if (!isSignedInUser(userUUID)) {
     return mkErrorAutheticationUserIsNotSignIn();
   }
+
   const message = getMessageById(messageId, fishState.messages);
   if (!message) {
     return mkErrorMessageDoesNotExist(messageId);
   }
+
   if (!doesMessageBelongToUser(userUUID, message)) {
     return mkErrorMessageUserIsNotOwner(messageId, userUUID);
   }
+
   return {
     type: 'ok',
     tagsWithEvents: [getMessageHiddenEvent(messageId, channelId, userUUID)],

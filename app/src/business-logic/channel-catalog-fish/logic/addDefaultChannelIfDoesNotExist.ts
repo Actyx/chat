@@ -28,7 +28,7 @@ export const addDefaultChannelIfDoesNotExistLogic = (
     return {
       type: 'error',
       code: ErrorCode.ChannelDefaultAlredyExist,
-      message: 'Default channel already exist',
+      message: `Default channel (${DEFAULT_CHANNEL.channelId}) already exist`,
     };
   }
 

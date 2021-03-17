@@ -1,8 +1,10 @@
 import {
+  mkErrorAutheticationUserIsNotSignIn,
   mkErrorChannelDoesNotExist,
   mkErrorUserIsAssociatedToChannel,
 } from '../../common/errors';
 import { ChannelId } from '../../message/types';
+import { isSignedInUser } from '../../user-catalog-fish/logic/helpers';
 import { UserUUID } from '../../user-catalog-fish/types';
 import { getChannelAssociatedUser } from '../events';
 import {
@@ -19,6 +21,10 @@ export const associateUserToChannelLogic = (
   userUUID: UserUUID,
   channelId: ChannelId
 ): AssociateUserToChannelLogicResult => {
+  if (!isSignedInUser(userUUID)) {
+    return mkErrorAutheticationUserIsNotSignIn();
+  }
+
   if (!isChannelIdRegistered(channelId, fishState.channels)) {
     return mkErrorChannelDoesNotExist(channelId);
   }

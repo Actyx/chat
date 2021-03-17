@@ -1,8 +1,8 @@
 import {
   mkErrorAutheticationUserIsNotSignIn,
+  mkErrorChannelDoesNotExist,
   mkErrorDoesChannelNameExist,
 } from '../../common/errors';
-import { ErrorCode } from '../../common/logic-types';
 import { ChannelId } from '../../message/types';
 import { isSignedInUser } from '../../user-catalog-fish/logic/helpers';
 import { UserUUID } from '../../user-catalog-fish/types';
@@ -31,11 +31,7 @@ export const editChannel = (
 
   const profile = getChannelProfileByChannelId(channelId, fishState.channels);
   if (!profile) {
-    return {
-      type: 'error',
-      code: ErrorCode.ChannelEditChannelProfileDoesNotExist,
-      message: `Cannot edit channel (${channelId}) because channel profile is not registered in the system`,
-    };
+    return mkErrorChannelDoesNotExist(channelId);
   }
 
   const isEditName = profile.name !== newName;
