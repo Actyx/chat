@@ -82,12 +82,12 @@ export const ChannelOverview = ({
             <Typography tag="div" color="gray-medium">
               {isSystemUser
                 ? 'All Users as members'
-                : `${usersAssociatedTotal} member${
-                    usersAssociatedTotal > 1 ? 's' : ''
-                  }`}{' '}
+                : `${usersAssociatedTotal} members`}{' '}
               {usersAssociated.length > 0 && isSystemUser
                 ? ''
-                : `(${usersAssociated.join(', ')})`}
+                : usersAssociated.length > 0
+                ? `(${usersAssociated.join(', ')})`
+                : ''}
             </Typography>
             <Typography tag="div" color="gray-medium">
               {`Created by: ${createdBy} on `}{' '}
