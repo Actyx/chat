@@ -16,7 +16,7 @@ import {
   DissociateUserChannelLogicResult,
 } from '../types';
 
-export const dissociateUserChannelLogic = (
+export const dissociateUserChannel = (
   fishState: ChannelCatalogFishState,
   userUUID: UserUUID,
   channelId: ChannelId

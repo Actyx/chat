@@ -10,7 +10,7 @@ import { wire } from '../../../../../business-logic/common/logic-helpers';
 import { archiveChannel } from '../../../../../business-logic/channel-catalog-fish/logic/archiveChannel';
 import { unarchiveChannel } from '../../../../../business-logic/channel-catalog-fish/logic/unarchiveChannel';
 import { associateUserToChannel } from '../../../../../business-logic/channel-catalog-fish/logic/associateUserToChannel';
-import { dissociateUserChannelLogic } from '../../../../../business-logic/channel-catalog-fish/logic/dissociateUserChannel';
+import { dissociateUserChannel } from '../../../../../business-logic/channel-catalog-fish/logic/dissociateUserChannel';
 import { hasUserCreatedChannel } from '../../../../../business-logic/channel-catalog-fish/logic-helpers';
 
 type ChannelOverviewContainerProps = Readonly<{
@@ -74,7 +74,7 @@ export const ChannelOverviewContainer = ({
       setPondErrorMessage
     );
 
-  const performDissociateUserChannel = wirePond(dissociateUserChannelLogic);
+  const performDissociateUserChannel = wirePond(dissociateUserChannel);
 
   const handleDissociateUserChannel = async (channelId: ChannelId) =>
     performDissociateUserChannel(stateUI.userUUID, channelId).catch(
