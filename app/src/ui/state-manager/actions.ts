@@ -3,17 +3,17 @@ import { UserUUID } from '../../business-logic/user-catalog-fish/types';
 import {
   ActionType,
   AddSignedInUser,
-  GoToAuthenticationScreen,
   EditSectionRight,
-  SectionRight,
-  SignOutActiveUser,
+  GoToAuthenticationScreen,
   GoToChatScreen,
+  HideDialog,
+  ShowAddChannelDialog,
   ShowChannelsCatalogSection,
   ShowChannelSection,
-  ShowAddChannelDialog,
-  HideDialog,
   ShowEditChannelDialog,
-} from './types';
+  SignOutActiveUser,
+} from './actions-types';
+import { SectionRight } from './state-types';
 
 export const goToAutheticationScreen = (): GoToAuthenticationScreen => ({
   type: ActionType.GoToAuthenticationScreen,
@@ -61,7 +61,6 @@ export const signOutActiveUser = (): SignOutActiveUser => ({
   type: ActionType.SignOutActiveUser,
 });
 
-// FIXME peraphs use a more generic fn;
 export const showAddChannelDialog = (): ShowAddChannelDialog => ({
   type: ActionType.ShowAddChannelDialog,
 });

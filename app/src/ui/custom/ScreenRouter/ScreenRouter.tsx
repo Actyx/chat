@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { AuthenticationScreen } from '../AuthenticationScreen/AuthenticationScreen';
 import { StateContextUI } from '../../state-manager/UIStateManager';
-import { Screens } from '../../state-manager/types';
+import { Screens } from '../../state-manager/state-types';
 import { ChatContainer } from '../ChatScreen/ChatContainer/ChatContainer';
 import { isSignedInUser } from '../../../business-logic/user-catalog-fish/logic/helpers';
 

@@ -3,7 +3,7 @@ import {
   Dialogs,
   SectionCenter,
   SectionRight,
-} from '../../../state-manager/types';
+} from '../../../state-manager/state-types';
 import { ChannelId } from '../../../../business-logic/message/types';
 import './chat.css';
 import { StateContextUI } from '../../../state-manager/UIStateManager';

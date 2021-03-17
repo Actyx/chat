@@ -1,15 +1,15 @@
 import { ReactChild, useReducer, createContext } from 'react';
 import { DEFAULT_CHANNEL } from '../../business-logic/channel-fish/channel-fish';
 import { ANONYMOUS_USER } from '../../business-logic/user-catalog-fish/types';
+import { Dispatcher } from './actions-types';
 import { reducer } from './reducer';
 import {
   Dialogs,
-  Dispatcher,
   Screens,
   SectionCenter,
   SectionRight,
   StateUI,
-} from './types';
+} from './state-types';
 
 const inititialState: StateUI = {
   screen: Screens.Authentication,

@@ -12,8 +12,6 @@ export const ChatContainer = () => {
 
   const stateUI = useContext(StateContextUI);
 
-  //#region Pond and Fishes
-
   const [pondErrorMessage, setPondErrorMessage] = useState<string>();
 
   useEffect(() => {
@@ -28,12 +26,6 @@ export const ChatContainer = () => {
 
     mainChannel();
   }, [pond, stateUI.userUUID]);
-
-  //#endregion
-
-  //#region UI mapping
-
-  //#endregion
 
   return pondErrorMessage ? (
     <Alert variant="danger">{pondErrorMessage}</Alert>
