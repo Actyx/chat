@@ -1,10 +1,10 @@
 import { usePond } from '@actyx-contrib/react-pond';
 import { Milliseconds } from '@actyx/pond';
 import React, { useContext, useState } from 'react';
-import {
-  editMessageInChannel,
-  hideMessageFromChannel,
-} from '../../../../../business-logic/channel-fish/logic';
+import { mkChannelFish } from '../../../../../business-logic/channel-fish/channel-fish';
+import { hideMessageFromChannel } from '../../../../../business-logic/channel-fish/logic';
+import { editMessageInChannel } from '../../../../../business-logic/channel-fish/logic/editMessageInChannel';
+import { wire } from '../../../../../business-logic/common/logic-helpers';
 import { MessageId } from '../../../../../business-logic/message/types';
 import { UserUUID } from '../../../../../business-logic/user-catalog-fish/types';
 import { StateContextUI } from '../../../../state-manager/UIStateManager';
@@ -41,15 +41,17 @@ export const MessageListContainer = ({
 
   const [pondErrorMessage, setPondErrorMessage] = useState<string>();
 
+  const wirePond = wire(pond, mkChannelFish(stateUI.activeChannelId));
+
+  const performEditMessage = wirePond(editMessageInChannel);
+
   const handleEditMessage = async (messageId: MessageId, content: string) => {
-    try {
-      await editMessageInChannel(pond)(
-        stateUI.activeChannelId,
-        stateUI.userUUID
-      )(messageId, content);
-    } catch (err) {
-      setPondErrorMessage(err);
-    }
+    performEditMessage(
+      stateUI.activeChannelId,
+      stateUI.userUUID,
+      messageId,
+      content
+    ).catch(setPondErrorMessage);
   };
 
   const handleHideMessage = async (messageId: MessageId) => {

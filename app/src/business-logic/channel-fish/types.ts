@@ -1,10 +1,12 @@
-import { PublicMessage } from '../message/types';
+import { LogicResult, LogicResultUI } from '../common/logic-types';
+import { PublicMessage, PublicMessageEvent } from '../message/types';
 
-//#region State
 export type PublicMessages = PublicMessage[];
 
 export type ChannelFishState = {
   messages: PublicMessages;
 };
 
-//#endregion
+export type EditMessageInChannelResult = LogicResult<PublicMessageEvent, void>;
+
+export type EditMessageInChannelResultUI = LogicResultUI<void>;
