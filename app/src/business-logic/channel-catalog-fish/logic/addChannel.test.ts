@@ -2,7 +2,7 @@ import { addChannel } from './addChannel';
 
 describe('logic', () => {
   describe('addChannel', () => {
-    it('should not add a new channel if user is not signed-in', () => {
+    it('should not add a new channel if user is not signed in', () => {
       const result = addChannel(() => 'channel-1')(
         { channels: {} },
         'anonymous-user',

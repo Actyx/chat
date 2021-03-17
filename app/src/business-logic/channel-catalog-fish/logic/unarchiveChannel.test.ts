@@ -2,6 +2,35 @@ import { unarchiveChannel } from './unarchiveChannel';
 
 describe('logic', () => {
   describe('unarchiveChannel', () => {
+    it('should not unarchive a channel if user is not signed in', () => {
+      const result = unarchiveChannel(
+        {
+          channels: {
+            'channel-1': {
+              profile: {
+                channelId: 'channel-1',
+                createdOn: 1615466183569000,
+                createdBy: 'user-1',
+                isArchived: false,
+                name: 'marketing',
+              },
+              users: ['user-1'],
+            },
+          },
+        },
+        'anonymous-user',
+        'channel-1'
+      );
+
+      const expectedResult = {
+        type: 'error',
+        code: 'AutheticationUserIsNotSignedIn',
+        message: expect.any(String),
+      };
+
+      expect(result).toMatchObject(expectedResult);
+    });
+
     it('should not unarchive if user is not the owner of the channel', () => {
       const result = unarchiveChannel(
         {
@@ -52,7 +81,7 @@ describe('logic', () => {
                 channelId: 'channel-1',
                 createdOn: 1615466183569000,
                 createdBy: 'user-1',
-                isArchived: false,
+                isArchived: true,
                 name: 'marketing',
               },
               users: ['user-1'],

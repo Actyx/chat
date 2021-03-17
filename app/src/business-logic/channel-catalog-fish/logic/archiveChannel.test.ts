@@ -2,7 +2,7 @@ import { archiveChannel } from './archiveChannel';
 
 describe('logic', () => {
   describe('archiveChannel', () => {
-    it('should not archive a channel if user is not signed-in', () => {
+    it('should not archive a channel if user is not signed in', () => {
       const result = archiveChannel(
         { channels: {} },
         'anonymous-user',
@@ -30,7 +30,7 @@ describe('logic', () => {
       expect(result).toMatchObject(expectedResult);
     });
 
-    it('should not archive a channel if user is not the its owner', () => {
+    it('should not archive a channel if user is not its owner', () => {
       const result = archiveChannel(
         {
           channels: {

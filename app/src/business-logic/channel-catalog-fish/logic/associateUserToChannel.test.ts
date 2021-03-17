@@ -18,7 +18,7 @@ describe('logic', () => {
       expect(result).toMatchObject(expectedResult);
     });
 
-    it('should not associated a user if channel does not exist', () => {
+    it('should not associated user if channel does not exist', () => {
       const result = associateUserToChannel(
         {
           channels: {

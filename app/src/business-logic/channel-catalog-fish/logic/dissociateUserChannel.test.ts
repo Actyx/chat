@@ -18,7 +18,7 @@ describe('logic', () => {
       expect(result).toMatchObject(expectedResult);
     });
 
-    it('should not dissociate a user if channel does not exist', () => {
+    it('should not dissociate user if channel does not exist', () => {
       const result = dissociateUserChannel(
         {
           channels: {
@@ -47,7 +47,7 @@ describe('logic', () => {
       expect(result).toMatchObject(expectedResult);
     });
 
-    it('should not dissociate user to a channel if he has been already dissociated', () => {
+    it('should not dissociate user from a channel if he has been already dissociated', () => {
       const result = dissociateUserChannel(
         {
           channels: {
@@ -86,7 +86,7 @@ describe('logic', () => {
       expect(result).toMatchObject(expectedResult);
     });
 
-    it('should dissociate user to channel', () => {
+    it('should dissociate user from channel', () => {
       const result = dissociateUserChannel(
         {
           channels: {

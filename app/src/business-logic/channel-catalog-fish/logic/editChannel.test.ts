@@ -2,7 +2,7 @@ import { editChannel } from './editChannel';
 
 describe('logic', () => {
   describe('editChannel', () => {
-    it('should not edit a new channel if user is not signed-in', () => {
+    it('should not edit a new channel if user is not signed in', () => {
       const result = editChannel(
         { channels: {} },
         'anonymous-user',
