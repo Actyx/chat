@@ -24,11 +24,12 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "craco build",
+    "build": "yarn run check-dep & craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "check-dep": "madge --circular src"
   },
   "eslintConfig": {
     "extends": [
@@ -60,6 +61,7 @@
     "@types/uuid": "^8.3.0",
     "autoprefixer": "^9",
     "eslint-plugin-prettier": "^3.3.1",
+    "madge": "^4.0.2",
     "postcss": "^7",
     "prettier": "^2.2.1",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat"
