@@ -10,3 +10,10 @@ export type ChannelFishState = {
 export type EditMessageInChannelResult = LogicResult<PublicMessageEvent, void>;
 
 export type EditMessageInChannelResultUI = LogicResultUI<void>;
+
+export type HideMessageFromChannelResult = LogicResult<
+  PublicMessageEvent,
+  void
+>;
+
+export type HideMessageFromChannelResultUI = LogicResultUI<void>;

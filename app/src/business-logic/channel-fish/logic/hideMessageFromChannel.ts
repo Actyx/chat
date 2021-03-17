@@ -3,17 +3,16 @@ import { ErrorCode } from '../../common/logic-types';
 import { ChannelId, MessageId } from '../../message/types';
 import { isSignedInUser } from '../../user-catalog-fish/logic/helpers';
 import { UserUUID } from '../../user-catalog-fish/types';
-import { getMessageContentEdited } from '../events';
-import { doesMessageBelongToUser, getMessageById } from '../logic';
-import { ChannelFishState, EditMessageInChannelResult } from '../types';
+import { getMessageHiddenEvent } from '../events';
+import { getMessageById, doesMessageBelongToUser } from '../logic';
+import { ChannelFishState, HideMessageFromChannelResult } from '../types';
 
-export const editMessageInChannel = (
+export const hideMessageFromChannelLogic = (
   fishState: ChannelFishState,
   channelId: ChannelId,
   userUUID: UserUUID,
-  messageId: MessageId,
-  content: string
-): EditMessageInChannelResult => {
+  messageId: MessageId
+): HideMessageFromChannelResult => {
   if (!isSignedInUser(userUUID)) {
     return mkErrorAutheticationUserIsNotSignIn();
   }
@@ -34,9 +33,7 @@ export const editMessageInChannel = (
   }
   return {
     type: 'ok',
-    tagsWithEvents: [
-      getMessageContentEdited(messageId, channelId, content, userUUID),
-    ],
+    tagsWithEvents: [getMessageHiddenEvent(messageId, channelId, userUUID)],
     result: undefined,
   };
 };

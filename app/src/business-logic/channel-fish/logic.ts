@@ -4,19 +4,15 @@ import {
   MediaIds,
   MessageId,
   PublicMessage,
-  PublicMessageEvent,
   PublicRecipientIds,
 } from '../message/types';
-import { getMessageHiddenEvent, getPublicMessageAdded } from './events';
+import { getPublicMessageAdded } from './events';
 import { UserUUID } from '../user-catalog-fish/types';
-import { ChannelFishState, PublicMessages } from './types';
+import { PublicMessages } from './types';
 import { v4 as uuid } from 'uuid';
-import { mkChannelFish } from './channel-fish';
 import { ChannelCatalogFish } from '../channel-catalog-fish/channel-catalog-fish';
 import { isSignedInUser } from '../user-catalog-fish/logic/helpers';
 import { isChannelIdRegistered } from '../channel-catalog-fish/logic-helpers';
-
-//#region Add message
 
 export const addMessageToChannel = (pond: Pond) => (
   channelId: ChannelId,
@@ -53,9 +49,6 @@ export const addMessageToChannel = (pond: Pond) => (
   }
   return isSuccess;
 };
-//#endregion
-
-//#region Edit message
 
 export const doesMessageBelongToUser = (
   userUUID: UserUUID,
@@ -71,32 +64,3 @@ export const getMessageById = (
   messageId: MessageId,
   messages: PublicMessages
 ): PublicMessage | undefined => messages.find((m) => m.messageId === messageId);
-
-//#endregion
-
-//#region Hide message
-
-export const hideMessageFromChannel = (pond: Pond) => (
-  channelId: ChannelId,
-  userUUID: UserUUID
-) => async (messageId: MessageId): Promise<boolean> => {
-  let isSuccess = false;
-  await pond
-    .run<ChannelFishState, PublicMessageEvent>(
-      mkChannelFish(channelId),
-      (fishState, enqueue) => {
-        const message = getMessageById(messageId, fishState.messages);
-        if (message) {
-          const canHide = doesMessageBelongToUser(userUUID, message);
-          if (canHide) {
-            enqueue(...getMessageHiddenEvent(messageId, channelId, userUUID));
-            isSuccess = true;
-          }
-        }
-      }
-    )
-    .toPromise();
-  return isSuccess;
-};
-
-//#endregion
