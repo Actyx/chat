@@ -77,10 +77,12 @@ export const mkErrorUserIsAssociatedToChannel = (
 export const mkErrorMessageDoesNotExist = (
   messageId: MessageId
 ): LogicResultError => {
+  const message = `Cannot edit a not existing message (${messageId})`;
+  logBugBl(message);
   return {
     type: 'error',
     code: ErrorCode.MessageDoesNotExist,
-    message: `Cannot edit a not existing message (${messageId})`,
+    message,
   };
 };
 
@@ -88,9 +90,11 @@ export const mkErrorMessageUserIsNotOwner = (
   messageId: MessageId,
   userUUID: UserUUID
 ): LogicResultError => {
+  const message = `Cannot edit message (${messageId}) does not belong to user (${userUUID}) `;
+  logBugBl(message);
   return {
     type: 'error',
     code: ErrorCode.MessageUserIsNotOwner,
-    message: `Cannot edit message (${messageId}) does not belong to user (${userUUID}) `,
+    message,
   };
 };
