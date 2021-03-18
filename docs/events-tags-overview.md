@@ -1,5 +1,6 @@
 # Events and Tags overview
 
+
 | Event                              | Description                                                            | Related Tags                                      |
 |------------------------------------|------------------------------------------------------------------------|---------------------------------------------------|
 | UserAddedEvent                     | User was added after sign-up                                           | user-catalog, user:id                             |
