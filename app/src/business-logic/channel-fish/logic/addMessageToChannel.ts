@@ -6,13 +6,16 @@ import { getPublicMessageAdded } from '../events';
 import { ChannelFishState } from '../types';
 import { AddMessageToChannelResult } from './logic-types';
 
+type AddMessageArgs = Readonly<{
+  channelId: ChannelId;
+  userUUID: UserUUID;
+  content: string;
+  mediaIds?: MediaIds;
+  recipientIds?: PublicRecipientIds;
+}>;
 export const addMessageToChannel = (makerUUID: () => UserUUID) => (
-  fishState: ChannelFishState,
-  channelId: ChannelId,
-  userUUID: UserUUID,
-  content: string,
-  mediaIds?: MediaIds,
-  recipientIds?: PublicRecipientIds
+  _fishState: ChannelFishState,
+  { channelId, userUUID, content, mediaIds, recipientIds }: AddMessageArgs
 ): AddMessageToChannelResult => {
   if (!isSignedInUser(userUUID)) {
     return mkErrorAutheticationUserIsNotSignIn();

@@ -5,11 +5,11 @@ describe('logic', () => {
     it('should not add message if user is not sign in', () => {
       const result = addMessageToChannel(() => 'message-1')(
         { messages: [] },
-        'channel-1',
-        'anonymous-user',
-        'Hello world!',
-        undefined,
-        undefined
+        {
+          channelId: 'channel-1',
+          userUUID: 'anonymous-user',
+          content: 'Hello world!',
+        }
       );
 
       const expectedResult = {
@@ -24,11 +24,7 @@ describe('logic', () => {
     it('should add message', () => {
       const result = addMessageToChannel(() => 'message-1')(
         { messages: [] },
-        'channel-1',
-        'user-1',
-        'Hello world!',
-        undefined,
-        undefined
+        { channelId: 'channel-1', userUUID: 'user-1', content: 'Hello world!' }
       );
 
       const expectedTags = {

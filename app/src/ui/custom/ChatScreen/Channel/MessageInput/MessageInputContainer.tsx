@@ -26,13 +26,11 @@ export const MessageInputContainer = ({
   )(addMessageToChannel(mkUUID));
 
   const handleAddMessage = async (content: string) =>
-    performAddMessage(
-      stateUI.activeChannelId,
-      stateUI.userUUID,
+    performAddMessage({
+      channelId: stateUI.activeChannelId,
+      userUUID: stateUI.userUUID,
       content,
-      undefined,
-      undefined
-    ).catch(setPondErrorMessage);
+    }).catch(setPondErrorMessage);
 
   return (
     <MessageInput
