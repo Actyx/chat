@@ -4,6 +4,25 @@ A simplified version of Slack for internal usage (POC) based on our technology.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Requirements
+
+ActyxOS v.1.1.2
+Actyx CLI or Node Manager
+
+## Run the app
+
+Make sure you download ActyxOS, following instructions and run:
+
+```bash
+docker run --name actyxos -it --rm -e AX_DEV_MODE=1 -v actyxos-data:/data --privileged -p 4001:4001 -p 4457:4457 -p 127.0.0.1:4243:4243 -p 127.0.0.1:4454:4454 actyx/os
+```
+
+Open Node Manager or use Actyx CLI to set up node settings, use content from file `settings/prod.actyx.os.json`.
+
+In this project folder visit `src` then run `yarn start`.
+
+Happy chatting!
+
 ## Available Scripts
 
 In the project directory `app`, you can run the following scripts after using `nvm use`:
