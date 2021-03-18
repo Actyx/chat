@@ -41,10 +41,12 @@ export const mkChannelUserIsNotOwner = (
 export const mkErrorDoesChannelNameExist = (
   channelName: string
 ): LogicResultError => {
+  const message = `The channel name (${channelName}) has been already registered in the system`;
+  logBugBl(message);
   return {
     type: 'error',
     code: ErrorCode.ChannelNameExist,
-    message: `The channel name (${channelName}) has been already registered in the system`,
+    message,
   };
 };
 
