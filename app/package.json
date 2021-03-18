@@ -24,12 +24,12 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "yarn run check-dep & craco build",
+    "build": "yarn check-deps & craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "check-dep": "madge --circular src"
+    "check-deps": "madge --circular src"
   },
   "eslintConfig": {
     "extends": [
