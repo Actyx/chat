@@ -12,16 +12,16 @@ Users can signup and login without using any third party
 **Channels**\
 A central space for conservations, users can communicate openly in these spaces.
 
-**Search**\
-Find messages among channels.
-
-**Direct messages**\
-Users can communicate privately outside Channels.
-
 **Messaging**\
 Users can send plain text messages. Users can edit/delete their messages.
 
-**Mentions**\
+**Search [LATER]**\
+Find messages among channels.
+
+**Direct messages [LATER]**\
+Users can communicate privately outside Channels.
+
+**Mentions [LATER]**\
 Users can see a list of messages where he was mentioned as a recipient across channels.
 
 ## Use cases details
@@ -29,7 +29,7 @@ Users can see a list of messages where he was mentioned as a recipient across ch
 ### Authentication
 
 - [x] A user sign-up to the system providing a display name and email, if the email provided is not already in the system, the system will register the user and return him a unique identifier. If the email already exists in the system the user won't be able to sign-up
-- [x] - A user can sign-in to the system proving a unique identifier, if the identifier is recorded in the system user can sign-in and visit the main channel, if the identifier provided does not exist in the system the user won't be able to sign-in
+- [x] A user can sign-in to the system proving a unique identifier, if the identifier is recorded in the system user can sign-in and visit the main channel, if the identifier provided does not exist in the system the user won't be able to sign-in
 
 User profile
 
