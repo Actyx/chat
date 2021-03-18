@@ -1,6 +1,6 @@
-# Design
+# Front-end design
 
-Design conventions adopted in this project:
+Design conventions adopted.
 
 ## Containers
 
