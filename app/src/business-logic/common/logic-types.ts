@@ -27,11 +27,15 @@ export type LogicResultError = Readonly<{
   message: string;
 }>;
 
-export type LogicResult<E, R> = LogicResultSuccess<E, R> | LogicResultError;
+export type LogicResult<E, R = void> =
+  | LogicResultSuccess<E, R>
+  | LogicResultError;
 
 export type LogicResultSuccessUI<R> = Readonly<{
   type: 'ok';
   result: R;
 }>;
 
-export type LogicResultUI<R> = LogicResultSuccessUI<R> | LogicResultError;
+export type LogicResultUI<R = void> =
+  | LogicResultSuccessUI<R>
+  | LogicResultError;

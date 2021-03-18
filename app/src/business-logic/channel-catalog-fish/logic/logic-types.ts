@@ -10,29 +10,14 @@ import {
 
 export type AddChannelLogicResult = LogicResult<ChannelAddedEvent, void>;
 
-export type EditChannelLogicResult = LogicResult<
-  ChannelProfileEditedEvent,
-  void
->;
+export type EditChannelLogicResult = LogicResult<ChannelProfileEditedEvent>;
 
 export type ArchiveChannelLogicResult = LogicResult<ChannelArchivedEvent, void>;
 
-export type UnarchiveChannelLogicResult = LogicResult<
-  ChannelUnarchiveEvent,
-  void
->;
+export type UnarchiveChannelLogicResult = LogicResult<ChannelUnarchiveEvent>;
 
-export type AssociateUserToChannelLogicResult = LogicResult<
-  ChannelAssociatedUserEvent,
-  void
->;
+export type AssociateUserToChannelLogicResult = LogicResult<ChannelAssociatedUserEvent>;
 
-export type DissociateUserChannelLogicResult = LogicResult<
-  ChannelDissociatedUserEvent,
-  void
->;
+export type DissociateUserChannelLogicResult = LogicResult<ChannelDissociatedUserEvent>;
 
-export type AddDefaultChannelIfDoesNotExistLogicResult = LogicResult<
-  ChannelAddedEvent,
-  void
->;
+export type AddDefaultChannelIfDoesNotExistLogicResult = LogicResult<ChannelAddedEvent>;
