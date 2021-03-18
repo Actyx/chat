@@ -90,6 +90,12 @@ A Container can be placed anywhere in the components tree and should be self-con
 
 There is a separation between state for UI and state for Fishes, components down in the tree can change the UI global state using a convenient hook `useContext(DispatchContextUI)`, so changes to a Fish state is done only via callback to the Container by emitting events to Pond.
 
+## Presentational components
+
+A Presentational component is concerned with how things look and view logic.
+It could visualize the global UI state and Dispatch actions to change it.
+It does no access directly Fish state or emits events to Pond directly, it can do that indirectly via props and callback to a corresponding Container.
+
 ## Folder structure
 
 - src/business-logic: Contains all Fishes and related business logic
