@@ -4,6 +4,25 @@ A simplified version of Slack for internal usage (POC) based on our technology.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Requirements
+
+ActyxOS v.1.1.2\
+Actyx CLI or Node Manager
+
+## Run the app
+
+Make sure you download ActyxOS, for docker run:
+
+```bash
+docker run --name actyxos -it --rm -e AX_DEV_MODE=1 -v actyxos-data:/data --privileged -p 4001:4001 -p 4457:4457 -p 127.0.0.1:4243:4243 -p 127.0.0.1:4454:4454 actyx/os
+```
+
+Open Node Manager or use Actyx CLI to set up node settings, use content from file [settings/prod.actyx.os.json](./settings/prod.actyx.os.json).
+
+In this project folder visit `src` then run `yarn start`.
+
+Happy chatting!
+
 ## Available Scripts
 
 In the project directory `app`, you can run the following scripts after using `nvm use`:
@@ -57,52 +76,11 @@ Build Storybook as a static web application.
 
 Detect circular dependencies.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-## Design
-
-Design conventions:
-
-### Containers
-
-A Container is a React component that does data fetching, runs business logic, and then renders its corresponding sub-component.
-
-A Container does:
-
-- Have access to Pond and get state of one or multiple Fishes
-- Pass data to business logic which if valid in return will emit events to Pond
-- Dispatch UI actions to change the global UI state
-- Access global UI state which can be passed to the business logic or it sub-component
-- Render related sub-component
-- Handle callbacks for its sub-component
-
-A container does not:
-
-- Contain any UI styling
-- Contain any view logic
-
-Only a Container can have access to Pond, Fish state, and business logic.
-A Container can be placed anywhere in the components tree and should be self-contained.
-
-There is a separation between state for UI and state for Fishes, components down in the tree can change the UI global state using a convenient hook `useContext(DispatchContextUI)`, so changes to a Fish state is done only via callback to the Container by emitting events to Pond.
-
-## Presentational components
-
-A Presentational component is concerned with how things look and view logic.
-It could visualize the global UI state and Dispatch actions to change it.
-It does no access directly Fish state or emits events to Pond directly, it can do that indirectly via props and callback to a corresponding Container.
-
 ## Folder structure
 
 - src/business-logic: Contains all Fishes and related business logic
 
 - src/business-logic/example-fish/logic: Contains business logic for a specific Fish, can emit events to the Pond
-
-- src/business-logic/example-fish/logic/logic-types.ts: Contains types related to the result of the business logic
 
 - src/business-logic/example-fish/events.ts: Utility functions to create events and to send them to Pond, they do not contain any business logic
 
@@ -140,6 +118,12 @@ You can confiture several aspects of the application by using object `chat` in `
 
 ## Others docs
 
-[Events and Tags](./docs/events-tags-overview.md)
-
 [Features and Use cases](./docs/features-use-cases.md)
+[Events and Tags](./docs/events-tags-overview.md)
+[Front-end design](./docs/fe-design.md)
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
