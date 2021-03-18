@@ -3,13 +3,13 @@ import {
   mkErrorMessageDoesNotExist,
   mkErrorMessageUserIsNotOwner,
 } from '../../common/errors';
-import { ChannelId, MessageId } from '../../message/types';
+import { ChannelId, MessageId, PublicMessageEvent } from '../../message/types';
 import { isSignedInUser } from '../../user-catalog-fish/logic/helpers';
 import { UserUUID } from '../../user-catalog-fish/types';
 import { getMessageContentEdited } from '../events';
 import { doesMessageBelongToUser, getMessageById } from './logic-helpers';
 import { ChannelFishState } from '../types';
-import { EditMessageInChannelResult } from './logic-types';
+import { LogicResult } from '../../common/logic-types';
 
 export const editMessageInChannel = (
   fishState: ChannelFishState,
@@ -17,7 +17,7 @@ export const editMessageInChannel = (
   userUUID: UserUUID,
   messageId: MessageId,
   content: string
-): EditMessageInChannelResult => {
+): LogicResult<PublicMessageEvent> => {
   if (!isSignedInUser(userUUID)) {
     return mkErrorAutheticationUserIsNotSignIn();
   }

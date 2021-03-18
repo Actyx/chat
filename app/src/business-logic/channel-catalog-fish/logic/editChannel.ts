@@ -3,6 +3,7 @@ import {
   mkErrorChannelDoesNotExist,
   mkErrorDoesChannelNameExist,
 } from '../../common/errors';
+import { LogicResult } from '../../common/logic-types';
 import { ChannelId } from '../../message/types';
 import { isSignedInUser } from '../../user-catalog-fish/logic/helpers';
 import { UserUUID } from '../../user-catalog-fish/types';
@@ -12,8 +13,7 @@ import {
   getChannelProfileByChannelId,
   prepareContentChannelProfile,
 } from '../logic-helpers';
-import { ChannelCatalogFishState } from '../types';
-import { EditChannelLogicResult } from './logic-types';
+import { ChannelCatalogFishState, ChannelProfileEditedEvent } from '../types';
 
 export const editChannel = (
   fishState: ChannelCatalogFishState,
@@ -21,7 +21,7 @@ export const editChannel = (
   channelId: ChannelId,
   name: string,
   description: string
-): EditChannelLogicResult => {
+): LogicResult<ChannelProfileEditedEvent> => {
   if (!isSignedInUser(userUUID)) {
     return mkErrorAutheticationUserIsNotSignIn();
   }

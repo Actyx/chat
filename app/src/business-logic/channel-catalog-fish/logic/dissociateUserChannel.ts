@@ -3,6 +3,7 @@ import {
   mkErrorChannelDoesNotExist,
   mkErrorUserIsNotAssociatedToChannel,
 } from '../../common/errors';
+import { LogicResult } from '../../common/logic-types';
 import { ChannelId } from '../../message/types';
 import { isSignedInUser } from '../../user-catalog-fish/logic/helpers';
 import { UserUUID } from '../../user-catalog-fish/types';
@@ -11,14 +12,13 @@ import {
   isChannelIdRegistered,
   isUserAssociatedToChannel,
 } from '../logic-helpers';
-import { ChannelCatalogFishState } from '../types';
-import { DissociateUserChannelLogicResult } from './logic-types';
+import { ChannelCatalogFishState, ChannelDissociatedUserEvent } from '../types';
 
 export const dissociateUserChannel = (
   fishState: ChannelCatalogFishState,
   userUUID: UserUUID,
   channelId: ChannelId
-): DissociateUserChannelLogicResult => {
+): LogicResult<ChannelDissociatedUserEvent> => {
   if (!isSignedInUser(userUUID)) {
     return mkErrorAutheticationUserIsNotSignIn();
   }

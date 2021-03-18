@@ -3,19 +3,19 @@ import {
   mkErrorAutheticationUserIsNotSignIn,
   mkErrorChannelDoesNotExist,
 } from '../../common/errors';
+import { LogicResult } from '../../common/logic-types';
 import { ChannelId } from '../../message/types';
 import { isSignedInUser } from '../../user-catalog-fish/logic/helpers';
 import { UserUUID } from '../../user-catalog-fish/types';
 import { getChannelArchived } from '../events';
 import { hasUserCreatedChannel, isChannelIdRegistered } from '../logic-helpers';
-import { ChannelCatalogFishState } from '../types';
-import { ArchiveChannelLogicResult } from './logic-types';
+import { ChannelArchivedEvent, ChannelCatalogFishState } from '../types';
 
 export const archiveChannel = (
   fishState: ChannelCatalogFishState,
   userUUID: UserUUID,
   channelId: ChannelId
-): ArchiveChannelLogicResult => {
+): LogicResult<ChannelArchivedEvent> => {
   if (!isSignedInUser(userUUID)) {
     return mkErrorAutheticationUserIsNotSignIn();
   }

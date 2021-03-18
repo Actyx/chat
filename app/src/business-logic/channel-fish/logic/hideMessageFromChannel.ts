@@ -3,20 +3,20 @@ import {
   mkErrorMessageDoesNotExist,
   mkErrorMessageUserIsNotOwner,
 } from '../../common/errors';
-import { ChannelId, MessageId } from '../../message/types';
+import { ChannelId, MessageId, PublicMessageEvent } from '../../message/types';
 import { isSignedInUser } from '../../user-catalog-fish/logic/helpers';
 import { UserUUID } from '../../user-catalog-fish/types';
 import { getMessageHiddenEvent } from '../events';
 import { getMessageById, doesMessageBelongToUser } from './logic-helpers';
 import { ChannelFishState } from '../types';
-import { HideMessageFromChannelResult } from './logic-types';
+import { LogicResult } from '../../common/logic-types';
 
 export const hideMessageFromChannel = (
   fishState: ChannelFishState,
   channelId: ChannelId,
   userUUID: UserUUID,
   messageId: MessageId
-): HideMessageFromChannelResult => {
+): LogicResult<PublicMessageEvent> => {
   if (!isSignedInUser(userUUID)) {
     return mkErrorAutheticationUserIsNotSignIn();
   }

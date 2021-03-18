@@ -1,10 +1,15 @@
 import { mkErrorAutheticationUserIsNotSignIn } from '../../common/errors';
-import { ChannelId, MediaIds, PublicRecipientIds } from '../../message/types';
+import { LogicResult } from '../../common/logic-types';
+import {
+  ChannelId,
+  MediaIds,
+  PublicMessageEvent,
+  PublicRecipientIds,
+} from '../../message/types';
 import { isSignedInUser } from '../../user-catalog-fish/logic/helpers';
 import { UserUUID } from '../../user-catalog-fish/types';
 import { getPublicMessageAdded } from '../events';
 import { ChannelFishState } from '../types';
-import { AddMessageToChannelResult } from './logic-types';
 
 type AddMessageArgs = Readonly<{
   channelId: ChannelId;
@@ -16,7 +21,7 @@ type AddMessageArgs = Readonly<{
 export const addMessageToChannel = (makerUUID: () => UserUUID) => (
   _fishState: ChannelFishState,
   { channelId, userUUID, content, mediaIds, recipientIds }: AddMessageArgs
-): AddMessageToChannelResult => {
+): LogicResult<PublicMessageEvent> => {
   if (!isSignedInUser(userUUID)) {
     return mkErrorAutheticationUserIsNotSignIn();
   }

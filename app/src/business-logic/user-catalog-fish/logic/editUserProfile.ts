@@ -3,18 +3,17 @@ import {
   mkErrorAutheticationUserIsNotSignIn,
   mkErrorUserEditProfileUserIsNotRegistered,
 } from '../../common/errors';
-import { ErrorCode } from '../../common/logic-types';
+import { ErrorCode, LogicResult } from '../../common/logic-types';
 import { getUserProfileEditedEvent } from '../events';
 import { isUserUUIDRegistered } from './helpers';
-import { UserCatalogFishState, UserUUID } from '../types';
+import { UserCatalogFishEvent, UserCatalogFishState, UserUUID } from '../types';
 import { isSignedInUser } from './helpers';
-import { EditUserProfileResult } from './logic-types';
 
 export const editUserProfile = (
   fishState: UserCatalogFishState,
   displayName: string,
   userUUID: UserUUID
-): EditUserProfileResult => {
+): LogicResult<UserCatalogFishEvent> => {
   if (!isSignedInUser(userUUID)) {
     return mkErrorAutheticationUserIsNotSignIn();
   }

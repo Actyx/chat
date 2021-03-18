@@ -1,14 +1,19 @@
 import { mkErrorSignUpEmailAlreadyExists } from '../../common/errors';
+import { LogicResult } from '../../common/logic-types';
 import { getUserAddedEvent } from '../events';
-import { Email, UserCatalogFishState, UserUUID } from '../types';
+import {
+  Email,
+  UserCatalogFishEvent,
+  UserCatalogFishState,
+  UserUUID,
+} from '../types';
 import { isUserEmailRegistered } from './helpers';
-import { SignUpLogicResult } from './logic-types';
 
 export const signUp = (makerUUID: () => UserUUID) => (
   fishState: UserCatalogFishState,
   displayName: string,
   email: Email
-): SignUpLogicResult => {
+): LogicResult<UserCatalogFishEvent, UserUUID> => {
   const userUUID = makerUUID();
   return isUserEmailRegistered(email, fishState.emails)
     ? mkErrorSignUpEmailAlreadyExists(email)
