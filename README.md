@@ -78,17 +78,14 @@ Detect circular dependencies.
 
 ## Folder structure
 
-- src/business-logic: Contains all Fishes and related business logic
-
-- src/business-logic/example-fish/logic: Contains business logic for a specific Fish, can emit events to the Pond
-
-- src/business-logic/example-fish/events.ts: Utility functions to create events and to send them to Pond, they do not contain any business logic
-
-- src/business-logic/example-fish/reducer.ts: The Fish reducer user in the `onEvent` function, the logic for each event type is written in separate functions
-
-- src/business-logic/example-fish/types.ts: All types related to a Fish, focusing on events, state, and tags
-
-- src/business-logic/example-fish/example-fish.ts: The actual Fish
+| Example                                         | Explanation                                                                                                     |
+|-------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| src/business-logic                              | Contains all Fishes and related business logics                                                                 |
+| src/business-logic/example-fish/logic           | Contains business logic for a specific Fish,                                                                    |
+| src/business-logic/example-fish/events.ts       | Utility functions to create events and be send to Pond, they do not contain any business logic                  |
+| src/business-logic/example-fish/reducer.ts      | The Fish reducer user in the `onEvent` function, the logic for each event type is written in separate functions |
+| src/business-logic/example-fish/types.ts        | All types related to a Fish, focusing on events, state, and tags                                                |
+| src/business-logic/example-fish/example-fish.ts | The actual Fish                                                                                                 |
 
 ## Naming conventions
 
