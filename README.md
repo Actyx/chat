@@ -78,7 +78,7 @@ Detect circular dependencies.
 
 ## Folder structure
 
-| Example                                         | Explanation                                                                                                     |
+| Pattern                                         | Description                                                                                                     |
 |-------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
 | src/business-logic                              | Contains all Fishes and related business logics                                                                 |
 | src/business-logic/example-fish/logic           | Contains business logic for a specific Fish,                                                                    |
