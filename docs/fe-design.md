@@ -1,6 +1,6 @@
 # Front-end design
 
-Design conventions adopted.
+Adopted design conventions.
 
 ## Containers
 
