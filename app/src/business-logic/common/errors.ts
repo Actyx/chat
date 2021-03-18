@@ -1,6 +1,7 @@
 import { logBugBl } from '../../logger/logger';
+import { DEFAULT_CHANNEL } from '../channel-fish/channel-fish';
 import { ChannelId, MessageId } from '../message/types';
-import { UserUUID } from '../user-catalog-fish/types';
+import { Email, UserUUID } from '../user-catalog-fish/types';
 import { ErrorCode, LogicResultError } from './logic-types';
 
 export const mkErrorAutheticationUserIsNotSignIn = (): LogicResultError => {
@@ -98,5 +99,35 @@ export const mkErrorMessageUserIsNotOwner = (
     type: 'error',
     code: ErrorCode.MessageUserIsNotOwner,
     message,
+  };
+};
+
+export const mkErrorSignUpEmailAlreadyExists = (
+  email: Email
+): LogicResultError => {
+  return {
+    type: 'error',
+    code: ErrorCode.SignUpEmailAlreadyExists,
+    message: `New user cannot sign up, email provided (${email}) is already registered in the system`,
+  };
+};
+
+export const mkErrorChannelDefaultAlredyExist = (): LogicResultError => {
+  return {
+    type: 'error',
+    code: ErrorCode.ChannelDefaultAlredyExist,
+    message: `Default channel (${DEFAULT_CHANNEL.channelId}) already exist`,
+  };
+};
+
+export const mkErrorUserEditProfileUserIsNotRegistered = (
+  userUUID: UserUUID
+): LogicResultError => {
+  const code = ErrorCode.UserEditProfileUserIsNotRegistered;
+  logBugBl(code);
+  return {
+    type: 'error',
+    code,
+    message: `UserUUID provided (${userUUID}) is not registered in the system`,
   };
 };

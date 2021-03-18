@@ -1,4 +1,4 @@
-import { ErrorCode } from '../../common/logic-types';
+import { mkErrorSignUpEmailAlreadyExists } from '../../common/errors';
 import { getUserAddedEvent } from '../events';
 import { Email, UserCatalogFishState, UserUUID } from '../types';
 import { isUserEmailRegistered } from './helpers';
@@ -11,11 +11,7 @@ export const signUp = (makerUUID: () => UserUUID) => (
 ): SignUpLogicResult => {
   const userUUID = makerUUID();
   return isUserEmailRegistered(email, fishState.emails)
-    ? {
-        type: 'error',
-        code: ErrorCode.SignUpEmailAlreadyExists,
-        message: `New user cannot sign up, email provided (${email}) is already registered in the system`,
-      }
+    ? mkErrorSignUpEmailAlreadyExists(email)
     : {
         type: 'ok',
         tagsWithEvents: [getUserAddedEvent(userUUID, displayName, email)],

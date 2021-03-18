@@ -1,6 +1,8 @@
 import { DEFAULT_CHANNEL } from '../../channel-fish/channel-fish';
-import { mkErrorAutheticationUserIsNotSignIn } from '../../common/errors';
-import { ErrorCode } from '../../common/logic-types';
+import {
+  mkErrorAutheticationUserIsNotSignIn,
+  mkErrorChannelDefaultAlredyExist,
+} from '../../common/errors';
 import { isSignedInUser } from '../../user-catalog-fish/logic/helpers';
 import { UserUUID, SYSTEM_USER } from '../../user-catalog-fish/types';
 import { getChannelAdded } from '../events';
@@ -21,11 +23,7 @@ export const addDefaultChannelIfDoesNotExist = (
     fishState.channels
   );
   if (hasDefaultChannel) {
-    return {
-      type: 'error',
-      code: ErrorCode.ChannelDefaultAlredyExist,
-      message: `Default channel (${DEFAULT_CHANNEL.channelId}) already exist`,
-    };
+    return mkErrorChannelDefaultAlredyExist();
   }
 
   return {

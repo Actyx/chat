@@ -1,6 +1,8 @@
 import { isStringEmpty, prepareString } from '../../../common/strings';
-import { logBugBl } from '../../../logger/logger';
-import { mkErrorAutheticationUserIsNotSignIn } from '../../common/errors';
+import {
+  mkErrorAutheticationUserIsNotSignIn,
+  mkErrorUserEditProfileUserIsNotRegistered,
+} from '../../common/errors';
 import { ErrorCode } from '../../common/logic-types';
 import { getUserProfileEditedEvent } from '../events';
 import { isUserUUIDRegistered } from './helpers';
@@ -18,13 +20,7 @@ export const editUserProfile = (
   }
 
   if (!isUserUUIDRegistered(userUUID, fishState.users)) {
-    const code = ErrorCode.UserEditProfileUserIsNotRegistered;
-    logBugBl(code);
-    return {
-      type: 'error',
-      code,
-      message: `UserUUID provided (${userUUID}) is not registered in the system`,
-    };
+    return mkErrorUserEditProfileUserIsNotRegistered(userUUID);
   }
 
   const newDisplayName = prepareString(displayName);
