@@ -1,0 +1,22 @@
+{
+    "general": {
+        "bootstrapNodes": [
+            "/dns4/demo-bootstrap.actyx.net/tcp/4001/ipfs/QmUD1mA3Y8qSQB34HmgSNcxDss72UHW2kzQy7RdVstN2hH"
+        ],
+        "displayName": "Chat local node",
+        "swarmKey": "L2tleS9zd2FybS9wc2svMS4wLjAvCi9iYXNlMTYvCjM4NTI0ZDQ1NGY3NDU5NzYzODQ3MzE1MTY3NTI3NzQ3MzE1Mjc1NzE0ZDMyNjk0YjZjNzE0OTcxNTY0NzRlNTU="
+    },
+    "licensing": {
+        "os": "development",
+        "apps": {}
+    },
+    "services": {
+        "consoleService": {},
+        "eventService": {
+            "readOnly": false,
+            "topic": "/actyx/chat/1"
+        },
+        "dockerRuntime": {},
+        "webViewRuntime": {}
+    }
+}
