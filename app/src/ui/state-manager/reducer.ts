@@ -1,13 +1,7 @@
 import { DEFAULT_CHANNEL } from '../../business-logic/channel-fish/channel-fish';
 import { ANONYMOUS_USER } from '../../business-logic/user-catalog-fish/types';
-import {
-  Action,
-  ActionType,
-  Dialogs,
-  Screens,
-  SectionCenter,
-  StateUI,
-} from './types';
+import { Action, ActionType } from './actions-types';
+import { Dialogs, Screens, SectionCenter, StateUI } from './state-types';
 
 export const reducer = (state: StateUI, action: Action): StateUI => {
   switch (action.type) {

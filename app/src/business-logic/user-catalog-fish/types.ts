@@ -11,14 +11,6 @@ export const SYSTEM_USER: UserUUID = 'system-user';
 
 export type Email = string;
 
-export type UserProfile = {
-  userUUID: UserUUID;
-  createdOn: Timestamp;
-  editedOn?: Timestamp;
-  displayName: string;
-  email: Email;
-};
-
 //#endregion
 
 //#region Events
@@ -53,7 +45,15 @@ export type UserCatalogFishEvent = UserAddedEvent | UserProfileEditedEvent;
 
 //#region State
 
-export type UsersEmails = Record<Email, null>;
+export type UserProfile = {
+  userUUID: UserUUID;
+  createdOn: Timestamp;
+  editedOn?: Timestamp;
+  displayName: string;
+  email: Email;
+};
+
+export type UsersEmails = Record<Email, UserUUID>;
 export type Users = Record<UserUUID, UserProfile>;
 
 export type UserCatalogFishState = {

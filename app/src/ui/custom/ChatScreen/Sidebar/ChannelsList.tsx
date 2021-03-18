@@ -5,7 +5,7 @@ import { ChannelsListUI } from './Sidebar';
 import { Row } from './Row';
 import { useContext } from 'react';
 import { StateContextUI } from '../../../state-manager/UIStateManager';
-import { SectionCenter } from '../../../state-manager/types';
+import { SectionCenter } from '../../../state-manager/state-types';
 
 type ChannelsListProps = Readonly<{
   channels: ChannelsListUI;

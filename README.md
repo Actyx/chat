@@ -49,6 +49,14 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 Open StoryBook with UI components in isolation visible at <http://localhost:6006/>
 
+### `yarn build-storybook`
+
+Build Storybook as a static web application.
+
+### `check-deps`
+
+Detect circular dependencies.
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
@@ -61,16 +69,40 @@ Design conventions:
 
 ### Containers
 
-Containers are React components responsible for wiring UI with business logic, they accept the Fish state and a Pond instance when necessary. A Pond instance is passed to Containers only, so passing Pond down in the components tree and emitting events from there is not allowed.
-Only a Container can have access to the business logic and can emit events to the Pond.
+A Container is a React component that does data fetching, runs business logic, and then renders its corresponding sub-component.
 
-There is a separation between state for UI and state for Fishes, components down in the tree can change the UI state using a convenient hook `useContext(DispatchContextUI)`, so changes to a Fish state is done only via callback to the Container by emitting events to Pond.
+A Container does:
+
+- Have access to Pond and get state of one or multiple Fishes
+- Pass data to business logic which if valid in return will emit events to Pond
+- Dispatch UI actions to change the global UI state
+- Access global UI state which can be passed to the business logic or it sub-component
+- Render related sub-component
+- Handle callbacks for its sub-component
+
+A container does not:
+
+- Contain any UI styling
+- Contain any view logic
+
+Only a Container can have access to Pond, Fish state, and business logic.
+A Container can be placed anywhere in the components tree and should be self-contained.
+
+There is a separation between state for UI and state for Fishes, components down in the tree can change the UI global state using a convenient hook `useContext(DispatchContextUI)`, so changes to a Fish state is done only via callback to the Container by emitting events to Pond.
+
+## Presentational components
+
+A Presentational component is concerned with how things look and view logic.
+It could visualize the global UI state and Dispatch actions to change it.
+It does no access directly Fish state or emits events to Pond directly, it can do that indirectly via props and callback to a corresponding Container.
 
 ## Folder structure
 
 - src/business-logic: Contains all Fishes and related business logic
 
-- src/business-logic/example-fish/logic.ts: Contains business logic for a specific Fish, can emit events to the Pond
+- src/business-logic/example-fish/logic: Contains business logic for a specific Fish, can emit events to the Pond
+
+- src/business-logic/example-fish/logic/logic-types.ts: Contains types related to the result of the business logic
 
 - src/business-logic/example-fish/events.ts: Utility functions to create events and to send them to Pond, they do not contain any business logic
 
@@ -88,9 +120,11 @@ There is a separation between state for UI and state for Fishes, components down
 
 ### src/ui
 
-Contains all UI React components, reusable components, and related utilities function.
+Contains all React components and related stories, it also includes Containers and related UI utilities function.
 
 - src/ui/ExampleScreen: Each subfolder represents a main screen in the application
+
+- src/ui/common: Reusable components like Button
 
 ## Application configurations
 

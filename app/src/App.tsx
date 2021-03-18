@@ -1,45 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { Pond } from '@actyx/pond';
+import React, { useState } from 'react';
 import { UIStateManager } from './ui/state-manager/UIStateManager';
-import { ScreenRooter as ScreenRouter } from './ui/custom/ScreenRouter/ScreenRouter';
-import { Debug } from './ui/custom/Debug/Debug';
-import { CircularProgress } from './ui/common/CircularProgress/CircularProgress';
+import { Pond } from '@actyx-contrib/react-pond';
 import { Alert } from './ui/common/Alert/Alert';
+import { Debug } from './ui/custom/Debug/Debug';
+import { ScreenRouter } from './ui/custom/ScreenRouter/ScreenRouter';
 
 export const App = () => {
-  const [pond, setPond] = useState<Pond>();
-
   const [pondErrorMessage, setPondErrorMessage] = useState<string>();
 
-  useEffect(() => {
-    const main = async () => {
-      try {
-        const axPond = await Pond.default();
-        setPond(axPond);
-      } catch (err) {
-        setPondErrorMessage(err);
-      }
-    };
-    main();
-  }, []);
-
   return (
-    <UIStateManager>
-      <>
-        {pond ? (
+    <>
+      <Pond onError={(err) => setPondErrorMessage(err as string)}>
+        <UIStateManager>
           <>
-            <ScreenRouter pond={pond} />
-            <Debug pond={pond} />
+            <ScreenRouter />
+            <Debug />
           </>
-        ) : (
-          <CircularProgress />
-        )}
-        {pondErrorMessage && (
-          <div className="fixed top-0 left-0 w-full">
-            <Alert variant="danger">{pondErrorMessage}</Alert>
-          </div>
-        )}
-      </>
-    </UIStateManager>
+        </UIStateManager>
+      </Pond>
+      {pondErrorMessage && (
+        <div className="fixed top-0 left-0 w-full">
+          <Alert variant="danger">{pondErrorMessage}</Alert>
+        </div>
+      )}
+    </>
   );
 };

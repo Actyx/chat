@@ -1,19 +1,16 @@
-import { Pond } from '@actyx/pond';
 import { useContext, useState } from 'react';
 import { mkChannelFish } from '../../../business-logic/channel-fish/channel-fish';
 import { ChannelCatalogFish } from '../../../business-logic/channel-catalog-fish/channel-catalog-fish';
 import { UserCatalogFish } from '../../../business-logic/user-catalog-fish/user-catalog-fish';
 import { StateContextUI } from '../../state-manager/UIStateManager';
 import { useFish } from '../../utils/use-fish';
-
-type DebugProps = Readonly<{
-  pond: Pond;
-}>;
+import { usePond } from '@actyx-contrib/react-pond';
 
 const format = (value: any) => JSON.stringify(value, undefined, 4);
 
-export const Debug = ({ pond }: DebugProps) => {
+export const Debug = () => {
   const stateUI = useContext(StateContextUI);
+  const pond = usePond();
 
   const [showDebug, setShowDebug] = useState<boolean>(false);
 

@@ -2,12 +2,8 @@ import { Timestamp } from '@actyx/pond';
 import {
   canUserHideMessage,
   doesMessageBelongToUser,
-} from '../../../../business-logic/channel-fish/logic';
+} from '../../../../business-logic/channel-fish/logic/logic-helpers';
 import { PublicMessages } from '../../../../business-logic/channel-fish/types';
-import {
-  getChannelUsersByChannelId,
-  isChannelIdSystemDefault,
-} from '../../../../business-logic/channel-catalog-fish/logic';
 import { Channels } from '../../../../business-logic/channel-catalog-fish/types';
 import {
   ChannelId,
@@ -16,7 +12,7 @@ import {
 import {
   getTotalUsers,
   isUserCreatedBySystem,
-} from '../../../../business-logic/user-catalog-fish/logic';
+} from '../../../../business-logic/user-catalog-fish/logic/helpers';
 import {
   SYSTEM_USER,
   Users,
@@ -25,13 +21,15 @@ import {
 import { genericSorter, localeComparator } from '../../../../common/sorts';
 import { isDefined } from '../../../../common/filters';
 import { MessagesUI } from '../Channel/Channel';
-import { ChannelsOverviewUI } from '../ChannelsCatalog/ChannelsCatalog';
+import { ChannelsOverviewUI } from '../ChannelsCatalog/ChannelOverview/ChannelsCatalog';
 import { ChannelsListUI, UsersListUI } from '../Sidebar/Sidebar';
 import {
   getChannelProfileByChannelId,
+  getChannelUsersByChannelId,
+  isChannelIdSystemDefault,
   isUserAssociatedToChannel,
 } from '../../../../business-logic/channel-catalog-fish/logic-helpers';
-import { isUserUUIDRegistered } from '../../../../business-logic/user-catalog-fish/logic-helpers';
+import { isUserUUIDRegistered } from '../../../../business-logic/user-catalog-fish/logic/helpers';
 
 export const mapPublicMessagesToChannelUI = (
   messages: PublicMessages,

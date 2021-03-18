@@ -3,7 +3,7 @@ import { getUserAddedEvent, getUserProfileEditedEvent } from './events';
 describe('UserCatalogFish', () => {
   describe('getUserAddedEvent', () => {
     it('should return valid tags and event', () => {
-      const result = getUserAddedEvent('user-1', 'Simon', 'simone@gmail.com');
+      const result = getUserAddedEvent('user-1', 'Simone', 'simone@gmail.com');
 
       const expectedTags = {
         rawTags: ['user-catalog', 'user', 'user:user-1'],
@@ -13,7 +13,7 @@ describe('UserCatalogFish', () => {
         type: 'UserAdded',
         payload: {
           userUUID: 'user-1',
-          displayName: 'Simon',
+          displayName: 'Simone',
           email: 'simone@gmail.com',
           createdBy: 'system-user',
         },

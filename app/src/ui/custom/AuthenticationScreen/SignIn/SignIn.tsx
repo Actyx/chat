@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-import { UserUUID } from '../../../business-logic/user-catalog-fish/types';
-import { FormEventElement, InputChangeEvent } from '../../utils/element-events';
-import { TextField } from '../../common/TextField/TextField';
-import { Button } from '../../common/Button/Button';
-import { Alert } from '../../common/Alert/Alert';
-import { Heading1 } from '../../common/Hedings/Heading1';
-import { SubHeading } from '../../common/SubHeading/SubHeading';
-import { ButtonTextLink } from '../../common/ButtonTextLink/ButtonTextLink';
-import { SparklesIcon } from '../../common/Icons/SparklesIcon';
-import { ExclamationIcon } from '../../common/Icons/ExclamationIcon';
+import { UserUUID } from '../../../../business-logic/user-catalog-fish/types';
+import {
+  FormEventElement,
+  InputChangeEvent,
+} from '../../../utils/element-events';
+import { TextField } from '../../../common/TextField/TextField';
+import { Button } from '../../../common/Button/Button';
+import { Alert } from '../../../common/Alert/Alert';
+import { Heading1 } from '../../../common/Hedings/Heading1';
+import { SubHeading } from '../../../common/SubHeading/SubHeading';
+import { ButtonTextLink } from '../../../common/ButtonTextLink/ButtonTextLink';
+import { SparklesIcon } from '../../../common/Icons/SparklesIcon';
+import { ExclamationIcon } from '../../../common/Icons/ExclamationIcon';
 
 type SignInProps = Readonly<{
   isSignInSuccess?: boolean;

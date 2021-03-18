@@ -1,18 +1,13 @@
-import { Pond } from '@actyx/pond';
 import { useContext } from 'react';
-import { AuthenticationContainer } from '../AuthenticationScreen/AuthenticationContainer';
+import { AuthenticationScreen } from '../AuthenticationScreen/AuthenticationScreen';
 import { StateContextUI } from '../../state-manager/UIStateManager';
-import { Screens } from '../../state-manager/types';
+import { Screens } from '../../state-manager/state-types';
 import { ChatContainer } from '../ChatScreen/ChatContainer/ChatContainer';
-import { isSignedInUser } from '../../../business-logic/user-catalog-fish/logic';
-
-type ScreenRooterProps = Readonly<{
-  pond: Pond;
-}>;
+import { isSignedInUser } from '../../../business-logic/user-catalog-fish/logic/helpers';
 
 const AccessNotAllowed = () => <div>Access is not allowed</div>;
 
-export const ScreenRooter = ({ pond }: ScreenRooterProps) => {
+export const ScreenRouter = () => {
   const stateUI = useContext(StateContextUI);
 
   const { screen, userUUID } = stateUI;
@@ -20,14 +15,10 @@ export const ScreenRooter = ({ pond }: ScreenRooterProps) => {
   const renderScreen = () => {
     switch (screen) {
       case Screens.Authentication:
-        return <AuthenticationContainer pond={pond} />;
+        return <AuthenticationScreen />;
       case Screens.Chat:
         const canRouteToChatScreen = isSignedInUser(userUUID);
-        return canRouteToChatScreen ? (
-          <ChatContainer pond={pond} />
-        ) : (
-          <AccessNotAllowed />
-        );
+        return canRouteToChatScreen ? <ChatContainer /> : <AccessNotAllowed />;
     }
   };
 

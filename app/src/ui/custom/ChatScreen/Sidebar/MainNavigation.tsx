@@ -3,7 +3,7 @@ import { Typography } from '../../../common/Typography/Typography';
 import { SpeakerphoneIcon } from '../../../common/Icons/SpeakerphoneIcon';
 import { useContext } from 'react';
 import { StateContextUI } from '../../../state-manager/UIStateManager';
-import { SectionCenter } from '../../../state-manager/types';
+import { SectionCenter } from '../../../state-manager/state-types';
 
 type MainNavigationProps = Readonly<{
   channelCatalog: () => void;

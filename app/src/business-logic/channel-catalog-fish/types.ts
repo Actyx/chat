@@ -2,21 +2,6 @@ import { Timestamp } from '@actyx/pond';
 import { ChannelId } from '../message/types';
 import { UserUUID } from '../user-catalog-fish/types';
 
-//#region General
-
-export type ChannelProfile = {
-  channelId: ChannelId;
-  createdOn: Timestamp;
-  createdBy: UserUUID;
-  editedOn?: Timestamp;
-  editedBy?: UserUUID;
-  isArchived: boolean;
-  name: string;
-  description?: string;
-};
-
-//#endregion
-
 //#region Events
 
 export enum ChannelCatalogFishEventType {
@@ -91,6 +76,17 @@ export type ChannelCatalogFishEvent =
 //#endregion
 
 //#region State
+
+export type ChannelProfile = {
+  channelId: ChannelId;
+  createdOn: Timestamp;
+  createdBy: UserUUID;
+  editedOn?: Timestamp;
+  editedBy?: UserUUID;
+  isArchived: boolean;
+  name: string;
+  description?: string;
+};
 
 export type Users = UserUUID[];
 

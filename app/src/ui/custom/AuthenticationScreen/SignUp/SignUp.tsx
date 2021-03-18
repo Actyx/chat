@@ -1,29 +1,36 @@
 import React, { useState, MouseEvent } from 'react';
-import { UserUUID } from '../../../business-logic/user-catalog-fish/types';
-import { FormEventElement, InputChangeEvent } from '../../utils/element-events';
-import { TextField } from '../../common/TextField/TextField';
-import { Heading1 } from '../../common/Hedings/Heading1';
-import { SubHeading } from '../../common/SubHeading/SubHeading';
-import { Button } from '../../common/Button/Button';
-import { Alert } from '../../common/Alert/Alert';
-import { ButtonTextLink } from '../../common/ButtonTextLink/ButtonTextLink';
-import { ExclamationIcon } from '../../common/Icons/ExclamationIcon';
+import {
+  FormEventElement,
+  InputChangeEvent,
+} from '../../../utils/element-events';
+import { TextField } from '../../../common/TextField/TextField';
+import { Heading1 } from '../../../common/Hedings/Heading1';
+import { SubHeading } from '../../../common/SubHeading/SubHeading';
+import { Button } from '../../../common/Button/Button';
+import { Alert } from '../../../common/Alert/Alert';
+import { ButtonTextLink } from '../../../common/ButtonTextLink/ButtonTextLink';
+import { ExclamationIcon } from '../../../common/Icons/ExclamationIcon';
 
 type SignUpProps = Readonly<{
-  signUp: (displayName: string, email: string) => Promise<UserUUID | undefined>;
+  isSignUpSuccess?: boolean;
+  invalidMessage?: string;
+  newUserUUID?: string;
+  pondErrorMessage?: string;
+  signUp: (displayName: string, email: string) => void;
   showSignIn: () => void;
 }>;
 
-export const SignUp = ({ signUp, showSignIn }: SignUpProps) => {
-  const [isSignUpSuccess, setIsSignUpSuccess] = useState<boolean>();
-
-  const [userUUID, setUserUUID] = useState<UserUUID>();
-
+export const SignUp = ({
+  isSignUpSuccess,
+  invalidMessage,
+  newUserUUID,
+  pondErrorMessage,
+  signUp,
+  showSignIn,
+}: SignUpProps) => {
   const [name, setName] = useState('');
 
   const [email, setEmail] = useState('');
-
-  const [pondErrorMessage, setPondErrorMessage] = useState<string>();
 
   const handleChangeName = (e: InputChangeEvent) => setName(e.target.value);
 
@@ -32,13 +39,7 @@ export const SignUp = ({ signUp, showSignIn }: SignUpProps) => {
   const handleSubmit = async (e: FormEventElement) => {
     e.preventDefault();
     e.stopPropagation();
-    try {
-      const newUserUUID = await signUp(name, email);
-      setIsSignUpSuccess(newUserUUID ? true : false);
-      setUserUUID(newUserUUID);
-    } catch (err) {
-      setPondErrorMessage(err);
-    }
+    signUp(name, email);
   };
 
   const handleOpenSignIn = (e: MouseEvent<HTMLButtonElement>) => showSignIn();
@@ -68,18 +69,18 @@ export const SignUp = ({ signUp, showSignIn }: SignUpProps) => {
           {isSignUpSuccess !== undefined && (
             <Alert
               icon={!isSignUpSuccess && <ExclamationIcon color="red-medium" />}
-              variant={isSignUpSuccess ? 'success' : 'danger'}
+              variant={isSignUpSuccess ? 'success' : 'warning'}
             >
               {isSignUpSuccess ? (
                 <div className="space-y-2">
-                  <div>Your password is (please keep it safe):</div>
-                  <div className="font-semibold">{userUUID}</div>
+                  <div>Your authetication token is (keep it safe):</div>
+                  <div className="font-semibold">{newUserUUID}</div>
                   <ButtonTextLink click={handleOpenSignIn}>
                     Click here to Sign-in
                   </ButtonTextLink>
                 </div>
               ) : (
-                'Email is already registered'
+                invalidMessage
               )}
             </Alert>
           )}

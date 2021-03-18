@@ -7,6 +7,7 @@ import { DateTime } from '../../../common/DateTime/DateTime';
 import { MessageActions } from './MessageActions';
 import { MessageEdit } from './MessageEdit';
 import cn from 'classnames';
+import { Alert } from '../../../common/Alert/Alert';
 
 export type MessageUI = Readonly<{
   messageId: string;
@@ -18,6 +19,7 @@ export type MessageUI = Readonly<{
   content: string;
   canEdit: boolean;
   canHide: boolean;
+  pondErrorMessage?: string;
 }>;
 
 type MessageProps = MessageUI &
@@ -36,7 +38,8 @@ export const Message = ({
   canEdit,
   canHide,
   editMessage,
-  hideMessage: hideMesage,
+  hideMessage,
+  pondErrorMessage,
 }: MessageProps) => {
   const [isCursorHover, setIsCursorHover] = useState<boolean>(false);
 
@@ -47,7 +50,7 @@ export const Message = ({
     setIsEditMode(false);
   };
 
-  const handleHideMessage = () => hideMesage(messageId);
+  const handleHideMessage = () => hideMessage(messageId);
 
   const handleEditMode = () => setIsEditMode(true);
 
@@ -65,49 +68,56 @@ export const Message = ({
   });
 
   return (
-    <div
-      className={stylesMessage}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <div className="flex space-x-3 items-center">
-        <Typography tag="div" weight="bold">
-          {senderDisplayName}
-        </Typography>
-        {!isEditMode && (
-          <Typography tag="div" size="sm" color="gray-medium">
-            <DateTime timestamp={editedOn ?? createdOn} />
+    <>
+      {pondErrorMessage && (
+        <div className="p-4">
+          <Alert variant="danger">{pondErrorMessage}</Alert>
+        </div>
+      )}
+      <div
+        className={stylesMessage}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <div className="flex space-x-3 items-center">
+          <Typography tag="div" weight="bold">
+            {senderDisplayName}
           </Typography>
-        )}
-      </div>
-      <Typography tag="div" color="gray-dark">
-        <p className="leading-relaxed">
-          {!isEditMode && content}
-          {!isEditMode && editedOn && (
-            <Typography size="sm" color="gray-light">
-              {' '}
-              (edited)
+          {!isEditMode && (
+            <Typography tag="div" size="sm" color="gray-medium">
+              <DateTime timestamp={editedOn ?? createdOn} />
             </Typography>
           )}
-        </p>
-      </Typography>
-      <div>
-        {isEditMode && (
-          <MessageEdit
-            currentContent={content}
-            editContent={handleEditMessage}
-            close={handleCloseEditMode}
+        </div>
+        <Typography tag="div" color="gray-dark">
+          <p className="leading-relaxed">
+            {!isEditMode && content}
+            {!isEditMode && editedOn && (
+              <Typography size="sm" color="gray-light">
+                {' '}
+                (edited)
+              </Typography>
+            )}
+          </p>
+        </Typography>
+        <div>
+          {isEditMode && (
+            <MessageEdit
+              currentContent={content}
+              editContent={handleEditMessage}
+              close={handleCloseEditMode}
+            />
+          )}
+        </div>
+        {showMessageActions && (
+          <MessageActions
+            canEdit={canEdit}
+            canHide={canHide}
+            edit={handleEditMode}
+            hide={handleHideMessage}
           />
         )}
       </div>
-      {showMessageActions && (
-        <MessageActions
-          canEdit={canEdit}
-          canHide={canHide}
-          edit={handleEditMode}
-          hide={handleHideMessage}
-        />
-      )}
-    </div>
+    </>
   );
 };

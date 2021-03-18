@@ -1,14 +1,12 @@
-import React, { useContext, useState } from 'react';
-import { MessageId } from '../../../../business-logic/message/types';
+import React, { useContext } from 'react';
 import { Typography } from '../../../common/Typography/Typography';
-import { MessageInput } from './MessageInput';
 import { UsersIcon } from '../../../common/Icons/UsersIcon';
 import { UserIcon } from '../../../common/Icons/UserIcon';
 import { MessageList } from './MessageList';
 import { MessageUI } from './Message';
 import { StateContextUI } from '../../../state-manager/UIStateManager';
 import { CentralSection } from '../../../common/CentralSection/CentralSection';
-import { Alert } from '../../../common/Alert/Alert';
+import { MessageInputContainer } from './MessageInput/MessageInputContainer';
 
 export type MessagesUI = ReadonlyArray<MessageUI>;
 
@@ -17,52 +15,15 @@ type ChannelProps = Readonly<{
   channelDescription?: string;
   messages: ReadonlyArray<MessageUI>;
   totalUsers: number;
-  editMessage: (messageId: MessageId, content: string) => void;
-  hideMessage: (messageId: MessageId) => void;
-  addMessage: (content: string) => void;
 }>;
-
-const CONFIRM_HIDE_MESSAGE = 'Are you sure to delete this message?';
 
 export const Channel = ({
   channelName,
   channelDescription,
   messages,
   totalUsers,
-  editMessage,
-  hideMessage,
-  addMessage,
 }: ChannelProps) => {
   const stateUI = useContext(StateContextUI);
-
-  const [pondErrorMessage, setPondErrorMessage] = useState<string>();
-
-  const handleAddMessage = async (content: string) => {
-    try {
-      await addMessage(content);
-    } catch (err) {
-      setPondErrorMessage(err);
-    }
-  };
-
-  const handleEditMessage = async (messageId: MessageId, content: string) => {
-    try {
-      await editMessage(messageId, content);
-    } catch (err) {
-      setPondErrorMessage(err);
-    }
-  };
-
-  const handleHideMessage = async (messageId: MessageId) => {
-    const hasUserConfirmed = window.confirm(CONFIRM_HIDE_MESSAGE);
-    if (hasUserConfirmed) {
-      try {
-        await hideMessage(messageId);
-      } catch (err) {
-        setPondErrorMessage(err);
-      }
-    }
-  };
 
   return (
     <CentralSection
@@ -90,27 +51,8 @@ export const Channel = ({
           </div>
         </>
       }
-      body={
-        <MessageList
-          key={stateUI.activeChannelId}
-          messages={messages}
-          editMessage={handleEditMessage}
-          hideMessage={handleHideMessage}
-        />
-      }
-      footer={
-        <>
-          {pondErrorMessage && (
-            <div className="p-4">
-              <Alert variant="danger">{pondErrorMessage}</Alert>
-            </div>
-          )}
-          <MessageInput
-            channelName={channelName}
-            addMessage={handleAddMessage}
-          />
-        </>
-      }
+      body={<MessageList key={stateUI.activeChannelId} messages={messages} />}
+      footer={<MessageInputContainer channelName={channelName} />}
     />
   );
 };
