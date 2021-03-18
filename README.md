@@ -11,13 +11,13 @@ Actyx CLI or Node Manager
 
 ## Run the app
 
-Make sure you download ActyxOS, following instructions and run:
+Make sure you download ActyxOS, for docker run:
 
 ```bash
 docker run --name actyxos -it --rm -e AX_DEV_MODE=1 -v actyxos-data:/data --privileged -p 4001:4001 -p 4457:4457 -p 127.0.0.1:4243:4243 -p 127.0.0.1:4454:4454 actyx/os
 ```
 
-Open Node Manager or use Actyx CLI to set up node settings, use content from file `settings/prod.actyx.os.json`.
+Open Node Manager or use Actyx CLI to set up the node settings, use content from file [settings/prod.actyx.os.json](./settings/prod.actyx.os.json).
 
 In this project folder visit `src` then run `yarn start`.
 
