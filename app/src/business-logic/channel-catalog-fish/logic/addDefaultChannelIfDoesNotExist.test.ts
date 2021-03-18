@@ -1,9 +1,9 @@
-import { addDefaultChannelIfDoesNotExistLogic } from './addDefaultChannelIfDoesNotExist';
+import { addDefaultChannelIfDoesNotExist } from './addDefaultChannelIfDoesNotExist';
 
 describe('logic', () => {
   describe('addDefaultChannelIfDoesNotExist', () => {
     it('should not add default channel if user is not signed in', () => {
-      const result = addDefaultChannelIfDoesNotExistLogic(
+      const result = addDefaultChannelIfDoesNotExist(
         { channels: {} },
         'anonymous-user'
       );
@@ -18,7 +18,7 @@ describe('logic', () => {
     });
 
     it('should not add default channel if it is already present', () => {
-      const result = addDefaultChannelIfDoesNotExistLogic(
+      const result = addDefaultChannelIfDoesNotExist(
         {
           channels: {
             main: {
@@ -46,7 +46,7 @@ describe('logic', () => {
     });
 
     it('should add default channel', () => {
-      const result = addDefaultChannelIfDoesNotExistLogic(
+      const result = addDefaultChannelIfDoesNotExist(
         { channels: {} },
         'user-1'
       );
