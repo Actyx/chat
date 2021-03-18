@@ -116,7 +116,9 @@ You can confiture several aspects of the application by using object `chat` in `
 ## Others docs
 
 [Features and Use cases](./docs/features-use-cases.md)
+
 [Events and Tags](./docs/events-tags-overview.md)
+
 [Front-end design](./docs/fe-design.md)
 
 ## Learn More
