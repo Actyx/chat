@@ -55,6 +55,7 @@ export const MessageListContainer = ({
 
   const handleEditMessage = async (messageId: MessageId, content: string) => {
     performEditMessage(
+      userCatalogFishState.users,
       stateUI.activeChannelId,
       stateUI.userUUID,
       messageId,

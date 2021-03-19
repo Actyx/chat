@@ -5,6 +5,15 @@ describe('logic', () => {
     it('should not edit message if user is not sign in', () => {
       const result = editMessageInChannel(
         { messages: [] },
+        {
+          'user-1': {
+            userUUID: 'user-1',
+            createdOn: 1616071602411000,
+            displayName: 'simone',
+            email: 'user-1@actyx.io',
+            editedOn: 1616076603856000,
+          },
+        },
         'channel-1',
         'anonymous-user',
         'message-1',
@@ -34,6 +43,15 @@ describe('logic', () => {
             },
           ],
         },
+        {
+          'user-1': {
+            userUUID: 'user-1',
+            createdOn: 1616071602411000,
+            displayName: 'simone',
+            email: 'user-1@actyx.io',
+            editedOn: 1616076603856000,
+          },
+        },
         'main',
         'user-1',
         'message-2',
@@ -54,7 +72,7 @@ describe('logic', () => {
         {
           messages: [
             {
-              channelId: 'main',
+              channelId: 'channel-1',
               content: 'Hello world!',
               createdBy: 'user-1',
               messageId: 'message-1',
@@ -62,6 +80,22 @@ describe('logic', () => {
               isHidden: true,
             },
           ],
+        },
+        {
+          'user-1': {
+            userUUID: 'user-1',
+            createdOn: 1616071602411000,
+            displayName: 'simone',
+            email: 'user-1@actyx.io',
+            editedOn: 1616076603856000,
+          },
+          'user-2': {
+            userUUID: 'user-2',
+            createdOn: 1616071602411000,
+            displayName: 'viktor',
+            email: 'user-2@actyx.io',
+            editedOn: 1616076603856000,
+          },
         },
         'main',
         'user-2',
@@ -91,6 +125,15 @@ describe('logic', () => {
               isHidden: true,
             },
           ],
+        },
+        {
+          'user-1': {
+            userUUID: 'user-1',
+            createdOn: 1616071602411000,
+            displayName: 'simone',
+            email: 'user-1@actyx.io',
+            editedOn: 1616076603856000,
+          },
         },
         'main',
         'user-1',
