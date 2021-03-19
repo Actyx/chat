@@ -88,9 +88,11 @@ export const ChannelOverviewContainer = ({
   const performDissociateUserChannel = wirePond(dissociateUserChannel);
 
   const handleDissociateUserChannel = async (channelId: ChannelId) =>
-    performDissociateUserChannel(stateUI.userUUID, channelId).catch(
-      setPondErrorMessage
-    );
+    performDissociateUserChannel(
+      userCatalogFishState.users,
+      stateUI.userUUID,
+      channelId
+    ).catch(setPondErrorMessage);
 
   return (
     <ChannelOverview
