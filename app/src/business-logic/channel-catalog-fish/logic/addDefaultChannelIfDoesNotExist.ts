@@ -4,17 +4,18 @@ import {
   mkErrorChannelDefaultAlredyExist,
 } from '../../common/errors';
 import { LogicResult } from '../../common/logic-types';
-import { isSignedInUser } from '../../user-catalog-fish/logic/helpers';
-import { UserUUID, SYSTEM_USER } from '../../user-catalog-fish/types';
+import { isSignedInUser2 } from '../../user-catalog-fish/logic/helpers';
+import { UserUUID, SYSTEM_USER, Users } from '../../user-catalog-fish/types';
 import { getChannelAdded } from '../events';
 import { isChannelIdRegistered } from '../logic-helpers';
 import { ChannelAddedEvent, ChannelCatalogFishState } from '../types';
 
 export const addDefaultChannelIfDoesNotExist = (
   fishState: ChannelCatalogFishState,
+  users: Users,
   userUUID: UserUUID
 ): LogicResult<ChannelAddedEvent> => {
-  if (!isSignedInUser(userUUID)) {
+  if (!isSignedInUser2(userUUID, users)) {
     return mkErrorAutheticationUserIsNotSignIn();
   }
 

@@ -6,6 +6,8 @@ import { usePond } from '@actyx-contrib/react-pond';
 import { ChannelCatalogFish } from '../../../../business-logic/channel-catalog-fish/channel-catalog-fish';
 import { wire } from '../../../../business-logic/common/logic-wire';
 import { addDefaultChannelIfDoesNotExist } from '../../../../business-logic/channel-catalog-fish/logic/addDefaultChannelIfDoesNotExist';
+import { UserCatalogFish } from '../../../../business-logic/user-catalog-fish/user-catalog-fish';
+import { useFish } from '../../../utils/use-fish';
 
 export const ChatContainer = () => {
   const pond = usePond();
@@ -14,6 +16,12 @@ export const ChatContainer = () => {
 
   const [pondErrorMessage, setPondErrorMessage] = useState<string>();
 
+  const userCatalogFishState = useFish(
+    pond,
+    UserCatalogFish,
+    UserCatalogFish.initialState
+  );
+
   useEffect(() => {
     const performAddDefaultChannel = wire(
       pond,
@@ -21,11 +29,14 @@ export const ChatContainer = () => {
     )(addDefaultChannelIfDoesNotExist);
 
     const mainChannel = async () => {
-      performAddDefaultChannel(stateUI.userUUID).catch(setPondErrorMessage);
+      performAddDefaultChannel(
+        userCatalogFishState.users,
+        stateUI.userUUID
+      ).catch(setPondErrorMessage);
     };
 
     mainChannel();
-  }, [pond, stateUI.userUUID]);
+  }, [pond, stateUI.userUUID, userCatalogFishState.users]);
 
   return pondErrorMessage ? (
     <Alert variant="danger">{pondErrorMessage}</Alert>
