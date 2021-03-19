@@ -1,25 +1,17 @@
 import { isStringEmpty, prepareString } from '../../../common/strings';
-import {
-  mkErrorAutheticationUserIsNotSignIn,
-  mkErrorUserEditProfileUserIsNotRegistered,
-} from '../../common/errors';
+import { mkErrorAutheticationUserIsNotSignIn } from '../../common/errors';
 import { ErrorCode, LogicResult } from '../../common/logic-types';
 import { getUserProfileEditedEvent } from '../events';
-import { isUserUUIDRegistered } from './helpers';
+import { isSignedInUser2 } from './helpers';
 import { UserCatalogFishEvent, UserCatalogFishState, UserUUID } from '../types';
-import { isSignedInUser } from './helpers';
 
 export const editUserProfile = (
   fishState: UserCatalogFishState,
   displayName: string,
   userUUID: UserUUID
 ): LogicResult<UserCatalogFishEvent> => {
-  if (!isSignedInUser(userUUID)) {
+  if (!isSignedInUser2(userUUID, fishState.users)) {
     return mkErrorAutheticationUserIsNotSignIn();
-  }
-
-  if (!isUserUUIDRegistered(userUUID, fishState.users)) {
-    return mkErrorUserEditProfileUserIsNotRegistered(userUUID);
   }
 
   const newDisplayName = prepareString(displayName);
