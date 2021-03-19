@@ -3,7 +3,7 @@ import { usePond } from '@actyx-contrib/react-pond';
 import { StateContextUI } from '../../../../state-manager/UIStateManager';
 import { MessageInput } from './MessageInput';
 import { addMessageToChannel } from '../../../../../business-logic/channel-fish/logic/addMessageToChannel';
-import { wire } from '../../../../../business-logic/common/logic-helpers';
+import { wire } from '../../../../../business-logic/common/logic-wire';
 import { mkChannelFish } from '../../../../../business-logic/channel-fish/channel-fish';
 import { mkUUID } from '../../../../../business-logic/common/util';
 

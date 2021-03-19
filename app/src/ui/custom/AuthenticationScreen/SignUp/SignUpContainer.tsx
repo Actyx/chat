@@ -7,7 +7,7 @@ import {
 } from '../../../../business-logic/user-catalog-fish/types';
 import { getUIMessage } from '../../../../l10n/l10n';
 import { SignUp } from './SignUp';
-import { wire } from '../../../../business-logic/common/logic-helpers';
+import { wire } from '../../../../business-logic/common/logic-wire';
 import { UserCatalogFish } from '../../../../business-logic/user-catalog-fish/user-catalog-fish';
 import { signUp } from '../../../../business-logic/user-catalog-fish/logic/signUp';
 

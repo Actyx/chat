@@ -4,7 +4,7 @@ import React, { useContext, useState } from 'react';
 import { mkChannelFish } from '../../../../../business-logic/channel-fish/channel-fish';
 import { editMessageInChannel } from '../../../../../business-logic/channel-fish/logic/editMessageInChannel';
 import { hideMessageFromChannel } from '../../../../../business-logic/channel-fish/logic/hideMessageFromChannel';
-import { wire } from '../../../../../business-logic/common/logic-helpers';
+import { wire } from '../../../../../business-logic/common/logic-wire';
 import { MessageId } from '../../../../../business-logic/message/types';
 import { UserUUID } from '../../../../../business-logic/user-catalog-fish/types';
 import { StateContextUI } from '../../../../state-manager/UIStateManager';

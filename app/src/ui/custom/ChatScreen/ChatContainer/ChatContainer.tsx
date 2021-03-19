@@ -4,7 +4,7 @@ import { Chat } from './Chat';
 import { Alert } from '../../../common/Alert/Alert';
 import { usePond } from '@actyx-contrib/react-pond';
 import { ChannelCatalogFish } from '../../../../business-logic/channel-catalog-fish/channel-catalog-fish';
-import { wire } from '../../../../business-logic/common/logic-helpers';
+import { wire } from '../../../../business-logic/common/logic-wire';
 import { addDefaultChannelIfDoesNotExist } from '../../../../business-logic/channel-catalog-fish/logic/addDefaultChannelIfDoesNotExist';
 
 export const ChatContainer = () => {

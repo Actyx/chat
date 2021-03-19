@@ -5,6 +5,15 @@ describe('logic', () => {
     it('should not add a new channel if user is not signed in', () => {
       const result = addChannel(() => 'channel-1')(
         { channels: {} },
+        {
+          'user-1': {
+            userUUID: 'user-1',
+            createdOn: 1616071602411000,
+            displayName: 'simone',
+            email: 'simone@actyx.io',
+            editedOn: 1616076603856000,
+          },
+        },
         'anonymous-user',
         'marketing',
         'all about marketing'
@@ -35,6 +44,15 @@ describe('logic', () => {
             },
           },
         },
+        {
+          'user-1': {
+            userUUID: 'user-1',
+            createdOn: 1616071602411000,
+            displayName: 'simone',
+            email: 'simone@actyx.io',
+            editedOn: 1616076603856000,
+          },
+        },
         'user-1',
         'marketing',
         'all about marketing'
@@ -53,6 +71,15 @@ describe('logic', () => {
               },
               users: ['user-1'],
             },
+          },
+        },
+        {
+          'user-1': {
+            userUUID: 'user-1',
+            createdOn: 1616071602411000,
+            displayName: 'simone',
+            email: 'simone@actyx.io',
+            editedOn: 1616076603856000,
           },
         },
         'user-1',
@@ -74,6 +101,15 @@ describe('logic', () => {
     it('should add a new channel', () => {
       const result = addChannel(() => 'channel-1')(
         { channels: {} },
+        {
+          'user-1': {
+            userUUID: 'user-1',
+            createdOn: 1616071602411000,
+            displayName: 'simone',
+            email: 'simone@actyx.io',
+            editedOn: 1616076603856000,
+          },
+        },
         'user-1',
         'marketing',
         'all about marketing'

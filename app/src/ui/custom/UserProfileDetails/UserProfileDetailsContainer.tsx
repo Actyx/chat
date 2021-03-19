@@ -1,6 +1,6 @@
 import { usePond } from '@actyx-contrib/react-pond';
 import React, { useContext, useState } from 'react';
-import { wire } from '../../../business-logic/common/logic-helpers';
+import { wire } from '../../../business-logic/common/logic-wire';
 import { editUserProfile } from '../../../business-logic/user-catalog-fish/logic/editUserProfile';
 import { UserCatalogFish } from '../../../business-logic/user-catalog-fish/user-catalog-fish';
 import { getUIMessage } from '../../../l10n/l10n';

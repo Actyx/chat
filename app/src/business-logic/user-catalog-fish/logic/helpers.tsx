@@ -10,8 +10,12 @@ import {
 export const isUserCreatedBySystem = (userUUID: UserUUID): boolean =>
   userUUID === SYSTEM_USER;
 
+// FIXME remove me
 export const isSignedInUser = (userUUID: UserUUID) =>
   userUUID !== ANONYMOUS_USER;
+
+export const isSignedInUser2 = (userUUID: UserUUID, users: Users) =>
+  userUUID !== ANONYMOUS_USER && isUserUUIDRegistered(userUUID, users);
 
 export const getTotalUsers = (users: Users) => Object.values(users).length;
 

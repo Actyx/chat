@@ -6,7 +6,7 @@ import { StateContextUI } from '../../../../state-manager/UIStateManager';
 import { ChannelOverviewUI } from './ChannelsCatalog';
 import { ChannelOverview } from './ChannelOverview';
 import { useFish } from '../../../../utils/use-fish';
-import { wire } from '../../../../../business-logic/common/logic-helpers';
+import { wire } from '../../../../../business-logic/common/logic-wire';
 import { archiveChannel } from '../../../../../business-logic/channel-catalog-fish/logic/archiveChannel';
 import { unarchiveChannel } from '../../../../../business-logic/channel-catalog-fish/logic/unarchiveChannel';
 import { associateUserToChannel } from '../../../../../business-logic/channel-catalog-fish/logic/associateUserToChannel';
