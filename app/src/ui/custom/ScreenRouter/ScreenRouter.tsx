@@ -4,8 +4,6 @@ import { StateContextUI } from '../../state-manager/UIStateManager';
 import { ChatContainer } from '../ChatScreen/ChatContainer/ChatContainer';
 import { Screens } from '../../state-manager/state-types';
 
-// const AccessNotAllowed = () => <div>Access is not allowed</div>;
-
 export const ScreenRouter = () => {
   const stateUI = useContext(StateContextUI);
 
