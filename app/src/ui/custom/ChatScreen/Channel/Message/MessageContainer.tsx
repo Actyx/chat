@@ -7,7 +7,9 @@ import { hideMessageFromChannel } from '../../../../../business-logic/channel-fi
 import { wire } from '../../../../../business-logic/common/logic-wire';
 import { MessageId } from '../../../../../business-logic/message/types';
 import { UserUUID } from '../../../../../business-logic/user-catalog-fish/types';
+import { UserCatalogFish } from '../../../../../business-logic/user-catalog-fish/user-catalog-fish';
 import { StateContextUI } from '../../../../state-manager/UIStateManager';
+import { useFish } from '../../../../utils/use-fish';
 import { Message } from '../Message';
 
 type MessageListContainerProps = Readonly<{
@@ -41,6 +43,12 @@ export const MessageListContainer = ({
 
   const [pondErrorMessage, setPondErrorMessage] = useState<string>();
 
+  const userCatalogFishState = useFish(
+    pond,
+    UserCatalogFish,
+    UserCatalogFish.initialState
+  );
+
   const wirePond = wire(pond, mkChannelFish(stateUI.activeChannelId));
 
   const performEditMessage = wirePond(editMessageInChannel);
@@ -60,6 +68,7 @@ export const MessageListContainer = ({
     const hasUserConfirmed = window.confirm(CONFIRM_HIDE_MESSAGE);
     if (hasUserConfirmed) {
       performHideMessage(
+        userCatalogFishState.users,
         stateUI.activeChannelId,
         stateUI.userUUID,
         messageId
