@@ -29,10 +29,7 @@ export const ChatContainer = () => {
     )(addDefaultChannelIfDoesNotExist);
 
     const mainChannel = async () => {
-      performAddDefaultChannel(
-        userCatalogFishState.users,
-        stateUI.userUUID
-      ).catch(setPondErrorMessage);
+      performAddDefaultChannel().catch(setPondErrorMessage);
     };
 
     mainChannel();
