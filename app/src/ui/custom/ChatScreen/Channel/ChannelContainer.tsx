@@ -18,39 +18,39 @@ export const ChannelContainer = () => {
 
   const stateUI = useContext(StateContextUI);
 
-  const stateChannelMainFish = useFish(
+  const channelFishState = useFish(
     pond,
     mkChannelFish(stateUI.activeChannelId),
     mkChannelFish(stateUI.activeChannelId).initialState
   );
 
-  const stateUserCatalogFish = useFish(
+  const userCatalogFishState = useFish(
     pond,
     UserCatalogFish,
     UserCatalogFish.initialState
   );
 
-  const stateChannelsCatalogFish = useFish(
+  const channelCatalogFishState = useFish(
     pond,
     ChannelCatalogFish,
     ChannelCatalogFish.initialState
   );
 
   const channelMessages = mapPublicMessagesToChannelUI(
-    getVisiblePublicMessages(stateChannelMainFish.messages),
-    stateUserCatalogFish.users,
+    getVisiblePublicMessages(channelFishState.messages),
+    userCatalogFishState.users,
     stateUI.userUUID
   );
 
   const totalUsers = getTotalUsersNumber(
     stateUI.activeChannelId,
-    stateChannelsCatalogFish.channels,
-    stateUserCatalogFish.users
+    channelCatalogFishState.channels,
+    userCatalogFishState.users
   );
 
   const { channelName, channelDescription } = getChannelNameAndDescription(
     stateUI.activeChannelId,
-    stateChannelsCatalogFish.channels
+    channelCatalogFishState.channels
   );
 
   return (

@@ -1,4 +1,9 @@
-import { mkErrorAutheticationUserIsNotSignIn } from '../../common/errors';
+import { isChannelIdRegistered } from '../../channel-catalog-fish/logic-helpers';
+import { Channels } from '../../channel-catalog-fish/types';
+import {
+  mkErrorAutheticationUserIsNotSignIn,
+  mkErrorChannelDoesNotExist,
+} from '../../common/errors';
 import { LogicResult } from '../../common/logic-types';
 import {
   ChannelId,
@@ -7,11 +12,13 @@ import {
   PublicRecipientIds,
 } from '../../message/types';
 import { isSignedInUser } from '../../user-catalog-fish/logic/helpers';
-import { UserUUID } from '../../user-catalog-fish/types';
+import { Users, UserUUID } from '../../user-catalog-fish/types';
 import { getPublicMessageAdded } from '../events';
 import { ChannelFishState } from '../types';
 
 type AddMessageArgs = Readonly<{
+  users: Users;
+  channels: Channels;
   channelId: ChannelId;
   userUUID: UserUUID;
   content: string;
@@ -20,15 +27,22 @@ type AddMessageArgs = Readonly<{
 }>;
 export const addMessageToChannel = (makerUUID: () => UserUUID) => (
   _fishState: ChannelFishState,
-  { channelId, userUUID, content, mediaIds, recipientIds }: AddMessageArgs
+  {
+    users,
+    channels,
+    channelId,
+    userUUID,
+    content,
+    mediaIds,
+    recipientIds,
+  }: AddMessageArgs
 ): LogicResult<PublicMessageEvent> => {
-  if (!isSignedInUser(userUUID)) {
+  if (!isSignedInUser(userUUID, users)) {
     return mkErrorAutheticationUserIsNotSignIn();
   }
-  // TODO add possibility to check multiple fishStates, in this case from ChannelCatalogFishState
-  //   if (!isChannelIdRegistered(channelId, fishState.channels)) {
-  //     return mkErrorChannelDoesNotExist(channelId);
-  //   }
+  if (!isChannelIdRegistered(channelId, channels)) {
+    return mkErrorChannelDoesNotExist(channelId);
+  }
   const messageId = makerUUID();
   return {
     type: 'ok',

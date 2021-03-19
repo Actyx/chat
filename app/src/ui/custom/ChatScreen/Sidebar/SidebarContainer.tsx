@@ -28,24 +28,24 @@ export const SideBarContainer = () => {
 
   const stateUI = useContext(StateContextUI);
 
-  const stateChannelsCatalogFish = useFish(
+  const channelsCatalogFishState = useFish(
     pond,
     ChannelCatalogFish,
     ChannelCatalogFish.initialState
   );
 
-  const stateUserCatalogFish = useFish(
+  const userCatalogFishState = useFish(
     pond,
     UserCatalogFish,
     UserCatalogFish.initialState
   );
 
   const channelsSideBarUI = sortAlphabeticChannelsSidebar(
-    mapChannelsToSidebarUI(stateChannelsCatalogFish.channels, stateUI.userUUID)
+    mapChannelsToSidebarUI(channelsCatalogFishState.channels, stateUI.userUUID)
   );
 
   const usersSideBarUI = sortAlphabeticUsersSidebar(
-    mapUsersToSidebarUI(stateUserCatalogFish.users)
+    mapUsersToSidebarUI(userCatalogFishState.users)
   );
 
   const handleSelectChannelsCatalog = () =>

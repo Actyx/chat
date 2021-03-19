@@ -10,8 +10,11 @@ import {
 export const isUserCreatedBySystem = (userUUID: UserUUID): boolean =>
   userUUID === SYSTEM_USER;
 
-export const isSignedInUser = (userUUID: UserUUID) =>
-  userUUID !== ANONYMOUS_USER;
+export const isUserAnonymous = (userUUID: UserUUID) =>
+  userUUID === ANONYMOUS_USER;
+
+export const isSignedInUser = (userUUID: UserUUID, users: Users) =>
+  !isUserAnonymous(userUUID) && isUserUUIDRegistered(userUUID, users);
 
 export const getTotalUsers = (users: Users) => Object.values(users).length;
 

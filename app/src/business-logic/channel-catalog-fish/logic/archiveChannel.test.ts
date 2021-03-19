@@ -5,6 +5,7 @@ describe('logic', () => {
     it('should not archive a channel if user is not signed in', () => {
       const result = archiveChannel(
         { channels: {} },
+        {},
         'anonymous-user',
         'channel-1'
       );
@@ -19,7 +20,20 @@ describe('logic', () => {
     });
 
     it('should not archive a channel if channel profile does not exits', () => {
-      const result = archiveChannel({ channels: {} }, 'user-1', 'channel-1');
+      const result = archiveChannel(
+        { channels: {} },
+        {
+          'user-1': {
+            userUUID: 'user-1',
+            createdOn: 1616071602411000,
+            displayName: 'simone',
+            email: 'simone@actyx.io',
+            editedOn: 1616076603856000,
+          },
+        },
+        'user-1',
+        'channel-1'
+      );
 
       const expectedResult = {
         type: 'error',
@@ -44,6 +58,15 @@ describe('logic', () => {
               },
               users: ['user-1'],
             },
+          },
+        },
+        {
+          'user-2': {
+            userUUID: 'user-2',
+            createdOn: 1616071602411000,
+            displayName: 'simone',
+            email: 'user-2@actyx.io',
+            editedOn: 1616076603856000,
           },
         },
         'user-2',
@@ -73,6 +96,15 @@ describe('logic', () => {
               },
               users: ['user-1'],
             },
+          },
+        },
+        {
+          'user-1': {
+            userUUID: 'user-1',
+            createdOn: 1616071602411000,
+            displayName: 'simone',
+            email: 'simone@actyx.io',
+            editedOn: 1616076603856000,
           },
         },
         'user-1',

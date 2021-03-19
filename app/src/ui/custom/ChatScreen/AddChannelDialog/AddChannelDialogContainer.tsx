@@ -2,22 +2,30 @@ import { usePond } from '@actyx-contrib/react-pond';
 import React, { useContext, useState } from 'react';
 import { ChannelCatalogFish } from '../../../../business-logic/channel-catalog-fish/channel-catalog-fish';
 import { addChannel } from '../../../../business-logic/channel-catalog-fish/logic/addChannel';
-import { wire } from '../../../../business-logic/common/logic-helpers';
+import { wire } from '../../../../business-logic/common/logic-wire';
 import { mkUUID } from '../../../../business-logic/common/util';
+import { UserCatalogFish } from '../../../../business-logic/user-catalog-fish/user-catalog-fish';
 import { getUIMessage } from '../../../../l10n/l10n';
 import { hideDialog } from '../../../state-manager/actions';
 import {
   DispatchContextUI,
   StateContextUI,
 } from '../../../state-manager/UIStateManager';
+import { useFish } from '../../../utils/use-fish';
 import { AddChannelDialog } from './AddChannelDialog';
 
 export const AddChannelDialogContainer = () => {
   const dispatch = useContext(DispatchContextUI);
 
+  const stateUI = useContext(StateContextUI);
+
   const pond = usePond();
 
-  const stateUI = useContext(StateContextUI);
+  const userCatalogFishState = useFish(
+    pond,
+    UserCatalogFish,
+    UserCatalogFish.initialState
+  );
 
   const [invalidMessage, setInvalidMessage] = useState<string>();
 
@@ -30,7 +38,12 @@ export const AddChannelDialogContainer = () => {
   const performAddChannel = wire(pond, ChannelCatalogFish)(addChannel(mkUUID));
 
   const handleAddChannel = async (name: string, description: string) => {
-    performAddChannel(stateUI.userUUID, name, description)
+    performAddChannel(
+      userCatalogFishState.users,
+      stateUI.userUUID,
+      name,
+      description
+    )
       .then((result) => {
         if (result.type === 'ok') {
           handleHideDialog();

@@ -16,7 +16,7 @@ export const SignInContainer = () => {
 
   const pond = usePond();
 
-  const stateUserCatalogFish = useFish(
+  const userCatalogFishState = useFish(
     pond,
     UserCatalogFish,
     UserCatalogFish.initialState
@@ -27,7 +27,7 @@ export const SignInContainer = () => {
   const handleGoToChatScreen = () => dispatch(goToChatScreen());
 
   const handleSignIn = (userUUID: UserUUID) => {
-    const isUserSignedIn = signIn(userUUID, stateUserCatalogFish.users);
+    const isUserSignedIn = signIn(userUUID, userCatalogFishState.users);
     setIsSignInSuccess(isUserSignedIn);
     if (isUserSignedIn) {
       dispatch(addSignedInUser(userUUID));

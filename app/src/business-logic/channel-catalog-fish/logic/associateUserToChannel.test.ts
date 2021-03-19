@@ -5,6 +5,7 @@ describe('logic', () => {
     it('should not associate user if he is not signed in', () => {
       const result = associateUserToChannel(
         { channels: {} },
+        {},
         'anonymous-user',
         'channel-1'
       );
@@ -32,6 +33,15 @@ describe('logic', () => {
               },
               users: ['user-1'],
             },
+          },
+        },
+        {
+          'user-1': {
+            userUUID: 'user-1',
+            createdOn: 1616071602411000,
+            displayName: 'simone',
+            email: 'user-1@actyx.io',
+            editedOn: 1616076603856000,
           },
         },
         'user-1',
@@ -73,6 +83,15 @@ describe('logic', () => {
             },
           },
         },
+        {
+          'user-1': {
+            userUUID: 'user-1',
+            createdOn: 1616071602411000,
+            displayName: 'simone',
+            email: 'user-1@actyx.io',
+            editedOn: 1616076603856000,
+          },
+        },
         'user-1',
         'marketing-1'
       );
@@ -110,6 +129,15 @@ describe('logic', () => {
               },
               users: ['user-1'],
             },
+          },
+        },
+        {
+          'user-2': {
+            userUUID: 'user-2',
+            createdOn: 1616071602411000,
+            displayName: 'simone',
+            email: 'user-2@actyx.io',
+            editedOn: 1616076603856000,
           },
         },
         'user-2',

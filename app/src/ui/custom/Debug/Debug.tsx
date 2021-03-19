@@ -14,19 +14,19 @@ export const Debug = () => {
 
   const [showDebug, setShowDebug] = useState<boolean>(false);
 
-  const stateUserCatalogFish = useFish(
+  const userCatalogFishState = useFish(
     pond,
     UserCatalogFish,
     UserCatalogFish.initialState
   );
 
-  const stateChannelsCatalogFish = useFish(
+  const channelCatalogFishState = useFish(
     pond,
     ChannelCatalogFish,
     ChannelCatalogFish.initialState
   );
 
-  const stateChannelFish = useFish(
+  const channelFishState = useFish(
     pond,
     mkChannelFish(stateUI.activeChannelId),
     mkChannelFish(stateUI.activeChannelId).initialState
@@ -47,11 +47,11 @@ export const Debug = () => {
           <br />
           <hr />
           <h5>UserCatalog</h5>
-          <pre>{format(stateUserCatalogFish)}</pre>
+          <pre>{format(userCatalogFishState)}</pre>
           <h5>ChannelFish</h5>
-          <pre>{format(stateChannelFish)}</pre>
+          <pre>{format(channelFishState)}</pre>
           <h5>ChannelsCatalogFish state</h5>
-          <pre>{format(stateChannelsCatalogFish)}</pre>
+          <pre>{format(channelCatalogFishState)}</pre>
         </div>
       )}
     </div>

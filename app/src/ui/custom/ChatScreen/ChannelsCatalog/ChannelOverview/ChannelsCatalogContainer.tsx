@@ -31,13 +31,13 @@ export const ChannelsCatalogContainer = ({
 
   const stateUI = useContext(StateContextUI);
 
-  const stateChannelsCatalogFish = useFish(
+  const channelsCatalogFishState = useFish(
     pond,
     ChannelCatalogFish,
     ChannelCatalogFish.initialState
   );
 
-  const stateUserCatalogFish = useFish(
+  const userCatalogFishState = useFish(
     pond,
     UserCatalogFish,
     UserCatalogFish.initialState
@@ -45,8 +45,8 @@ export const ChannelsCatalogContainer = ({
 
   const channelsOverviewCatalog = sortAlphabeticChannelsOverview(
     mapChannelsToChannelCatalogUI(
-      stateChannelsCatalogFish.channels,
-      stateUserCatalogFish.users,
+      channelsCatalogFishState.channels,
+      userCatalogFishState.users,
       stateUI.userUUID
     )
   );

@@ -6,6 +6,8 @@ describe('logic', () => {
       const result = addMessageToChannel(() => 'message-1')(
         { messages: [] },
         {
+          users: {},
+          channels: {},
           channelId: 'channel-1',
           userUUID: 'anonymous-user',
           content: 'Hello world!',
@@ -24,7 +26,32 @@ describe('logic', () => {
     it('should add message', () => {
       const result = addMessageToChannel(() => 'message-1')(
         { messages: [] },
-        { channelId: 'channel-1', userUUID: 'user-1', content: 'Hello world!' }
+        {
+          users: {
+            'user-1': {
+              userUUID: 'user-1',
+              createdOn: 1616071602411000,
+              displayName: 'simone',
+              email: 'user-1@actyx.io',
+              editedOn: 1616076603856000,
+            },
+          },
+          channels: {
+            'channel-1': {
+              profile: {
+                channelId: 'channel-1',
+                createdOn: 1616071608741000,
+                createdBy: 'user-1',
+                isArchived: false,
+                name: 'Main',
+              },
+              users: ['user-1'],
+            },
+          },
+          channelId: 'channel-1',
+          userUUID: 'user-1',
+          content: 'Hello world!',
+        }
       );
 
       const expectedTags = {

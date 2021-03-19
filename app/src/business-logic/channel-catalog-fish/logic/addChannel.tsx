@@ -5,7 +5,7 @@ import {
 import { LogicResult } from '../../common/logic-types';
 import { ChannelId } from '../../message/types';
 import { isSignedInUser } from '../../user-catalog-fish/logic/helpers';
-import { UserUUID } from '../../user-catalog-fish/types';
+import { Users, UserUUID } from '../../user-catalog-fish/types';
 import { getChannelAdded } from '../events';
 import {
   doesChannelNameExist,
@@ -15,11 +15,12 @@ import { ChannelAddedEvent, ChannelCatalogFishState } from '../types';
 
 export const addChannel = (makerUUID: () => ChannelId) => (
   fishState: ChannelCatalogFishState,
+  users: Users,
   userUUID: UserUUID,
   name: string,
   description: string
 ): LogicResult<ChannelAddedEvent> => {
-  if (!isSignedInUser(userUUID)) {
+  if (!isSignedInUser(userUUID, users)) {
     return mkErrorAutheticationUserIsNotSignIn();
   }
 

@@ -28,22 +28,6 @@ describe('logic', () => {
       expect(result).toMatchObject(expectedResult);
     });
 
-    it('should not edit non existing user profile', () => {
-      const result = editUserProfile(
-        { users: {}, emails: {} },
-        'SPO',
-        'user-2'
-      );
-
-      const expectedResult = {
-        type: 'error',
-        code: 'UserEditProfileUserIsNotRegistered',
-        message: expect.any(String),
-      };
-
-      expect(result).toMatchObject(expectedResult);
-    });
-
     it('should not edit user profile without providing a display name', () => {
       const result = editUserProfile(
         {

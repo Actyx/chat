@@ -6,7 +6,7 @@ import {
 import { LogicResult } from '../../common/logic-types';
 import { ChannelId } from '../../message/types';
 import { isSignedInUser } from '../../user-catalog-fish/logic/helpers';
-import { UserUUID } from '../../user-catalog-fish/types';
+import { Users, UserUUID } from '../../user-catalog-fish/types';
 import { getChannelAssociatedUser } from '../events';
 import {
   isChannelIdRegistered,
@@ -16,10 +16,11 @@ import { ChannelAssociatedUserEvent, ChannelCatalogFishState } from '../types';
 
 export const associateUserToChannel = (
   fishState: ChannelCatalogFishState,
+  users: Users,
   userUUID: UserUUID,
   channelId: ChannelId
 ): LogicResult<ChannelAssociatedUserEvent> => {
-  if (!isSignedInUser(userUUID)) {
+  if (!isSignedInUser(userUUID, users)) {
     return mkErrorAutheticationUserIsNotSignIn();
   }
 

@@ -5,6 +5,7 @@ describe('logic', () => {
     it('should not hide message if user is not sign in', () => {
       const result = hideMessageFromChannel(
         { messages: [] },
+        {},
         'channel-1',
         'anonymous-user',
         'message-1'
@@ -32,6 +33,15 @@ describe('logic', () => {
               isHidden: true,
             },
           ],
+        },
+        {
+          'user-1': {
+            userUUID: 'user-1',
+            createdOn: 1616071602411000,
+            displayName: 'simone',
+            email: 'user-1@actyx.io',
+            editedOn: 1616076603856000,
+          },
         },
         'main',
         'user-1',
@@ -61,6 +71,15 @@ describe('logic', () => {
             },
           ],
         },
+        {
+          'user-2': {
+            userUUID: 'user-2',
+            createdOn: 1616071602411000,
+            displayName: 'simone',
+            email: 'user-1@actyx.io',
+            editedOn: 1616076603856000,
+          },
+        },
         'main',
         'user-2',
         'message-1'
@@ -88,6 +107,15 @@ describe('logic', () => {
               isHidden: true,
             },
           ],
+        },
+        {
+          'user-1': {
+            userUUID: 'user-1',
+            createdOn: 1616071602411000,
+            displayName: 'simone',
+            email: 'user-1@actyx.io',
+            editedOn: 1616076603856000,
+          },
         },
         'main',
         'user-1',
