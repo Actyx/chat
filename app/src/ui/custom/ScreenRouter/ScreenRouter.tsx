@@ -3,7 +3,7 @@ import { AuthenticationScreen } from '../AuthenticationScreen/AuthenticationScre
 import { StateContextUI } from '../../state-manager/UIStateManager';
 import { Screens } from '../../state-manager/state-types';
 import { ChatContainer } from '../ChatScreen/ChatContainer/ChatContainer';
-import { isSignedInUser } from '../../../business-logic/user-catalog-fish/logic/helpers';
+import { isUserAnonymous } from '../../../business-logic/user-catalog-fish/logic/helpers';
 
 const AccessNotAllowed = () => <div>Access is not allowed</div>;
 
@@ -17,7 +17,7 @@ export const ScreenRouter = () => {
       case Screens.Authentication:
         return <AuthenticationScreen />;
       case Screens.Chat:
-        const canRouteToChatScreen = isSignedInUser(userUUID);
+        const canRouteToChatScreen = !isUserAnonymous(userUUID);
         return canRouteToChatScreen ? <ChatContainer /> : <AccessNotAllowed />;
     }
   };

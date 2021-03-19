@@ -11,7 +11,7 @@ import {
   PublicMessageEvent,
   PublicRecipientIds,
 } from '../../message/types';
-import { isSignedInUser2 } from '../../user-catalog-fish/logic/helpers';
+import { isSignedInUser } from '../../user-catalog-fish/logic/helpers';
 import { Users, UserUUID } from '../../user-catalog-fish/types';
 import { getPublicMessageAdded } from '../events';
 import { ChannelFishState } from '../types';
@@ -37,7 +37,7 @@ export const addMessageToChannel = (makerUUID: () => UserUUID) => (
     recipientIds,
   }: AddMessageArgs
 ): LogicResult<PublicMessageEvent> => {
-  if (!isSignedInUser2(userUUID, users)) {
+  if (!isSignedInUser(userUUID, users)) {
     return mkErrorAutheticationUserIsNotSignIn();
   }
   if (!isChannelIdRegistered(channelId, channels)) {

@@ -5,7 +5,7 @@ import {
 } from '../../common/errors';
 import { LogicResult } from '../../common/logic-types';
 import { ChannelId } from '../../message/types';
-import { isSignedInUser2 } from '../../user-catalog-fish/logic/helpers';
+import { isSignedInUser } from '../../user-catalog-fish/logic/helpers';
 import { Users, UserUUID } from '../../user-catalog-fish/types';
 import { getChannelArchived } from '../events';
 import { hasUserCreatedChannel, isChannelIdRegistered } from '../logic-helpers';
@@ -17,7 +17,7 @@ export const archiveChannel = (
   userUUID: UserUUID,
   channelId: ChannelId
 ): LogicResult<ChannelArchivedEvent> => {
-  if (!isSignedInUser2(userUUID, users)) {
+  if (!isSignedInUser(userUUID, users)) {
     return mkErrorAutheticationUserIsNotSignIn();
   }
 

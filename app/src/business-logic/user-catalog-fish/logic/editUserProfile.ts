@@ -2,7 +2,7 @@ import { isStringEmpty, prepareString } from '../../../common/strings';
 import { mkErrorAutheticationUserIsNotSignIn } from '../../common/errors';
 import { ErrorCode, LogicResult } from '../../common/logic-types';
 import { getUserProfileEditedEvent } from '../events';
-import { isSignedInUser2 } from './helpers';
+import { isSignedInUser } from './helpers';
 import { UserCatalogFishEvent, UserCatalogFishState, UserUUID } from '../types';
 
 export const editUserProfile = (
@@ -10,7 +10,7 @@ export const editUserProfile = (
   displayName: string,
   userUUID: UserUUID
 ): LogicResult<UserCatalogFishEvent> => {
-  if (!isSignedInUser2(userUUID, fishState.users)) {
+  if (!isSignedInUser(userUUID, fishState.users)) {
     return mkErrorAutheticationUserIsNotSignIn();
   }
 

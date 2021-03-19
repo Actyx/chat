@@ -4,7 +4,7 @@ import {
   mkErrorMessageUserIsNotOwner,
 } from '../../common/errors';
 import { ChannelId, MessageId, PublicMessageEvent } from '../../message/types';
-import { isSignedInUser2 } from '../../user-catalog-fish/logic/helpers';
+import { isSignedInUser } from '../../user-catalog-fish/logic/helpers';
 import { Users, UserUUID } from '../../user-catalog-fish/types';
 import { getMessageContentEdited } from '../events';
 import { doesMessageBelongToUser, getMessageById } from './logic-helpers';
@@ -19,7 +19,7 @@ export const editMessageInChannel = (
   messageId: MessageId,
   content: string
 ): LogicResult<PublicMessageEvent> => {
-  if (!isSignedInUser2(userUUID, users)) {
+  if (!isSignedInUser(userUUID, users)) {
     return mkErrorAutheticationUserIsNotSignIn();
   }
 
