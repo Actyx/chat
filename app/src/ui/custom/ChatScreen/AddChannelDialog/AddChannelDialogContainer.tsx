@@ -7,6 +7,7 @@ import { mkUUID } from '../../../../business-logic/common/util';
 import { UserCatalogFish } from '../../../../business-logic/user-catalog-fish/user-catalog-fish';
 import { getUIMessage } from '../../../../l10n/l10n';
 import { hideDialog } from '../../../state-manager/actions';
+import { StateUIAuthenticated } from '../../../state-manager/state-types';
 import {
   DispatchContextUI,
   StateContextUI,
@@ -17,7 +18,7 @@ import { AddChannelDialog } from './AddChannelDialog';
 export const AddChannelDialogContainer = () => {
   const dispatch = useContext(DispatchContextUI);
 
-  const stateUI = useContext(StateContextUI);
+  const stateUI = useContext(StateContextUI) as StateUIAuthenticated;
 
   const pond = usePond();
 

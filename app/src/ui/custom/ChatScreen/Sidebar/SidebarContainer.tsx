@@ -20,13 +20,14 @@ import {
   showChannelSection,
 } from '../../../state-manager/actions';
 import { ChannelId } from '../../../../business-logic/message/types';
+import { StateUIAuthenticated } from '../../../state-manager/state-types';
 
 export const SideBarContainer = () => {
   const dispatch = useContext(DispatchContextUI);
 
   const pond = usePond();
 
-  const stateUI = useContext(StateContextUI);
+  const stateUI = useContext(StateContextUI) as StateUIAuthenticated;
 
   const channelsCatalogFishState = useFish(
     pond,

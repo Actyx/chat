@@ -7,6 +7,7 @@ import { MessageUI } from './Message';
 import { StateContextUI } from '../../../state-manager/UIStateManager';
 import { CentralSection } from '../../../common/CentralSection/CentralSection';
 import { MessageInputContainer } from './MessageInput/MessageInputContainer';
+import { StateUIAuthenticated } from '../../../state-manager/state-types';
 
 export type MessagesUI = ReadonlyArray<MessageUI>;
 
@@ -23,7 +24,7 @@ export const Channel = ({
   messages,
   totalUsers,
 }: ChannelProps) => {
-  const stateUI = useContext(StateContextUI);
+  const stateUI = useContext(StateContextUI) as StateUIAuthenticated;
 
   return (
     <CentralSection

@@ -5,21 +5,35 @@ import { UserCatalogFish } from '../../../business-logic/user-catalog-fish/user-
 import { StateContextUI } from '../../state-manager/UIStateManager';
 import { useFish } from '../../utils/use-fish';
 import { usePond } from '@actyx-contrib/react-pond';
+import { Pond } from '@actyx/pond';
+import {
+  StateUIAnonymous,
+  StateUIAuthenticated,
+} from '../../state-manager/state-types';
 
 const format = (value: any) => JSON.stringify(value, undefined, 4);
 
-export const Debug = () => {
-  const stateUI = useContext(StateContextUI);
-  const pond = usePond();
-
-  const [showDebug, setShowDebug] = useState<boolean>(false);
-
+const DebugAnonymous = ({
+  pond,
+  stateUI,
+}: Readonly<{ pond: Pond; stateUI: StateUIAnonymous }>) => {
   const userCatalogFishState = useFish(
     pond,
     UserCatalogFish,
     UserCatalogFish.initialState
   );
+  return (
+    <>
+      <h5>UserCatalog</h5>
+      <pre>{format(userCatalogFishState)}</pre>
+    </>
+  );
+};
 
+const DebugAuthenticated = ({
+  pond,
+  stateUI,
+}: Readonly<{ pond: Pond; stateUI: StateUIAuthenticated }>) => {
   const channelCatalogFishState = useFish(
     pond,
     ChannelCatalogFish,
@@ -31,6 +45,21 @@ export const Debug = () => {
     mkChannelFish(stateUI.activeChannelId),
     mkChannelFish(stateUI.activeChannelId).initialState
   );
+  return (
+    <>
+      <h5>ChannelFish</h5>
+      <pre>{format(channelFishState)}</pre>
+      <h5>ChannelsCatalogFish state</h5>
+      <pre>{format(channelCatalogFishState)}</pre>
+    </>
+  );
+};
+
+export const Debug = () => {
+  const stateUI = useContext(StateContextUI);
+  const pond = usePond();
+
+  const [showDebug, setShowDebug] = useState<boolean>(false);
 
   const handleShowDebug = () => setShowDebug(!showDebug);
 
@@ -46,12 +75,12 @@ export const Debug = () => {
           <pre>{format(stateUI)}</pre>
           <br />
           <hr />
-          <h5>UserCatalog</h5>
-          <pre>{format(userCatalogFishState)}</pre>
-          <h5>ChannelFish</h5>
-          <pre>{format(channelFishState)}</pre>
-          <h5>ChannelsCatalogFish state</h5>
-          <pre>{format(channelCatalogFishState)}</pre>
+          {stateUI.type === 'anonymous' && (
+            <DebugAnonymous pond={pond} stateUI={stateUI} />
+          )}
+          {stateUI.type === 'autheticated' && (
+            <DebugAuthenticated pond={pond} stateUI={stateUI} />
+          )}
         </div>
       )}
     </div>

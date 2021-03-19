@@ -5,6 +5,7 @@ import {
   showUserProfileEditSection,
   signOutActiveUser,
 } from '../../../state-manager/actions';
+import { StateUIAuthenticated } from '../../../state-manager/state-types';
 import {
   DispatchContextUI,
   StateContextUI,
@@ -18,7 +19,7 @@ export const TopBarContainer = () => {
 
   const pond = usePond();
 
-  const stateUI = useContext(StateContextUI);
+  const stateUI = useContext(StateContextUI) as StateUIAuthenticated;
 
   const userCatalogFishState = useFish(
     pond,

@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import { ChannelCatalogFish } from '../../../../business-logic/channel-catalog-fish/channel-catalog-fish';
 import { mkChannelFish } from '../../../../business-logic/channel-fish/channel-fish';
 import { UserCatalogFish } from '../../../../business-logic/user-catalog-fish/user-catalog-fish';
+import { StateUIAuthenticated } from '../../../state-manager/state-types';
 import { StateContextUI } from '../../../state-manager/UIStateManager';
 import { useFish } from '../../../utils/use-fish';
 import {
@@ -16,7 +17,7 @@ import { Channel } from './Channel';
 export const ChannelContainer = () => {
   const pond = usePond();
 
-  const stateUI = useContext(StateContextUI);
+  const stateUI = useContext(StateContextUI) as StateUIAuthenticated;
 
   const channelFishState = useFish(
     pond,

@@ -7,6 +7,7 @@ import {
   showAddChannelDialog,
   showEditChannelDialog,
 } from '../../../../state-manager/actions';
+import { StateUIAuthenticated } from '../../../../state-manager/state-types';
 import {
   DispatchContextUI,
   StateContextUI,
@@ -29,7 +30,7 @@ export const ChannelsCatalogContainer = ({
 
   const pond = usePond();
 
-  const stateUI = useContext(StateContextUI);
+  const stateUI = useContext(StateContextUI) as StateUIAuthenticated;
 
   const channelsCatalogFishState = useFish(
     pond,

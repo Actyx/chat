@@ -1,4 +1,5 @@
 import React, { useContext, useRef } from 'react';
+import { StateUIAuthenticated } from '../../../state-manager/state-types';
 import { StateContextUI } from '../../../state-manager/UIStateManager';
 import { MessageUI } from './Message';
 import { MessageListContainer } from './Message/MessageContainer';
@@ -11,7 +12,7 @@ type MessageListProps = Readonly<{
 const Spacer = () => <div className="w-4 h-4" />;
 
 export const MessageList = ({ messages }: MessageListProps) => {
-  const stateUI = useContext(StateContextUI);
+  const stateUI = useContext(StateContextUI) as StateUIAuthenticated;
 
   const markerElm = useRef<HTMLDivElement>(null);
 

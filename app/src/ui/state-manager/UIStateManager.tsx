@@ -1,26 +1,14 @@
 import { ReactChild, useReducer, createContext } from 'react';
-import { DEFAULT_CHANNEL } from '../../business-logic/channel-fish/channel-fish';
-import { ANONYMOUS_USER } from '../../business-logic/user-catalog-fish/types';
 import { Dispatcher } from './actions-types';
 import { reducer } from './reducer';
-import {
-  Dialogs,
-  Screens,
-  SectionCenter,
-  SectionRight,
-  StateUI,
-} from './state-types';
+import { Screens, StateUI } from './state-types';
 
 const inititialState: StateUI = {
+  type: 'anonymous',
   screen: Screens.Authentication,
-  dialog: Dialogs.None,
-  userUUID: ANONYMOUS_USER,
-  sectionRight: SectionRight.None,
-  sectionCenter: SectionCenter.Channel,
-  activeChannelId: DEFAULT_CHANNEL.channelId,
 };
 
-export const StateContextUI = createContext(inititialState);
+export const StateContextUI = createContext<StateUI>(inititialState);
 
 export const DispatchContextUI = createContext<Dispatcher>(undefined!);
 

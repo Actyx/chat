@@ -1,24 +1,20 @@
 import { useContext } from 'react';
 import { AuthenticationScreen } from '../AuthenticationScreen/AuthenticationScreen';
 import { StateContextUI } from '../../state-manager/UIStateManager';
-import { Screens } from '../../state-manager/state-types';
 import { ChatContainer } from '../ChatScreen/ChatContainer/ChatContainer';
-import { isUserAnonymous } from '../../../business-logic/user-catalog-fish/logic/helpers';
+import { Screens } from '../../state-manager/state-types';
 
-const AccessNotAllowed = () => <div>Access is not allowed</div>;
+// const AccessNotAllowed = () => <div>Access is not allowed</div>;
 
 export const ScreenRouter = () => {
   const stateUI = useContext(StateContextUI);
 
-  const { screen, userUUID } = stateUI;
-
   const renderScreen = () => {
-    switch (screen) {
+    switch (stateUI.screen) {
       case Screens.Authentication:
         return <AuthenticationScreen />;
       case Screens.Chat:
-        const canRouteToChatScreen = !isUserAnonymous(userUUID);
-        return canRouteToChatScreen ? <ChatContainer /> : <AccessNotAllowed />;
+        return <ChatContainer />;
     }
   };
 

@@ -8,11 +8,12 @@ import { wire } from '../../../../business-logic/common/logic-wire';
 import { addDefaultChannelIfDoesNotExist } from '../../../../business-logic/channel-catalog-fish/logic/addDefaultChannelIfDoesNotExist';
 import { UserCatalogFish } from '../../../../business-logic/user-catalog-fish/user-catalog-fish';
 import { useFish } from '../../../utils/use-fish';
+import { StateUIAuthenticated } from '../../../state-manager/state-types';
 
 export const ChatContainer = () => {
   const pond = usePond();
 
-  const stateUI = useContext(StateContextUI);
+  const stateUI = useContext(StateContextUI) as StateUIAuthenticated;
 
   const userCatalogFishState = useFish(
     pond,

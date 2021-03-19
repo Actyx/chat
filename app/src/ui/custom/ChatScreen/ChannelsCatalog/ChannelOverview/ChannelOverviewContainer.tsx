@@ -13,6 +13,7 @@ import { associateUserToChannel } from '../../../../../business-logic/channel-ca
 import { dissociateUserChannel } from '../../../../../business-logic/channel-catalog-fish/logic/dissociateUserChannel';
 import { hasUserCreatedChannel } from '../../../../../business-logic/channel-catalog-fish/logic-helpers';
 import { UserCatalogFish } from '../../../../../business-logic/user-catalog-fish/user-catalog-fish';
+import { StateUIAuthenticated } from '../../../../state-manager/state-types';
 
 type ChannelOverviewContainerProps = Readonly<{
   channelOverview: ChannelOverviewUI;
@@ -30,7 +31,7 @@ export const ChannelOverviewContainer = ({
 
   const pond = usePond();
 
-  const stateUI = useContext(StateContextUI);
+  const stateUI = useContext(StateContextUI) as StateUIAuthenticated;
 
   const channelCatalogFishState = useFish(
     pond,

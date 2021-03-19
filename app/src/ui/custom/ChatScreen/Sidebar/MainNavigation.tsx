@@ -3,7 +3,10 @@ import { Typography } from '../../../common/Typography/Typography';
 import { SpeakerphoneIcon } from '../../../common/Icons/SpeakerphoneIcon';
 import { useContext } from 'react';
 import { StateContextUI } from '../../../state-manager/UIStateManager';
-import { SectionCenter } from '../../../state-manager/state-types';
+import {
+  SectionCenter,
+  StateUIAuthenticated,
+} from '../../../state-manager/state-types';
 
 type MainNavigationProps = Readonly<{
   channelCatalog: () => void;
@@ -12,7 +15,7 @@ type MainNavigationProps = Readonly<{
 export const MainNavigation = ({
   channelCatalog: catalogChannels,
 }: MainNavigationProps) => {
-  const stateUI = useContext(StateContextUI);
+  const stateUI = useContext(StateContextUI) as StateUIAuthenticated;
 
   const color =
     stateUI.sectionCenter === SectionCenter.ChannelsCatalog

@@ -9,6 +9,7 @@ import { mkUUID } from '../../../../../business-logic/common/util';
 import { useFish } from '../../../../utils/use-fish';
 import { UserCatalogFish } from '../../../../../business-logic/user-catalog-fish/user-catalog-fish';
 import { ChannelCatalogFish } from '../../../../../business-logic/channel-catalog-fish/channel-catalog-fish';
+import { StateUIAuthenticated } from '../../../../state-manager/state-types';
 
 type MessageInputContainerProps = Readonly<{
   channelName: string;
@@ -21,7 +22,7 @@ export const MessageInputContainer = ({
 
   const pond = usePond();
 
-  const stateUI = useContext(StateContextUI);
+  const stateUI = useContext(StateContextUI) as StateUIAuthenticated;
 
   const userCatalogFishState = useFish(
     pond,

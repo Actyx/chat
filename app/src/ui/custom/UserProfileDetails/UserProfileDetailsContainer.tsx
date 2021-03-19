@@ -5,6 +5,7 @@ import { editUserProfile } from '../../../business-logic/user-catalog-fish/logic
 import { UserCatalogFish } from '../../../business-logic/user-catalog-fish/user-catalog-fish';
 import { getUIMessage } from '../../../l10n/l10n';
 import { closeSectionRight } from '../../state-manager/actions';
+import { StateUIAuthenticated } from '../../state-manager/state-types';
 import {
   DispatchContextUI,
   StateContextUI,
@@ -16,7 +17,7 @@ import { UserProfileDetails } from './UserProfileDetails';
 export const UserProfileDetailsContainer = () => {
   const pond = usePond();
 
-  const stateUI = useContext(StateContextUI);
+  const stateUI = useContext(StateContextUI) as StateUIAuthenticated;
 
   const dispatch = useContext(DispatchContextUI);
 

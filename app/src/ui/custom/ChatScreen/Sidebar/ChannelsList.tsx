@@ -5,7 +5,10 @@ import { ChannelsListUI } from './Sidebar';
 import { Row } from './Row';
 import { useContext } from 'react';
 import { StateContextUI } from '../../../state-manager/UIStateManager';
-import { SectionCenter } from '../../../state-manager/state-types';
+import {
+  SectionCenter,
+  StateUIAuthenticated,
+} from '../../../state-manager/state-types';
 
 type ChannelsListProps = Readonly<{
   channels: ChannelsListUI;
@@ -16,7 +19,7 @@ export const ChannelsList = ({
   channels,
   selectChannel,
 }: ChannelsListProps) => {
-  const stateUI = useContext(StateContextUI);
+  const stateUI = useContext(StateContextUI) as StateUIAuthenticated;
 
   return (
     <>

@@ -3,6 +3,7 @@ import {
   Dialogs,
   SectionCenter,
   SectionRight,
+  StateUIAuthenticated,
 } from '../../../state-manager/state-types';
 import { ChannelId } from '../../../../business-logic/message/types';
 import './chat.css';
@@ -21,7 +22,7 @@ const MainContent = ({ children }: Readonly<{ children: ReactNode }>) => {
 };
 
 export const Chat = () => {
-  const stateUI = useContext(StateContextUI);
+  const stateUI = useContext(StateContextUI) as StateUIAuthenticated;
 
   const [editChannelId, setEditChannelId] = useState<ChannelId>();
 

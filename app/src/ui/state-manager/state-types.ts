@@ -1,8 +1,5 @@
 import { ChannelId } from '../../business-logic/message/types';
-import {
-  AnonymousUser,
-  UserUUID,
-} from '../../business-logic/user-catalog-fish/types';
+import { UserUUID } from '../../business-logic/user-catalog-fish/types';
 
 export enum Screens {
   Authentication = 'Authentication',
@@ -25,11 +22,19 @@ export enum SectionCenter {
   ChannelsCatalog = 'ChannelsCatalog',
 }
 
-export type StateUI = Readonly<{
+export type StateUIAnonymous = Readonly<{
+  type: 'anonymous';
+  screen: Screens;
+}>;
+
+export type StateUIAuthenticated = Readonly<{
+  type: 'autheticated';
   screen: Screens;
   dialog: Dialogs;
-  userUUID: UserUUID | AnonymousUser;
+  userUUID: UserUUID;
   sectionRight: SectionRight;
   sectionCenter: SectionCenter;
   activeChannelId: ChannelId;
 }>;
+
+export type StateUI = StateUIAnonymous | StateUIAuthenticated;

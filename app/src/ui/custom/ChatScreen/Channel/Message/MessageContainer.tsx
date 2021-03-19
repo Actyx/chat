@@ -8,6 +8,7 @@ import { wire } from '../../../../../business-logic/common/logic-wire';
 import { MessageId } from '../../../../../business-logic/message/types';
 import { UserUUID } from '../../../../../business-logic/user-catalog-fish/types';
 import { UserCatalogFish } from '../../../../../business-logic/user-catalog-fish/user-catalog-fish';
+import { StateUIAuthenticated } from '../../../../state-manager/state-types';
 import { StateContextUI } from '../../../../state-manager/UIStateManager';
 import { useFish } from '../../../../utils/use-fish';
 import { Message } from '../Message';
@@ -37,7 +38,7 @@ export const MessageListContainer = ({
   canEdit,
   canHide,
 }: MessageListContainerProps) => {
-  const stateUI = useContext(StateContextUI);
+  const stateUI = useContext(StateContextUI) as StateUIAuthenticated;
 
   const pond = usePond();
 
