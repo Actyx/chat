@@ -69,9 +69,11 @@ export const ChannelOverviewContainer = ({
   const performAssociateUserToChannel = wirePond(associateUserToChannel);
 
   const handleAssociateUserChannel = async (channelId: ChannelId) =>
-    performAssociateUserToChannel(stateUI.userUUID, channelId).catch(
-      setPondErrorMessage
-    );
+    performAssociateUserToChannel(
+      userCatalogFishState.users,
+      stateUI.userUUID,
+      channelId
+    ).catch(setPondErrorMessage);
 
   const performUnarchiveChannel = wire(
     pond,
