@@ -12,6 +12,7 @@ import { unarchiveChannel } from '../../../../../business-logic/channel-catalog-
 import { associateUserToChannel } from '../../../../../business-logic/channel-catalog-fish/logic/associateUserToChannel';
 import { dissociateUserChannel } from '../../../../../business-logic/channel-catalog-fish/logic/dissociateUserChannel';
 import { hasUserCreatedChannel } from '../../../../../business-logic/channel-catalog-fish/logic-helpers';
+import { UserCatalogFish } from '../../../../../business-logic/user-catalog-fish/user-catalog-fish';
 
 type ChannelOverviewContainerProps = Readonly<{
   channelOverview: ChannelOverviewUI;
@@ -37,6 +38,12 @@ export const ChannelOverviewContainer = ({
     ChannelCatalogFish.initialState
   );
 
+  const userCatalogFishState = useFish(
+    pond,
+    UserCatalogFish,
+    UserCatalogFish.initialState
+  );
+
   const canUserManageArchiviation = (channelId: ChannelId) =>
     hasUserCreatedChannel(
       stateUI.userUUID,
@@ -51,9 +58,11 @@ export const ChannelOverviewContainer = ({
   const handleArchiveChannel = async (channelId: ChannelId) => {
     const hasUserConfirmed = window.confirm(CONFIRM_ARCHIVE_CHANNEL);
     if (hasUserConfirmed) {
-      performArchiveChannel(stateUI.userUUID, channelId).catch(
-        setPondErrorMessage
-      );
+      performArchiveChannel(
+        userCatalogFishState.users,
+        stateUI.userUUID,
+        channelId
+      ).catch(setPondErrorMessage);
     }
   };
 
