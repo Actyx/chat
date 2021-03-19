@@ -58,6 +58,7 @@ export const reducer = (state: StateUI, action: Action): StateUI => {
           return {
             ...state,
             type: 'anonymous',
+            screen: Screens.Authentication,
           };
         case ActionType.ShowAddChannelDialog:
           return {
