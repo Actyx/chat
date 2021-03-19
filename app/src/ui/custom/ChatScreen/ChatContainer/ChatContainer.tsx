@@ -14,13 +14,13 @@ export const ChatContainer = () => {
 
   const stateUI = useContext(StateContextUI);
 
-  const [pondErrorMessage, setPondErrorMessage] = useState<string>();
-
   const userCatalogFishState = useFish(
     pond,
     UserCatalogFish,
     UserCatalogFish.initialState
   );
+
+  const [pondErrorMessage, setPondErrorMessage] = useState<string>();
 
   useEffect(() => {
     const performAddDefaultChannel = wire(

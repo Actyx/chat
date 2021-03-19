@@ -17,9 +17,9 @@ import { AddChannelDialog } from './AddChannelDialog';
 export const AddChannelDialogContainer = () => {
   const dispatch = useContext(DispatchContextUI);
 
-  const pond = usePond();
-
   const stateUI = useContext(StateContextUI);
+
+  const pond = usePond();
 
   const userCatalogFishState = useFish(
     pond,

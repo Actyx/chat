@@ -37,17 +37,17 @@ export const MessageListContainer = ({
   canEdit,
   canHide,
 }: MessageListContainerProps) => {
-  const pond = usePond();
-
   const stateUI = useContext(StateContextUI);
 
-  const [pondErrorMessage, setPondErrorMessage] = useState<string>();
+  const pond = usePond();
 
   const userCatalogFishState = useFish(
     pond,
     UserCatalogFish,
     UserCatalogFish.initialState
   );
+
+  const [pondErrorMessage, setPondErrorMessage] = useState<string>();
 
   const wirePond = wire(pond, mkChannelFish(stateUI.activeChannelId));
 

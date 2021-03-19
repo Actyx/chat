@@ -28,14 +28,6 @@ export const EditChannelDialogContainer = ({
 
   const pond = usePond();
 
-  const [invalidMessage, setInvalidMessage] = useState<string>();
-
-  const [pondErrorMessage, setPondErrorMessage] = useState<string>();
-
-  const handleHideDialog = () => dispatch(hideDialog());
-
-  const handleResetInvalidMessage = () => setInvalidMessage(undefined);
-
   const channelsCatalogFishState = useFish(
     pond,
     ChannelCatalogFish,
@@ -48,12 +40,20 @@ export const EditChannelDialogContainer = ({
     UserCatalogFish.initialState
   );
 
+  const [invalidMessage, setInvalidMessage] = useState<string>();
+
+  const [pondErrorMessage, setPondErrorMessage] = useState<string>();
+
   const channelProfile = getChannelProfileByChannelId(
     selectedChannelId,
     channelsCatalogFishState.channels
   );
 
   const performEditChannel = wire(pond, ChannelCatalogFish)(editChannel);
+
+  const handleHideDialog = () => dispatch(hideDialog());
+
+  const handleResetInvalidMessage = () => setInvalidMessage(undefined);
 
   const handleEditChannel = async (newName: string, newDescription: string) => {
     performEditChannel(
