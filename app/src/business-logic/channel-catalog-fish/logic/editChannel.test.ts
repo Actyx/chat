@@ -5,6 +5,7 @@ describe('logic', () => {
     it('should not edit a new channel if user is not signed in', () => {
       const result = editChannel(
         { channels: {} },
+        {},
         'anonymous-user',
         'channel-1',
         'marketing',
@@ -23,6 +24,15 @@ describe('logic', () => {
     it('should not edit a channel if channel profile does not exits', () => {
       const result = editChannel(
         { channels: {} },
+        {
+          'user-1': {
+            userUUID: 'user-1',
+            createdOn: 1616071602411000,
+            displayName: 'simone',
+            email: 'user-1@actyx.io',
+            editedOn: 1616076603856000,
+          },
+        },
         'user-1',
         'channel-1',
         'marketing',
@@ -52,6 +62,15 @@ describe('logic', () => {
               },
               users: ['user-1'],
             },
+          },
+        },
+        {
+          'user-1': {
+            userUUID: 'user-1',
+            createdOn: 1616071602411000,
+            displayName: 'simone',
+            email: 'user-1@actyx.io',
+            editedOn: 1616076603856000,
           },
         },
         'user-1',
