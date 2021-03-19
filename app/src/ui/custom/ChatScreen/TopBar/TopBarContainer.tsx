@@ -20,7 +20,7 @@ export const TopBarContainer = () => {
 
   const stateUI = useContext(StateContextUI);
 
-  const stateUserCatalogFish = useFish(
+  const userCatalogFishState = useFish(
     pond,
     UserCatalogFish,
     UserCatalogFish.initialState
@@ -28,7 +28,7 @@ export const TopBarContainer = () => {
 
   const userDisplayName = getDisplayNameByUser(
     stateUI.userUUID,
-    stateUserCatalogFish.users
+    userCatalogFishState.users
   );
 
   const handleEditUserProfile = () => dispatch(showUserProfileEditSection());

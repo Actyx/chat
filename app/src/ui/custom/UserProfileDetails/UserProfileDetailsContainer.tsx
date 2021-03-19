@@ -26,7 +26,7 @@ export const UserProfileDetailsContainer = () => {
 
   const handleHideUserProfileDetails = () => dispatch(closeSectionRight());
 
-  const stateUserCatalogFish = useFish(
+  const userCatalogFishState = useFish(
     pond,
     UserCatalogFish,
     UserCatalogFish.initialState
@@ -34,7 +34,7 @@ export const UserProfileDetailsContainer = () => {
 
   const userDisplayName = getDisplayNameByUser(
     stateUI.userUUID,
-    stateUserCatalogFish.users
+    userCatalogFishState.users
   );
 
   const performUserProfileEdit = wire(pond, UserCatalogFish)(editUserProfile);

@@ -36,7 +36,7 @@ export const EditChannelDialogContainer = ({
 
   const handleResetInvalidMessage = () => setInvalidMessage(undefined);
 
-  const stateChannelsCatalogFish = useFish(
+  const channelsCatalogFishState = useFish(
     pond,
     ChannelCatalogFish,
     ChannelCatalogFish.initialState
@@ -50,7 +50,7 @@ export const EditChannelDialogContainer = ({
 
   const channelProfile = getChannelProfileByChannelId(
     selectedChannelId,
-    stateChannelsCatalogFish.channels
+    channelsCatalogFishState.channels
   );
 
   const performEditChannel = wire(pond, ChannelCatalogFish)(editChannel);

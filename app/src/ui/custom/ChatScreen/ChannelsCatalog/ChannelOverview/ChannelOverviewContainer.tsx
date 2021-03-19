@@ -32,7 +32,7 @@ export const ChannelOverviewContainer = ({
 
   const stateUI = useContext(StateContextUI);
 
-  const stateChannelsCatalogFish = useFish(
+  const channelCatalogFishState = useFish(
     pond,
     ChannelCatalogFish,
     ChannelCatalogFish.initialState
@@ -48,7 +48,7 @@ export const ChannelOverviewContainer = ({
     hasUserCreatedChannel(
       stateUI.userUUID,
       channelId,
-      stateChannelsCatalogFish.channels
+      channelCatalogFishState.channels
     );
 
   const wirePond = wire(pond, ChannelCatalogFish);
