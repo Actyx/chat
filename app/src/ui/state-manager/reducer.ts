@@ -9,7 +9,6 @@ import {
 } from './state-types';
 
 export const reducer = (state: StateUI, action: Action): StateUI => {
-  console.log(action);
   switch (state.type) {
     case 'anonymous':
       switch (action.type) {
@@ -32,11 +31,6 @@ export const reducer = (state: StateUI, action: Action): StateUI => {
       }
     case 'autheticated':
       switch (action.type) {
-        // case ActionType.GoToChatScreen:
-        //   return {
-        //     ...state,
-        //     screen: Screens.Chat,
-        //   };
         case ActionType.GoToAuthenticationScreen:
           return {
             ...state,

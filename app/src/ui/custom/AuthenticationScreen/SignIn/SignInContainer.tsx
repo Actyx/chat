@@ -1,6 +1,5 @@
 import { usePond } from '@actyx-contrib/react-pond';
 import React, { useContext, useState } from 'react';
-import { DispatchContextUI } from '../../../../App';
 import { signIn } from '../../../../business-logic/user-catalog-fish/logic/helpers';
 import { UserUUID } from '../../../../business-logic/user-catalog-fish/types';
 import { UserCatalogFish } from '../../../../business-logic/user-catalog-fish/user-catalog-fish';
@@ -8,6 +7,7 @@ import {
   addSignedInUser,
   goToChatScreen,
 } from '../../../state-manager/actions';
+import { DispatchContextUI } from '../../../state-manager/dispatch';
 import { useFish } from '../../../utils/use-fish';
 import { SignIn } from './SignIn';
 

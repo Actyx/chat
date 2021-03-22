@@ -17,9 +17,9 @@ import {
   showChannelSection,
 } from '../../../state-manager/actions';
 import { ChannelId } from '../../../../business-logic/message/types';
-import { DispatchContextUI } from '../../../../App';
 import { UserUUID } from '../../../../business-logic/user-catalog-fish/types';
 import { SectionCenter } from '../../../state-manager/state-types';
+import { DispatchContextUI } from '../../../state-manager/dispatch';
 
 type SideBarContainerProps = Readonly<{
   userUUID: UserUUID;

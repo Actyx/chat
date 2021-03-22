@@ -1,6 +1,5 @@
 import { usePond } from '@actyx-contrib/react-pond';
 import React, { useContext } from 'react';
-import { DispatchContextUI } from '../../../../../App';
 import { ChannelCatalogFish } from '../../../../../business-logic/channel-catalog-fish/channel-catalog-fish';
 import { ChannelId } from '../../../../../business-logic/message/types';
 import { UserUUID } from '../../../../../business-logic/user-catalog-fish/types';
@@ -9,6 +8,7 @@ import {
   showAddChannelDialog,
   showEditChannelDialog,
 } from '../../../../state-manager/actions';
+import { DispatchContextUI } from '../../../../state-manager/dispatch';
 import { useFish } from '../../../../utils/use-fish';
 import {
   mapChannelsToChannelCatalogUI,

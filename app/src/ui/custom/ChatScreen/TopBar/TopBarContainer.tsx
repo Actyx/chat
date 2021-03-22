@@ -1,12 +1,12 @@
 import { usePond } from '@actyx-contrib/react-pond';
 import React, { useContext } from 'react';
-import { DispatchContextUI } from '../../../../App';
 import { UserUUID } from '../../../../business-logic/user-catalog-fish/types';
 import { UserCatalogFish } from '../../../../business-logic/user-catalog-fish/user-catalog-fish';
 import {
   showUserProfileEditSection,
   signOutActiveUser,
 } from '../../../state-manager/actions';
+import { DispatchContextUI } from '../../../state-manager/dispatch';
 import { useFish } from '../../../utils/use-fish';
 import { getDisplayNameByUser } from '../ChatContainer/ui-map';
 import { TopBar } from './TopBar';
