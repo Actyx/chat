@@ -2,10 +2,7 @@ import { usePond } from '@actyx-contrib/react-pond';
 import React, { useContext } from 'react';
 import { ChannelCatalogFish } from '../../../../business-logic/channel-catalog-fish/channel-catalog-fish';
 import { UserCatalogFish } from '../../../../business-logic/user-catalog-fish/user-catalog-fish';
-import {
-  DispatchContextUI,
-  StateContextUI,
-} from '../../../state-manager/UIStateManager';
+
 import { useFish } from '../../../utils/use-fish';
 import {
   mapChannelsToSidebarUI,
@@ -20,14 +17,24 @@ import {
   showChannelSection,
 } from '../../../state-manager/actions';
 import { ChannelId } from '../../../../business-logic/message/types';
-import { StateUIAuthenticated } from '../../../state-manager/state-types';
+import { DispatchContextUI } from '../../../../App';
+import { UserUUID } from '../../../../business-logic/user-catalog-fish/types';
+import { SectionCenter } from '../../../state-manager/state-types';
 
-export const SideBarContainer = () => {
+type SideBarContainerProps = Readonly<{
+  userUUID: UserUUID;
+  sectionCenter: SectionCenter;
+  activeChannelId: ChannelId;
+}>;
+
+export const SideBarContainer = ({
+  userUUID,
+  sectionCenter,
+  activeChannelId,
+}: SideBarContainerProps) => {
   const dispatch = useContext(DispatchContextUI);
 
   const pond = usePond();
-
-  const stateUI = useContext(StateContextUI) as StateUIAuthenticated;
 
   const channelsCatalogFishState = useFish(
     pond,
@@ -42,7 +49,7 @@ export const SideBarContainer = () => {
   );
 
   const channelsSideBarUI = sortAlphabeticChannelsSidebar(
-    mapChannelsToSidebarUI(channelsCatalogFishState.channels, stateUI.userUUID)
+    mapChannelsToSidebarUI(channelsCatalogFishState.channels, userUUID)
   );
 
   const usersSideBarUI = sortAlphabeticUsersSidebar(
@@ -60,6 +67,8 @@ export const SideBarContainer = () => {
       appName={pkg.chat.appName}
       channels={channelsSideBarUI}
       users={usersSideBarUI}
+      sectionCenter={sectionCenter}
+      activeChannelId={activeChannelId}
       selectChannelsCatalog={handleSelectChannelsCatalog}
       selectChannel={handleSelectChannel}
     />

@@ -1,24 +1,25 @@
 import { usePond } from '@actyx-contrib/react-pond';
 import React, { useContext, useState } from 'react';
+import { DispatchContextUI } from '../../../../App';
 import { ChannelCatalogFish } from '../../../../business-logic/channel-catalog-fish/channel-catalog-fish';
 import { addChannel } from '../../../../business-logic/channel-catalog-fish/logic/addChannel';
 import { wire } from '../../../../business-logic/common/logic-wire';
 import { mkUUID } from '../../../../business-logic/common/util';
+import { UserUUID } from '../../../../business-logic/user-catalog-fish/types';
 import { UserCatalogFish } from '../../../../business-logic/user-catalog-fish/user-catalog-fish';
 import { getUIMessage } from '../../../../l10n/l10n';
 import { hideDialog } from '../../../state-manager/actions';
-import { StateUIAuthenticated } from '../../../state-manager/state-types';
-import {
-  DispatchContextUI,
-  StateContextUI,
-} from '../../../state-manager/UIStateManager';
 import { useFish } from '../../../utils/use-fish';
 import { AddChannelDialog } from './AddChannelDialog';
 
-export const AddChannelDialogContainer = () => {
-  const dispatch = useContext(DispatchContextUI);
+type AddChannelDialogContainerProps = Readonly<{
+  userUUID: UserUUID;
+}>;
 
-  const stateUI = useContext(StateContextUI) as StateUIAuthenticated;
+export const AddChannelDialogContainer = ({
+  userUUID,
+}: AddChannelDialogContainerProps) => {
+  const dispatch = useContext(DispatchContextUI);
 
   const pond = usePond();
 
@@ -39,12 +40,7 @@ export const AddChannelDialogContainer = () => {
   const performAddChannel = wire(pond, ChannelCatalogFish)(addChannel(mkUUID));
 
   const handleAddChannel = async (name: string, description: string) => {
-    performAddChannel(
-      userCatalogFishState.users,
-      stateUI.userUUID,
-      name,
-      description
-    )
+    performAddChannel(userCatalogFishState.users, userUUID, name, description)
       .then((result) => {
         if (result.type === 'ok') {
           handleHideDialog();

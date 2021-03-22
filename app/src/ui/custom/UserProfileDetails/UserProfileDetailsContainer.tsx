@@ -1,23 +1,22 @@
 import { usePond } from '@actyx-contrib/react-pond';
 import React, { useContext, useState } from 'react';
+import { DispatchContextUI } from '../../../App';
 import { wire } from '../../../business-logic/common/logic-wire';
 import { editUserProfile } from '../../../business-logic/user-catalog-fish/logic/editUserProfile';
+import { UserUUID } from '../../../business-logic/user-catalog-fish/types';
 import { UserCatalogFish } from '../../../business-logic/user-catalog-fish/user-catalog-fish';
 import { getUIMessage } from '../../../l10n/l10n';
 import { closeSectionRight } from '../../state-manager/actions';
-import { StateUIAuthenticated } from '../../state-manager/state-types';
-import {
-  DispatchContextUI,
-  StateContextUI,
-} from '../../state-manager/UIStateManager';
 import { useFish } from '../../utils/use-fish';
 import { getDisplayNameByUser } from '../ChatScreen/ChatContainer/ui-map';
 import { UserProfileDetails } from './UserProfileDetails';
 
-export const UserProfileDetailsContainer = () => {
-  const pond = usePond();
+type UserProfileDetailsContainerProps = Readonly<{ userUUID: UserUUID }>;
 
-  const stateUI = useContext(StateContextUI) as StateUIAuthenticated;
+export const UserProfileDetailsContainer = ({
+  userUUID,
+}: UserProfileDetailsContainerProps) => {
+  const pond = usePond();
 
   const dispatch = useContext(DispatchContextUI);
 
@@ -34,14 +33,14 @@ export const UserProfileDetailsContainer = () => {
   );
 
   const userDisplayName = getDisplayNameByUser(
-    stateUI.userUUID,
+    userUUID,
     userCatalogFishState.users
   );
 
   const performUserProfileEdit = wire(pond, UserCatalogFish)(editUserProfile);
 
   const handleEditUserProfile = async (displayName: string) => {
-    performUserProfileEdit(displayName, stateUI.userUUID)
+    performUserProfileEdit(displayName, userUUID)
       .then((result) => {
         if (result.type === 'ok') {
           dispatch(closeSectionRight());

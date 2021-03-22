@@ -1,17 +1,19 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Typography } from '../../../common/Typography/Typography';
 import { UsersIcon } from '../../../common/Icons/UsersIcon';
 import { UserIcon } from '../../../common/Icons/UserIcon';
 import { MessageList } from './MessageList';
 import { MessageUI } from './Message';
-import { StateContextUI } from '../../../state-manager/UIStateManager';
 import { CentralSection } from '../../../common/CentralSection/CentralSection';
 import { MessageInputContainer } from './MessageInput/MessageInputContainer';
-import { StateUIAuthenticated } from '../../../state-manager/state-types';
+import { ChannelId } from '../../../../business-logic/message/types';
+import { UserUUID } from '../../../../business-logic/user-catalog-fish/types';
 
 export type MessagesUI = ReadonlyArray<MessageUI>;
 
 type ChannelProps = Readonly<{
+  userUUID: UserUUID;
+  activeChannelId: ChannelId;
   channelName: string;
   channelDescription?: string;
   messages: ReadonlyArray<MessageUI>;
@@ -19,13 +21,13 @@ type ChannelProps = Readonly<{
 }>;
 
 export const Channel = ({
+  userUUID,
+  activeChannelId,
   channelName,
   channelDescription,
   messages,
   totalUsers,
 }: ChannelProps) => {
-  const stateUI = useContext(StateContextUI) as StateUIAuthenticated;
-
   return (
     <CentralSection
       header={
@@ -52,8 +54,21 @@ export const Channel = ({
           </div>
         </>
       }
-      body={<MessageList key={stateUI.activeChannelId} messages={messages} />}
-      footer={<MessageInputContainer channelName={channelName} />}
+      body={
+        <MessageList
+          key={activeChannelId}
+          userUUID={userUUID}
+          activeChannelId={activeChannelId}
+          messages={messages}
+        />
+      }
+      footer={
+        <MessageInputContainer
+          activeChannelId={activeChannelId}
+          userUUID={userUUID}
+          channelName={channelName}
+        />
+      }
     />
   );
 };

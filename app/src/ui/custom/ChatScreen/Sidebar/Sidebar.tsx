@@ -12,6 +12,7 @@ import { Header } from './Header';
 import { UserUUID } from '../../../../business-logic/user-catalog-fish/types';
 import { UsersList } from './UsersList';
 import { Body } from './Body';
+import { SectionCenter } from '../../../state-manager/state-types';
 
 export type UsersListUI = ReadonlyArray<{
   userUUID: UserUUID;
@@ -27,6 +28,8 @@ type SidebarProps = Readonly<{
   appName: string;
   channels: ChannelsListUI;
   users: UsersListUI;
+  sectionCenter: SectionCenter;
+  activeChannelId: ChannelId;
   selectChannelsCatalog: () => void;
   selectChannel: (channelId: ChannelId) => void;
 }>;
@@ -35,6 +38,8 @@ export const Sidebar = ({
   appName,
   channels,
   users,
+  sectionCenter,
+  activeChannelId,
   selectChannelsCatalog,
   selectChannel,
 }: SidebarProps) => {
@@ -43,7 +48,10 @@ export const Sidebar = ({
       <Header appName={appName} />
       <Body>
         <Section>
-          <MainNavigation channelCatalog={selectChannelsCatalog} />
+          <MainNavigation
+            sectionCenter={sectionCenter}
+            channelCatalog={selectChannelsCatalog}
+          />
         </Section>
         <Section>
           <CollapsibleList
@@ -55,7 +63,12 @@ export const Sidebar = ({
               </Typography>
             }
           >
-            <ChannelsList channels={channels} selectChannel={selectChannel} />
+            <ChannelsList
+              channels={channels}
+              sectionCenter={sectionCenter}
+              activeChannelId={activeChannelId}
+              selectChannel={selectChannel}
+            />
           </CollapsibleList>
         </Section>
         <Section>

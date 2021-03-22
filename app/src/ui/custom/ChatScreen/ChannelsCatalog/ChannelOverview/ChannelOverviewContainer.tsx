@@ -1,8 +1,7 @@
 import { usePond } from '@actyx-contrib/react-pond';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { ChannelCatalogFish } from '../../../../../business-logic/channel-catalog-fish/channel-catalog-fish';
 import { ChannelId } from '../../../../../business-logic/message/types';
-import { StateContextUI } from '../../../../state-manager/UIStateManager';
 import { ChannelOverviewUI } from './ChannelsCatalog';
 import { ChannelOverview } from './ChannelOverview';
 import { useFish } from '../../../../utils/use-fish';
@@ -13,9 +12,10 @@ import { associateUserToChannel } from '../../../../../business-logic/channel-ca
 import { dissociateUserChannel } from '../../../../../business-logic/channel-catalog-fish/logic/dissociateUserChannel';
 import { hasUserCreatedChannel } from '../../../../../business-logic/channel-catalog-fish/logic-helpers';
 import { UserCatalogFish } from '../../../../../business-logic/user-catalog-fish/user-catalog-fish';
-import { StateUIAuthenticated } from '../../../../state-manager/state-types';
+import { UserUUID } from '../../../../../business-logic/user-catalog-fish/types';
 
 type ChannelOverviewContainerProps = Readonly<{
+  userUUID: UserUUID;
   channelOverview: ChannelOverviewUI;
   showEditChannelDialog: (channelId: ChannelId) => void;
 }>;
@@ -24,14 +24,13 @@ const CONFIRM_ARCHIVE_CHANNEL =
   "Are you sure to archive this channel? The channel won't be accessible anymore to its members.";
 
 export const ChannelOverviewContainer = ({
+  userUUID,
   channelOverview,
   showEditChannelDialog,
 }: ChannelOverviewContainerProps) => {
   const [pondErrorMessage, setPondErrorMessage] = useState<string>();
 
   const pond = usePond();
-
-  const stateUI = useContext(StateContextUI) as StateUIAuthenticated;
 
   const channelCatalogFishState = useFish(
     pond,
@@ -47,7 +46,7 @@ export const ChannelOverviewContainer = ({
 
   const canUserManageArchiviation = (channelId: ChannelId) =>
     hasUserCreatedChannel(
-      stateUI.userUUID,
+      userUUID,
       channelId,
       channelCatalogFishState.channels
     );
@@ -61,7 +60,7 @@ export const ChannelOverviewContainer = ({
     if (hasUserConfirmed) {
       performArchiveChannel(
         userCatalogFishState.users,
-        stateUI.userUUID,
+        userUUID,
         channelId
       ).catch(setPondErrorMessage);
     }
@@ -72,7 +71,7 @@ export const ChannelOverviewContainer = ({
   const handleAssociateUserChannel = async (channelId: ChannelId) =>
     performAssociateUserToChannel(
       userCatalogFishState.users,
-      stateUI.userUUID,
+      userUUID,
       channelId
     ).catch(setPondErrorMessage);
 
@@ -84,7 +83,7 @@ export const ChannelOverviewContainer = ({
   const handleUnarchiveChannel = async (channelId: ChannelId) =>
     performUnarchiveChannel(
       userCatalogFishState.users,
-      stateUI.userUUID,
+      userUUID,
       channelId
     ).catch(setPondErrorMessage);
 
@@ -93,7 +92,7 @@ export const ChannelOverviewContainer = ({
   const handleDissociateUserChannel = async (channelId: ChannelId) =>
     performDissociateUserChannel(
       userCatalogFishState.users,
-      stateUI.userUUID,
+      userUUID,
       channelId
     ).catch(setPondErrorMessage);
 

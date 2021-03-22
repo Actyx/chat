@@ -1,18 +1,27 @@
-import { useContext } from 'react';
 import { AuthenticationScreen } from '../AuthenticationScreen/AuthenticationScreen';
-import { StateContextUI } from '../../state-manager/UIStateManager';
 import { ChatContainer } from '../ChatScreen/ChatContainer/ChatContainer';
-import { Screens } from '../../state-manager/state-types';
+import { StateUI } from '../../state-manager/state-types';
 
-export const ScreenRouter = () => {
-  const stateUI = useContext(StateContextUI);
+type ScreenRouterProps = Readonly<{
+  stateUI: StateUI;
+}>;
 
+export const ScreenRouter = ({ stateUI }: ScreenRouterProps) => {
   const renderScreen = () => {
-    switch (stateUI.screen) {
-      case Screens.Authentication:
+    switch (stateUI.type) {
+      case 'anonymous':
         return <AuthenticationScreen />;
-      case Screens.Chat:
-        return <ChatContainer />;
+      case 'autheticated':
+        return (
+          <ChatContainer
+            userUUID={stateUI.userUUID}
+            screen={stateUI.screen}
+            dialog={stateUI.dialog}
+            sectionRight={stateUI.sectionRight}
+            sectionCenter={stateUI.sectionCenter}
+            activeChannelId={stateUI.activeChannelId}
+          />
+        );
     }
   };
 
