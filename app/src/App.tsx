@@ -23,11 +23,9 @@ export const App = () => {
     <>
       <Pond onError={(err) => setPondErrorMessage(err as string)}>
         <DispatchContextUI.Provider value={dispatch}>
-          <>
-            <ScreenRouter stateUI={stateUI} />
-            <Debug stateUI={stateUI} />
-          </>
+          <ScreenRouter stateUI={stateUI} />
         </DispatchContextUI.Provider>
+        <Debug stateUI={stateUI} />
       </Pond>
       {pondErrorMessage && (
         <div className="fixed top-0 left-0 w-full">
