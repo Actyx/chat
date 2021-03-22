@@ -25,21 +25,21 @@ export type ChannelsListUI = ReadonlyArray<{
 }>;
 
 type SidebarProps = Readonly<{
+  activeChannelId: ChannelId;
   appName: string;
   channels: ChannelsListUI;
   users: UsersListUI;
   sectionCenter: SectionCenter;
-  activeChannelId: ChannelId;
   selectChannelsCatalog: () => void;
   selectChannel: (channelId: ChannelId) => void;
 }>;
 
 export const Sidebar = ({
+  activeChannelId,
   appName,
   channels,
   users,
   sectionCenter,
-  activeChannelId,
   selectChannelsCatalog,
   selectChannel,
 }: SidebarProps) => {

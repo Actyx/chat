@@ -22,18 +22,18 @@ const MainContent = ({ children }: Readonly<{ children: ReactNode }>) => {
 
 type ChatProps = Readonly<{
   userUUID: UserUUID;
+  activeChannelId: ChannelId;
   dialog: Dialogs;
   sectionRight: SectionRight;
   sectionCenter: SectionCenter;
-  activeChannelId: ChannelId;
 }>;
 
 export const Chat = ({
   userUUID,
+  activeChannelId,
   dialog,
   sectionRight,
   sectionCenter,
-  activeChannelId,
 }: ChatProps) => {
   const [editChannelId, setEditChannelId] = useState<ChannelId>();
 
@@ -85,8 +85,8 @@ export const Chat = ({
         <ErrorBoundary>
           <SideBarContainer
             userUUID={userUUID}
-            sectionCenter={sectionCenter}
             activeChannelId={activeChannelId}
+            sectionCenter={sectionCenter}
           />
         </ErrorBoundary>
         <ErrorBoundary>{renderSectionCenter()}</ErrorBoundary>

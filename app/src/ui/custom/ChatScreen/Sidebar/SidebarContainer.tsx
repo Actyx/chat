@@ -23,14 +23,14 @@ import { DispatchContext } from '../../../state-manager/dispatch';
 
 type SideBarContainerProps = Readonly<{
   userUUID: UserUUID;
-  sectionCenter: SectionCenter;
   activeChannelId: ChannelId;
+  sectionCenter: SectionCenter;
 }>;
 
 export const SideBarContainer = ({
   userUUID,
-  sectionCenter,
   activeChannelId,
+  sectionCenter,
 }: SideBarContainerProps) => {
   const dispatch = useContext(DispatchContext);
 
@@ -64,11 +64,11 @@ export const SideBarContainer = ({
 
   return (
     <Sidebar
+      activeChannelId={activeChannelId}
       appName={pkg.chat.appName}
       channels={channelsSideBarUI}
       users={usersSideBarUI}
       sectionCenter={sectionCenter}
-      activeChannelId={activeChannelId}
       selectChannelsCatalog={handleSelectChannelsCatalog}
       selectChannel={handleSelectChannel}
     />

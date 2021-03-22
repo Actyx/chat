@@ -58,10 +58,10 @@ export const ChatContainer = ({
   ) : (
     <Chat
       userUUID={userUUID}
+      activeChannelId={activeChannelId}
       dialog={dialog}
       sectionRight={sectionRight}
       sectionCenter={sectionCenter}
-      activeChannelId={activeChannelId}
     />
   );
 };
