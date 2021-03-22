@@ -15,11 +15,10 @@ export const ScreenRouter = ({ stateUI }: ScreenRouterProps) => {
         return (
           <ChatContainer
             userUUID={stateUI.userUUID}
-            screen={stateUI.screen}
+            activeChannelId={stateUI.activeChannelId}
             dialog={stateUI.dialog}
             sectionRight={stateUI.sectionRight}
             sectionCenter={stateUI.sectionCenter}
-            activeChannelId={stateUI.activeChannelId}
           />
         );
     }

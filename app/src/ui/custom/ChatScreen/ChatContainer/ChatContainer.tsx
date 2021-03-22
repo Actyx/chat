@@ -10,7 +10,6 @@ import { useFish } from '../../../utils/use-fish';
 import { UserUUID } from '../../../../business-logic/user-catalog-fish/types';
 import {
   Dialogs,
-  Screens,
   SectionCenter,
   SectionRight,
 } from '../../../state-manager/state-types';
@@ -18,20 +17,18 @@ import { ChannelId } from '../../../../business-logic/message/types';
 
 type ChatContainerProps = Readonly<{
   userUUID: UserUUID;
-  screen: Screens;
+  activeChannelId: ChannelId;
   dialog: Dialogs;
   sectionRight: SectionRight;
   sectionCenter: SectionCenter;
-  activeChannelId: ChannelId;
 }>;
 
 export const ChatContainer = ({
   userUUID,
-  screen,
+  activeChannelId,
   dialog,
   sectionRight,
   sectionCenter,
-  activeChannelId,
 }: ChatContainerProps) => {
   const pond = usePond();
 
