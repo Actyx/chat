@@ -8,7 +8,7 @@ import {
   showAddChannelDialog,
   showEditChannelDialog,
 } from '../../../../state-manager/actions';
-import { DispatchContextUI } from '../../../../state-manager/dispatch';
+import { DispatchContext } from '../../../../state-manager/dispatch';
 import { useFish } from '../../../../utils/use-fish';
 import {
   mapChannelsToChannelCatalogUI,
@@ -25,7 +25,7 @@ export const ChannelsCatalogContainer = ({
   userUUID,
   activeEditChannelId,
 }: ChannelsCatalogContainerProps) => {
-  const dispatch = useContext(DispatchContextUI);
+  const dispatch = useContext(DispatchContext);
 
   const pond = usePond();
 

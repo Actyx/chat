@@ -7,12 +7,12 @@ import {
   addSignedInUser,
   goToChatScreen,
 } from '../../../state-manager/actions';
-import { DispatchContextUI } from '../../../state-manager/dispatch';
+import { DispatchContext } from '../../../state-manager/dispatch';
 import { useFish } from '../../../utils/use-fish';
 import { SignIn } from './SignIn';
 
 export const SignInContainer = () => {
-  const dispatch = useContext(DispatchContextUI);
+  const dispatch = useContext(DispatchContext);
 
   const pond = usePond();
 

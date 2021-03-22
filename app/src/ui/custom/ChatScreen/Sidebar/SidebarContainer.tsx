@@ -19,7 +19,7 @@ import {
 import { ChannelId } from '../../../../business-logic/message/types';
 import { UserUUID } from '../../../../business-logic/user-catalog-fish/types';
 import { SectionCenter } from '../../../state-manager/state-types';
-import { DispatchContextUI } from '../../../state-manager/dispatch';
+import { DispatchContext } from '../../../state-manager/dispatch';
 
 type SideBarContainerProps = Readonly<{
   userUUID: UserUUID;
@@ -32,7 +32,7 @@ export const SideBarContainer = ({
   sectionCenter,
   activeChannelId,
 }: SideBarContainerProps) => {
-  const dispatch = useContext(DispatchContextUI);
+  const dispatch = useContext(DispatchContext);
 
   const pond = usePond();
 

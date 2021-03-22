@@ -9,7 +9,7 @@ import { UserUUID } from '../../../../business-logic/user-catalog-fish/types';
 import { UserCatalogFish } from '../../../../business-logic/user-catalog-fish/user-catalog-fish';
 import { getUIMessage } from '../../../../l10n/l10n';
 import { hideDialog } from '../../../state-manager/actions';
-import { DispatchContextUI } from '../../../state-manager/dispatch';
+import { DispatchContext } from '../../../state-manager/dispatch';
 import { useFish } from '../../../utils/use-fish';
 import { EditChannelDialog } from './EditChannelDialog';
 
@@ -22,7 +22,7 @@ export const EditChannelDialogContainer = ({
   userUUID,
   selectedChannelId,
 }: EditChannelDialogContainerProps) => {
-  const dispatch = useContext(DispatchContextUI);
+  const dispatch = useContext(DispatchContext);
 
   const pond = usePond();
 

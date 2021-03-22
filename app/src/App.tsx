@@ -5,7 +5,7 @@ import { Debug } from './ui/custom/Debug/Debug';
 import { ScreenRouter } from './ui/custom/ScreenRouter/ScreenRouter';
 import { reducer } from './ui/state-manager/reducer';
 import { Screens, StateUIAnonymous } from './ui/state-manager/state-types';
-import { DispatchContextUI } from './ui/state-manager/dispatch';
+import { DispatchContext } from './ui/state-manager/dispatch';
 
 const inititialState: StateUIAnonymous = {
   type: 'anonymous',
@@ -20,9 +20,9 @@ export const App = () => {
   return (
     <>
       <Pond onError={(err) => setPondErrorMessage(err as string)}>
-        <DispatchContextUI.Provider value={dispatch}>
+        <DispatchContext.Provider value={dispatch}>
           <ScreenRouter stateUI={stateUI} />
-        </DispatchContextUI.Provider>
+        </DispatchContext.Provider>
         <Debug stateUI={stateUI} />
       </Pond>
       {pondErrorMessage && (

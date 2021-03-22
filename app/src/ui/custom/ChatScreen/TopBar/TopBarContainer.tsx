@@ -6,7 +6,7 @@ import {
   showUserProfileEditSection,
   signOutActiveUser,
 } from '../../../state-manager/actions';
-import { DispatchContextUI } from '../../../state-manager/dispatch';
+import { DispatchContext } from '../../../state-manager/dispatch';
 import { useFish } from '../../../utils/use-fish';
 import { getDisplayNameByUser } from '../ChatContainer/ui-map';
 import { TopBar } from './TopBar';
@@ -16,7 +16,7 @@ type TopBarContainerProps = Readonly<{ userUUID: UserUUID }>;
 export const TopBarContainer = ({ userUUID }: TopBarContainerProps) => {
   const pond = usePond();
 
-  const dispatch = useContext(DispatchContextUI);
+  const dispatch = useContext(DispatchContext);
 
   const userCatalogFishState = useFish(
     pond,
