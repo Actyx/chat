@@ -19,8 +19,11 @@ export const goToAutheticationScreen = (): GoToAuthenticationScreen => ({
   type: ActionType.GoToAuthenticationScreen,
 });
 
-export const goToChatScreen = (): GoToChatScreen => ({
+export const goToChatScreen = (userUUID: UserUUID): GoToChatScreen => ({
   type: ActionType.GoToChatScreen,
+  payload: {
+    userUUID,
+  },
 });
 
 export const showChannelsCatalogSection = (): ShowChannelsCatalogSection => ({

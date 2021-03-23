@@ -5,26 +5,24 @@ import { getChannelProfileByChannelId } from '../../../../business-logic/channel
 import { editChannel } from '../../../../business-logic/channel-catalog-fish/logic/editChannel';
 import { wire } from '../../../../business-logic/common/logic-wire';
 import { ChannelId } from '../../../../business-logic/message/types';
+import { UserUUID } from '../../../../business-logic/user-catalog-fish/types';
 import { UserCatalogFish } from '../../../../business-logic/user-catalog-fish/user-catalog-fish';
 import { getUIMessage } from '../../../../l10n/l10n';
 import { hideDialog } from '../../../state-manager/actions';
-import {
-  DispatchContextUI,
-  StateContextUI,
-} from '../../../state-manager/UIStateManager';
+import { DispatchContext } from '../../../state-manager/dispatch';
 import { useFish } from '../../../utils/use-fish';
 import { EditChannelDialog } from './EditChannelDialog';
 
 type EditChannelDialogContainerProps = Readonly<{
+  userUUID: UserUUID;
   selectedChannelId: ChannelId;
 }>;
 
 export const EditChannelDialogContainer = ({
+  userUUID,
   selectedChannelId,
 }: EditChannelDialogContainerProps) => {
-  const dispatch = useContext(DispatchContextUI);
-
-  const stateUI = useContext(StateContextUI);
+  const dispatch = useContext(DispatchContext);
 
   const pond = usePond();
 
@@ -58,7 +56,7 @@ export const EditChannelDialogContainer = ({
   const handleEditChannel = async (newName: string, newDescription: string) => {
     performEditChannel(
       userCatalogFishState.users,
-      stateUI.userUUID,
+      userUUID,
       selectedChannelId,
       newName,
       newDescription

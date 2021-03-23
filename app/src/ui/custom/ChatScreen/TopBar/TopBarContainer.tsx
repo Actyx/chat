@@ -1,24 +1,22 @@
 import { usePond } from '@actyx-contrib/react-pond';
 import React, { useContext } from 'react';
+import { UserUUID } from '../../../../business-logic/user-catalog-fish/types';
 import { UserCatalogFish } from '../../../../business-logic/user-catalog-fish/user-catalog-fish';
 import {
   showUserProfileEditSection,
   signOutActiveUser,
 } from '../../../state-manager/actions';
-import {
-  DispatchContextUI,
-  StateContextUI,
-} from '../../../state-manager/UIStateManager';
+import { DispatchContext } from '../../../state-manager/dispatch';
 import { useFish } from '../../../utils/use-fish';
 import { getDisplayNameByUser } from '../ChatContainer/ui-map';
 import { TopBar } from './TopBar';
 
-export const TopBarContainer = () => {
-  const dispatch = useContext(DispatchContextUI);
+type TopBarContainerProps = Readonly<{ userUUID: UserUUID }>;
 
+export const TopBarContainer = ({ userUUID }: TopBarContainerProps) => {
   const pond = usePond();
 
-  const stateUI = useContext(StateContextUI);
+  const dispatch = useContext(DispatchContext);
 
   const userCatalogFishState = useFish(
     pond,
@@ -27,7 +25,7 @@ export const TopBarContainer = () => {
   );
 
   const userDisplayName = getDisplayNameByUser(
-    stateUI.userUUID,
+    userUUID,
     userCatalogFishState.users
   );
 

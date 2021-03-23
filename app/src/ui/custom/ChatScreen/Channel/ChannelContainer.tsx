@@ -1,9 +1,10 @@
 import { usePond } from '@actyx-contrib/react-pond';
-import React, { useContext } from 'react';
+import React from 'react';
 import { ChannelCatalogFish } from '../../../../business-logic/channel-catalog-fish/channel-catalog-fish';
 import { mkChannelFish } from '../../../../business-logic/channel-fish/channel-fish';
+import { ChannelId } from '../../../../business-logic/message/types';
+import { UserUUID } from '../../../../business-logic/user-catalog-fish/types';
 import { UserCatalogFish } from '../../../../business-logic/user-catalog-fish/user-catalog-fish';
-import { StateContextUI } from '../../../state-manager/UIStateManager';
 import { useFish } from '../../../utils/use-fish';
 import {
   getChannelNameAndDescription,
@@ -13,15 +14,21 @@ import {
 } from '../ChatContainer/ui-map';
 import { Channel } from './Channel';
 
-export const ChannelContainer = () => {
-  const pond = usePond();
+type ChannelContainerProps = Readonly<{
+  userUUID: UserUUID;
+  activeChannelId: ChannelId;
+}>;
 
-  const stateUI = useContext(StateContextUI);
+export const ChannelContainer = ({
+  userUUID,
+  activeChannelId,
+}: ChannelContainerProps) => {
+  const pond = usePond();
 
   const channelFishState = useFish(
     pond,
-    mkChannelFish(stateUI.activeChannelId),
-    mkChannelFish(stateUI.activeChannelId).initialState
+    mkChannelFish(activeChannelId),
+    mkChannelFish(activeChannelId).initialState
   );
 
   const userCatalogFishState = useFish(
@@ -39,22 +46,24 @@ export const ChannelContainer = () => {
   const channelMessages = mapPublicMessagesToChannelUI(
     getVisiblePublicMessages(channelFishState.messages),
     userCatalogFishState.users,
-    stateUI.userUUID
+    userUUID
   );
 
   const totalUsers = getTotalUsersNumber(
-    stateUI.activeChannelId,
+    activeChannelId,
     channelCatalogFishState.channels,
     userCatalogFishState.users
   );
 
   const { channelName, channelDescription } = getChannelNameAndDescription(
-    stateUI.activeChannelId,
+    activeChannelId,
     channelCatalogFishState.channels
   );
 
   return (
     <Channel
+      userUUID={userUUID}
+      activeChannelId={activeChannelId}
       totalUsers={totalUsers}
       channelName={channelName}
       channelDescription={channelDescription}

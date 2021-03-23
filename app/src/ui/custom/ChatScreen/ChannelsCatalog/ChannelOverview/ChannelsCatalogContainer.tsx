@@ -2,15 +2,13 @@ import { usePond } from '@actyx-contrib/react-pond';
 import React, { useContext } from 'react';
 import { ChannelCatalogFish } from '../../../../../business-logic/channel-catalog-fish/channel-catalog-fish';
 import { ChannelId } from '../../../../../business-logic/message/types';
+import { UserUUID } from '../../../../../business-logic/user-catalog-fish/types';
 import { UserCatalogFish } from '../../../../../business-logic/user-catalog-fish/user-catalog-fish';
 import {
   showAddChannelDialog,
   showEditChannelDialog,
 } from '../../../../state-manager/actions';
-import {
-  DispatchContextUI,
-  StateContextUI,
-} from '../../../../state-manager/UIStateManager';
+import { DispatchContext } from '../../../../state-manager/dispatch';
 import { useFish } from '../../../../utils/use-fish';
 import {
   mapChannelsToChannelCatalogUI,
@@ -19,17 +17,17 @@ import {
 import { ChannelsCatalog } from './ChannelsCatalog';
 
 type ChannelsCatalogContainerProps = Readonly<{
+  userUUID: UserUUID;
   activeEditChannelId: (channelId: ChannelId) => void;
 }>;
 
 export const ChannelsCatalogContainer = ({
+  userUUID,
   activeEditChannelId,
 }: ChannelsCatalogContainerProps) => {
-  const dispatch = useContext(DispatchContextUI);
+  const dispatch = useContext(DispatchContext);
 
   const pond = usePond();
-
-  const stateUI = useContext(StateContextUI);
 
   const channelsCatalogFishState = useFish(
     pond,
@@ -47,7 +45,7 @@ export const ChannelsCatalogContainer = ({
     mapChannelsToChannelCatalogUI(
       channelsCatalogFishState.channels,
       userCatalogFishState.users,
-      stateUI.userUUID
+      userUUID
     )
   );
 
@@ -60,6 +58,7 @@ export const ChannelsCatalogContainer = ({
 
   return (
     <ChannelsCatalog
+      userUUID={userUUID}
       channels={channelsOverviewCatalog}
       showAddChannelDialog={handleShowAddDialog}
       showEditChannelDialog={handleShowEditChannelDialog}

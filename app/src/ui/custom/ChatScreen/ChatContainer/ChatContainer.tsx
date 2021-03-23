@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { StateContextUI } from '../../../state-manager/UIStateManager';
+import React, { useEffect, useState } from 'react';
 import { Chat } from './Chat';
 import { Alert } from '../../../common/Alert/Alert';
 import { usePond } from '@actyx-contrib/react-pond';
@@ -8,11 +7,30 @@ import { wire } from '../../../../business-logic/common/logic-wire';
 import { addDefaultChannelIfDoesNotExist } from '../../../../business-logic/channel-catalog-fish/logic/addDefaultChannelIfDoesNotExist';
 import { UserCatalogFish } from '../../../../business-logic/user-catalog-fish/user-catalog-fish';
 import { useFish } from '../../../utils/use-fish';
+import { UserUUID } from '../../../../business-logic/user-catalog-fish/types';
+import {
+  Dialogs,
+  SectionCenter,
+  SectionRight,
+} from '../../../state-manager/state-types';
+import { ChannelId } from '../../../../business-logic/message/types';
 
-export const ChatContainer = () => {
+type ChatContainerProps = Readonly<{
+  userUUID: UserUUID;
+  activeChannelId: ChannelId;
+  dialog: Dialogs;
+  sectionRight: SectionRight;
+  sectionCenter: SectionCenter;
+}>;
+
+export const ChatContainer = ({
+  userUUID,
+  activeChannelId,
+  dialog,
+  sectionRight,
+  sectionCenter,
+}: ChatContainerProps) => {
   const pond = usePond();
-
-  const stateUI = useContext(StateContextUI);
 
   const userCatalogFishState = useFish(
     pond,
@@ -33,11 +51,17 @@ export const ChatContainer = () => {
     };
 
     mainChannel();
-  }, [pond, stateUI.userUUID, userCatalogFishState.users]);
+  }, [pond, userUUID, userCatalogFishState.users]);
 
   return pondErrorMessage ? (
     <Alert variant="danger">{pondErrorMessage}</Alert>
   ) : (
-    <Chat />
+    <Chat
+      userUUID={userUUID}
+      activeChannelId={activeChannelId}
+      dialog={dialog}
+      sectionRight={sectionRight}
+      sectionCenter={sectionCenter}
+    />
   );
 };

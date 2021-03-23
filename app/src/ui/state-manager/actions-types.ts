@@ -22,6 +22,9 @@ export type GoToAuthenticationScreen = Readonly<{
 
 export type GoToChatScreen = Readonly<{
   type: ActionType.GoToChatScreen;
+  payload: {
+    userUUID: UserUUID;
+  };
 }>;
 
 export type ShowChannelsCatalogSection = Readonly<{

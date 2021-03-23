@@ -7,14 +7,16 @@ import {
   addSignedInUser,
   goToChatScreen,
 } from '../../../state-manager/actions';
-import { DispatchContextUI } from '../../../state-manager/UIStateManager';
+import { DispatchContext } from '../../../state-manager/dispatch';
 import { useFish } from '../../../utils/use-fish';
 import { SignIn } from './SignIn';
 
 export const SignInContainer = () => {
-  const dispatch = useContext(DispatchContextUI);
+  const dispatch = useContext(DispatchContext);
 
   const pond = usePond();
+
+  const [userUUID, setUserUUID] = useState<UserUUID>();
 
   const userCatalogFishState = useFish(
     pond,
@@ -24,12 +26,15 @@ export const SignInContainer = () => {
 
   const [isSignInSuccess, setIsSignInSuccess] = useState<boolean>();
 
-  const handleGoToChatScreen = () => dispatch(goToChatScreen());
+  const handleGoToChatScreen = () => {
+    userUUID && dispatch(goToChatScreen(userUUID));
+  };
 
   const handleSignIn = (userUUID: UserUUID) => {
     const isUserSignedIn = signIn(userUUID, userCatalogFishState.users);
     setIsSignInSuccess(isUserSignedIn);
     if (isUserSignedIn) {
+      setUserUUID(userUUID);
       dispatch(addSignedInUser(userUUID));
     }
   };

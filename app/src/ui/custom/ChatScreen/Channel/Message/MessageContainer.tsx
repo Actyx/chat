@@ -1,18 +1,22 @@
 import { usePond } from '@actyx-contrib/react-pond';
 import { Milliseconds } from '@actyx/pond';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { mkChannelFish } from '../../../../../business-logic/channel-fish/channel-fish';
 import { editMessageInChannel } from '../../../../../business-logic/channel-fish/logic/editMessageInChannel';
 import { hideMessageFromChannel } from '../../../../../business-logic/channel-fish/logic/hideMessageFromChannel';
 import { wire } from '../../../../../business-logic/common/logic-wire';
-import { MessageId } from '../../../../../business-logic/message/types';
+import {
+  ChannelId,
+  MessageId,
+} from '../../../../../business-logic/message/types';
 import { UserUUID } from '../../../../../business-logic/user-catalog-fish/types';
 import { UserCatalogFish } from '../../../../../business-logic/user-catalog-fish/user-catalog-fish';
-import { StateContextUI } from '../../../../state-manager/UIStateManager';
 import { useFish } from '../../../../utils/use-fish';
 import { Message } from '../Message';
 
 type MessageListContainerProps = Readonly<{
+  activeChannelId: ChannelId;
+  userUUID: UserUUID;
   messageId: string;
   createdBy: UserUUID;
   createdOn: Milliseconds;
@@ -27,6 +31,8 @@ type MessageListContainerProps = Readonly<{
 const CONFIRM_HIDE_MESSAGE = 'Are you sure to delete this message?';
 
 export const MessageListContainer = ({
+  activeChannelId,
+  userUUID,
   messageId,
   createdBy,
   createdOn,
@@ -37,8 +43,6 @@ export const MessageListContainer = ({
   canEdit,
   canHide,
 }: MessageListContainerProps) => {
-  const stateUI = useContext(StateContextUI);
-
   const pond = usePond();
 
   const userCatalogFishState = useFish(
@@ -49,15 +53,15 @@ export const MessageListContainer = ({
 
   const [pondErrorMessage, setPondErrorMessage] = useState<string>();
 
-  const wirePond = wire(pond, mkChannelFish(stateUI.activeChannelId));
+  const wirePond = wire(pond, mkChannelFish(activeChannelId));
 
   const performEditMessage = wirePond(editMessageInChannel);
 
   const handleEditMessage = async (messageId: MessageId, content: string) => {
     performEditMessage(
       userCatalogFishState.users,
-      stateUI.activeChannelId,
-      stateUI.userUUID,
+      activeChannelId,
+      userUUID,
       messageId,
       content
     ).catch(setPondErrorMessage);
@@ -70,8 +74,8 @@ export const MessageListContainer = ({
     if (hasUserConfirmed) {
       performHideMessage(
         userCatalogFishState.users,
-        stateUI.activeChannelId,
-        stateUI.userUUID,
+        activeChannelId,
+        userUUID,
         messageId
       ).catch(setPondErrorMessage);
     }

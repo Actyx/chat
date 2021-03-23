@@ -37,15 +37,9 @@ export const editChannel = (
   }
 
   const isEditName = profile.name !== newName;
-  const isEditDescription = profile.description !== newDescription;
-  const isEditWithUniqueNameOnly =
-    isEditName &&
-    !isEditDescription &&
-    !doesChannelNameExist(newName, fishState);
-  const isEditWithDescriptionOnly = !isEditName && isEditDescription;
+  const isEditNameNotUnique = doesChannelNameExist(newName, fishState);
 
-  const canEdit = isEditWithUniqueNameOnly || isEditWithDescriptionOnly;
-  if (!canEdit) {
+  if (isEditName && isEditNameNotUnique) {
     return mkErrorDoesChannelNameExist(newName);
   }
 

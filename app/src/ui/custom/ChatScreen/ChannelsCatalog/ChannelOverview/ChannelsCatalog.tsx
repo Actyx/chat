@@ -1,5 +1,6 @@
 import { Timestamp } from '@actyx/pond';
 import { ChannelId } from '../../../../../business-logic/message/types';
+import { UserUUID } from '../../../../../business-logic/user-catalog-fish/types';
 import { Button } from '../../../../common/Button/Button';
 import { CentralSection } from '../../../../common/CentralSection/CentralSection';
 import { SpeakerphoneIcon } from '../../../../common/Icons/SpeakerphoneIcon';
@@ -24,12 +25,14 @@ export type ChannelOverviewUI = Readonly<{
 export type ChannelsOverviewUI = ReadonlyArray<ChannelOverviewUI>;
 
 type ChannelsCatalogProps = Readonly<{
+  userUUID: UserUUID;
   channels: ChannelsOverviewUI;
   showAddChannelDialog: () => void;
   showEditChannelDialog: (channelId: ChannelId) => void;
 }>;
 
 export const ChannelsCatalog = ({
+  userUUID,
   channels,
   showAddChannelDialog,
   showEditChannelDialog,
@@ -52,6 +55,7 @@ export const ChannelsCatalog = ({
       body={channels.map((c) => (
         <ChannelOverviewContainer
           key={c.channelId}
+          userUUID={userUUID}
           channelOverview={c}
           showEditChannelDialog={showEditChannelDialog}
         />

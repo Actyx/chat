@@ -3,28 +3,27 @@ import { HashtagIcon } from '../../../common/Icons/HashtagIcon';
 import { Typography } from '../../../common/Typography/Typography';
 import { ChannelsListUI } from './Sidebar';
 import { Row } from './Row';
-import { useContext } from 'react';
-import { StateContextUI } from '../../../state-manager/UIStateManager';
 import { SectionCenter } from '../../../state-manager/state-types';
 
 type ChannelsListProps = Readonly<{
+  sectionCenter: SectionCenter;
+  activeChannelId: ChannelId;
   channels: ChannelsListUI;
   selectChannel: (channelId: ChannelId) => void;
 }>;
 
 export const ChannelsList = ({
+  sectionCenter,
+  activeChannelId,
   channels,
   selectChannel,
 }: ChannelsListProps) => {
-  const stateUI = useContext(StateContextUI);
-
   return (
     <>
       {channels.map((x) => {
-        const isSectionCenterChannel =
-          stateUI.sectionCenter === SectionCenter.Channel;
+        const isSectionCenterChannel = sectionCenter === SectionCenter.Channel;
         const doesCurrentChannelInListMatchSelectedChannel =
-          x.channelId === stateUI.activeChannelId;
+          x.channelId === activeChannelId;
 
         const isActiveChannel =
           isSectionCenterChannel &&

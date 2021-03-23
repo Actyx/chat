@@ -1,25 +1,36 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { mkChannelFish } from '../../../business-logic/channel-fish/channel-fish';
 import { ChannelCatalogFish } from '../../../business-logic/channel-catalog-fish/channel-catalog-fish';
 import { UserCatalogFish } from '../../../business-logic/user-catalog-fish/user-catalog-fish';
-import { StateContextUI } from '../../state-manager/UIStateManager';
 import { useFish } from '../../utils/use-fish';
 import { usePond } from '@actyx-contrib/react-pond';
+import { Pond } from '@actyx/pond';
+import { StateUI, StateUIAuthenticated } from '../../state-manager/state-types';
+
+type DebugProps = Readonly<{
+  stateUI: StateUI;
+}>;
 
 const format = (value: any) => JSON.stringify(value, undefined, 4);
 
-export const Debug = () => {
-  const stateUI = useContext(StateContextUI);
-  const pond = usePond();
-
-  const [showDebug, setShowDebug] = useState<boolean>(false);
-
+const DebugAnonymous = ({ pond }: Readonly<{ pond: Pond }>) => {
   const userCatalogFishState = useFish(
     pond,
     UserCatalogFish,
     UserCatalogFish.initialState
   );
+  return (
+    <>
+      <h5>UserCatalog</h5>
+      <pre>{format(userCatalogFishState)}</pre>
+    </>
+  );
+};
 
+const DebugAuthenticated = ({
+  pond,
+  stateUIAuthenticated,
+}: Readonly<{ pond: Pond; stateUIAuthenticated: StateUIAuthenticated }>) => {
   const channelCatalogFishState = useFish(
     pond,
     ChannelCatalogFish,
@@ -28,9 +39,23 @@ export const Debug = () => {
 
   const channelFishState = useFish(
     pond,
-    mkChannelFish(stateUI.activeChannelId),
-    mkChannelFish(stateUI.activeChannelId).initialState
+    mkChannelFish(stateUIAuthenticated.activeChannelId),
+    mkChannelFish(stateUIAuthenticated.activeChannelId).initialState
   );
+  return (
+    <>
+      <h5>ChannelFish</h5>
+      <pre>{format(channelFishState)}</pre>
+      <h5>ChannelsCatalogFish state</h5>
+      <pre>{format(channelCatalogFishState)}</pre>
+    </>
+  );
+};
+
+export const Debug = ({ stateUI }: DebugProps) => {
+  const pond = usePond();
+
+  const [showDebug, setShowDebug] = useState<boolean>(false);
 
   const handleShowDebug = () => setShowDebug(!showDebug);
 
@@ -46,12 +71,11 @@ export const Debug = () => {
           <pre>{format(stateUI)}</pre>
           <br />
           <hr />
-          <h5>UserCatalog</h5>
-          <pre>{format(userCatalogFishState)}</pre>
-          <h5>ChannelFish</h5>
-          <pre>{format(channelFishState)}</pre>
-          <h5>ChannelsCatalogFish state</h5>
-          <pre>{format(channelCatalogFishState)}</pre>
+          {stateUI.type === 'anonymous' ? (
+            <DebugAnonymous pond={pond} />
+          ) : (
+            <DebugAuthenticated pond={pond} stateUIAuthenticated={stateUI} />
+          )}
         </div>
       )}
     </div>
