@@ -1,7 +1,7 @@
 import React from 'react';
-import { ButtonArea } from '../../../common/ButtonArea/ButtonArea';
-import { PencilAltIcon } from '../../../common/Icons/PencilAlt';
-import { TrashIcon } from '../../../common/Icons/TrashIcon';
+import { ButtonArea } from '../../../../common/ButtonArea/ButtonArea';
+import { PencilAltIcon } from '../../../../common/Icons/PencilAlt';
+import { TrashIcon } from '../../../../common/Icons/TrashIcon';
 
 type MessageActionsProps = Readonly<{
   canEdit: boolean;

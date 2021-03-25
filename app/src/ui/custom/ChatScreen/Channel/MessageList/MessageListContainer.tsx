@@ -1,5 +1,4 @@
 import { usePond } from '@actyx-contrib/react-pond';
-import { Milliseconds } from '@actyx/pond';
 import React, { useState } from 'react';
 import { mkChannelFish } from '../../../../../business-logic/channel-fish/channel-fish';
 import { editMessageInChannel } from '../../../../../business-logic/channel-fish/logic/editMessageInChannel';
@@ -12,36 +11,20 @@ import {
 import { UserUUID } from '../../../../../business-logic/user-catalog-fish/types';
 import { UserCatalogFish } from '../../../../../business-logic/user-catalog-fish/user-catalog-fish';
 import { useFish } from '../../../../utils/use-fish';
-import { Message } from '../Message';
+import { Message, MessageUI } from '../Message/Message';
 
 type MessageListContainerProps = Readonly<{
-  activeChannelId: ChannelId;
   userUUID: UserUUID;
-  messageId: string;
-  createdBy: UserUUID;
-  createdOn: Milliseconds;
-  editedOn?: Milliseconds;
-  senderDisplayName: string;
-  isHidden: boolean;
-  content: string;
-  canEdit: boolean;
-  canHide: boolean;
+  activeChannelId: ChannelId;
+  messages: ReadonlyArray<MessageUI>;
 }>;
 
 const CONFIRM_HIDE_MESSAGE = 'Are you sure to delete this message?';
 
 export const MessageListContainer = ({
-  activeChannelId,
   userUUID,
-  messageId,
-  createdBy,
-  createdOn,
-  editedOn,
-  senderDisplayName,
-  isHidden,
-  content,
-  canEdit,
-  canHide,
+  activeChannelId,
+  messages,
 }: MessageListContainerProps) => {
   const pond = usePond();
 
@@ -81,20 +64,24 @@ export const MessageListContainer = ({
     }
   };
   return (
-    <Message
-      key={messageId}
-      messageId={messageId}
-      createdBy={createdBy}
-      createdOn={createdOn}
-      editedOn={editedOn}
-      senderDisplayName={senderDisplayName}
-      isHidden={isHidden}
-      content={content}
-      canEdit={canEdit}
-      canHide={canHide}
-      editMessage={handleEditMessage}
-      hideMessage={handleHideMessage}
-      pondErrorMessage={pondErrorMessage}
-    />
+    <>
+      {messages.map((m: MessageUI) => (
+        <Message
+          key={m.messageId}
+          messageId={m.messageId}
+          createdBy={m.createdBy}
+          createdOn={m.createdOn}
+          editedOn={m.editedOn}
+          senderDisplayName={m.senderDisplayName}
+          isHidden={m.isHidden}
+          content={m.content}
+          canEdit={m.canEdit}
+          canHide={m.canHide}
+          editMessage={handleEditMessage}
+          hideMessage={handleHideMessage}
+          pondErrorMessage={pondErrorMessage}
+        />
+      ))}
+    </>
   );
 };

@@ -1,13 +1,13 @@
 import { Milliseconds } from '@actyx/pond';
 import React, { useState } from 'react';
-import { MessageId } from '../../../../business-logic/message/types';
-import { UserUUID } from '../../../../business-logic/user-catalog-fish/types';
-import { Typography } from '../../../common/Typography/Typography';
-import { DateTime } from '../../../common/DateTime/DateTime';
+import { MessageId } from '../../../../../business-logic/message/types';
+import { UserUUID } from '../../../../../business-logic/user-catalog-fish/types';
+import { Typography } from '../../../../common/Typography/Typography';
+import { DateTime } from '../../../../common/DateTime/DateTime';
 import { MessageActions } from './MessageActions';
 import { MessageEdit } from './MessageEdit';
 import cn from 'classnames';
-import { Alert } from '../../../common/Alert/Alert';
+import { Alert } from '../../../../common/Alert/Alert';
 
 export type MessageUI = Readonly<{
   messageId: string;
