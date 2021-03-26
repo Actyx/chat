@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { UserUUID } from '../../../../business-logic/user-catalog-fish/types';
-import { MessageUI } from './Message';
+import { UserUUID } from '../../../../../business-logic/user-catalog-fish/types';
+import { MessageUI } from '../Message/Message';
 
 /**
  * Scroll completely down the messages list for a channel so a user can see the latest message. Rules:

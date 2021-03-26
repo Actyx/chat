@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Button } from '../../../common/Button/Button';
+import { Button } from '../../../../common/Button/Button';
 import {
   FormEventElement,
   TextAreaChangeEvent,
-} from '../../../utils/element-events';
+} from '../../../../utils/element-events';
 
 export type MessageEditProps = Readonly<{
   currentContent: string;
