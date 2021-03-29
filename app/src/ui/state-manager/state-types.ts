@@ -22,7 +22,7 @@ export type StateUIAnonymous = Readonly<{
 }>;
 
 export type StateUIAuthenticated = Readonly<{
-  type: 'autheticated';
+  type: 'authenticated';
   dialog: Dialogs;
   userUUID: UserUUID;
   sectionRight: SectionRight;

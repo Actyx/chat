@@ -11,7 +11,7 @@ export const reducer = (state: StateUI, action: Action): StateUI => {
         case ActionType.GoToChatScreen: {
           return {
             ...state,
-            type: 'autheticated',
+            type: 'authenticated',
             dialog: Dialogs.None,
             userUUID: action.payload.userUUID,
             sectionRight: SectionRight.None,
@@ -22,7 +22,7 @@ export const reducer = (state: StateUI, action: Action): StateUI => {
         default:
           return state;
       }
-    case 'autheticated':
+    case 'authenticated':
       switch (action.type) {
         case ActionType.GoToAuthenticationScreen:
           return {
