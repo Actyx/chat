@@ -11,7 +11,7 @@ export const ScreenRouter = ({ stateUI }: ScreenRouterProps) => {
     switch (stateUI.type) {
       case 'anonymous':
         return <AuthenticationScreen />;
-      case 'autheticated':
+      case 'authenticated':
         return (
           <ChatContainer
             userUUID={stateUI.userUUID}
